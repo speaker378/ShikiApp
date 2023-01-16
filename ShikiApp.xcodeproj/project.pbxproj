@@ -10,7 +10,6 @@
 		3A8F30E02974395F00F24DF7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8F30DF2974395F00F24DF7 /* AppDelegate.swift */; };
 		3A8F30E22974395F00F24DF7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8F30E12974395F00F24DF7 /* SceneDelegate.swift */; };
 		3A8F30E42974395F00F24DF7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8F30E32974395F00F24DF7 /* ViewController.swift */; };
-		3A8F30E72974395F00F24DF7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A8F30E52974395F00F24DF7 /* Main.storyboard */; };
 		3A8F30EA2974395F00F24DF7 /* ShikiApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3A8F30E82974395F00F24DF7 /* ShikiApp.xcdatamodeld */; };
 		3A8F30EC2974396000F24DF7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A8F30EB2974396000F24DF7 /* Assets.xcassets */; };
 		3A8F30EF2974396000F24DF7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A8F30ED2974396000F24DF7 /* LaunchScreen.storyboard */; };
@@ -41,7 +40,6 @@
 		3A8F30DF2974395F00F24DF7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3A8F30E12974395F00F24DF7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		3A8F30E32974395F00F24DF7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		3A8F30E62974395F00F24DF7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3A8F30E92974395F00F24DF7 /* ShikiApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ShikiApp.xcdatamodel; sourceTree = "<group>"; };
 		3A8F30EB2974396000F24DF7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3A8F30EE2974396000F24DF7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -101,14 +99,10 @@
 		3A8F30DE2974395F00F24DF7 /* ShikiApp */ = {
 			isa = PBXGroup;
 			children = (
-				3A8F30DF2974395F00F24DF7 /* AppDelegate.swift */,
-				3A8F30E12974395F00F24DF7 /* SceneDelegate.swift */,
-				3A8F30E32974395F00F24DF7 /* ViewController.swift */,
-				3A8F30E52974395F00F24DF7 /* Main.storyboard */,
-				3A8F30EB2974396000F24DF7 /* Assets.xcassets */,
-				3A8F30ED2974396000F24DF7 /* LaunchScreen.storyboard */,
-				3A8F30F02974396000F24DF7 /* Info.plist */,
-				3A8F30E82974395F00F24DF7 /* ShikiApp.xcdatamodeld */,
+				3A8F3112297441BD00F24DF7 /* App */,
+				3A8F31172974422100F24DF7 /* Core */,
+				3A8F31182974422900F24DF7 /* Resources */,
+				3A8F31192974423200F24DF7 /* Environments */,
 			);
 			path = ShikiApp;
 			sourceTree = "<group>";
@@ -130,6 +124,73 @@
 			path = ShikiAppUITests;
 			sourceTree = "<group>";
 		};
+		3A8F3112297441BD00F24DF7 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				3A8F30DF2974395F00F24DF7 /* AppDelegate.swift */,
+				3A8F30E12974395F00F24DF7 /* SceneDelegate.swift */,
+				3A8F3114297441EB00F24DF7 /* BusinessLogic */,
+				3A8F3115297441F400F24DF7 /* Entity */,
+				3A8F31162974420D00F24DF7 /* Assembly */,
+				3A8F3113297441CF00F24DF7 /* Flows */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		3A8F3113297441CF00F24DF7 /* Flows */ = {
+			isa = PBXGroup;
+			children = (
+				3A8F30E32974395F00F24DF7 /* ViewController.swift */,
+			);
+			path = Flows;
+			sourceTree = "<group>";
+		};
+		3A8F3114297441EB00F24DF7 /* BusinessLogic */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = BusinessLogic;
+			sourceTree = "<group>";
+		};
+		3A8F3115297441F400F24DF7 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				3A8F30E82974395F00F24DF7 /* ShikiApp.xcdatamodeld */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		3A8F31162974420D00F24DF7 /* Assembly */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Assembly;
+			sourceTree = "<group>";
+		};
+		3A8F31172974422100F24DF7 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		3A8F31182974422900F24DF7 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				3A8F30EB2974396000F24DF7 /* Assets.xcassets */,
+				3A8F30ED2974396000F24DF7 /* LaunchScreen.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		3A8F31192974423200F24DF7 /* Environments */ = {
+			isa = PBXGroup;
+			children = (
+				3A8F30F02974396000F24DF7 /* Info.plist */,
+			);
+			path = Environments;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -140,6 +201,7 @@
 				3A8F30D82974395F00F24DF7 /* Sources */,
 				3A8F30D92974395F00F24DF7 /* Frameworks */,
 				3A8F30DA2974395F00F24DF7 /* Resources */,
+				3A8F311A2974450400F24DF7 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -236,7 +298,6 @@
 			files = (
 				3A8F30EF2974396000F24DF7 /* LaunchScreen.storyboard in Resources */,
 				3A8F30EC2974396000F24DF7 /* Assets.xcassets in Resources */,
-				3A8F30E72974395F00F24DF7 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,6 +316,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3A8F311A2974450400F24DF7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\n   exit 1\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3A8F30D82974395F00F24DF7 /* Sources */ = {
@@ -301,14 +383,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		3A8F30E52974395F00F24DF7 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				3A8F30E62974395F00F24DF7 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		3A8F30ED2974396000F24DF7 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -442,10 +516,9 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ShikiApp/Info.plist;
+				INFOPLIST_FILE = ShikiApp/Environments/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -469,10 +542,9 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ShikiApp/Info.plist;
+				INFOPLIST_FILE = ShikiApp/Environments/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
