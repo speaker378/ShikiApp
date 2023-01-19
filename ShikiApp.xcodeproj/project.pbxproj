@@ -7,6 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0010CAB62977FFBE00F8705B /* AppColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0010CAB52977FFBE00F8705B /* AppColor.swift */; };
+		0010CAB82977FFDD00F8705B /* AppFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0010CAB72977FFDC00F8705B /* AppFont.swift */; };
+		0010CABD297801E900F8705B /* AppLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0010CABC297801E900F8705B /* AppLabel.swift */; };
+		0010CABF297802A700F8705B /* UIView+addSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0010CABE297802A700F8705B /* UIView+addSubviews.swift */; };
+		0010CAC329780D5100F8705B /* UICollectionView+RegisterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0010CAC229780D5100F8705B /* UICollectionView+RegisterCell.swift */; };
+		0010CAC52978138500F8705B /* Texts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0010CAC42978138500F8705B /* Texts.swift */; };
+		0010CAC82978161600F8705B /* UITableView+RegisterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0010CAC72978161600F8705B /* UITableView+RegisterCell.swift */; };
+		0010CACB29782E1500F8705B /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0010CACA29782E1500F8705B /* OpenSans-Bold.ttf */; };
+		0010CACC29782E1500F8705B /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0010CACA29782E1500F8705B /* OpenSans-Bold.ttf */; };
+		0010CACD29782E1500F8705B /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0010CACA29782E1500F8705B /* OpenSans-Bold.ttf */; };
+		0010CAD129782E4800F8705B /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0010CACE29782E4700F8705B /* OpenSans-Regular.ttf */; };
+		0010CAD229782E4800F8705B /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0010CACE29782E4700F8705B /* OpenSans-Regular.ttf */; };
+		0010CAD329782E4800F8705B /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0010CACE29782E4700F8705B /* OpenSans-Regular.ttf */; };
+		0010CAD429782E4800F8705B /* OpenSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0010CACF29782E4700F8705B /* OpenSans-ExtraBold.ttf */; };
+		0010CAD529782E4800F8705B /* OpenSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0010CACF29782E4700F8705B /* OpenSans-ExtraBold.ttf */; };
+		0010CAD629782E4800F8705B /* OpenSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0010CACF29782E4700F8705B /* OpenSans-ExtraBold.ttf */; };
+		0010CAD729782E4800F8705B /* OpenSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0010CAD029782E4800F8705B /* OpenSans-SemiBold.ttf */; };
+		0010CAD829782E4800F8705B /* OpenSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0010CAD029782E4800F8705B /* OpenSans-SemiBold.ttf */; };
+		0010CAD929782E4800F8705B /* OpenSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0010CAD029782E4800F8705B /* OpenSans-SemiBold.ttf */; };
+		0010CADB29783E7400F8705B /* AppImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0010CADA29783E7400F8705B /* AppImage.swift */; };
+		0010CADC29783E7400F8705B /* AppImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0010CADA29783E7400F8705B /* AppImage.swift */; };
+		0010CADD29783E7400F8705B /* AppImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0010CADA29783E7400F8705B /* AppImage.swift */; };
+		0010CADF29784E3C00F8705B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0010CADE29784E3C00F8705B /* Constants.swift */; };
+		0010CAE029784E3C00F8705B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0010CADE29784E3C00F8705B /* Constants.swift */; };
+		0010CAE129784E3C00F8705B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0010CADE29784E3C00F8705B /* Constants.swift */; };
 		3A8F30E02974395F00F24DF7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8F30DF2974395F00F24DF7 /* AppDelegate.swift */; };
 		3A8F30E22974395F00F24DF7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8F30E12974395F00F24DF7 /* SceneDelegate.swift */; };
 		3A8F30E42974395F00F24DF7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8F30E32974395F00F24DF7 /* ViewController.swift */; };
@@ -36,6 +61,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0010CAB52977FFBE00F8705B /* AppColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColor.swift; sourceTree = "<group>"; };
+		0010CAB72977FFDC00F8705B /* AppFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFont.swift; sourceTree = "<group>"; };
+		0010CABC297801E900F8705B /* AppLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLabel.swift; sourceTree = "<group>"; };
+		0010CABE297802A700F8705B /* UIView+addSubviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+addSubviews.swift"; sourceTree = "<group>"; };
+		0010CAC229780D5100F8705B /* UICollectionView+RegisterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+RegisterCell.swift"; sourceTree = "<group>"; };
+		0010CAC42978138500F8705B /* Texts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Texts.swift; sourceTree = "<group>"; };
+		0010CAC72978161600F8705B /* UITableView+RegisterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+RegisterCell.swift"; sourceTree = "<group>"; };
+		0010CACA29782E1500F8705B /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
+		0010CACE29782E4700F8705B /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+		0010CACF29782E4700F8705B /* OpenSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBold.ttf"; sourceTree = "<group>"; };
+		0010CAD029782E4800F8705B /* OpenSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-SemiBold.ttf"; sourceTree = "<group>"; };
+		0010CADA29783E7400F8705B /* AppImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppImage.swift; sourceTree = "<group>"; };
+		0010CADE29784E3C00F8705B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		3A8F30DC2974395F00F24DF7 /* ShikiApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShikiApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A8F30DF2974395F00F24DF7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3A8F30E12974395F00F24DF7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -76,6 +114,77 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0010CAB42977FF9A00F8705B /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				0010CAB52977FFBE00F8705B /* AppColor.swift */,
+				0010CAB72977FFDC00F8705B /* AppFont.swift */,
+				0010CADA29783E7400F8705B /* AppImage.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		0010CAB92978018C00F8705B /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				0010CAC6297815F300F8705B /* UITableView */,
+				0010CAC129780D2E00F8705B /* UICollectionView */,
+				0010CAC0297802B600F8705B /* UIView */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		0010CABA297801A900F8705B /* UIComponents */ = {
+			isa = PBXGroup;
+			children = (
+				0010CABB297801C300F8705B /* UILabel */,
+			);
+			path = UIComponents;
+			sourceTree = "<group>";
+		};
+		0010CABB297801C300F8705B /* UILabel */ = {
+			isa = PBXGroup;
+			children = (
+				0010CABC297801E900F8705B /* AppLabel.swift */,
+			);
+			path = UILabel;
+			sourceTree = "<group>";
+		};
+		0010CAC0297802B600F8705B /* UIView */ = {
+			isa = PBXGroup;
+			children = (
+				0010CABE297802A700F8705B /* UIView+addSubviews.swift */,
+			);
+			path = UIView;
+			sourceTree = "<group>";
+		};
+		0010CAC129780D2E00F8705B /* UICollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				0010CAC229780D5100F8705B /* UICollectionView+RegisterCell.swift */,
+			);
+			path = UICollectionView;
+			sourceTree = "<group>";
+		};
+		0010CAC6297815F300F8705B /* UITableView */ = {
+			isa = PBXGroup;
+			children = (
+				0010CAC72978161600F8705B /* UITableView+RegisterCell.swift */,
+			);
+			path = UITableView;
+			sourceTree = "<group>";
+		};
+		0010CAC92978236C00F8705B /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				0010CACF29782E4700F8705B /* OpenSans-ExtraBold.ttf */,
+				0010CACE29782E4700F8705B /* OpenSans-Regular.ttf */,
+				0010CAD029782E4800F8705B /* OpenSans-SemiBold.ttf */,
+				0010CACA29782E1500F8705B /* OpenSans-Bold.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		3A8F30D32974395F00F24DF7 = {
 			isa = PBXGroup;
 			children = (
@@ -170,6 +279,9 @@
 		3A8F31172974422100F24DF7 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				0010CAB42977FF9A00F8705B /* Helpers */,
+				0010CABA297801A900F8705B /* UIComponents */,
+				0010CAB92978018C00F8705B /* Extensions */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -177,6 +289,9 @@
 		3A8F31182974422900F24DF7 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0010CAC42978138500F8705B /* Texts.swift */,
+				0010CADE29784E3C00F8705B /* Constants.swift */,
+				0010CAC92978236C00F8705B /* Fonts */,
 				3A8F30EB2974396000F24DF7 /* Assets.xcassets */,
 				3A8F30ED2974396000F24DF7 /* LaunchScreen.storyboard */,
 			);
@@ -298,6 +413,10 @@
 			files = (
 				3A8F30EF2974396000F24DF7 /* LaunchScreen.storyboard in Resources */,
 				3A8F30EC2974396000F24DF7 /* Assets.xcassets in Resources */,
+				0010CAD129782E4800F8705B /* OpenSans-Regular.ttf in Resources */,
+				0010CACB29782E1500F8705B /* OpenSans-Bold.ttf in Resources */,
+				0010CAD729782E4800F8705B /* OpenSans-SemiBold.ttf in Resources */,
+				0010CAD429782E4800F8705B /* OpenSans-ExtraBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,6 +424,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0010CAD829782E4800F8705B /* OpenSans-SemiBold.ttf in Resources */,
+				0010CAD229782E4800F8705B /* OpenSans-Regular.ttf in Resources */,
+				0010CACC29782E1500F8705B /* OpenSans-Bold.ttf in Resources */,
+				0010CAD529782E4800F8705B /* OpenSans-ExtraBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,6 +435,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0010CAD929782E4800F8705B /* OpenSans-SemiBold.ttf in Resources */,
+				0010CAD329782E4800F8705B /* OpenSans-Regular.ttf in Resources */,
+				0010CACD29782E1500F8705B /* OpenSans-Bold.ttf in Resources */,
+				0010CAD629782E4800F8705B /* OpenSans-ExtraBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,10 +470,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0010CABF297802A700F8705B /* UIView+addSubviews.swift in Sources */,
 				3A8F30E42974395F00F24DF7 /* ViewController.swift in Sources */,
+				0010CAB62977FFBE00F8705B /* AppColor.swift in Sources */,
+				0010CAB82977FFDD00F8705B /* AppFont.swift in Sources */,
+				0010CABD297801E900F8705B /* AppLabel.swift in Sources */,
+				0010CADB29783E7400F8705B /* AppImage.swift in Sources */,
+				0010CAC82978161600F8705B /* UITableView+RegisterCell.swift in Sources */,
+				0010CADF29784E3C00F8705B /* Constants.swift in Sources */,
 				3A8F30E02974395F00F24DF7 /* AppDelegate.swift in Sources */,
 				3A8F30EA2974395F00F24DF7 /* ShikiApp.xcdatamodeld in Sources */,
 				3A8F30E22974395F00F24DF7 /* SceneDelegate.swift in Sources */,
+				0010CAC52978138500F8705B /* Texts.swift in Sources */,
+				0010CAC329780D5100F8705B /* UICollectionView+RegisterCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -355,6 +491,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A8F30FA2974396000F24DF7 /* ShikiAppTests.swift in Sources */,
+				0010CADC29783E7400F8705B /* AppImage.swift in Sources */,
+				0010CAE029784E3C00F8705B /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -364,6 +502,8 @@
 			files = (
 				3A8F31062974396000F24DF7 /* ShikiAppUITestsLaunchTests.swift in Sources */,
 				3A8F31042974396000F24DF7 /* ShikiAppUITests.swift in Sources */,
+				0010CADD29783E7400F8705B /* AppImage.swift in Sources */,
+				0010CAE129784E3C00F8705B /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
