@@ -34,7 +34,14 @@ enum AppImage {
     
     // MARK: - TabBarIcons
     enum TabBarIcons {
-        
+        static let homeButton = UIImage(named: "homeButton")
+        static let homeButtonSelected = UIImage(named: "homeButtonSelected")
+        static let myListButton = UIImage(named: "myListButton")
+        static let myListButtonSelected = UIImage(named: "myListButtonSelected")
+        static let profileButton = UIImage(named: "profileButton")
+        static let profileButtonSelected = UIImage(named: "profileButtonSelected")
+        static let searchButton = UIImage(named: "searchButton")
+        static let searchButtonSelected = UIImage(named: "searchButtonSelected")
     }
     
 }

@@ -15,5 +15,6 @@ enum AppColor {
     static let textInvert = UIColor(named: "textInvert") ?? missingColor
     static let textMain = UIColor(named: "textMain") ?? missingColor
     static let textMinor = UIColor(named: "textMinor") ?? missingColor
+    static let accent = UIColor(named: "accent") ?? missingColor
     
 }
