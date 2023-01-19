@@ -10,7 +10,7 @@
 // let label = AppLabel(title: "какой-то текст" // (По умолчанию ""),
 //                      alignment: .left,
 //                      fontSize: AppFont.openSansFont(ofSize: 16, weight: .regular),
-//                      colorText: AppColor.textMain, // (По умолчанию AppColor.textMain)
+//                      fontСolor: AppColor.textMain, // (По умолчанию AppColor.textMain)
 //                      numberLines: 1) // (По умолчанию 1)
 
 import UIKit
@@ -19,23 +19,23 @@ final class AppLabel: UILabel {
     
     // MARK: - Properties
     var title: String?
-    var colorText: UIColor?
+    var fontСolor: UIColor?
     var numberLines: Int
     
     // MARK: - Init
     init(title: String? = "",
          alignment: NSTextAlignment,
          fontSize: UIFont,
-         colorText: UIColor? = AppColor.textMain,
+         fontСolor: UIColor? = AppColor.textMain,
          numberLines: Int = 1) {
         self.title = title
-        self.colorText = colorText
+        self.fontСolor = fontСolor
         self.numberLines = numberLines
         super.init(frame: .zero)
         text = title
         font = fontSize
         textAlignment = alignment
-        textColor = colorText
+        textColor = fontСolor
         numberOfLines = numberLines
     }
    

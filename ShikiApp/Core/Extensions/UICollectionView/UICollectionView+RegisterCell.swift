@@ -44,7 +44,7 @@ extension UICollectionView {
         }
     }
     
-    func registerClass<T: UICollectionViewCell>(_ cellClass: T.Type) {
+    func registerCell<T: UICollectionViewCell>(_ cellClass: T.Type) {
         register(cellClass.self,
                  forCellWithReuseIdentifier: cellClass.cellIdentifier)
     }
@@ -54,7 +54,6 @@ extension UICollectionView {
     }
     
     func registerFooter<T: UICollectionReusableView>(_ footer: T.Type) {
-        print(T.cellIdentifier)
         register(T.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: T.cellIdentifier)
     }
     
@@ -71,6 +70,7 @@ extension UICollectionView {
         return dequeueReusableSupplementaryView(ofKind: kind.rawValue, withReuseIdentifier: T.cellIdentifier,
                                                 for: indexPath) as? T
     }
+    
 }
 
 extension UICollectionViewCell: ReusableCellIdentifiable {}

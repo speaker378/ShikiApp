@@ -14,17 +14,17 @@ enum AppImage {
     
     // MARK: - NavigationsBarIcons
     enum NavigationsBarIcons {
-        static let addButton = UIImage(named: "addButton")
-        static let backButton = UIImage(named: "backButton")
-        static let cancelButton = UIImage(named: "cancelButton")
-        static let chevronBigRightButton = UIImage(named: "chevronBigRightButton")
-        static let chevronDownButton = UIImage(named: "chevronDownButton")
-        static let doneButton = UIImage(named: "doneButton")
-        static let editButton = UIImage(named: "editButton")
-        static let loginButton = UIImage(named: "loginButton")
-        static let logoutButton = UIImage(named: "logoutButton")
-        static let serchButton = UIImage(named: "serchButton")
-        static let shareButton = UIImage(named: "shareButton")
+        static let add = UIImage(named: "add")
+        static let back = UIImage(named: "back")
+        static let cancel = UIImage(named: "cancel")
+        static let chevronBigRight = UIImage(named: "chevronBigRight")
+        static let chevronDown = UIImage(named: "chevronDown")
+        static let done = UIImage(named: "done")
+        static let edit = UIImage(named: "edit")
+        static let login = UIImage(named: "login")
+        static let logout = UIImage(named: "logout")
+        static let search = UIImage(named: "search_nav")
+        static let share = UIImage(named: "share")
     }
     
     // MARK: - ErrorsIcons
@@ -34,14 +34,14 @@ enum AppImage {
     
     // MARK: - TabBarIcons
     enum TabBarIcons {
-        static let homeButton = UIImage(named: "homeButton")
-        static let homeButtonSelected = UIImage(named: "homeButtonSelected")
-        static let myListButton = UIImage(named: "myListButton")
-        static let myListButtonSelected = UIImage(named: "myListButtonSelected")
-        static let profileButton = UIImage(named: "profileButton")
-        static let profileButtonSelected = UIImage(named: "profileButtonSelected")
-        static let searchButton = UIImage(named: "searchButton")
-        static let searchButtonSelected = UIImage(named: "searchButtonSelected")
+        static let home = UIImage(named: "home")
+        static let homeSelected = UIImage(named: "homeSelected")
+        static let myList = UIImage(named: "myList")
+        static let myListSelected = UIImage(named: "myListSelected")
+        static let profile = UIImage(named: "profile")
+        static let profileSelected = UIImage(named: "profileSelected")
+        static let search = UIImage(named: "search")
+        static let searchSelected = UIImage(named: "searchSelected")
     }
     
 }
