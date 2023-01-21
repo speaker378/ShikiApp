@@ -32,6 +32,13 @@
 		0010CADF29784E3C00F8705B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0010CADE29784E3C00F8705B /* Constants.swift */; };
 		0010CAE029784E3C00F8705B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0010CADE29784E3C00F8705B /* Constants.swift */; };
 		0010CAE129784E3C00F8705B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0010CADE29784E3C00F8705B /* Constants.swift */; };
+		006031AF2979B79400CD9A16 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006031AE2979B79400CD9A16 /* TabBarViewController.swift */; };
+		006031B5297BCA5700CD9A16 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006031B4297BCA5700CD9A16 /* HomeViewController.swift */; };
+		006031B7297BCA6800CD9A16 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006031B6297BCA6800CD9A16 /* SearchViewController.swift */; };
+		006031B9297BCA7B00CD9A16 /* MyListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006031B8297BCA7B00CD9A16 /* MyListViewController.swift */; };
+		006031BB297BCA9600CD9A16 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006031BA297BCA9600CD9A16 /* ProfileViewController.swift */; };
+		006031BD297BCB3500CD9A16 /* TabBarItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006031BC297BCB3500CD9A16 /* TabBarItems.swift */; };
+		006031C0297C087F00CD9A16 /* StartManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006031BF297C087F00CD9A16 /* StartManager.swift */; };
 		3A8F30E02974395F00F24DF7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8F30DF2974395F00F24DF7 /* AppDelegate.swift */; };
 		3A8F30E22974395F00F24DF7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8F30E12974395F00F24DF7 /* SceneDelegate.swift */; };
 		3A8F30E42974395F00F24DF7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8F30E32974395F00F24DF7 /* ViewController.swift */; };
@@ -74,6 +81,13 @@
 		0010CAD029782E4800F8705B /* OpenSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-SemiBold.ttf"; sourceTree = "<group>"; };
 		0010CADA29783E7400F8705B /* AppImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppImage.swift; sourceTree = "<group>"; };
 		0010CADE29784E3C00F8705B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		006031AE2979B79400CD9A16 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		006031B4297BCA5700CD9A16 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		006031B6297BCA6800CD9A16 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		006031B8297BCA7B00CD9A16 /* MyListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyListViewController.swift; sourceTree = "<group>"; };
+		006031BA297BCA9600CD9A16 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		006031BC297BCB3500CD9A16 /* TabBarItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItems.swift; sourceTree = "<group>"; };
+		006031BF297C087F00CD9A16 /* StartManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartManager.swift; sourceTree = "<group>"; };
 		3A8F30DC2974395F00F24DF7 /* ShikiApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShikiApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A8F30DF2974395F00F24DF7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3A8F30E12974395F00F24DF7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -185,6 +199,55 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		006031AD2979B76C00CD9A16 /* TabBarVC */ = {
+			isa = PBXGroup;
+			children = (
+				006031AE2979B79400CD9A16 /* TabBarViewController.swift */,
+				006031BC297BCB3500CD9A16 /* TabBarItems.swift */,
+			);
+			path = TabBarVC;
+			sourceTree = "<group>";
+		};
+		006031B0297BC9B700CD9A16 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				006031BA297BCA9600CD9A16 /* ProfileViewController.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		006031B1297BC9BB00CD9A16 /* MyList */ = {
+			isa = PBXGroup;
+			children = (
+				006031B8297BCA7B00CD9A16 /* MyListViewController.swift */,
+			);
+			path = MyList;
+			sourceTree = "<group>";
+		};
+		006031B2297BC9C900CD9A16 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				006031B6297BCA6800CD9A16 /* SearchViewController.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		006031B3297BC9CE00CD9A16 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				006031B4297BCA5700CD9A16 /* HomeViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		006031BE297C086400CD9A16 /* AppStartManager */ = {
+			isa = PBXGroup;
+			children = (
+				006031BF297C087F00CD9A16 /* StartManager.swift */,
+			);
+			path = AppStartManager;
+			sourceTree = "<group>";
+		};
 		3A8F30D32974395F00F24DF7 = {
 			isa = PBXGroup;
 			children = (
@@ -250,6 +313,11 @@
 			isa = PBXGroup;
 			children = (
 				3A8F30E32974395F00F24DF7 /* ViewController.swift */,
+				006031AD2979B76C00CD9A16 /* TabBarVC */,
+				006031B3297BC9CE00CD9A16 /* Home */,
+				006031B2297BC9C900CD9A16 /* Search */,
+				006031B1297BC9BB00CD9A16 /* MyList */,
+				006031B0297BC9B700CD9A16 /* Profile */,
 			);
 			path = Flows;
 			sourceTree = "<group>";
@@ -257,6 +325,7 @@
 		3A8F3114297441EB00F24DF7 /* BusinessLogic */ = {
 			isa = PBXGroup;
 			children = (
+				006031BE297C086400CD9A16 /* AppStartManager */,
 			);
 			path = BusinessLogic;
 			sourceTree = "<group>";
@@ -472,12 +541,19 @@
 			files = (
 				0010CABF297802A700F8705B /* UIView+addSubviews.swift in Sources */,
 				3A8F30E42974395F00F24DF7 /* ViewController.swift in Sources */,
+				006031B9297BCA7B00CD9A16 /* MyListViewController.swift in Sources */,
 				0010CAB62977FFBE00F8705B /* AppColor.swift in Sources */,
 				0010CAB82977FFDD00F8705B /* AppFont.swift in Sources */,
+				006031AF2979B79400CD9A16 /* TabBarViewController.swift in Sources */,
+				006031BB297BCA9600CD9A16 /* ProfileViewController.swift in Sources */,
+				006031B5297BCA5700CD9A16 /* HomeViewController.swift in Sources */,
 				0010CABD297801E900F8705B /* AppLabel.swift in Sources */,
 				0010CADB29783E7400F8705B /* AppImage.swift in Sources */,
+				006031C0297C087F00CD9A16 /* StartManager.swift in Sources */,
 				0010CAC82978161600F8705B /* UITableView+RegisterCell.swift in Sources */,
 				0010CADF29784E3C00F8705B /* Constants.swift in Sources */,
+				006031B7297BCA6800CD9A16 /* SearchViewController.swift in Sources */,
+				006031BD297BCB3500CD9A16 /* TabBarItems.swift in Sources */,
 				3A8F30E02974395F00F24DF7 /* AppDelegate.swift in Sources */,
 				3A8F30EA2974395F00F24DF7 /* ShikiApp.xcdatamodeld in Sources */,
 				3A8F30E22974395F00F24DF7 /* SceneDelegate.swift in Sources */,

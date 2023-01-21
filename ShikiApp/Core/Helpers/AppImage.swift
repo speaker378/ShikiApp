@@ -12,36 +12,43 @@ import UIKit
 
 enum AppImage {
     
+    private static let missingImege = UIImage()
+    
     // MARK: - NavigationsBarIcons
     enum NavigationsBarIcons {
-        static let add = UIImage(named: "add")
-        static let back = UIImage(named: "back")
-        static let cancel = UIImage(named: "cancel")
-        static let chevronBigRight = UIImage(named: "chevronBigRight")
-        static let chevronDown = UIImage(named: "chevronDown")
-        static let done = UIImage(named: "done")
-        static let edit = UIImage(named: "edit")
-        static let login = UIImage(named: "login")
-        static let logout = UIImage(named: "logout")
-        static let search = UIImage(named: "search_nav")
-        static let share = UIImage(named: "share")
+        static let add = UIImage(named: "add") ?? missingImege
+        static let back = UIImage(named: "back") ?? missingImege
+        static let cancel = UIImage(named: "cancel") ?? missingImege
+        static let chevronBigRight = UIImage(named: "chevronBigRight") ?? missingImege
+        static let chevronDown = UIImage(named: "chevronDown") ?? missingImege
+        static let done = UIImage(named: "done") ?? missingImege
+        static let edit = UIImage(named: "edit") ?? missingImege
+        static let login = UIImage(named: "login") ?? missingImege
+        static let logout = UIImage(named: "logout") ?? missingImege
+        static let search = UIImage(named: "search_nav") ?? missingImege
+        static let share = UIImage(named: "share") ?? missingImege
     }
     
     // MARK: - ErrorsIcons
     enum ErrorsIcons {
-        static let nonConnectionIcon = UIImage(named: "nonConnectionIcon")
+        static let nonConnectionIcon = UIImage(named: "noConnectionIcon") ?? missingImege
+        static let noUserpicIcon = UIImage(named: "noUserpic") ?? missingImege
     }
     
     // MARK: - TabBarIcons
     enum TabBarIcons {
-        static let home = UIImage(named: "home")
-        static let homeSelected = UIImage(named: "homeSelected")
-        static let myList = UIImage(named: "myList")
-        static let myListSelected = UIImage(named: "myListSelected")
-        static let profile = UIImage(named: "profile")
-        static let profileSelected = UIImage(named: "profileSelected")
-        static let search = UIImage(named: "search")
-        static let searchSelected = UIImage(named: "searchSelected")
+        static let home = UIImage(named: "home") ?? missingImege
+        static let homeSelected = UIImage(named: "homeSelected") ?? missingImege
+        static let myList = UIImage(named: "myList") ?? missingImege
+        static let myListSelected = UIImage(named: "myListSelected") ?? missingImege
+        static let profile = UIImage(named: "profile") ?? missingImege
+        static let profileSelected = UIImage(named: "profileSelected") ?? missingImege
+        static let search = UIImage(named: "search") ?? missingImege
+        static let searchSelected = UIImage(named: "searchSelected") ?? missingImege
+    }
+    
+    enum OtherIcons {
+        static let link = UIImage(named: "link") ?? missingImege
     }
     
 }
