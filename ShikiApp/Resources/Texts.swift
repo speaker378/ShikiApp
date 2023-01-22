@@ -10,10 +10,15 @@ import Foundation
 
 enum Texts {
     
+    enum TabBarTitles {
+        static let home = "Новости"
+        static let search = "Поиск"
+        static let myList = "Мой список"
+        static let profile = "Профиль"
+    }
+    
     enum NavigationsBar {
-        static let newsTitle = "Новости"
         static let newTitle = "Новость"
-        
     }
     
 }
