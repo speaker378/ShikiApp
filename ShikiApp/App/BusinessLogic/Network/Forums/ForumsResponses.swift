@@ -9,6 +9,8 @@ import Foundation
 
 typealias ForumsResponse = [Forum]
 
+// MARK: - Forum
+
 struct Forum: Codable {
     let id: Int
     let position: Int

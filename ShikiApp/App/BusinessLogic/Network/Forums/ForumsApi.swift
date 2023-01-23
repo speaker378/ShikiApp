@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum ForumsApi {
+enum ForumsApi {
     case list
 }
 

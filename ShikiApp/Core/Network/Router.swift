@@ -11,24 +11,35 @@ public typealias NetworkRouterCompletion = (_ data: Data?, _ response: URLRespon
 
 protocol NetworkRouter {
     associatedtype EndPoint: EndPointType
-    var token: String? {get}
-    var userAgent: String? {get}
+    var token: String? { get }
+    var userAgent: String? { get }
     func request(_ route: EndPoint, completion: @escaping NetworkRouterCompletion)
     func cancel()
 }
 
-class Router<EndPoint: EndPointType>: NetworkRouter {
-    var token: String?
-    var userAgent: String?
-    private var task: URLSessionTask?
+final class Router<EndPoint: EndPointType>: NetworkRouter {
     
+    // MARK: - Internal properties
+
+    internal var token: String?
+    internal var userAgent: String?
+
+    // MARK: - Private properties
+
+    private var task: URLSessionTask?
+
+    // MARK: - Initializers
+
     init(token: String?, userAgent: String?) {
         self.token = token
         self.userAgent = userAgent
     }
+
+    // MARK: - Functions
+
     func request(_ route: EndPoint, completion: @escaping NetworkRouterCompletion) {
         let session = URLSession.shared
- 
+
         do {
             let request = try self.buildRequest(from: route)
             self.task = session.dataTask(with: request, completionHandler: { data, response, error in
@@ -39,11 +50,13 @@ class Router<EndPoint: EndPointType>: NetworkRouter {
         }
         self.task?.resume()
     }
-    
+
     func cancel() {
         self.task?.cancel()
     }
-    
+
+    // MARK: - Fileprivate functions
+
     fileprivate func buildRequest(from route: EndPoint) throws -> URLRequest {
         var request = URLRequest(url: EndPoint.baseURL.appendingPathComponent(route.path),
                                  cachePolicy: .reloadIgnoringLocalAndRemoteCacheData,
@@ -62,17 +75,17 @@ class Router<EndPoint: EndPointType>: NetworkRouter {
             case .requestParameters(let bodyParameters,
                                     let bodyEncoding,
                                     let urlParameters):
-                
+
                 try self.configureParameters(bodyParameters: bodyParameters,
                                              bodyEncoding: bodyEncoding,
                                              urlParameters: urlParameters,
                                              request: &request)
-                
+
             case .requestParametersAndHeaders(let bodyParameters,
                                               let bodyEncoding,
                                               let urlParameters,
                                               let additionalHeaders):
-                
+
                 self.addAdditionalHeaders(additionalHeaders, request: &request)
                 try self.configureParameters(bodyParameters: bodyParameters,
                                              bodyEncoding: bodyEncoding,
@@ -84,7 +97,7 @@ class Router<EndPoint: EndPointType>: NetworkRouter {
             throw error
         }
     }
-    
+
     fileprivate func configureParameters(bodyParameters: Parameters?,
                                          bodyEncoding: ParameterEncoding,
                                          urlParameters: Parameters?,
@@ -96,7 +109,7 @@ class Router<EndPoint: EndPointType>: NetworkRouter {
             throw error
         }
     }
-    
+
     fileprivate func addAdditionalHeaders(_ additionalHeaders: HTTPHeaders?, request: inout URLRequest) {
         guard let headers = additionalHeaders else { return }
         for (key, value) in headers {
