@@ -8,9 +8,9 @@
 import UIKit
 
 class NewsDetailViewController: UIViewController {
-    let news: NewsViewModel
+    let news: NewsModel
     
-    init(news: NewsViewModel) {
+    init(news: NewsModel) {
         self.news = news
         super.init(nibName: nil, bundle: nil)
     }

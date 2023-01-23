@@ -98,7 +98,7 @@ class NewsfeedTableViewCell: UITableViewCell {
     }
     
     // MARK: - Functions
-    func configure(with cellModel: NewsViewModel) {
+    func configure(with cellModel: NewsModel) {
         newsImageView.image = cellModel.image
         dateLabel.text = cellModel.date
         titleLabel.text = cellModel.title

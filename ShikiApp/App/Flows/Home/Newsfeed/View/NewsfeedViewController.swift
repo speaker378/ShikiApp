@@ -9,7 +9,7 @@ import UIKit
 
 class NewsfeedViewController: (UIViewController & NewsfeedViewInput) {
     // MARK: - Properties
-    internal var viewModels: [NewsViewModel] = [] {
+    internal var viewModels: [NewsModel] = [] {
         didSet {
             tableView.reloadData()
         }
