@@ -18,21 +18,21 @@ class NewsfeedViewController: (UIViewController & NewsfeedViewInput) {
     // MARK: - Private Properties
     private let presenter: NewsfeedViewOutput
     
-    private(set) lazy var tableView: UITableView = {
+    private var tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorStyle = .none
         return tableView
     }()
     
-    private(set) lazy var backgroundView: UIView = {
+    private var backgroundView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .systemBackground
         return view
     }()
     
-    private(set) lazy var backgroundImageView: UIImageView = {
+    private var backgroundImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
@@ -40,7 +40,7 @@ class NewsfeedViewController: (UIViewController & NewsfeedViewInput) {
         return imageView
     }()
     
-    private(set) lazy var backgroundLabel: UILabel = {
+    private var backgroundLabel: UILabel = {
         let label = AppLabel(
             alignment: .center,
             fontSize: AppFont.openSansFont(ofSize: 16, weight: .regular),

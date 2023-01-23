@@ -9,40 +9,40 @@ import UIKit
 
 class NewsfeedTableViewCell: UITableViewCell {
     // MARK: - Private properties
-    private(set) lazy var newsImageView: UIImageView = {
+    private var newsImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
-    private(set) lazy var dateLabel: UILabel = {
+    private var dateLabel: UILabel = {
         let label = AppLabel(alignment: .left, fontSize: AppFont.openSansFont(ofSize: 12, weight: .regular), fontСolor: AppColor.textMinor)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private(set) lazy var titleLabel: UILabel = {
+    private var titleLabel: UILabel = {
         let label = AppLabel(alignment: .left, fontSize: AppFont.openSansFont(ofSize: 16, weight: .bold))
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 2
         return label
     }()
     
-    private(set) lazy var subtitleLabel: UILabel = {
+    private var subtitleLabel: UILabel = {
         let label = AppLabel(alignment: .left, fontSize: AppFont.openSansFont(ofSize: 16, weight: .regular))
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private(set) lazy var strokeView: UIView = {
+    private var strokeView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = AppColor.line
         return view
     }()
     
-    private(set) lazy var accentBackgroundView: UIView = {
+    private var accentBackgroundView: UIView = {
         let view = UIView()
         view.backgroundColor = AppColor.accent
         return view
