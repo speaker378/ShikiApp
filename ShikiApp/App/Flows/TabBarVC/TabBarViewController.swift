@@ -21,7 +21,7 @@ final class TabBarViewController: UITabBarController, UITabBarControllerDelegate
         self.viewControllers = dataSource.map {
             switch $0 {
             case .home:
-                let newsViewController = HomeViewController()
+                let newsViewController = NewsfeedBuilder.build()
                 return self.wrappedInNavigationController(with: newsViewController, title: $0.title)
             case .search:
                 let searchViewController = SearchViewController()
