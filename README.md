@@ -40,3 +40,24 @@
 ## Вклад
 
 Мы будем рады, если вы сделаете вклад в **ShikiApp**, проверьте файл ``LICENSE`` для получения дополнительной информации.
+
+### Спринт2
+Сделано:
+Разработан сетевой слой приложения достаточный для минимального рабочего приложения:
+Core/Network/ - ядро для формирования запросов URLSession
+App/BusinessLogic/Network/Forums/  - фабрика запросов  API Forums
+App/BusinessLogic/Network/Topics -  фабрика запросов API Topics
+App/BusinessLogic/Network/Users -  фабрика запросов API Users
+App/BusinessLogic/Network/ApiFactory -  фабрика фабрик 
+Начал покрывать smoke тестами запросы:
+API Forums (ForumsApiTests.swift) - полностью 
+API Topics (TopicsApiTests.swift) - частично
+Долги: 
+Покрыть до конца smoke тестами API Topics 
+Покрыть smoke тестами API Users 
+Пулл реквест сетевого слоя feature SA-9 -> develop
+Проблемы:
+Отсутствуют спецификации и/или схемы респонсов API. 
+Вынужден строить модели данных на основе примеров использования.
+
+
