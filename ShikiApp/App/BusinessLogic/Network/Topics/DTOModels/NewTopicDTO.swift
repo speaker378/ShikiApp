@@ -6,14 +6,16 @@
 //
 
 import Foundation
-// MARK: - NewTopic
 
-struct NewTopicRequest: Codable {
-    let topic: NewTopic
+// MARK: - NewTopicRequestDTO
+
+struct NewTopicRequestDTO: Codable {
+    let topic: NewTopicDTO
 }
 
-// MARK: - Topic
-struct NewTopic: Codable {
+// MARK: - NewTopicDTO
+
+struct NewTopicDTO: Codable {
     let body, linkedType, title, type: String?
     let forumID, linkedID: Int?
     let userID: Int

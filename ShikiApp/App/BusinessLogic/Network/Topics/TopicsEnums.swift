@@ -60,3 +60,34 @@ enum TopicTypeParameter: String {
     case newsTopic = "Topics::NewsTopic"
     case contestStatusTopic = "Topics::NewsTopics::ContestStatusTopic"
 }
+
+// MARK: - API restrictions enums
+
+enum APIRestrictions: Int {
+    case maxPages = 100_000
+    case limit30 = 30
+    case limit10 = 10
+    case limit100 = 100
+    case limit5000 = 5_000
+}
+
+// MARK: - API keys enums
+
+enum APIKeys: String {
+    case topic
+    case page
+    case limit
+    case forum
+    case type
+    case linkedId = "linked_id"
+    case linkedType = "linked_type"
+    case userId = "user_id"
+    case body
+    case title
+    case forumId = "forum_id"
+    case isNickName = "is_nickname"
+    case status
+    case censored
+    case targetId = "target_id"
+    case targetType = "target_type"
+}

@@ -16,7 +16,7 @@ final class ForumsApiTests: XCTestCase {
     
     func testForumsRequests() throws {
         let factory = ApiFactory.makeForumsApi()
-        var forums: ForumsResponse?
+        var forums: ForumsResponseDTO?
         var error: String?
         let expectation = self.expectation(description: "ForumsRequestFactory.getForums expectation timeout")
         factory.listForums { forumsResponse, errorMessage in

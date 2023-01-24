@@ -5,17 +5,19 @@
 //  Created by Алексей Шинкарев on 19.01.2023.
 //
 
-typealias TopicsResponse = [Topic]
+// MARK: - TopicsResponseDTO
 
-// MARK: - Topic
+typealias TopicsResponseDTO = [TopicDTO]
 
-struct Topic: Codable {
+// MARK: - TopicDTO
+
+struct TopicDTO: Codable {
     let id: Int
     let topicTitle, body, htmlBody, htmlFooter: String?
     let createdAt: String
     let commentsCount: Int?
-    let forum: Forum?
-    let user: User?
+    let forum: ForumDTO?
+    let user: UserDTO?
     let type: String?
     let linkedID: Int?
     let linkedType: String?
@@ -50,7 +52,7 @@ struct Topic: Codable {
 struct Linked: Codable {
     let id: Int
     let name, russian: String
-    let image: Image
+    let image: ImageDTO
     let url, kind, score, status: String?
     let episodes, episodesAired: Int?
     let airedOn, releasedOn: String?
@@ -63,15 +65,15 @@ struct Linked: Codable {
     }
 }
 
-// MARK: - LinkedImage
+// MARK: - ImageDTO
 
-struct Image: Codable {
+struct ImageDTO: Codable {
     let original, preview, x96, x48: String
 }
 
-// MARK: - UserImage
+// MARK: - UserImageDTO
 
-struct UserImage: Codable {
+struct UserImageDTO: Codable {
     let x160, x148, x80, x64: String
     let x48, x32, x16: String
 }

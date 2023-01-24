@@ -5,11 +5,13 @@
 //  Created by Алексей Шинкарев on 20.01.2023.
 //
 
-typealias NewsTopicsResponse = [NewsTopic]
+// MARK: - NewsTopicsResponseDTO
 
-// MARK: - New Topic
+typealias NewsTopicsResponseDTO = [NewsTopicDTO]
 
-struct NewsTopic: Codable {
+// MARK: - NewsTopicDTO
+
+struct NewsTopicDTO: Codable {
     let id: Int
     let linked: Linked
     let event: String?

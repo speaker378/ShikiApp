@@ -1,14 +1,16 @@
 //
-//  AnimeResponse.swift
+//  AnimeRatesResponseDTO.swift
 //  ShikiApp
 //
 //  Created by Алексей Шинкарев on 22.01.2023.
 //
 import Foundation
 
-typealias AnimeRatesResponse = [AnimeRate]
+typealias AnimeRatesResponseDTO = [AnimeRateDTO]
 
-struct AnimeRate: Codable {
+// MARK: - AnimeRateDTO
+
+struct AnimeRateDTO: Codable {
     let id, score: Int
     let status: String
     let text: String?
@@ -17,9 +19,9 @@ struct AnimeRate: Codable {
     let textHTML: String?
     let rewatches: Int
     let createdAt, updatedAt: String
-    let user: User
-    let anime: AnimeInfo
-    let manga: MangaInfo?
+    let user: UserDTO
+    let anime: AnimeInfoDTO
+    let manga: MangaInfoDTO?
 
     enum CodingKeys: String, CodingKey {
         case id, score, status, text, episodes, chapters, volumes
@@ -31,11 +33,12 @@ struct AnimeRate: Codable {
     }
 }
 
-// MARK: - Anime
-struct AnimeInfo: Codable {
+// MARK: - AnimeInfoDTO
+
+struct AnimeInfoDTO: Codable {
     let id: Int
     let name, russian: String
-    let image: AnimeImage
+    let image: AnimeImageDTO
     let url, kind, score, status: String
     let episodes, episodesAired: Int
     let airedOn, releasedOn: String?
@@ -48,5 +51,6 @@ struct AnimeInfo: Codable {
     }
 }
 
-// MARK: - AnimeImage
-typealias AnimeImage = Image
+// MARK: - AnimeImageDTO
+
+typealias AnimeImageDTO = ImageDTO

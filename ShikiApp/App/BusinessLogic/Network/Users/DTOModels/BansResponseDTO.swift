@@ -1,5 +1,5 @@
 //
-//  BansResponse.swift
+//  BansResponseDTO.swift
 //  ShikiApp
 //
 //  Created by Алексей Шинкарев on 23.01.2023.
@@ -7,17 +7,19 @@
 
 import Foundation
 
-typealias BansResponse = [Ban]
+// MARK: - BansResponseDTO
 
-// MARK: - Ban
+typealias BansResponseDTO = [BanDTO]
 
-struct Ban: Codable {
+// MARK: - BanDTO
+
+struct BanDTO: Codable {
     let id, userID: Int
-    let comment: Comment
+    let comment: CommentDTO
     let moderatorID: Int
     let reason, createdAt: String
     let durationMinutes: Int
-    let user, moderator: User
+    let user, moderator: UserDTO
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -31,9 +33,9 @@ struct Ban: Codable {
     }
 }
 
-// MARK: - Comment
+// MARK: - CommentDTO
 
-struct Comment: Codable {
+struct CommentDTO: Codable {
     let id, commentableID: Int
     let commentableType, body: String
     let userID: Int

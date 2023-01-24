@@ -8,5 +8,5 @@
 import Foundation
 
 final class ForumsRequestFactory: AbstractRequestFactory<ForumsApi> {
-    func listForums(completion: @escaping (_ response: ForumsResponse?, _ error: String?) -> Void) { getResponse(type: ForumsResponse.self, endPoint: .list, completion: completion) }
+    func listForums(completion: @escaping (_ response: ForumsResponseDTO?, _ error: String?) -> Void) { getResponse(type: ForumsResponseDTO.self, endPoint: .list, completion: completion) }
 }

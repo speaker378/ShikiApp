@@ -1,5 +1,5 @@
 //
-//  ClubsResponse.swift
+//  ClubsResponseDTO.swift
 //  ShikiApp
 //
 //  Created by Алексей Шинкарев on 22.01.2023.
@@ -7,13 +7,16 @@
 
 import Foundation
 
-typealias ClubsResponse = [Club]
+// MARK: - ClubsResponseDTO
 
-// MARK: - Club
-struct Club: Codable {
+typealias ClubsResponseDTO = [ClubDTO]
+
+// MARK: - ClubDTO
+
+struct ClubDTO: Codable {
     let id: Int
     let name: String
-    let logo: Logo
+    let logo: LogoDTO
     let isCensored: Bool
     let joinPolicy, commentPolicy: String
 
@@ -25,5 +28,6 @@ struct Club: Codable {
     }
 }
 
-// MARK: - Logo
-typealias Logo = Image
+// MARK: - LogoDTO
+
+typealias LogoDTO = ImageDTO

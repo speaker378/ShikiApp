@@ -1,5 +1,5 @@
 //
-//  UserResponse.swift
+//  UserResponseDTO.swift
 //  ShikiApp
 //
 //  Created by Алексей Шинкарев on 19.01.2023.
@@ -7,16 +7,24 @@
 
 import Foundation
 
-typealias UserResponse = User
-typealias UsersResponse = [User]
-typealias FriendsResponse = UsersResponse
+// MARK: - UserResponseDTO
 
-// MARK: - User
+typealias UserResponseDTO = UserDTO
 
-struct User: Codable {
+// MARK: - UsersResponseDTO
+
+typealias UsersResponseDTO = [UserDTO]
+
+// MARK: - FriendsResponseDTO
+
+typealias FriendsResponseDTO = UsersResponseDTO
+
+// MARK: - UserDTO
+
+struct UserDTO: Codable {
     let id: Int
     let nickname, avatar: String
-    let image: UserImage
+    let image: UserImageDTO
     let lastOnlineAt: String
     let url: String?
     let name: String?

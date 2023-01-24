@@ -1,5 +1,5 @@
 //
-//  UserInfo.swift
+//  UserProfile.swift
 //  ShikiApp
 //
 //  Created by Алексей Шинкарев on 22.01.2023.
@@ -7,12 +7,12 @@
 
 import Foundation
 
-// MARK: - UserInfo
+// MARK: - UserProfileDTO
 
-struct UserProfile: Codable {
+struct UserProfileDTO: Codable {
     let id: Int
     let nickname, avatar: String
-    let image: UserImage
+    let image: UserImageDTO
     let lastOnlineAt: String
     let url: String
     let name, sex, fullYears: String?
@@ -24,7 +24,7 @@ struct UserProfile: Codable {
     let showComments: Bool
     let inFriends: Bool
     let isIgnored: Bool
-    let stats: Stats
+    let stats: StatsDTO
     let styleID: Int?
 
     enum CodingKeys: String, CodingKey {
@@ -47,14 +47,14 @@ struct UserProfile: Codable {
     }
 }
 
-// MARK: - Stats
+// MARK: - StatsDTO
 
-struct Stats: Codable {
-    let statuses, fullStatuses, scores, types: FullStatuses
-    let ratings: Ratings
+struct StatsDTO: Codable {
+    let statuses, fullStatuses, scores, types: FullStatusesDTO
+    let ratings: RatingsDTO
     let hasAnime, hasManga: Bool
     let genres, studios, publishers: [String]
-    let activity: Activity
+    let activity: ActivityDTO
 
     enum CodingKeys: String, CodingKey {
         case statuses
@@ -66,23 +66,23 @@ struct Stats: Codable {
     }
 }
 
-// MARK: - Activity
+// MARK: - ActivityDTO
 
-struct Activity: Codable {}
+struct ActivityDTO: Codable {}
 
-// MARK: - FullStatuses
+// MARK: - FullStatusesDTO
 
-struct FullStatuses: Codable {
-    let anime, manga: [Anime]
+struct FullStatusesDTO: Codable {
+    let anime, manga: [AnimeDTO]
 }
 
 // MARK: - Anime
 
-struct Anime: Codable {
+struct AnimeDTO: Codable {
     let id: Int
     let groupedID, name: String
     let size: Int
-    let type: TypeEnum
+    let type: TypeEnumDTO
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -91,20 +91,22 @@ struct Anime: Codable {
     }
 }
 
-// MARK: - TypeEnum
+// MARK: - TypeEnumDTO
 
-enum TypeEnum: String, Codable {
+enum TypeEnumDTO: String, Codable {
     case anime = "Anime"
     case manga = "Manga"
 }
 
-// MARK: - Ratings
+// MARK: - RatingsDTO
 
-struct Ratings: Codable {
-    let anime: [Rating]
+struct RatingsDTO: Codable {
+    let anime: [RatingDTO]
 }
 
-struct Rating: Codable {
+// MARK: - RatingDTO
+
+struct RatingDTO: Codable {
     let name: String
     let value: Int
 }

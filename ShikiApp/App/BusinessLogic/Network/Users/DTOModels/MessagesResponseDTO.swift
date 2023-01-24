@@ -7,18 +7,19 @@
 
 import Foundation
 
-typealias MessagesResponse = [Message]
+typealias MessagesResponseDTO = [MessageDTO]
 
 // MARK: - Message
-struct Message: Codable {
+
+struct MessageDTO: Codable {
     let id: Int
     let kind: String
     let read: Bool
     let body, htmlBody, createdAt: String
     let linkedID: Int
     let linkedType: String
-    let linked: LinkedData
-    let source, target: User
+    let linked: LinkedDataDTO
+    let source, target: UserDTO
 
     enum CodingKeys: String, CodingKey {
         case id, kind, read, body
@@ -32,13 +33,14 @@ struct Message: Codable {
     }
 }
 
-// MARK: - Linked
-struct LinkedData: Codable {
+// MARK: - LinkedDataDTO
+
+struct LinkedDataDTO: Codable {
     let id: Int
     let topicURL: String
     let threadID, topicID: Int
     let type, name, russian: String
-    let image: Image
+    let image: ImageDTO
     let url, kind, score, status: String
     let episodes, episodesAired: Int
     let airedOn, releasedOn: String

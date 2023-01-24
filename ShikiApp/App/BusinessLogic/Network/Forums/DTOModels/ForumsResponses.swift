@@ -7,11 +7,13 @@
 
 import Foundation
 
-typealias ForumsResponse = [Forum]
+// MARK: - ForumsResponseDTO
 
-// MARK: - Forum
+typealias ForumsResponseDTO = [ForumDTO]
 
-struct Forum: Codable {
+// MARK: - ForumDTO
+
+struct ForumDTO: Codable {
     let id: Int
     let position: Int
     let name: String?

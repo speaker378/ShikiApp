@@ -8,85 +8,118 @@
 import Foundation
 
 final class UsersRequestFactory: AbstractRequestFactory<UsersApi> {
-    func getUsers(page: Int?, limit: Int?, completion: @escaping (_ response: UsersResponse?, _ error: String?) -> Void) {
-        var parameters = Parameters()
-        if let page = page, (1 ... 100_000).contains(page) { parameters["page"] = page }
-        if let limit = limit, (1 ... 100).contains(limit) { parameters["limit"] = limit }
-        getResponse(type: UsersResponse.self, endPoint: .listUsers(parameters: parameters), completion: completion)
+    // MARK: - Factory methods
+
+    func getUsers(page: Int?, limit: Int?, completion: @escaping (_ response: UsersResponseDTO?, _ error: String?) -> Void) {
+        getResponse(type: UsersResponseDTO.self, endPoint: .listUsers(parameters: validateParameters(page: page, limit: limit)), completion: completion)
+        return
+
+        func validateParameters(page: Int?, limit: Int?) -> Parameters {
+            var parameters = Parameters()
+            if let page = page, (1 ... APIRestrictions.maxPages.rawValue).contains(page) { parameters[APIKeys.page.rawValue] = page }
+            if let limit = limit, (1 ... APIRestrictions.limit100.rawValue).contains(limit) { parameters[APIKeys.limit.rawValue] = limit }
+
+            return parameters
+        }
     }
-    
-    func getUserById(id: Int, completion: @escaping (_ response: UserProfile?, _ error: String?) -> Void) {
-        getResponse(type: UserProfile.self, endPoint: .getUserById(id: id), completion: completion)
+
+    func getUserById(id: Int, completion: @escaping (_ response: UserProfileDTO?, _ error: String?) -> Void) {
+        getResponse(type: UserProfileDTO.self, endPoint: .getUserById(id: id), completion: completion)
     }
-    
-    func getUserByNickName(nick: String, completion: @escaping (_ response: UserProfile?, _ error: String?) -> Void) {
-        getResponse(type: UserProfile.self, endPoint: .getUserByNickName(nick: nick, parameters: ["is_nickname": 1]), completion: completion)
+
+    func getUserByNickName(nick: String, completion: @escaping (_ response: UserProfileDTO?, _ error: String?) -> Void) {
+        getResponse(type: UserProfileDTO.self,
+                    endPoint: .getUserByNickName(nick: nick, parameters: [APIKeys.isNickName.rawValue: 1]),
+                    completion: completion)
     }
-    
-    func getUserInfo(id: Int, completion: @escaping (_ response: User?, _ error: String?) -> Void) {
-        getResponse(type: User.self, endPoint: .getUserInfo(id: id), completion: completion)
+
+    func getUserInfo(id: Int, completion: @escaping (_ response: UserDTO?, _ error: String?) -> Void) {
+        getResponse(type: UserDTO.self, endPoint: .getUserInfo(id: id), completion: completion)
     }
-    
-    func whoAmI(completion: @escaping (_ response: User?, _ error: String?) -> Void) {
-        getResponse(type: User.self, endPoint: .whoAmI, completion: completion)
+
+    func whoAmI(completion: @escaping (_ response: UserDTO?, _ error: String?) -> Void) {
+        getResponse(type: UserDTO.self, endPoint: .whoAmI, completion: completion)
     }
-    
+
     func signOut(completion: @escaping (_ response: String?, _ error: String?) -> Void) {
         getResponse(type: String.self, endPoint: .whoAmI, completion: completion)
     }
-    
-    func getFriends(id: Int, completion: @escaping (_ response: FriendsResponse?, _ error: String?) -> Void) {
-        getResponse(type: FriendsResponse.self, endPoint: .listFriends(id: id), completion: completion)
+
+    func getFriends(id: Int, completion: @escaping (_ response: FriendsResponseDTO?, _ error: String?) -> Void) {
+        getResponse(type: FriendsResponseDTO.self, endPoint: .listFriends(id: id), completion: completion)
     }
-    
-    func getClubs(id: Int, completion: @escaping (_ response: ClubsResponse?, _ error: String?) -> Void) {
-        getResponse(type: ClubsResponse.self, endPoint: .listClubs(id: id), completion: completion)
+
+    func getClubs(id: Int, completion: @escaping (_ response: ClubsResponseDTO?, _ error: String?) -> Void) {
+        getResponse(type: ClubsResponseDTO.self, endPoint: .listClubs(id: id), completion: completion)
     }
-    
-    func getAnimeRates(id: Int, page: Int? = nil, limit: Int? = nil, status: UserContentState?, isCensored: Bool?, completion: @escaping (_ response: AnimeRatesResponse?, _ error: String?) -> Void) {
-        var parameters = Parameters()
-        if let page = page, (1 ... 100_000).contains(page) { parameters["page"] = page }
-        if let limit = limit, (1 ... 5000).contains(limit) { parameters["limit"] = limit }
-        if let status = status { parameters["status"] = status.rawValue }
-        if let isCensored = isCensored { parameters["censored"] = isCensored }
-        getResponse(type: AnimeRatesResponse.self, endPoint: .listAnimeRates(id: id, parameters: parameters), completion: completion)
+
+    func getAnimeRates(id: Int, page: Int? = nil, limit: Int? = nil, status: UserContentState?, isCensored: Bool?, completion: @escaping (_ response: AnimeRatesResponseDTO?, _ error: String?) -> Void) {
+        getResponse(type: AnimeRatesResponseDTO.self,
+                    endPoint: .listAnimeRates(id: id,
+                                              parameters: validateParameters(page: page, limit: limit, status: status, isCensored: isCensored)),
+                    completion: completion)
+        return
+
+        func validateParameters(page: Int?, limit: Int?, status: UserContentState?, isCensored: Bool?) -> Parameters {
+            var parameters = Parameters()
+            if let page = page, (1 ... APIRestrictions.maxPages.rawValue).contains(page) { parameters[APIKeys.page.rawValue] = page }
+            if let limit = limit, (1 ... APIRestrictions.limit5000.rawValue).contains(limit) { parameters[APIKeys.limit.rawValue] = limit }
+            if let status = status { parameters[APIKeys.status.rawValue] = status.rawValue }
+            if let isCensored = isCensored { parameters[APIKeys.censored.rawValue] = isCensored }
+            return parameters
+        }
     }
-    
-    func getMangaRates(id: Int, page: Int? = nil, limit: Int? = nil, isCensored: Bool?, completion: @escaping (_ response: MangaRatesResponse?, _ error: String?) -> Void) {
-        var parameters = Parameters()
-        if let page = page, (1 ... 100_000).contains(page) { parameters["page"] = page }
-        if let limit = limit, (1 ... 5000).contains(limit) { parameters["limit"] = limit }
-        if let isCensored = isCensored { parameters["censored"] = isCensored }
-        getResponse(type: MangaRatesResponse.self, endPoint: .listMangaRates(id: id, parameters: parameters), completion: completion)
+
+    func getMangaRates(id: Int, page: Int? = nil, limit: Int? = nil, isCensored: Bool?, completion: @escaping (_ response: MangaRatesResponseDTO?, _ error: String?) -> Void) {
+        getResponse(type: MangaRatesResponseDTO.self, endPoint: .listMangaRates(id: id, parameters: validateParameters(page: page, limit: limit, isCensored: isCensored)), completion: completion)
+        return
+
+        func validateParameters(page: Int?, limit: Int?, isCensored: Bool?) -> Parameters {
+            var parameters = Parameters()
+            if let page = page, (1 ... APIRestrictions.maxPages.rawValue).contains(page) { parameters[APIKeys.page.rawValue] = page }
+            if let limit = limit, (1 ... APIRestrictions.limit5000.rawValue).contains(limit) { parameters[APIKeys.limit.rawValue] = limit }
+            if let isCensored = isCensored { parameters[APIKeys.censored.rawValue] = isCensored }
+            return parameters
+        }
     }
-    
-    func getFavorites(id: Int, completion: @escaping (_ response: UserFavoritesResponse?, _ error: String?) -> Void) {
-        getResponse(type: UserFavoritesResponse.self, endPoint: .listFavorites(id: id), completion: completion)
+
+    func getFavorites(id: Int, completion: @escaping (_ response: UserFavoritesResponseDTO?, _ error: String?) -> Void) {
+        getResponse(type: UserFavoritesResponseDTO.self, endPoint: .listFavorites(id: id), completion: completion)
     }
-    
-    func getMessages(id: Int, page: Int? = nil, limit: Int? = nil, type: UserMessageType, completion: @escaping (_ response: UserFavoritesResponse?, _ error: String?) -> Void) {
-        var parameters = Parameters()
-        if let page = page, (1 ... 100_000).contains(page) { parameters["page"] = page }
-        if let limit = limit, (1 ... 100).contains(limit) { parameters["limit"] = limit }
-        parameters["type"] = type.rawValue
-        getResponse(type: UserFavoritesResponse.self, endPoint: .listMessages(id: id, parameters: parameters), completion: completion)
+
+    func getMessages(id: Int, page: Int? = nil, limit: Int? = nil, type: UserMessageType, completion: @escaping (_ response: MessagesResponseDTO?, _ error: String?) -> Void) {
+        getResponse(type: MessagesResponseDTO.self, endPoint: .listMessages(id: id, parameters: validateParameters(page: page, limit: page, type: type)), completion: completion)
+        return
+
+        func validateParameters(page: Int?, limit: Int?, type: UserMessageType) -> Parameters {
+            var parameters = Parameters()
+            if let page = page, (1 ... APIRestrictions.maxPages.rawValue).contains(page) { parameters[APIKeys.page.rawValue] = page }
+            if let limit = limit, (1 ... APIRestrictions.limit100.rawValue).contains(limit) { parameters[APIKeys.limit.rawValue] = limit }
+            parameters[APIKeys.type.rawValue] = type.rawValue
+            return parameters
+        }
     }
-    
-    func getUnreadMessages(id: Int, completion: @escaping (_ response: UnreadMessagesResaponse?, _ error: String?) -> Void) {
-        getResponse(type: UnreadMessagesResaponse.self, endPoint: .unreadMessages(id: id), completion: completion)
+
+    func getUnreadMessages(id: Int, completion: @escaping (_ response: UnreadMessagesResaponseDTO?, _ error: String?) -> Void) {
+        getResponse(type: UnreadMessagesResaponseDTO.self, endPoint: .unreadMessages(id: id), completion: completion)
     }
-    
+
     func getHistory(id: Int, page: Int? = nil, limit: Int? = nil, targetId: Int? = nil,
-                    type: TargetType?, completion: @escaping (_ response: UserHistoryResponse?, _ error: String?) -> Void) {
-        var parameters = Parameters()
-        if let page = page, (1 ... 100_000).contains(page) { parameters["page"] = page }
-        if let limit = limit, (1 ... 100).contains(limit) { parameters["limit"] = limit }
-        if let targetId = targetId { parameters["target_id"] = targetId }
-        if let type = type { parameters["target_type"] = type.rawValue }
-        getResponse(type: UserHistoryResponse.self, endPoint: .listHistory(id: id, parameters: parameters), completion: completion)
+                    type: TargetType?, completion: @escaping (_ response: UserHistoryResponseDTO?, _ error: String?) -> Void) {
+        getResponse(type: UserHistoryResponseDTO.self, endPoint: .listHistory(id: id, parameters: validateParameters(page: page, limit: limit, targetId: targetId, type: type)), completion: completion)
+        return
+
+        func validateParameters(page: Int?, limit: Int?, targetId: Int?, type: TargetType?) -> Parameters {
+            var parameters = Parameters()
+            if let page = page, (1 ... APIRestrictions.maxPages.rawValue).contains(page) { parameters[APIKeys.page.rawValue] = page }
+            if let limit = limit, (1 ... APIRestrictions.limit100.rawValue).contains(limit) { parameters[APIKeys.limit.rawValue] = limit }
+            if let targetId = targetId { parameters[APIKeys.targetId.rawValue] = targetId }
+            if let type = type { parameters[APIKeys.targetType.rawValue] = type.rawValue }
+            return parameters
+        }
     }
-    
-    func getBans(id: Int, completion: @escaping (_ response: BansResponse?, _ error: String?) -> Void) {
-        getResponse(type: BansResponse.self, endPoint: .listBans(id: id), completion: completion)
+
+    func getBans(id: Int, completion: @escaping (_ response: BansResponseDTO?, _ error: String?) -> Void) {
+        getResponse(type: BansResponseDTO.self, endPoint: .listBans(id: id), completion: completion)
     }
 }
