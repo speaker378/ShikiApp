@@ -12,6 +12,7 @@ struct NewsModel {
     let date: String?
     let title: String?
     let subtitle: String?
+    let images: [UIImage]
     // ...
 }
 
@@ -25,12 +26,14 @@ final class NewsModelFactory {
         let date = news.date
         let title = news.title
         let subtitle = news.subtitle
+        let images = news.images
 
         return NewsModel(
             image: image,
             date: date,
             title: title,
-            subtitle: subtitle
+            subtitle: subtitle,
+            images: images
         )
     }
 }

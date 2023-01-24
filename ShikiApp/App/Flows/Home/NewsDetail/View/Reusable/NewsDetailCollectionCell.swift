@@ -9,7 +9,7 @@ import UIKit
 
 class NewsDetailCollectionViewCell: UICollectionViewCell {
     
-    // MARK: - private properties
+    // MARK: - Private properties
 
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
@@ -20,7 +20,8 @@ class NewsDetailCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
-    // MARK: - Construction
+    // MARK: - Init
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureUI()
@@ -28,14 +29,17 @@ class NewsDetailCollectionViewCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) { nil }
     
+    // MARK: - Methods
+    
     override func prepareForReuse() {
         imageView.image = nil
     }
     
     func configure(image: UIImage) {
-        configureUI()
         imageView.image = image
     }
+    
+    // MARK: - Private methods
     
     private func configureUI() {
         addSubview(imageView)

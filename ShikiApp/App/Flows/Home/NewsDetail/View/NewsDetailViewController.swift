@@ -13,42 +13,28 @@ class NewsDetailViewController: UIViewController {
     
     private let news: NewsModel
     private let scrollView = UIScrollView()
-    private let contentView = UIView()
-    private let newsDetailView: NewsDetailView
-    private let collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.itemSize = CGSize(width: 260, height: 160)
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        return collectionView
-    }()
-    
-    // TODO: - для теста, удалить это
-    private var images = [
-        AppImage.ErrorsIcons.nonConnectionIcon,
-        AppImage.ErrorsIcons.nonConnectionIcon,
-        AppImage.ErrorsIcons.nonConnectionIcon,
-        AppImage.ErrorsIcons.nonConnectionIcon,
-        AppImage.ErrorsIcons.nonConnectionIcon,
-        AppImage.ErrorsIcons.nonConnectionIcon,
-        AppImage.ErrorsIcons.nonConnectionIcon,
-        AppImage.ErrorsIcons.nonConnectionIcon
-    ] {
-        didSet {
-            collectionView.reloadData()
-        }
-    }
+    private let contentView: NewsDetailView
+//    private let newsDetailView: NewsDetailView
+//    private let collectionView: UICollectionView = {
+//        let layout = UICollectionViewFlowLayout()
+//        layout.scrollDirection = .horizontal
+//        layout.itemSize = CGSize(width: 260, height: 160)
+//        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+//        return collectionView
+//    }()
 
     // MARK: - Init
     
-    init(news: NewsModel) {
+    init(news: NewsModel, datasource: UICollectionViewDataSource) {
         self.news = news
-        newsDetailView = NewsDetailView(
+        contentView = NewsDetailView(
             coverImage: news.image ?? AppImage.ErrorsIcons.nonConnectionIcon,
             title: news.title ?? "no title",
             meta: news.date ?? "no metadata",
-            content: news.subtitle ?? "some text"
+            content: news.subtitle ?? "some text",
+            collectionDataSource: datasource
         )
+//        collectionView.dataSource = datasource
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -59,9 +45,7 @@ class NewsDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.registerCell(NewsDetailCollectionViewCell.self)
+//        collectionView.registerCell(NewsDetailCollectionViewCell.self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -76,12 +60,13 @@ class NewsDetailViewController: UIViewController {
         view.backgroundColor = .white
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
-        contentView.addSubviews([newsDetailView, collectionView])
+//        contentView.addSubview(newsDetailView)
+//        contentView.addSubviews([newsDetailView, collectionView])
         
         configureScrollView()
         configureContentView()
-        configureNewsDetailView()
-        configureCollectionView()
+//        configureNewsDetailView()
+//        configureCollectionView()
     }
     
     private func configureLeftBarItem() {
@@ -116,6 +101,7 @@ class NewsDetailViewController: UIViewController {
     
     private func configureScrollView() {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -127,6 +113,7 @@ class NewsDetailViewController: UIViewController {
     
     private func configureContentView() {
         contentView.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
             contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
@@ -136,47 +123,27 @@ class NewsDetailViewController: UIViewController {
         ])
     }
     
-    private func configureNewsDetailView() {
-        newsDetailView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            newsDetailView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            newsDetailView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            newsDetailView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            newsDetailView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width)
-        ])
-    }
+//    private func configureNewsDetailView() {
+//        newsDetailView.translatesAutoresizingMaskIntoConstraints = false
+//        
+//        NSLayoutConstraint.activate([
+//            newsDetailView.topAnchor.constraint(equalTo: contentView.topAnchor),
+//            newsDetailView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+//            newsDetailView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+//            newsDetailView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constants.Inset.inset24),
+//            newsDetailView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width)
+//        ])
+//    }
     
-    private func configureCollectionView() {
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: newsDetailView.bottomAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            collectionView.heightAnchor.constraint(equalToConstant: 160)
-        ])
-    }
-}
-
-// MARK: - UICollectionViewDelegate
-
-extension NewsDetailViewController: UICollectionViewDelegate {
-
-}
-
-// MARK: - UICollectionViewDataSource
-
-extension NewsDetailViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return images.count
-    }
-
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard
-            let cell: NewsDetailCollectionViewCell = collectionView.cell(forRowAt: indexPath),
-            images.indices.contains(indexPath.item)
-        else { return UICollectionViewCell() }
-        cell.configure(image: images[indexPath.item])
-        return cell
-    }
+//    private func configureCollectionView() {
+//        collectionView.translatesAutoresizingMaskIntoConstraints = false
+//        
+//        NSLayoutConstraint.activate([
+//            collectionView.topAnchor.constraint(equalTo: newsDetailView.bottomAnchor),
+//            collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+//            collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+//            collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+//            collectionView.heightAnchor.constraint(equalToConstant: 160)
+//        ])
+//    }
 }
