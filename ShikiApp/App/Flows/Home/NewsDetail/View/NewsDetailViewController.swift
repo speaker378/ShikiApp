@@ -9,40 +9,18 @@ import UIKit
 
 class NewsDetailViewController: UIViewController {
     
-    // MARK: - private properties
+    // MARK: - Private properties
     
     private let news: NewsModel
-    
+    private let scrollView = UIScrollView()
+    private let contentView = UIView()
+    private let newsDetailView: NewsDetailView
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.itemSize = CGSize(width: 260, height: 160)
-        
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
-    }()
-    
-    private lazy var scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        return scrollView
-    }()
-    
-    private lazy var newsView: NewsDetailView  = {
-        let view = NewsDetailView(
-            coverImage: news.image ?? AppImage.ErrorsIcons.nonConnectionIcon,
-            title: news.title ?? "no title",
-            meta: news.date ?? "no metadata",
-            content: news.subtitle ?? "some text")
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    private lazy var contentView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
     }()
     
     // TODO: - для теста, удалить это
@@ -65,51 +43,25 @@ class NewsDetailViewController: UIViewController {
     
     init(news: NewsModel) {
         self.news = news
+        newsDetailView = NewsDetailView(
+            coverImage: news.image ?? AppImage.ErrorsIcons.nonConnectionIcon,
+            title: news.title ?? "no title",
+            meta: news.date ?? "no metadata",
+            content: news.subtitle ?? "some text"
+        )
         super.init(nibName: nil, bundle: nil)
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    required init?(coder: NSCoder) { nil }
     
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-//        scrollView.delegate = self
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.registerCell(NewsDetailCollectionViewCell.self)
-    }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-        
-        NSLayoutConstraint.activate([
-            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            contentView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width),
-            
-            scrollView.widthAnchor.constraint(equalTo: contentView.widthAnchor)
-        ])
-        
-        NSLayoutConstraint.activate([
-            newsView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            newsView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            newsView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            newsView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width)
-        ])
-        
-        configureCollectionView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -117,41 +69,40 @@ class NewsDetailViewController: UIViewController {
         configureNavBar()
     }
     
-    // MARK: - Private functions
+    // MARK: - Private methods
     
     private func configureUI() {
+        title = Texts.NavigationBarTitles.newsTitle
         view.backgroundColor = .white
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
-        contentView.addSubview(newsView)
-        contentView.addSubview(collectionView)
+        contentView.addSubviews([newsDetailView, collectionView])
+        
+        configureScrollView()
+        configureContentView()
+        configureNewsDetailView()
+        configureCollectionView()
     }
     
-    fileprivate func configureLeftBarItem() {
-        var backItem: UIBarButtonItem {
-            let barButtonItem = UIBarButtonItem(
-                image: AppImage.NavigationsBarIcons.back,
-                style: .plain,
-                target: nil,
-                action: #selector(UINavigationController.popViewController(animated:))
-            )
-            barButtonItem.tintColor = AppColor.textMain
-            return barButtonItem
-        }
+    private func configureLeftBarItem() {
+        let backItem = UIBarButtonItem(
+            image: AppImage.NavigationsBarIcons.back,
+            style: .plain,
+            target: nil,
+            action: #selector(UINavigationController.popViewController(animated:))
+        )
+        backItem.tintColor = AppColor.textMain
         navigationItem.leftBarButtonItem = backItem
     }
     
-    fileprivate func configureRightBarItem() {
-        var shareItem: UIBarButtonItem {
-            let barButtonItem = UIBarButtonItem(
-                image: AppImage.NavigationsBarIcons.share,
-                style: .plain,
-                target: nil,
-                action: #selector(UINavigationController.popViewController(animated:))
-            )
-            barButtonItem.tintColor = AppColor.textMain
-            return barButtonItem
-        }
+    private func configureRightBarItem() {
+        let shareItem = UIBarButtonItem(
+            image: AppImage.NavigationsBarIcons.share,
+            style: .plain,
+            target: nil,
+            action: #selector(UINavigationController.popViewController(animated:))
+        )
+        shareItem.tintColor = AppColor.textMain
         navigationItem.rightBarButtonItem = shareItem
     }
     
@@ -163,9 +114,42 @@ class NewsDetailViewController: UIViewController {
         configureRightBarItem()
     }
     
-    private func configureCollectionView() {
+    private func configureScrollView() {
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: newsView.bottomAnchor),
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            scrollView.widthAnchor.constraint(equalTo: contentView.widthAnchor)
+        ])
+    }
+    
+    private func configureContentView() {
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            contentView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width)
+        ])
+    }
+    
+    private func configureNewsDetailView() {
+        newsDetailView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            newsDetailView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            newsDetailView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            newsDetailView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            newsDetailView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width)
+        ])
+    }
+    
+    private func configureCollectionView() {
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: newsDetailView.bottomAnchor),
             collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
@@ -174,15 +158,15 @@ class NewsDetailViewController: UIViewController {
     }
 }
 
+// MARK: - UICollectionViewDelegate
+
 extension NewsDetailViewController: UICollectionViewDelegate {
 
 }
 
+// MARK: - UICollectionViewDataSource
+
 extension NewsDetailViewController: UICollectionViewDataSource {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        1
-    }
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return images.count
     }
