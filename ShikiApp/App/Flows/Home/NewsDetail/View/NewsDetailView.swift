@@ -35,7 +35,6 @@ final class NewsDetailView: UIView {
         )
         self.contentLabel = AppLabel(title: content, alignment: .left, fontSize: AppFont.openSansFont(ofSize: 16, weight: .regular), numberLines: 0)
         super.init(frame: .zero)
-        backgroundColor = .blue
         configureUI()
     }
     
@@ -61,7 +60,6 @@ final class NewsDetailView: UIView {
         
         coverImageView.translatesAutoresizingMaskIntoConstraints = false
         coverImageView.contentMode = .scaleAspectFill
-        coverImageView.backgroundColor = .systemGray6 // убрать это, просто для отладки
         coverImageView.layer.masksToBounds = true
         
         // разобрать по функциям

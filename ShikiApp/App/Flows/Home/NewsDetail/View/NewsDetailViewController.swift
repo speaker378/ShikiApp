@@ -16,18 +16,16 @@ class NewsDetailViewController: UIViewController {
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.itemSize = CGSize(width: 120, height: 120)
-//        layout.minimumInteritemSpacing = Constants.Inset.inset8
+        layout.itemSize = CGSize(width: 260, height: 160)
+        
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .magenta
         return collectionView
     }()
     
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.backgroundColor = .yellow
         return scrollView
     }()
     
@@ -38,14 +36,12 @@ class NewsDetailViewController: UIViewController {
             meta: news.date ?? "no metadata",
             content: news.subtitle ?? "some text")
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .systemGray5
         return view
     }()
     
     private lazy var contentView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .green
         return view
     }()
     
@@ -124,6 +120,7 @@ class NewsDetailViewController: UIViewController {
     // MARK: - Private functions
     
     private func configureUI() {
+        view.backgroundColor = .white
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         contentView.addSubview(newsView)
@@ -172,7 +169,7 @@ class NewsDetailViewController: UIViewController {
             collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            collectionView.heightAnchor.constraint(equalToConstant: 120)
+            collectionView.heightAnchor.constraint(equalToConstant: 160)
         ])
     }
 }

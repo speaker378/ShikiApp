@@ -33,29 +33,19 @@ class NewsDetailCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(image: UIImage) {
-//        addSubview(imageView)
         configureUI()
-//        imageView.image = image
+        imageView.image = image
     }
     
     private func configureUI() {
-        let vieww = UIView()
-        vieww.backgroundColor = .orange
-        vieww.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(vieww)
+        addSubview(imageView)
+        
         NSLayoutConstraint.activate([
-            vieww.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            vieww.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            vieww.heightAnchor.constraint(equalToConstant: 100.0),
-            vieww.widthAnchor.constraint(equalToConstant: 100.0)
-            ])
-//        NSLayoutConstraint.activate([
-//            imageView.topAnchor.constraint(equalTo: self.topAnchor),
-//            imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-//            imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-//            imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-//            imageView.heightAnchor.constraint(equalToConstant: 120.0)
-//        ])
+            imageView.topAnchor.constraint(equalTo: self.topAnchor),
+            imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+        ])
     }
     
 }
