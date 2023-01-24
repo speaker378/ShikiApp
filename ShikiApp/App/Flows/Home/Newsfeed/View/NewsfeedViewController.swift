@@ -9,7 +9,7 @@ import UIKit
 
 class NewsfeedViewController: (UIViewController & NewsfeedViewInput) {
     // MARK: - Properties
-    internal var viewModels: [NewsModel] = [] {
+    internal var models: [NewsModel] = [] {
         didSet {
             tableView.reloadData()
         }
@@ -114,12 +114,12 @@ class NewsfeedViewController: (UIViewController & NewsfeedViewInput) {
 // MARK: - UITableViewDataSource
 extension NewsfeedViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModels.count
+        models.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell: NewsfeedTableViewCell = tableView.cell(forRowAt: indexPath) else { return UITableViewCell() }
-        cell.configure(with: viewModels[indexPath.row])
+        cell.configure(with: models[indexPath.row])
         return cell
     }
 }
@@ -132,7 +132,7 @@ extension NewsfeedViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let news = viewModels[indexPath.row]
+        let news = models[indexPath.row]
         presenter.viewDidSelectNews(news: news)
     }
 }

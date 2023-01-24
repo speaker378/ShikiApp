@@ -8,7 +8,7 @@
 import UIKit
 
 protocol NewsfeedViewInput: AnyObject {
-    var viewModels: [NewsModel] { get set }
+    var models: [NewsModel] { get set }
 }
 
 protocol NewsfeedViewOutput: AnyObject {
@@ -32,6 +32,6 @@ final class NewsfeedPresenter: NewsfeedViewOutput {
     }
     
     func fetchData() {
-        viewInput?.viewModels = NewsViewModelFactory().constructViewModels(from: newsList)
+        viewInput?.models = NewsModelFactory().makeModels(from: newsList)
     }
 }

@@ -15,8 +15,8 @@ struct NewsModel {
     // ...
 }
 
-final class NewsViewModelFactory {
-    func constructViewModels(from news: [NewsModelAPI]) -> [NewsModel] {
+final class NewsModelFactory {
+    func makeModels(from news: [NewsModelAPI]) -> [NewsModel] {
         return news.compactMap(self.viewModel)
     }
     
