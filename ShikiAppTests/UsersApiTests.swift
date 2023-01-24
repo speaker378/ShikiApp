@@ -220,7 +220,7 @@ final class UsersApiTests: XCTestCase {
     
     func testGetUnreadMessages() throws {
         let request = "getUnreadMessages"
-        var response: UnreadMessagesResaponseDTO?
+        var response: UnreadMessagesResponseDTO?
         var error: String?
         let expectation = self.expectation(description: "\(api2Test).\(request) expectation timeout")
         factory.whoAmI { data, errorMessage in

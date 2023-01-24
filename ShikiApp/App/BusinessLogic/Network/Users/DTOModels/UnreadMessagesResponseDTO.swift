@@ -7,8 +7,8 @@
 
 import Foundation
 
-// MARK: - UnreadMessagesResaponseDTO
+// MARK: - UnreadMessagesResponseDTO
 
-struct UnreadMessagesResaponseDTO: Codable {
+struct UnreadMessagesResponseDTO: Codable {
     let messages, news, notifications: Int
 }

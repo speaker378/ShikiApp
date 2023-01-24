@@ -11,7 +11,6 @@ import Foundation
 
 typealias UserHistoryResponseDTO = [HistoryItem]
 
-
 // MARK: - HistoryItem
 
 struct HistoryItem: Codable {

@@ -11,7 +11,10 @@ final class UsersRequestFactory: AbstractRequestFactory<UsersApi> {
     // MARK: - Factory methods
 
     func getUsers(page: Int?, limit: Int?, completion: @escaping (_ response: UsersResponseDTO?, _ error: String?) -> Void) {
-        getResponse(type: UsersResponseDTO.self, endPoint: .listUsers(parameters: validateParameters(page: page, limit: limit)), completion: completion)
+        let parameters = validateParameters(page: page, limit: limit)
+        getResponse(type: UsersResponseDTO.self,
+                    endPoint: .listUsers(parameters: parameters),
+                    completion: completion)
         return
 
         func validateParameters(page: Int?, limit: Int?) -> Parameters {
@@ -71,7 +74,10 @@ final class UsersRequestFactory: AbstractRequestFactory<UsersApi> {
     }
 
     func getMangaRates(id: Int, page: Int? = nil, limit: Int? = nil, isCensored: Bool?, completion: @escaping (_ response: MangaRatesResponseDTO?, _ error: String?) -> Void) {
-        getResponse(type: MangaRatesResponseDTO.self, endPoint: .listMangaRates(id: id, parameters: validateParameters(page: page, limit: limit, isCensored: isCensored)), completion: completion)
+        let parameters = validateParameters(page: page, limit: limit, isCensored: isCensored)
+        getResponse(type: MangaRatesResponseDTO.self,
+                    endPoint: .listMangaRates(id: id, parameters: parameters),
+                    completion: completion)
         return
 
         func validateParameters(page: Int?, limit: Int?, isCensored: Bool?) -> Parameters {
@@ -88,7 +94,8 @@ final class UsersRequestFactory: AbstractRequestFactory<UsersApi> {
     }
 
     func getMessages(id: Int, page: Int? = nil, limit: Int? = nil, type: UserMessageType, completion: @escaping (_ response: MessagesResponseDTO?, _ error: String?) -> Void) {
-        getResponse(type: MessagesResponseDTO.self, endPoint: .listMessages(id: id, parameters: validateParameters(page: page, limit: page, type: type)), completion: completion)
+        let parameters = validateParameters(page: page, limit: page, type: type)
+        getResponse(type: MessagesResponseDTO.self, endPoint: .listMessages(id: id, parameters: parameters), completion: completion)
         return
 
         func validateParameters(page: Int?, limit: Int?, type: UserMessageType) -> Parameters {
@@ -100,13 +107,14 @@ final class UsersRequestFactory: AbstractRequestFactory<UsersApi> {
         }
     }
 
-    func getUnreadMessages(id: Int, completion: @escaping (_ response: UnreadMessagesResaponseDTO?, _ error: String?) -> Void) {
-        getResponse(type: UnreadMessagesResaponseDTO.self, endPoint: .unreadMessages(id: id), completion: completion)
+    func getUnreadMessages(id: Int, completion: @escaping (_ response: UnreadMessagesResponseDTO?, _ error: String?) -> Void) {
+        getResponse(type: UnreadMessagesResponseDTO.self, endPoint: .unreadMessages(id: id), completion: completion)
     }
 
     func getHistory(id: Int, page: Int? = nil, limit: Int? = nil, targetId: Int? = nil,
                     type: TargetType?, completion: @escaping (_ response: UserHistoryResponseDTO?, _ error: String?) -> Void) {
-        getResponse(type: UserHistoryResponseDTO.self, endPoint: .listHistory(id: id, parameters: validateParameters(page: page, limit: limit, targetId: targetId, type: type)), completion: completion)
+        let parameters = validateParameters(page: page, limit: limit, targetId: targetId, type: type)
+        getResponse(type: UserHistoryResponseDTO.self, endPoint: .listHistory(id: id, parameters: parameters), completion: completion)
         return
 
         func validateParameters(page: Int?, limit: Int?, targetId: Int?, type: TargetType?) -> Parameters {
