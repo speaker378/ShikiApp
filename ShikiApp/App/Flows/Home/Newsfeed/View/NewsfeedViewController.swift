@@ -9,6 +9,7 @@ import UIKit
 
 class NewsfeedViewController: (UIViewController & NewsfeedViewInput) {
     // MARK: - Properties
+    let presenter: NewsfeedViewOutput
     internal var models: [NewsModel] = [] {
         didSet {
             tableView.reloadData()
@@ -16,8 +17,6 @@ class NewsfeedViewController: (UIViewController & NewsfeedViewInput) {
     }
     
     // MARK: - Private Properties
-    private let presenter: NewsfeedViewOutput
-    
     private var tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -108,31 +107,5 @@ class NewsfeedViewController: (UIViewController & NewsfeedViewInput) {
             backgroundLabel.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
             backgroundLabel.topAnchor.constraint(equalTo: backgroundImageView.bottomAnchor, constant: 24)
         ])
-    }
-}
-
-// MARK: - UITableViewDataSource
-extension NewsfeedViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        models.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell: NewsfeedTableViewCell = tableView.cell(forRowAt: indexPath) else { return UITableViewCell() }
-        cell.configure(with: models[indexPath.row])
-        return cell
-    }
-}
-
-// MARK: - UITableViewDelegate
-extension NewsfeedViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        112
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        let news = models[indexPath.row]
-        presenter.viewDidSelectNews(news: news)
     }
 }
