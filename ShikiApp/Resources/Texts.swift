@@ -21,4 +21,7 @@ enum Texts {
         static let newTitle = "Новость"
     }
     
+    enum ErrorMessage {
+        static let failedFetchData = "Что-то пошло не так.\nПопробуйте позже, должно получиться"
+    }
 }

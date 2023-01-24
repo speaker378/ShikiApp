@@ -48,7 +48,7 @@ class NewsfeedViewController: (UIViewController & NewsfeedViewInput) {
             numberLines: 0
         )
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Что-то пошло не так.\nПопробуйте позже, должно получиться"
+        label.text = Texts.ErrorMessage.failedFetchData
         return label
     }()
     
