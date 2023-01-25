@@ -17,8 +17,7 @@ protocol TopicsRequestFactoryProtocol {
                    limit: Int?,
                    completion: @escaping (_ response: NewsTopicsResponseDTO?, _ error: String?) -> Void)
 
-    func hotTopics(limit: Int?,
-                   completion: @escaping (_ response: TopicsResponseDTO?, _ error: String?) -> Void)
+    func hotTopics(limit: Int?, completion: @escaping (_ response: TopicsResponseDTO?, _ error: String?) -> Void)
 
     func getTopic(id: Int, completion: @escaping (_ response: TopicDTO?, _ error: String?) -> Void)
 
@@ -39,16 +38,29 @@ extension TopicsRequestFactory: TopicsRequestFactoryProtocol {
     
     // MARK: - Factory methods
 
-    func listTopics(page: Int? = nil, limit: Int? = nil, forum: ForumParameter? = nil, linkedId: Int? = nil, linkedType: LinkedTypeParameter? = nil, type: TopicTypeParameter? = nil, completion: @escaping (_ response: TopicsResponseDTO?, _ error: String?) -> Void) {
+    func listTopics(page: Int? = nil,
+                    limit: Int? = nil,
+                    forum: ForumParameter? = nil,
+                    linkedId: Int? = nil,
+                    linkedType: LinkedTypeParameter? = nil,
+                    type: TopicTypeParameter? = nil,
+                    completion: @escaping (_ response: TopicsResponseDTO?, _ error: String?) -> Void) {
         let parameters = validateParameters(page: page, limit: limit, forum: forum, linkedId: linkedId, linkedType: linkedType, type: type)
         getResponse(type: TopicsResponseDTO.self, endPoint: .listTopics(parameters: parameters), completion: completion)
         return
 
-    func validateParameters(page: Int?, limit: Int?, forum: ForumParameter?, linkedId: Int?, linkedType: LinkedTypeParameter?, type: TopicTypeParameter?) -> Parameters {
+    func validateParameters(page: Int?,
+                            limit: Int?,
+                            forum: ForumParameter?,
+                            linkedId: Int?,
+                            linkedType: LinkedTypeParameter?,
+                            type: TopicTypeParameter?) -> Parameters {
             var parameters = Parameters()
-            if let page = page, (1 ... APIRestrictions.maxPages.rawValue).contains(page) { parameters[APIKeys.page.rawValue] = page
+            if let page = page, (1 ... APIRestrictions.maxPages.rawValue).contains(page) {
+                parameters[APIKeys.page.rawValue] = page
             }
-            if let limit = limit, (1 ... APIRestrictions.limit30.rawValue).contains(limit) { parameters[APIKeys.limit.rawValue] = limit
+            if let limit = limit, (1 ... APIRestrictions.limit30.rawValue).contains(limit) {
+                parameters[APIKeys.limit.rawValue] = limit
             }
             if let forum = forum {
                 parameters[APIKeys.forum.rawValue] = forum.rawValue
@@ -56,8 +68,12 @@ extension TopicsRequestFactory: TopicsRequestFactoryProtocol {
             if let linkedId = linkedId {
                 parameters[APIKeys.linkedId.rawValue] = linkedId
             }
-            if let linkedType = linkedType { parameters[APIKeys.linkedType.rawValue] = linkedType.rawValue }
-            if let type = type { parameters[APIKeys.type.rawValue] = type.rawValue }
+            if let linkedType = linkedType {
+                parameters[APIKeys.linkedType.rawValue] = linkedType.rawValue
+            }
+            if let type = type {
+                parameters[APIKeys.type.rawValue] = type.rawValue
+            }
             return parameters
         }
     }

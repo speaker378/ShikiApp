@@ -21,7 +21,7 @@ struct TopicDTO: Codable {
     let type: String?
     let linkedID: Int?
     let linkedType: String?
-    let linked: Linked?
+    let linked: LinkedDTO?
     let viewed: Bool?
     let lastCommentViewed: Bool?
     let event: String?
@@ -47,9 +47,9 @@ struct TopicDTO: Codable {
     }
 }
 
-// MARK: - Linked
+// MARK: - LinkedDTO
 
-struct Linked: Codable {
+struct LinkedDTO: Codable {
     let id: Int
     let name, russian: String
     let image: ImageDTO

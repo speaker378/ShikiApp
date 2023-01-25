@@ -21,8 +21,8 @@ final class Router<EndPoint: EndPointType>: NetworkRouter {
     
     // MARK: - Internal properties
 
-    internal var token: String?
-    internal var userAgent: String?
+    var token: String?
+    var userAgent: String?
 
     // MARK: - Private properties
 
@@ -55,9 +55,9 @@ final class Router<EndPoint: EndPointType>: NetworkRouter {
         self.task?.cancel()
     }
 
-    // MARK: - Fileprivate functions
+    // MARK: - Private functions
 
-    fileprivate func buildRequest(from route: EndPoint) throws -> URLRequest {
+    private func buildRequest(from route: EndPoint) throws -> URLRequest {
         var request = URLRequest(url: EndPoint.baseURL.appendingPathComponent(route.path),
                                  cachePolicy: .reloadIgnoringLocalAndRemoteCacheData,
                                  timeoutInterval: 10.0)
@@ -98,10 +98,7 @@ final class Router<EndPoint: EndPointType>: NetworkRouter {
         }
     }
 
-    fileprivate func configureParameters(bodyParameters: Parameters?,
-                                         bodyEncoding: ParameterEncoding,
-                                         urlParameters: Parameters?,
-                                         request: inout URLRequest) throws {
+    private func configureParameters(bodyParameters: Parameters?, bodyEncoding: ParameterEncoding, urlParameters: Parameters?, request: inout URLRequest) throws {
         do {
             try bodyEncoding.encode(urlRequest: &request,
                                     bodyParameters: bodyParameters, urlParameters: urlParameters)
@@ -110,7 +107,7 @@ final class Router<EndPoint: EndPointType>: NetworkRouter {
         }
     }
 
-    fileprivate func addAdditionalHeaders(_ additionalHeaders: HTTPHeaders?, request: inout URLRequest) {
+    private func addAdditionalHeaders(_ additionalHeaders: HTTPHeaders?, request: inout URLRequest) {
         guard let headers = additionalHeaders else { return }
         for (key, value) in headers {
             request.setValue(value, forHTTPHeaderField: key)

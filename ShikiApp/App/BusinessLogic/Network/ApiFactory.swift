@@ -34,11 +34,19 @@ final class ApiFactory: ApiFactoryProtocol {
 
     // MARK: - ApiFactoryProtocol implementation
 
-    static func makeForumsApi() -> ForumsRequestFactoryProtocol { ForumsRequestFactory(agent: agent) }
+    static func makeForumsApi() -> ForumsRequestFactoryProtocol {
+        ForumsRequestFactory(agent: agent)
+    }
 
-    static func makeTopicsApi() -> TopicsRequestFactoryProtocol { TopicsRequestFactory(token: token, agent: agent) }
+    static func makeTopicsApi() -> TopicsRequestFactoryProtocol {
+        TopicsRequestFactory(token: token, agent: agent)
+    }
 
-    static func makeAnonimousTopicsApi() -> TopicsRequestFactoryProtocol { TopicsRequestFactory(agent: agent) }
+    static func makeAnonimousTopicsApi() -> TopicsRequestFactoryProtocol {
+        TopicsRequestFactory(agent: agent)
+    }
 
-    static func makeUsersApi() -> UsersRequestFactory { UsersRequestFactory(token: token, agent: agent) }
+    static func makeUsersApi() -> UsersRequestFactory {
+        UsersRequestFactory(token: token, agent: agent)
+    }
 }

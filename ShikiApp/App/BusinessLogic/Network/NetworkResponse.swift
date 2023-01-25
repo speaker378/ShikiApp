@@ -26,21 +26,21 @@ extension NetworkResponse {
     var rawValue: String {
         switch self {
         case .success:
-            return NetworkLayerErrorMessages.success
+            return NetworkLayerErrorMessages.success.rawValue
         case .authenticationError:
-            return NetworkLayerErrorMessages.authenticationError
+            return NetworkLayerErrorMessages.authenticationError.rawValue
         case .badRequest:
-            return NetworkLayerErrorMessages.badRequest
+            return NetworkLayerErrorMessages.badRequest.rawValue
         case .outdated:
-            return NetworkLayerErrorMessages.outdated
+            return NetworkLayerErrorMessages.outdated.rawValue
         case .failed:
-            return NetworkLayerErrorMessages.requestFailed
+            return NetworkLayerErrorMessages.requestFailed.rawValue
         case .noData:
-            return NetworkLayerErrorMessages.noData
+            return NetworkLayerErrorMessages.noData.rawValue
         case .unableToDecode:
-            return NetworkLayerErrorMessages.unableToDecode
+            return NetworkLayerErrorMessages.unableToDecode.rawValue
         case .badResponse:
-            return NetworkLayerErrorMessages.badResponse
+            return NetworkLayerErrorMessages.badResponse.rawValue
         }
     }
 }
