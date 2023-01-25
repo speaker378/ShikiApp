@@ -1,5 +1,5 @@
 //
-//  NewsfeedDataSource.swift
+//  NewsfeedViewController+Extension.swift
 //  ShikiApp
 //
 //  Created by Сергей Черных on 24.01.2023.
@@ -15,6 +15,7 @@ extension NewsfeedViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell: NewsfeedTableViewCell = tableView.cell(forRowAt: indexPath) else { return UITableViewCell() }
+        guard models.indices.contains(indexPath.row) else { return cell }
         cell.configure(with: models[indexPath.row])
         return cell
     }

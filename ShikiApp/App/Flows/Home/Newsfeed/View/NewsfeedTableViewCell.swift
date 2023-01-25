@@ -9,15 +9,8 @@ import UIKit
 
 class NewsfeedTableViewCell: UITableViewCell {
     // MARK: - Private properties
-    internal struct Constants {
-        static let lineWidth: CGFloat = 1
-        static let imageWidth: CGFloat = 88
-        static let trailingInset: CGFloat = -16
-        static let leadingInset: CGFloat = 8
-        static let topInset: CGFloat = 12
-        static let bottomInset: CGFloat = -12
-        static let verticalSpacing: CGFloat = 2
-    }
+    private let lineWidth: CGFloat = 1
+    private let imageWidth: CGFloat = 88
     
     private var newsImageView: UIImageView = {
         let imageView = UIImageView()
@@ -85,30 +78,30 @@ class NewsfeedTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate([
             newsImageView.topAnchor.constraint(equalTo: self.topAnchor),
             newsImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            newsImageView.widthAnchor.constraint(equalToConstant: Constants.imageWidth),
+            newsImageView.widthAnchor.constraint(equalToConstant: imageWidth),
             newsImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             
-            dateLabel.leadingAnchor.constraint(equalTo: newsImageView.trailingAnchor, constant: Constants.leadingInset),
-            dateLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: Constants.trailingInset),
-            dateLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: Constants.topInset),
+            dateLabel.leadingAnchor.constraint(equalTo: newsImageView.trailingAnchor, constant: Constants.Inset.leading),
+            dateLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: (-Constants.Inset.trailing)),
+            dateLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: Constants.Inset.topInset),
             
-            titleLabel.leadingAnchor.constraint(equalTo: newsImageView.trailingAnchor, constant: Constants.leadingInset),
-            titleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: Constants.trailingInset),
-            titleLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: Constants.verticalSpacing),
+            titleLabel.leadingAnchor.constraint(equalTo: newsImageView.trailingAnchor, constant: Constants.Inset.leading),
+            titleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: (-Constants.Inset.trailing)),
+            titleLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: Constants.Inset.verticalSpacing),
             
-            subtitleLabel.leadingAnchor.constraint(equalTo: newsImageView.trailingAnchor, constant: Constants.leadingInset),
-            subtitleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: Constants.trailingInset),
-            subtitleLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: Constants.bottomInset),
+            subtitleLabel.leadingAnchor.constraint(equalTo: newsImageView.trailingAnchor, constant: Constants.Inset.leading),
+            subtitleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: (-Constants.Inset.trailing)),
+            subtitleLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: (-Constants.Inset.bottom)),
             
-            strokeView.leadingAnchor.constraint(equalTo: newsImageView.trailingAnchor, constant: Constants.leadingInset),
-            strokeView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: Constants.trailingInset),
+            strokeView.leadingAnchor.constraint(equalTo: newsImageView.trailingAnchor, constant: Constants.Inset.leading),
+            strokeView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: (-Constants.Inset.trailing)),
             strokeView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            strokeView.heightAnchor.constraint(equalToConstant: Constants.lineWidth)
+            strokeView.heightAnchor.constraint(equalToConstant: lineWidth)
         ])
     }
     
     private func textIsShort(_ text: String?) -> Bool {
-        let widthTitle = contentView.bounds.width - Constants.imageWidth - Constants.leadingInset + Constants.trailingInset
+        let widthTitle = contentView.bounds.width - imageWidth - Constants.Inset.leading - Constants.Inset.trailing
         let titleHeight = text?.getTextHeight(width: widthTitle, font: titleLabel.font) ?? 0
         let oneLineTitleHeight = "".getTextHeight(width: widthTitle, font: titleLabel.font)
         if titleHeight < (oneLineTitleHeight * 2) {

@@ -22,6 +22,6 @@ enum Texts {
     }
     
     enum ErrorMessage {
-        static let failedFetchData = "Что-то пошло не так.\nПопробуйте позже, должно получиться"
+        static let general = "Что-то пошло не так.\nПопробуйте позже, должно получиться"
     }
 }

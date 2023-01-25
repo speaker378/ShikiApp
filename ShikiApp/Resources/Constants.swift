@@ -17,4 +17,12 @@ struct Constants {
     enum Keys {
         
     }
+    
+    enum Inset {
+        static let trailing = 16.0
+        static let leading = 8.0
+        static let topInset = 12.0
+        static let bottom = 12.0
+        static let verticalSpacing = 2.0
+    }
 }

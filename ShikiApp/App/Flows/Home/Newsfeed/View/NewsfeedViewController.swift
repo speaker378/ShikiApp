@@ -10,7 +10,7 @@ import UIKit
 class NewsfeedViewController: (UIViewController & NewsfeedViewInput) {
     // MARK: - Properties
     let presenter: NewsfeedViewOutput
-    internal var models: [NewsModel] = [] {
+    var models: [NewsModel] = [] {
         didSet {
             tableView.reloadData()
         }
@@ -47,7 +47,7 @@ class NewsfeedViewController: (UIViewController & NewsfeedViewInput) {
             numberLines: 0
         )
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = Texts.ErrorMessage.failedFetchData
+        label.text = Texts.ErrorMessage.general
         return label
     }()
     

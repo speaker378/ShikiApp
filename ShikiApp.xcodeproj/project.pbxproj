@@ -53,7 +53,7 @@
 		3A8F30FA2974396000F24DF7 /* ShikiAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8F30F92974396000F24DF7 /* ShikiAppTests.swift */; };
 		3A8F31042974396000F24DF7 /* ShikiAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8F31032974396000F24DF7 /* ShikiAppUITests.swift */; };
 		3A8F31062974396000F24DF7 /* ShikiAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8F31052974396000F24DF7 /* ShikiAppUITestsLaunchTests.swift */; };
-		3AFAFEE3298028BA00949FE2 /* NewsfeedDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFAFEE2298028BA00949FE2 /* NewsfeedDataSource.swift */; };
+		3AFAFEE3298028BA00949FE2 /* NewsfeedViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFAFEE2298028BA00949FE2 /* NewsfeedViewController+Extension.swift */; };
 		3AFAFEE6298055A900949FE2 /* String+heightText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFAFEE5298055A900949FE2 /* String+heightText.swift */; };
 /* End PBXBuildFile section */
 
@@ -113,7 +113,7 @@
 		3A8F30FF2974396000F24DF7 /* ShikiAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShikiAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A8F31032974396000F24DF7 /* ShikiAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShikiAppUITests.swift; sourceTree = "<group>"; };
 		3A8F31052974396000F24DF7 /* ShikiAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShikiAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		3AFAFEE2298028BA00949FE2 /* NewsfeedDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsfeedDataSource.swift; sourceTree = "<group>"; };
+		3AFAFEE2298028BA00949FE2 /* NewsfeedViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewsfeedViewController+Extension.swift"; sourceTree = "<group>"; };
 		3AFAFEE5298055A900949FE2 /* String+heightText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+heightText.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -285,7 +285,7 @@
 			children = (
 				3A05E290297D606B00987CFF /* NewsfeedViewController.swift */,
 				3A05E292297D60B100987CFF /* NewsfeedTableViewCell.swift */,
-				3AFAFEE2298028BA00949FE2 /* NewsfeedDataSource.swift */,
+				3AFAFEE2298028BA00949FE2 /* NewsfeedViewController+Extension.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -617,7 +617,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0010CABF297802A700F8705B /* UIView+addSubviews.swift in Sources */,
-				3AFAFEE3298028BA00949FE2 /* NewsfeedDataSource.swift in Sources */,
+				3AFAFEE3298028BA00949FE2 /* NewsfeedViewController+Extension.swift in Sources */,
 				3A05E299297E8EA500987CFF /* NewsfeedBuilder.swift in Sources */,
 				3A05E295297E696200987CFF /* NewsfeedPresenter.swift in Sources */,
 				006031B9297BCA7B00CD9A16 /* MyListViewController.swift in Sources */,
