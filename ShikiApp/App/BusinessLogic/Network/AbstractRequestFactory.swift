@@ -7,19 +7,6 @@
 
 import Foundation
 
-// MARK: - NetworkResponse
-
-enum NetworkResponse: String {
-    case success
-    case authenticationError = "You need to be authenticated first."
-    case badRequest = "Bad request"
-    case outdated = "The url you requested is outdated."
-    case failed = "Network request failed."
-    case noData = "Response returned with no data to decode."
-    case unableToDecode = "We could not decode the response."
-    case badResponse = "Bad response"
-}
-
 // MARK: - Result
 
 enum Result<String> {
@@ -47,32 +34,32 @@ class AbstractRequestFactory<API: EndPointType>: AbstractRequestFactoryProtocol 
         router = Router<API>(token: token, userAgent: agent)
     }
 
-    internal func getResponse<RESPONSE: Codable>(type: RESPONSE.Type, endPoint: API, completion: @escaping (_ response: RESPONSE?, _ error: String?) -> Void) {
+    func getResponse<Response: Codable>(type: Response.Type, endPoint: API, completion: @escaping (_ response: Response?, _ error: String?) -> Void) {
         requestQueue.async { [weak self] in
             self?.router.request(endPoint) { data, response, error in
-                if let error = error {
+                if let error {
                     self?.completionQueue.async {
                         completion(nil, error.localizedDescription)
                     }
                     return
                 }
-                if let response = response as? HTTPURLResponse {
-                    let result = handleNetworkResponse(response)
-                    switch result {
-                    case .success:
-                        let decodedResult = decodeData(data: data)
-                        self?.completionQueue.async {
-                            completion(decodedResult.0, decodedResult.1)
-                        }
-                    case let .failure(networkError):
-                        self?.completionQueue.async {
-                            completion(nil, networkError)
-                        }
+                guard let response = response as? HTTPURLResponse else {
+                    self?.completionQueue.async {
+                        completion(nil, NetworkResponse.badResponse.rawValue)
                     }
                     return
                 }
-                self?.completionQueue.async {
-                    completion(nil, NetworkResponse.badResponse.rawValue)
+                let result = handleNetworkResponse(response)
+                switch result {
+                case .success:
+                    let decodedResult = decodeData(data: data)
+                    self?.completionQueue.async {
+                        completion(decodedResult.0, decodedResult.1)
+                    }
+                case let .failure(networkError):
+                    self?.completionQueue.async {
+                        completion(nil, networkError)
+                    }
                 }
             }
 
@@ -86,21 +73,20 @@ class AbstractRequestFactory<API: EndPointType>: AbstractRequestFactoryProtocol 
                 }
             }
 
-            func decodeData(data: Data?) -> (RESPONSE?, String?) {
+            func decodeData(data: Data?) -> (Response?, String?) {
                 guard let data = data else { return (nil, NetworkResponse.noData.rawValue) }
                 switch type.self {
                 case is String.Type:
-                    guard let data = String(data: data, encoding: .utf8) as? RESPONSE else {
+                    guard let data = String(data: data, encoding: .utf8) as? Response else {
                         return (nil, NetworkResponse.unableToDecode.rawValue)
                     }
                     return (data, nil)
                 default:
                     do {
-                        let data = try JSONDecoder().decode(RESPONSE.self, from: data)
+                        let data = try JSONDecoder().decode(Response.self, from: data)
                         return (data, nil)
-                    } catch let error {
-                        print(error)
-                        return (nil, NetworkResponse.unableToDecode.rawValue)
+                    } catch {
+                        return (nil, error.localizedDescription)
                     }
                 }
             }

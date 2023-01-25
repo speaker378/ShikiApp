@@ -7,16 +7,44 @@
 
 import Foundation
 
-final class TopicsRequestFactory: AbstractRequestFactory<TopicsApi> {
+// MARK: - TopicsRequestFactoryProtocol
 
-    // MARK: - Factory methods
+protocol TopicsRequestFactoryProtocol {
     
+    func listTopics(page: Int?, limit: Int?, forum: ForumParameter?, linkedId: Int?, linkedType: LinkedTypeParameter?, type: TopicTypeParameter?, completion: @escaping (_ response: TopicsResponseDTO?, _ error: String?) -> Void)
+
+    func newTopics(page: Int?,
+                   limit: Int?,
+                   completion: @escaping (_ response: NewsTopicsResponseDTO?, _ error: String?) -> Void)
+
+    func hotTopics(limit: Int?,
+                   completion: @escaping (_ response: TopicsResponseDTO?, _ error: String?) -> Void)
+
+    func getTopic(id: Int, completion: @escaping (_ response: TopicDTO?, _ error: String?) -> Void)
+
+    func deleteTopic(id: Int, completion: @escaping (_ response: DeleteTopicResponseDTO?, _ error: String?) -> Void)
+
+    func addTopic(topic: NewTopicDTO, completion: @escaping (_ response: TopicDTO?, _ error: String?) -> Void)
+
+    func putTopic(id: Int, title: String?, body: String?, linkedId: Int?, linkedType: LinkedTypeParameter?, completion: @escaping (_ response: TopicDTO?, _ error: String?) -> Void)
+}
+
+// MARK: - TopicsRequestFactory
+
+final class TopicsRequestFactory: AbstractRequestFactory<TopicsApi> {}
+
+// MARK: TopicsRequestFactory extension to TopicsRequestFactoryProtocol
+
+extension TopicsRequestFactory: TopicsRequestFactoryProtocol {
+    
+    // MARK: - Factory methods
+
     func listTopics(page: Int? = nil, limit: Int? = nil, forum: ForumParameter? = nil, linkedId: Int? = nil, linkedType: LinkedTypeParameter? = nil, type: TopicTypeParameter? = nil, completion: @escaping (_ response: TopicsResponseDTO?, _ error: String?) -> Void) {
         let parameters = validateParameters(page: page, limit: limit, forum: forum, linkedId: linkedId, linkedType: linkedType, type: type)
         getResponse(type: TopicsResponseDTO.self, endPoint: .listTopics(parameters: parameters), completion: completion)
         return
-        
-        func validateParameters (page: Int?, limit: Int?, forum: ForumParameter?, linkedId: Int?, linkedType: LinkedTypeParameter?, type: TopicTypeParameter?) -> Parameters {
+
+    func validateParameters(page: Int?, limit: Int?, forum: ForumParameter?, linkedId: Int?, linkedType: LinkedTypeParameter?, type: TopicTypeParameter?) -> Parameters {
             var parameters = Parameters()
             if let page = page, (1 ... APIRestrictions.maxPages.rawValue).contains(page) { parameters[APIKeys.page.rawValue] = page
             }
@@ -69,7 +97,7 @@ final class TopicsRequestFactory: AbstractRequestFactory<TopicsApi> {
             }
         }
         return
-        
+
         func validateParameters(topic: NewTopicDTO) -> Parameters? {
             var parameters = Parameters()
             guard let body = topic.body,
@@ -101,7 +129,7 @@ final class TopicsRequestFactory: AbstractRequestFactory<TopicsApi> {
             }
         }
         return
-        
+
         func validatePatameters(title: String?, body: String?, linkedId: Int?, linkedType: LinkedTypeParameter?) -> Parameters? {
             var parameters = Parameters()
             var result: Parameters?

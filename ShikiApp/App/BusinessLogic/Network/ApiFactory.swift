@@ -7,7 +7,19 @@
 
 import Foundation
 
-final class ApiFactory {
+// MARK: - ApiFactoryProtocol
+
+protocol ApiFactoryProtocol {
+    
+    static func makeForumsApi() -> ForumsRequestFactoryProtocol
+    static func makeTopicsApi() -> TopicsRequestFactoryProtocol
+    static func makeAnonimousTopicsApi() -> TopicsRequestFactoryProtocol
+}
+
+// MARK: - ApiFactory
+
+final class ApiFactory: ApiFactoryProtocol {
+    
     // MARK: - Private properties
 
     private static var token: String? {
@@ -20,13 +32,13 @@ final class ApiFactory {
         return agent
     }
 
-    // MARK: - API makers interface
+    // MARK: - ApiFactoryProtocol implementation
 
-    static func makeForumsApi() -> ForumsRequestFactory { ForumsRequestFactory(agent: agent) }
+    static func makeForumsApi() -> ForumsRequestFactoryProtocol { ForumsRequestFactory(agent: agent) }
 
-    static func makeTopicsApi() -> TopicsRequestFactory { TopicsRequestFactory(token: token, agent: agent) }
+    static func makeTopicsApi() -> TopicsRequestFactoryProtocol { TopicsRequestFactory(token: token, agent: agent) }
 
-    static func makeAnonimousTopicsApi() -> TopicsRequestFactory { TopicsRequestFactory(agent: agent) }
+    static func makeAnonimousTopicsApi() -> TopicsRequestFactoryProtocol { TopicsRequestFactory(agent: agent) }
 
     static func makeUsersApi() -> UsersRequestFactory { UsersRequestFactory(token: token, agent: agent) }
 }

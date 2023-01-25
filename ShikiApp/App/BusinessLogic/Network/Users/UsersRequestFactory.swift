@@ -7,7 +7,47 @@
 
 import Foundation
 
-final class UsersRequestFactory: AbstractRequestFactory<UsersApi> {
+// MARK: - UsersRequestFactoryProtocol
+
+protocol UsersRequestFactoryProtocol {
+    
+    func getUsers(page: Int?, limit: Int?, completion: @escaping (_ response: UsersResponseDTO?, _ error: String?) -> Void)
+    
+    func getUserById(id: Int, completion: @escaping (_ response: UserProfileDTO?, _ error: String?) -> Void)
+    
+    func getUserByNickName(nick: String, completion: @escaping (_ response: UserProfileDTO?, _ error: String?) -> Void)
+    
+    func getUserInfo(id: Int, completion: @escaping (_ response: UserDTO?, _ error: String?) -> Void)
+    
+    func whoAmI(completion: @escaping (_ response: UserDTO?, _ error: String?) -> Void)
+    
+    func signOut(completion: @escaping (_ response: String?, _ error: String?) -> Void)
+    
+    func getFriends(id: Int, completion: @escaping (_ response: FriendsResponseDTO?, _ error: String?) -> Void)
+    
+    func getClubs(id: Int, completion: @escaping (_ response: ClubsResponseDTO?, _ error: String?) -> Void)
+    
+    func getAnimeRates(id: Int, page: Int?, limit: Int?, status: UserContentState?, isCensored: Bool?, completion: @escaping (_ response: AnimeRatesResponseDTO?, _ error: String?) -> Void)
+    
+    func getMangaRates(id: Int, page: Int?, limit: Int?, isCensored: Bool?, completion: @escaping (_ response: MangaRatesResponseDTO?, _ error: String?) -> Void)
+    
+    func getFavorites(id: Int, completion: @escaping (_ response: UserFavoritesResponseDTO?, _ error: String?) -> Void)
+    
+    func getHistory(id: Int, page: Int?, limit: Int?, targetId: Int?,
+                    type: TargetType?, completion: @escaping (_ response: UserHistoryResponseDTO?, _ error: String?) -> Void)
+    
+    func getBans(id: Int, completion: @escaping (_ response: BansResponseDTO?, _ error: String?) -> Void)
+    
+}
+
+// MARK: - UsersRequestFactory
+
+final class UsersRequestFactory: AbstractRequestFactory<UsersApi> {}
+
+// MARK: - UsersRequestFactory extension to UsersRequestFactoryProtocol
+
+extension UsersRequestFactory: UsersRequestFactoryProtocol {
+    
     // MARK: - Factory methods
 
     func getUsers(page: Int?, limit: Int?, completion: @escaping (_ response: UsersResponseDTO?, _ error: String?) -> Void) {
