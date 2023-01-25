@@ -37,10 +37,11 @@ struct AnimeRateDTO: Codable {
 
 struct AnimeInfoDTO: Codable {
     let id: Int
-    let name, russian: String
-    let image: AnimeImageDTO
-    let url, kind, score, status: String
-    let episodes, episodesAired: Int
+    let name: String
+    let russian: String?
+    let image: AnimeImageDTO?
+    let url, kind, score, status: String?
+    let episodes, episodesAired: Int?
     let airedOn, releasedOn: String?
 
     enum CodingKeys: String, CodingKey {

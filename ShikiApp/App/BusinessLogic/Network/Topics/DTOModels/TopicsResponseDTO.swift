@@ -14,7 +14,7 @@ typealias TopicsResponseDTO = [TopicDTO]
 struct TopicDTO: Codable {
     let id: Int
     let topicTitle, body, htmlBody, htmlFooter: String?
-    let createdAt: String
+    let createdAt: String?
     let commentsCount: Int?
     let forum: ForumDTO?
     let user: UserDTO?
@@ -51,8 +51,8 @@ struct TopicDTO: Codable {
 
 struct LinkedDTO: Codable {
     let id: Int
-    let name, russian: String
-    let image: ImageDTO
+    let name, russian: String?
+    let image: ImageDTO?
     let url, kind, score, status: String?
     let episodes, episodesAired: Int?
     let airedOn, releasedOn: String?

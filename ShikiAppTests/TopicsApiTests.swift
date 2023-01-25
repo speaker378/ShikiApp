@@ -23,8 +23,6 @@ final class TopicsApiTests: XCTestCase {
         factory.listTopics(page: 1,
                            limit: 10,
                            forum: .all,
-                           linkedId: nil,
-                           linkedType: nil,
                            type: .topic) { data, errorMessage in
             response = data
             error = errorMessage
@@ -77,7 +75,7 @@ final class TopicsApiTests: XCTestCase {
         let expectation = expectation(description: "\(api2Test)\(request) expectation timeout")
         var topic: TopicDTO?
         var error: String?
-        factory.listTopics(page: nil, limit: nil, forum: nil, linkedId: nil, linkedType: nil, type: nil) { data, errorMessage in
+        factory.listTopics { data, errorMessage in
             if let id = data?.first?.id {
                 self.factory.getTopic(id: id) { data, errorMessage in
                     topic = data

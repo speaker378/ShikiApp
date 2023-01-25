@@ -23,9 +23,10 @@ typealias FriendsResponseDTO = UsersResponseDTO
 
 struct UserDTO: Codable {
     let id: Int
-    let nickname, avatar: String
-    let image: UserImageDTO
-    let lastOnlineAt: String
+    let nickname: String
+    let avatar: String?
+    let image: UserImageDTO?
+    let lastOnlineAt: String?
     let url: String?
     let name: String?
     let sex: String?

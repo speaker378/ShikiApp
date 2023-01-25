@@ -11,6 +11,8 @@ import Foundation
 
 protocol TopicsRequestFactoryProtocol {
     
+    var delegate: (AbstractRequestFactory<TopicsApi>)? { get }
+    
     func listTopics(page: Int?, limit: Int?, forum: ForumParameter?, linkedId: Int?, linkedType: LinkedTypeParameter?, type: TopicTypeParameter?, completion: @escaping (_ response: TopicsResponseDTO?, _ error: String?) -> Void)
 
     func newTopics(page: Int?,
@@ -30,11 +32,18 @@ protocol TopicsRequestFactoryProtocol {
 
 // MARK: - TopicsRequestFactory
 
-final class TopicsRequestFactory: AbstractRequestFactory<TopicsApi> {}
+final class TopicsRequestFactory: TopicsRequestFactoryProtocol {
+    
+    internal let delegate: (AbstractRequestFactory<TopicsApi>)?
+    
+    init(token: String? = nil, agent: String? = nil) {
+        self.delegate = AbstractRequestFactory<TopicsApi>(token: token, agent: agent)
+    }
+}
 
 // MARK: TopicsRequestFactory extension to TopicsRequestFactoryProtocol
 
-extension TopicsRequestFactory: TopicsRequestFactoryProtocol {
+extension TopicsRequestFactoryProtocol {
     
     // MARK: - Factory methods
 
@@ -46,7 +55,7 @@ extension TopicsRequestFactory: TopicsRequestFactoryProtocol {
                     type: TopicTypeParameter? = nil,
                     completion: @escaping (_ response: TopicsResponseDTO?, _ error: String?) -> Void) {
         let parameters = validateParameters(page: page, limit: limit, forum: forum, linkedId: linkedId, linkedType: linkedType, type: type)
-        getResponse(type: TopicsResponseDTO.self, endPoint: .listTopics(parameters: parameters), completion: completion)
+        delegate?.getResponse(type: TopicsResponseDTO.self, endPoint: TopicsApi.listTopics(parameters: parameters), completion: completion)
         return
 
     func validateParameters(page: Int?,
@@ -84,31 +93,37 @@ extension TopicsRequestFactory: TopicsRequestFactoryProtocol {
         var parameters = Parameters()
         if let page = page, (1 ... APIRestrictions.maxPages.rawValue).contains(page) { parameters[APIKeys.page.rawValue] = page }
         if let limit = limit, (1 ... APIRestrictions.limit30.rawValue).contains(limit) { parameters[APIKeys.limit.rawValue] = limit }
-        getResponse(type: NewsTopicsResponseDTO.self, endPoint: .newTopics(parameters: parameters), completion: completion)
+        delegate?.getResponse(type: NewsTopicsResponseDTO.self, endPoint: .newTopics(parameters: parameters), completion: completion)
     }
 
     func hotTopics(limit: Int?,
                    completion: @escaping (_ response: TopicsResponseDTO?, _ error: String?) -> Void) {
         var parameters = Parameters()
         if let limit = limit, (1 ... APIRestrictions.limit10.rawValue).contains(limit) { parameters[APIKeys.limit.rawValue] = limit }
-        getResponse(type: TopicsResponseDTO.self, endPoint: .hotTopics(parameters: parameters), completion: completion)
+        delegate?.getResponse(type: TopicsResponseDTO.self, endPoint: .hotTopics(parameters: parameters), completion: completion)
     }
 
     func getTopic(id: Int, completion: @escaping (_ response: TopicDTO?, _ error: String?) -> Void) {
-        getResponse(type: TopicDTO.self, endPoint: .getTopic(id: id), completion: completion)
+        delegate?.getResponse(type: TopicDTO.self, endPoint: .getTopic(id: id), completion: completion)
     }
 
-    func deleteTopic(id: Int, completion: @escaping (_ response: DeleteTopicResponseDTO?, _ error: String?) -> Void) {
-        getResponse(type: DeleteTopicResponseDTO.self, endPoint: .deleteTopic(id: id), completion: completion)
+    func deleteTopic(id: Int,
+                     completion: @escaping (_ response: DeleteTopicResponseDTO?, _ error: String?) -> Void) {
+        delegate?.getResponse(type: DeleteTopicResponseDTO.self,
+                    endPoint: .deleteTopic(id: id),
+                    completion: completion)
     }
 
-    func addTopic(topic: NewTopicDTO, completion: @escaping (_ response: TopicDTO?, _ error: String?) -> Void) {
+    func addTopic(topic: NewTopicDTO,
+                  completion: @escaping (_ response: TopicDTO?, _ error: String?) -> Void) {
         if let topicDictionary = validateParameters(topic: topic) {
             var parameters = Parameters()
             parameters[APIKeys.topic.rawValue] = topicDictionary
-            getResponse(type: TopicDTO.self, endPoint: .postTopic(parameters: parameters), completion: completion)
+            delegate?.getResponse(type: TopicDTO.self,
+                        endPoint: .postTopic(parameters: parameters),
+                        completion: completion)
         } else {
-            completionQueue.async {
+            delegate?.completionQueue.async {
                 completion(nil, "Invalid topic to add")
             }
         }
@@ -134,19 +149,30 @@ extension TopicsRequestFactory: TopicsRequestFactoryProtocol {
         }
     }
 
-    func putTopic(id: Int, title: String?, body: String?, linkedId: Int?, linkedType: LinkedTypeParameter?, completion: @escaping (_ response: TopicDTO?, _ error: String?) -> Void) {
-        if let fieldsToChange = validatePatameters(title: title, body: body, linkedId: linkedId, linkedType: linkedType) {
+    func putTopic(id: Int,
+                  title: String?,
+                  body: String?,
+                  linkedId: Int?,
+                  linkedType: LinkedTypeParameter?,
+                  completion: @escaping (_ response: TopicDTO?, _ error: String?) -> Void) {
+        if let fieldsToChange = validatePatameters(title: title,
+                                                   body: body,
+                                                   linkedId: linkedId,
+                                                   linkedType: linkedType) {
             var parameters = Parameters()
             parameters[APIKeys.topic.rawValue] = fieldsToChange
-            getResponse(type: TopicDTO.self, endPoint: .putTopic(id: id, parameters: parameters), completion: completion)
+            delegate?.getResponse(type: TopicDTO.self, endPoint: .putTopic(id: id, parameters: parameters), completion: completion)
         } else {
-            completionQueue.async {
+            delegate?.completionQueue.async {
                 completion(nil, "Nothing to change")
             }
         }
         return
 
-        func validatePatameters(title: String?, body: String?, linkedId: Int?, linkedType: LinkedTypeParameter?) -> Parameters? {
+        func validatePatameters(title: String?,
+                                body: String?,
+                                linkedId: Int?,
+                                linkedType: LinkedTypeParameter?) -> Parameters? {
             var parameters = Parameters()
             var result: Parameters?
             if let title = title { parameters[APIKeys.title.rawValue] = title }

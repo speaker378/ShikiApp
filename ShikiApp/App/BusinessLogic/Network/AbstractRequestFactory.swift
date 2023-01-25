@@ -21,6 +21,7 @@ protocol AbstractRequestFactoryProtocol {
     var requestQueue: DispatchQueue { get }
     var completionQueue: DispatchQueue { get }
     var router: Router<API> { get }
+    func getResponse<Response: Codable>(type: Response.Type, endPoint: API, completion: @escaping (_ response: Response?, _ error: String?) -> Void)
 }
 
 // MARK: - AbstractRequestFactory

@@ -10,7 +10,7 @@ import Foundation
 // MARK: - NewTopicRequestDTO
 
 struct NewTopicRequestDTO: Codable {
-    let topic: NewTopicDTO
+    let topic: NewTopicDTO?
 }
 
 // MARK: - NewTopicDTO

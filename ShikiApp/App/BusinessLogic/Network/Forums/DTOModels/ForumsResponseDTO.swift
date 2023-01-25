@@ -1,5 +1,5 @@
 //
-//  Forums.swift
+//  ForumsResponseDTO.swift
 //  ShikiApp
 //
 //  Created by Алексей Шинкарев on 17.01.2023.
@@ -15,8 +15,8 @@ typealias ForumsResponseDTO = [ForumDTO]
 
 struct ForumDTO: Codable {
     let id: Int
-    let position: Int
+    let position: Int?
     let name: String?
     let permalink: String?
-    let url: String
+    let url: String?
 }

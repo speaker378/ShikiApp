@@ -15,8 +15,8 @@ typealias UserHistoryResponseDTO = [HistoryItem]
 
 struct HistoryItem: Codable {
     let id: Int
-    let createdAt, description: String
-    let target: TargetDTO
+    let createdAt, description: String?
+    let target: TargetDTO?
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -29,10 +29,11 @@ struct HistoryItem: Codable {
 
 struct TargetDTO: Codable {
     let id: Int
-    let name, russian: String
-    let image: ImageDTO
-    let url, kind, score, status: String
-    let episodes, episodesAired: Int
+    let name: String?
+    let russian: String?
+    let image: ImageDTO?
+    let url, kind, score, status: String?
+    let episodes, episodesAired: Int?
     let airedOn, releasedOn: String?
 
     enum CodingKeys: String, CodingKey {

@@ -16,9 +16,9 @@ typealias ClubsResponseDTO = [ClubDTO]
 struct ClubDTO: Codable {
     let id: Int
     let name: String
-    let logo: LogoDTO
-    let isCensored: Bool
-    let joinPolicy, commentPolicy: String
+    let logo: LogoDTO?
+    let isCensored: Bool?
+    let joinPolicy, commentPolicy: String?
 
     enum CodingKeys: String, CodingKey {
         case id, name, logo

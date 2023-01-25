@@ -13,10 +13,10 @@ typealias NewsTopicsResponseDTO = [NewsTopicDTO]
 
 struct NewsTopicDTO: Codable {
     let id: Int
-    let linked: LinkedDTO
+    let linked: LinkedDTO?
     let event: String?
     let episode: Int?
-    let createdAt: String
+    let createdAt: String?
     let url: String?
 
     enum CodingKeys: String, CodingKey {

@@ -13,13 +13,13 @@ typealias MessagesResponseDTO = [MessageDTO]
 
 struct MessageDTO: Codable {
     let id: Int
-    let kind: String
-    let read: Bool
-    let body, htmlBody, createdAt: String
-    let linkedID: Int
-    let linkedType: String
-    let linked: LinkedDataDTO
-    let source, target: UserDTO
+    let kind: String?
+    let read: Bool?
+    let body, htmlBody, createdAt: String?
+    let linkedID: Int?
+    let linkedType: String?
+    let linked: LinkedDataDTO?
+    let source, target: UserDTO?
 
     enum CodingKeys: String, CodingKey {
         case id, kind, read, body
@@ -37,13 +37,13 @@ struct MessageDTO: Codable {
 
 struct LinkedDataDTO: Codable {
     let id: Int
-    let topicURL: String
-    let threadID, topicID: Int
-    let type, name, russian: String
-    let image: ImageDTO
-    let url, kind, score, status: String
-    let episodes, episodesAired: Int
-    let airedOn, releasedOn: String
+    let topicURL: String?
+    let threadID, topicID: Int?
+    let type, name, russian: String?
+    let image: ImageDTO?
+    let url, kind, score, status: String?
+    let episodes, episodesAired: Int?
+    let airedOn, releasedOn: String?
 
     enum CodingKeys: String, CodingKey {
         case id

@@ -15,11 +15,11 @@ typealias BansResponseDTO = [BanDTO]
 
 struct BanDTO: Codable {
     let id, userID: Int
-    let comment: CommentDTO
-    let moderatorID: Int
-    let reason, createdAt: String
-    let durationMinutes: Int
-    let user, moderator: UserDTO
+    let comment: CommentDTO?
+    let moderatorID: Int?
+    let reason, createdAt: String?
+    let durationMinutes: Int?
+    let user, moderator: UserDTO?
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -36,11 +36,12 @@ struct BanDTO: Codable {
 // MARK: - CommentDTO
 
 struct CommentDTO: Codable {
-    let id, commentableID: Int
-    let commentableType, body: String
+    let id: Int
+    let commentableID: Int?
+    let commentableType, body: String?
     let userID: Int
-    let createdAt, updatedAt: String
-    let isOfftopic: Bool
+    let createdAt, updatedAt: String?
+    let isOfftopic: Bool?
 
     enum CodingKeys: String, CodingKey {
         case id

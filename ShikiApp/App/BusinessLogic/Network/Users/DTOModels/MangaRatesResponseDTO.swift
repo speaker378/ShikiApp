@@ -40,10 +40,11 @@ struct MangaRateDTO: Codable {
 
 struct MangaInfoDTO: Codable {
     let id: Int
-    let name, russian: String
-    let image: ImageDTO
-    let url, kind, score, status: String
-    let volumes, chapters: Int
+    let name: String
+    let russian: String?
+    let image: ImageDTO?
+    let url, kind, score, status: String?
+    let volumes, chapters: Int?
     let airedOn, releasedOn: String?
 
     enum CodingKeys: String, CodingKey {

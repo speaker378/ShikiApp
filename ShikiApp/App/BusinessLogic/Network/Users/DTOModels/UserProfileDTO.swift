@@ -11,20 +11,21 @@ import Foundation
 
 struct UserProfileDTO: Codable {
     let id: Int
-    let nickname, avatar: String
-    let image: UserImageDTO
-    let lastOnlineAt: String
-    let url: String
+    let nickname: String
+    let avatar: String?
+    let image: UserImageDTO?
+    let lastOnlineAt: String?
+    let url: String?
     let name, sex, fullYears: String?
-    let lastOnline, website: String
+    let lastOnline, website: String?
     let location: String?
-    let banned: Bool
-    let about, aboutHTML: String
-    let commonInfo: [String]
-    let showComments: Bool
-    let inFriends: Bool
-    let isIgnored: Bool
-    let stats: StatsDTO
+    let banned: Bool?
+    let about, aboutHTML: String?
+    let commonInfo: [String]?
+    let showComments: Bool?
+    let inFriends: Bool?
+    let isIgnored: Bool?
+    let stats: StatsDTO?
     let styleID: Int?
 
     enum CodingKeys: String, CodingKey {
@@ -50,11 +51,11 @@ struct UserProfileDTO: Codable {
 // MARK: - StatsDTO
 
 struct StatsDTO: Codable {
-    let statuses, fullStatuses, scores, types: FullStatusesDTO
-    let ratings: RatingsDTO
-    let hasAnime, hasManga: Bool
-    let genres, studios, publishers: [String]
-    let activity: ActivityDTO
+    let statuses, fullStatuses, scores, types: FullStatusesDTO?
+    let ratings: RatingsDTO?
+    let hasAnime, hasManga: Bool?
+    let genres, studios, publishers: [String]?
+    let activity: ActivityDTO?
 
     enum CodingKeys: String, CodingKey {
         case statuses
@@ -73,15 +74,15 @@ struct ActivityDTO: Codable {}
 // MARK: - FullStatusesDTO
 
 struct FullStatusesDTO: Codable {
-    let anime, manga: [AnimeDTO]
+    let anime, manga: [AnimeDTO]?
 }
 
-// MARK: - Anime
+// MARK: - AnimeDTO
 
 struct AnimeDTO: Codable {
     let id: Int
-    let groupedID, name: String
-    let size: Int
+    let groupedID, name: String?
+    let size: Int?
     let type: TypeEnumDTO
 
     enum CodingKeys: String, CodingKey {
@@ -101,12 +102,12 @@ enum TypeEnumDTO: String, Codable {
 // MARK: - RatingsDTO
 
 struct RatingsDTO: Codable {
-    let anime: [RatingDTO]
+    let anime: [RatingDTO]?
 }
 
 // MARK: - RatingDTO
 
 struct RatingDTO: Codable {
-    let name: String
-    let value: Int
+    let name: String?
+    let value: Int?
 }
