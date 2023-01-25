@@ -8,6 +8,7 @@
 import UIKit
 
 extension String {
+    
     func getTextHeight(width: CGFloat, font: UIFont) -> CGFloat {
         let textBlock = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
         let rect = self.boundingRect(with: textBlock,

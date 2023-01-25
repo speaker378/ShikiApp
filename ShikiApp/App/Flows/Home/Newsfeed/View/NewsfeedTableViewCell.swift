@@ -8,7 +8,9 @@
 import UIKit
 
 class NewsfeedTableViewCell: UITableViewCell {
+    
     // MARK: - Private properties
+    
     private let lineWidth: CGFloat = 1
     private let imageWidth: CGFloat = 88
     private let trailing = -16.0
@@ -57,6 +59,7 @@ class NewsfeedTableViewCell: UITableViewCell {
     }()
     
     // MARK: - Construction
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.configureUI()
@@ -67,12 +70,14 @@ class NewsfeedTableViewCell: UITableViewCell {
     }
     
     // MARK: - Lifecycle
+    
     override func prepareForReuse() {
         newsImageView.image = nil
         [dateLabel, titleLabel, subtitleLabel].forEach { $0.text = nil }
     }
     
     // MARK: - Private functions
+    
     private func configureUI() {
         self.selectedBackgroundView = accentBackgroundView
         self.addSubviews([newsImageView, dateLabel, titleLabel, subtitleLabel, strokeView])
@@ -116,6 +121,7 @@ class NewsfeedTableViewCell: UITableViewCell {
     }
     
     // MARK: - Functions
+    
     func configure(with cellModel: NewsModel) {
         newsImageView.image = cellModel.image
         dateLabel.text = cellModel.date

@@ -8,6 +8,7 @@
 import UIKit
 
 // MARK: - UITableViewDataSource
+
 extension NewsfeedViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         models.count
@@ -22,6 +23,7 @@ extension NewsfeedViewController: UITableViewDataSource {
 }
 
 // MARK: - UITableViewDelegate
+
 extension NewsfeedViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         112

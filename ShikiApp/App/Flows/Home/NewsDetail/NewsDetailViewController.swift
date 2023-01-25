@@ -8,6 +8,7 @@
 import UIKit
 
 class NewsDetailViewController: UIViewController {
+    
     let news: NewsModel
     
     init(news: NewsModel) {
@@ -23,5 +24,4 @@ class NewsDetailViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
     }
-
 }

@@ -8,7 +8,9 @@
 import UIKit
 
 class NewsfeedViewController: (UIViewController & NewsfeedViewInput) {
+    
     // MARK: - Properties
+    
     let presenter: NewsfeedViewOutput
     var models: [NewsModel] = [] {
         didSet {
@@ -17,6 +19,7 @@ class NewsfeedViewController: (UIViewController & NewsfeedViewInput) {
     }
     
     // MARK: - Private Properties
+    
     private var tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -52,6 +55,7 @@ class NewsfeedViewController: (UIViewController & NewsfeedViewInput) {
     }()
     
     // MARK: - Construction
+    
     init(presenter: NewsfeedViewOutput) {
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
@@ -62,6 +66,7 @@ class NewsfeedViewController: (UIViewController & NewsfeedViewInput) {
     }
     
     // MARK: - Lifecycle
+    
     override func loadView() {
         super.loadView()
         setupViews()
@@ -74,6 +79,7 @@ class NewsfeedViewController: (UIViewController & NewsfeedViewInput) {
     }
     
     // MARK: - Private functions
+    
     private func setupViews() {
         backgroundView.addSubviews([backgroundImageView, backgroundLabel])
         tableView.backgroundView = backgroundView
