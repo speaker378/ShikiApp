@@ -32,7 +32,7 @@ final class NewsfeedPresenter: NewsfeedViewOutput {
     // MARK: - Functions
     
     func viewDidSelectNews(news: NewsModel) {
-        let newsDetailViewController = NewsDetailViewController(news: news, datasource: NewsDetailCollectionViewDatasource(images: news.images))
+        let newsDetailViewController = NewsDetailBuilder.build(news: news)
         viewInput?.navigationController?.pushViewController(newsDetailViewController, animated: true)
     }
     

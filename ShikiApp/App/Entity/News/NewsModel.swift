@@ -13,6 +13,7 @@ struct NewsModel {
     let title: String?
     let subtitle: String?
     let images: [UIImage]
+    let URLString: String?
     // ...
 }
 
@@ -27,13 +28,15 @@ final class NewsModelFactory {
         let title = news.title
         let subtitle = news.subtitle
         let images = news.images
+        let URLString = news.URLString
 
         return NewsModel(
             image: image,
             date: date,
             title: title,
             subtitle: subtitle,
-            images: images
+            images: images,
+            URLString: URLString
         )
     }
 }

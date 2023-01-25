@@ -25,4 +25,8 @@ struct Constants {
         static let inset16: CGFloat = 16.0
         static let inset24: CGFloat = 24.0
     }
+    
+    enum Spacing {
+        static let spacing8: CGFloat = 8.0
+    }
 }

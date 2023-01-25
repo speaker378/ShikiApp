@@ -1,21 +1,25 @@
 //
-//  NewsDetailContentView.swift
+//  NewsDetailCollectionViewDatasource.swift
 //  ShikiApp
 //
-//  Created by Alla Shkolnik on 24.01.2023.
+//  Created by 👩🏻‍🎨 📱 december11 on 24.01.2023.
 //
 
 import UIKit
 
-// MARK: - UICollectionViewDataSource
-
-final class NewsDetailCollectionViewDatasource: NSObject, UICollectionViewDataSource {
+final class NewsDetailCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     
-    private var images: [UIImage]
+    // MARK: - Private properties
+    
+    private let images: [UIImage]
+    
+    // MARK: - Init
     
     init(images: [UIImage]) {
         self.images = images
     }
+    
+    // MARK: - Methods
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return images.count
@@ -29,4 +33,5 @@ final class NewsDetailCollectionViewDatasource: NSObject, UICollectionViewDataSo
         cell.configure(image: images[indexPath.item])
         return cell
     }
+    
 }

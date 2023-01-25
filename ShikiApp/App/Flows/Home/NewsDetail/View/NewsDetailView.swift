@@ -2,7 +2,7 @@
 //  NewsDetailView.swift
 //  ShikiApp
 //
-//  Created by Alla Shkolnik on 22.01.2023.
+//  Created by 👩🏻‍🎨 📱 december11 on 22.01.2023.
 //
 
 import UIKit
@@ -11,39 +11,52 @@ final class NewsDetailView: UIView {
     
     // MARK: - Private properties
     
+    private struct NewsConstants {
+        static let itemWidht: CGFloat = 260
+        static let itemHeight: CGFloat = 160
+        static let coverHeight: CGFloat = 200
+        static let maximumTitleLines = 5
+    }
+    
     private let coverImageView = UIImageView()
     private let titleLabel: AppLabel
     private let metaDataLabel: AppLabel
     private let contentLabel: AppLabel
     private let gradientLayer = CAGradientLayer()
-    private let datasource: UICollectionViewDataSource
+    private let datasource: UICollectionViewDataSource?
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.itemSize = CGSize(width: 260, height: 160)
+        layout.minimumInteritemSpacing = Constants.Spacing.spacing8
+        layout.itemSize = CGSize(width: NewsConstants.itemWidht, height: NewsConstants.itemHeight)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         return collectionView
     }()
     
     // MARK: - Init
     
-    init(coverImage: UIImage, title: String, meta: String, content: String, collectionDataSource: UICollectionViewDataSource) {
-        coverImageView.image = coverImage
+    init(news: NewsModel) {
+        coverImageView.image = news.image ?? AppImage.ErrorsIcons.nonConnectionIcon
         titleLabel = AppLabel(
-            title: title,
+            title: news.title ?? "",
             alignment: .left,
             fontSize: AppFont.openSansFont(ofSize: 20, weight: .bold),
             fontСolor: AppColor.textInvert,
-            numberLines: 0
+            numberLines: NewsConstants.maximumTitleLines
         )
         metaDataLabel = AppLabel(
-            title: meta,
+            title: news.date ?? "",
             alignment: .left,
             fontSize: AppFont.openSansFont(ofSize: 12, weight: .regular),
             fontСolor: AppColor.textInvert
         )
-        contentLabel = AppLabel(title: content, alignment: .left, fontSize: AppFont.openSansFont(ofSize: 16, weight: .regular), numberLines: 0)
-        datasource = collectionDataSource
+        contentLabel = AppLabel(
+            title: news.subtitle ?? "",
+            alignment: .left,
+            fontSize: AppFont.openSansFont(ofSize: 16, weight: .regular),
+            numberLines: 0
+        )
+        datasource = NewsDetailCollectionViewDataSource(images: news.images)
         super.init(frame: .zero)
         configure()
     }
@@ -90,7 +103,7 @@ final class NewsDetailView: UIView {
             coverImageView.topAnchor.constraint(equalTo: self.topAnchor),
             coverImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             coverImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            coverImageView.heightAnchor.constraint(equalToConstant: 200.0)
+            coverImageView.heightAnchor.constraint(equalToConstant: NewsConstants.coverHeight)
         ])
     }
     
@@ -125,6 +138,7 @@ final class NewsDetailView: UIView {
     }
     
     private func configureCollectionView() {
+        collectionView.showsHorizontalScrollIndicator = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
@@ -132,7 +146,7 @@ final class NewsDetailView: UIView {
             collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            collectionView.heightAnchor.constraint(equalToConstant: 160)
+            collectionView.heightAnchor.constraint(equalToConstant: NewsConstants.itemHeight)
         ])
     }
     

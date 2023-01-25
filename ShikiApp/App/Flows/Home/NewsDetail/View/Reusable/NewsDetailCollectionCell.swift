@@ -2,7 +2,7 @@
 //  NewsDetailCollectionViewCell.swift
 //  ShikiApp
 //
-//  Created by Alla Shkolnik on 22.01.2023.
+//  Created by 👩🏻‍🎨 📱 december11 on 22.01.2023.
 //
 
 import UIKit

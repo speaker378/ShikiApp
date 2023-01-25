@@ -7,34 +7,22 @@
 
 import UIKit
 
-class NewsDetailViewController: UIViewController {
+class NewsDetailViewController: UIViewController, NewsDetailViewInput {
+    
+    var news: NewsModel
     
     // MARK: - Private properties
     
-    private let news: NewsModel
+    private let viewOutput: NewsDetailViewOutput
     private let scrollView = UIScrollView()
     private let contentView: NewsDetailView
-//    private let newsDetailView: NewsDetailView
-//    private let collectionView: UICollectionView = {
-//        let layout = UICollectionViewFlowLayout()
-//        layout.scrollDirection = .horizontal
-//        layout.itemSize = CGSize(width: 260, height: 160)
-//        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-//        return collectionView
-//    }()
 
     // MARK: - Init
     
-    init(news: NewsModel, datasource: UICollectionViewDataSource) {
+    init(presenter: NewsDetailViewOutput, news: NewsModel) {
         self.news = news
-        contentView = NewsDetailView(
-            coverImage: news.image ?? AppImage.ErrorsIcons.nonConnectionIcon,
-            title: news.title ?? "no title",
-            meta: news.date ?? "no metadata",
-            content: news.subtitle ?? "some text",
-            collectionDataSource: datasource
-        )
-//        collectionView.dataSource = datasource
+        viewOutput = presenter
+        contentView = NewsDetailView(news: news)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -45,7 +33,6 @@ class NewsDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-//        collectionView.registerCell(NewsDetailCollectionViewCell.self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -57,43 +44,37 @@ class NewsDetailViewController: UIViewController {
     
     private func configureUI() {
         title = Texts.NavigationBarTitles.newsTitle
-        view.backgroundColor = .white
+        view.backgroundColor = AppColor.backgroundMain
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
-//        contentView.addSubview(newsDetailView)
-//        contentView.addSubviews([newsDetailView, collectionView])
-        
         configureScrollView()
         configureContentView()
-//        configureNewsDetailView()
-//        configureCollectionView()
     }
     
     private func configureLeftBarItem() {
-        let backItem = UIBarButtonItem(
+        let leadingItem = UIBarButtonItem(
             image: AppImage.NavigationsBarIcons.back,
             style: .plain,
             target: nil,
             action: #selector(UINavigationController.popViewController(animated:))
         )
-        backItem.tintColor = AppColor.textMain
-        navigationItem.leftBarButtonItem = backItem
+        leadingItem.tintColor = AppColor.textMain
+        navigationItem.leftBarButtonItem = leadingItem
     }
     
     private func configureRightBarItem() {
-        let shareItem = UIBarButtonItem(
+        let trailingItem = UIBarButtonItem(
             image: AppImage.NavigationsBarIcons.share,
             style: .plain,
-            target: nil,
-            action: #selector(UINavigationController.popViewController(animated:))
+            target: self,
+            action: #selector(trailingItemTapped)
         )
-        shareItem.tintColor = AppColor.textMain
-        navigationItem.rightBarButtonItem = shareItem
+        trailingItem.tintColor = AppColor.textMain
+        navigationItem.rightBarButtonItem = trailingItem
     }
     
     private func configureNavBar() {
         navigationController?.navigationBar.prefersLargeTitles = false
-        navigationItem.largeTitleDisplayMode = .never
         navigationController?.navigationBar.layoutIfNeeded()
         configureLeftBarItem()
         configureRightBarItem()
@@ -123,27 +104,8 @@ class NewsDetailViewController: UIViewController {
         ])
     }
     
-//    private func configureNewsDetailView() {
-//        newsDetailView.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        NSLayoutConstraint.activate([
-//            newsDetailView.topAnchor.constraint(equalTo: contentView.topAnchor),
-//            newsDetailView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-//            newsDetailView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-//            newsDetailView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constants.Inset.inset24),
-//            newsDetailView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width)
-//        ])
-//    }
+    @objc private func trailingItemTapped() {
+        viewOutput.navBarItemTapped()
+    }
     
-//    private func configureCollectionView() {
-//        collectionView.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        NSLayoutConstraint.activate([
-//            collectionView.topAnchor.constraint(equalTo: newsDetailView.bottomAnchor),
-//            collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-//            collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-//            collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-//            collectionView.heightAnchor.constraint(equalToConstant: 160)
-//        ])
-//    }
 }

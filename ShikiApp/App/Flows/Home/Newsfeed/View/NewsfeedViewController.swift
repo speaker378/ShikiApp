@@ -78,6 +78,11 @@ class NewsfeedViewController: (UIViewController & NewsfeedViewInput) {
         presenter.fetchData()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
     // MARK: - Private functions
     
     private func setupViews() {
