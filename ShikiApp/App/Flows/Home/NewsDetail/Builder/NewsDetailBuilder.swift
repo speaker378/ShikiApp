@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NewsDetailBuilder {
+final class NewsDetailBuilder {
     
     static func build(news: NewsModel) -> (UIViewController & NewsDetailViewInput) {
         let presenter = NewsDetailPresenter()
@@ -16,5 +16,4 @@ class NewsDetailBuilder {
         presenter.viewInput = viewController
         return viewController
     }
-    
 }

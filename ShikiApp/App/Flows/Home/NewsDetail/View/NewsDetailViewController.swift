@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NewsDetailViewController: UIViewController, NewsDetailViewInput {
+final class NewsDetailViewController: UIViewController, NewsDetailViewInput {
     
     var news: NewsModel
     
@@ -17,7 +17,7 @@ class NewsDetailViewController: UIViewController, NewsDetailViewInput {
     private let scrollView = UIScrollView()
     private let contentView: NewsDetailView
 
-    // MARK: - Init
+    // MARK: - Construction
     
     init(presenter: NewsDetailViewOutput, news: NewsModel) {
         self.news = news
@@ -40,37 +40,37 @@ class NewsDetailViewController: UIViewController, NewsDetailViewInput {
         configureNavBar()
     }
     
-    // MARK: - Private methods
+    // MARK: - Private functions
     
     private func configureUI() {
         title = Texts.NavigationBarTitles.newsTitle
         view.backgroundColor = AppColor.backgroundMain
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
-        configureScrollView()
-        configureContentView()
+        [scrollView, contentView].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+        configureConstraints()
     }
     
     private func configureLeftBarItem() {
-        let leadingItem = UIBarButtonItem(
+        let backItem = UIBarButtonItem(
             image: AppImage.NavigationsBarIcons.back,
             style: .plain,
             target: nil,
             action: #selector(UINavigationController.popViewController(animated:))
         )
-        leadingItem.tintColor = AppColor.textMain
-        navigationItem.leftBarButtonItem = leadingItem
+        backItem.tintColor = AppColor.textMain
+        navigationItem.leftBarButtonItem = backItem
     }
     
     private func configureRightBarItem() {
-        let trailingItem = UIBarButtonItem(
+        let shareItem = UIBarButtonItem(
             image: AppImage.NavigationsBarIcons.share,
             style: .plain,
             target: self,
-            action: #selector(trailingItemTapped)
+            action: #selector(shareButtonTapped)
         )
-        trailingItem.tintColor = AppColor.textMain
-        navigationItem.rightBarButtonItem = trailingItem
+        shareItem.tintColor = AppColor.textMain
+        navigationItem.rightBarButtonItem = shareItem
     }
     
     private func configureNavBar() {
@@ -80,22 +80,14 @@ class NewsDetailViewController: UIViewController, NewsDetailViewInput {
         configureRightBarItem()
     }
     
-    private func configureScrollView() {
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        
+    private func configureConstraints() {
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            scrollView.widthAnchor.constraint(equalTo: contentView.widthAnchor)
-        ])
-    }
-    
-    private func configureContentView() {
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
+            scrollView.widthAnchor.constraint(equalTo: contentView.widthAnchor),
+            
             contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
@@ -104,8 +96,7 @@ class NewsDetailViewController: UIViewController, NewsDetailViewInput {
         ])
     }
     
-    @objc private func trailingItemTapped() {
-        viewOutput.navBarItemTapped()
+    @objc private func shareButtonTapped() {
+        viewOutput.shareURL()
     }
-    
 }

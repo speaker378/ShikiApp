@@ -12,7 +12,7 @@ protocol NewsDetailViewInput: AnyObject {
 }
 
 protocol NewsDetailViewOutput: AnyObject {
-    func navBarItemTapped()
+    func shareURL()
 }
 
 final class NewsDetailPresenter: NewsDetailViewOutput {
@@ -23,12 +23,13 @@ final class NewsDetailPresenter: NewsDetailViewOutput {
     
     // MARK: - Functions
     
-    func navBarItemTapped() {
-        guard let URLString = viewInput?.news.URLString else { return }
-        let url = URL(string: URLString)
-        let shareItems = [url as Any]
+    func shareURL() {
+        guard
+            let URLString = viewInput?.news.URLString,
+            let url = URL(string: URLString),
+            let shareItems = [url] as? [Any]
+        else { return }
         let activityViewController = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
-        viewInput?.present(activityViewController, animated: true, completion: nil)
+        self.viewInput?.present(activityViewController, animated: true)
     }
-    
 }

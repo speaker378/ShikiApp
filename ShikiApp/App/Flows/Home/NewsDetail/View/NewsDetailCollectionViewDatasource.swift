@@ -13,13 +13,13 @@ final class NewsDetailCollectionViewDataSource: NSObject, UICollectionViewDataSo
     
     private let images: [UIImage]
     
-    // MARK: - Init
+    // MARK: - Construction
     
     init(images: [UIImage]) {
         self.images = images
     }
     
-    // MARK: - Methods
+    // MARK: - Functions
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return images.count
@@ -33,5 +33,4 @@ final class NewsDetailCollectionViewDataSource: NSObject, UICollectionViewDataSo
         cell.configure(image: images[indexPath.item])
         return cell
     }
-    
 }

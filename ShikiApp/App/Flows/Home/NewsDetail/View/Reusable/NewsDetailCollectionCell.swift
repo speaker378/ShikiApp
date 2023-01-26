@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NewsDetailCollectionViewCell: UICollectionViewCell {
+final class NewsDetailCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Private properties
 
@@ -15,12 +15,12 @@ class NewsDetailCollectionViewCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = Constants.Inset.inset8
+        imageView.layer.cornerRadius = 8.0
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
-    // MARK: - Init
+    // MARK: - Construction
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -29,7 +29,7 @@ class NewsDetailCollectionViewCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) { nil }
     
-    // MARK: - Methods
+    // MARK: - Functions
     
     override func prepareForReuse() {
         imageView.image = nil
@@ -39,7 +39,7 @@ class NewsDetailCollectionViewCell: UICollectionViewCell {
         imageView.image = image
     }
     
-    // MARK: - Private methods
+    // MARK: - Private functions
     
     private func configureUI() {
         addSubview(imageView)
@@ -51,5 +51,4 @@ class NewsDetailCollectionViewCell: UICollectionViewCell {
             imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
     }
-    
 }
