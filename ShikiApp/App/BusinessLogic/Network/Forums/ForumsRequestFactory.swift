@@ -16,22 +16,29 @@ protocol ForumsRequestFactoryProtocol {
     func listForums(completion: @escaping (_ response: ForumsResponseDTO?, _ error: String?) -> Void)
 }
 
+// MARK: ForumsRequestFactoryProtocol extension
+
+extension ForumsRequestFactoryProtocol {
+    
+    // MARK: - Functions
+    
+    func listForums(completion: @escaping (_ response: ForumsResponseDTO?, _ error: String?) -> Void) {
+        delegate?.getResponse(type: ForumsResponseDTO.self, endPoint: .list, completion: completion)
+    }
+}
+
 // MARK: - ForumsRequestFactory
 
 final class ForumsRequestFactory: ForumsRequestFactoryProtocol {
-    internal let delegate: (AbstractRequestFactory<ForumsApi>)?
+    
+    // MARK: - Properties
+    
+    let delegate: (AbstractRequestFactory<ForumsApi>)?
+    
+    // MARK: - Construction
     
     init(token: String? = nil, agent: String? = nil) {
         self.delegate = AbstractRequestFactory<ForumsApi>(token: token, agent: agent)
     }
     
-}
-
-// MARK: ForumsRequestFactory extension to ForumsRequestFactoryProtocol
-
-extension ForumsRequestFactoryProtocol {
-    
-    func listForums(completion: @escaping (_ response: ForumsResponseDTO?, _ error: String?) -> Void) {
-        delegate?.getResponse(type: ForumsResponseDTO.self, endPoint: .list, completion: completion)
-    }
 }

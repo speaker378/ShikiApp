@@ -11,7 +11,11 @@ import Foundation
 
 protocol UsersRequestFactoryProtocol {
     
+    // MARK: - Properties
+    
     var delegate: (AbstractRequestFactory<UsersApi>)? { get }
+
+    // MARK: - Functions
     
     func getUsers(page: Int?, limit: Int?, completion: @escaping (_ response: UsersResponseDTO?, _ error: String?) -> Void)
     
@@ -42,22 +46,11 @@ protocol UsersRequestFactoryProtocol {
     
 }
 
-// MARK: - UsersRequestFactory
-
-final class UsersRequestFactory: UsersRequestFactoryProtocol {
-    
-    internal let delegate: (AbstractRequestFactory<UsersApi>)?
-    
-    init(token: String? = nil, agent: String? = nil) {
-        self.delegate = AbstractRequestFactory<UsersApi>(token: token, agent: agent)
-    }
-}
-
 // MARK: - UsersRequestFactoryProtocol extension
 
 extension UsersRequestFactoryProtocol {
     
-    // MARK: - Factory methods
+    // MARK: - Functions
 
     func getUsers(page: Int?,
                   limit: Int?,
@@ -204,5 +197,20 @@ extension UsersRequestFactoryProtocol {
 
     func getBans(id: Int, completion: @escaping (_ response: BansResponseDTO?, _ error: String?) -> Void) {
         delegate?.getResponse(type: BansResponseDTO.self, endPoint: .listBans(id: id), completion: completion)
+    }
+}
+
+// MARK: - UsersRequestFactory
+
+final class UsersRequestFactory: UsersRequestFactoryProtocol {
+    
+    // MARK: - Properties
+    
+    let delegate: (AbstractRequestFactory<UsersApi>)?
+    
+    // MARK: - Construction
+    
+    init(token: String? = nil, agent: String? = nil) {
+        self.delegate = AbstractRequestFactory<UsersApi>(token: token, agent: agent)
     }
 }

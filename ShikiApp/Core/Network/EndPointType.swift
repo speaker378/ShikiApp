@@ -7,6 +7,8 @@
 
 import Foundation
 
+// MARK: - EndPointType protocol
+
 protocol EndPointType {
     static var baseURL: URL { get }
     var path: String { get }
@@ -14,6 +16,8 @@ protocol EndPointType {
     var task: HTTPTask { get }
     var headers: HTTPHeaders? { get }
 }
+
+// MARK: - EndPointType extension
 
 extension EndPointType {
     static var baseURL: URL {

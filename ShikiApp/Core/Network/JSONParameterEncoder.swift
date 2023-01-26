@@ -7,7 +7,12 @@
 
 import Foundation
 
+// MARK: - JSONParameterEncoder
+
 public struct JSONParameterEncoder: ParameterEncoder {
+    
+    // MARK: - ParameterEncoder protocol implementation
+    
     public func encode(urlRequest: inout URLRequest, with parameters: Parameters) throws {
         do {
             let jsonAsData = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)

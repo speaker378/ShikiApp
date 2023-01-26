@@ -9,6 +9,8 @@ import Foundation
 
 public typealias NetworkRouterCompletion = (_ data: Data?, _ response: URLResponse?, _ error: Error?) -> Void
 
+// MARK: - NetworkRouter protocol
+
 protocol NetworkRouter {
     associatedtype EndPoint: EndPointType
     var token: String? { get }
@@ -19,18 +21,21 @@ protocol NetworkRouter {
 
 final class Router<EndPoint: EndPointType>: NetworkRouter {
     
-    // MARK: - Internal properties
+    // MARK: - Properties
 
     var token: String?
     var userAgent: String?
 
-    // MARK: - Private properties
+    // MARK: - Properties
 
+    private let queue: OperationQueue
     private var task: URLSessionTask?
 
-    // MARK: - Initializers
+    // MARK: - Construction
 
     init(token: String?, userAgent: String?) {
+        queue = OperationQueue()
+        queue.qualityOfService = .utility
         self.token = token
         self.userAgent = userAgent
     }
@@ -38,7 +43,7 @@ final class Router<EndPoint: EndPointType>: NetworkRouter {
     // MARK: - Functions
 
     func request(_ route: EndPoint, completion: @escaping NetworkRouterCompletion) {
-        let session = URLSession.shared
+        let session = URLSession(configuration: .default, delegate: nil, delegateQueue: queue)
 
         do {
             let request = try self.buildRequest(from: route)

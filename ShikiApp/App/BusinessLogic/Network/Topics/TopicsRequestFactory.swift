@@ -10,8 +10,12 @@ import Foundation
 // MARK: - TopicsRequestFactoryProtocol
 
 protocol TopicsRequestFactoryProtocol {
+
+    // MARK: - Properties
     
     var delegate: (AbstractRequestFactory<TopicsApi>)? { get }
+
+    // MARK: - Functions
     
     func listTopics(page: Int?, limit: Int?, forum: ForumParameter?, linkedId: Int?, linkedType: LinkedTypeParameter?, type: TopicTypeParameter?, completion: @escaping (_ response: TopicsResponseDTO?, _ error: String?) -> Void)
 
@@ -30,23 +34,12 @@ protocol TopicsRequestFactoryProtocol {
     func putTopic(id: Int, title: String?, body: String?, linkedId: Int?, linkedType: LinkedTypeParameter?, completion: @escaping (_ response: TopicDTO?, _ error: String?) -> Void)
 }
 
-// MARK: - TopicsRequestFactory
-
-final class TopicsRequestFactory: TopicsRequestFactoryProtocol {
-    
-    internal let delegate: (AbstractRequestFactory<TopicsApi>)?
-    
-    init(token: String? = nil, agent: String? = nil) {
-        self.delegate = AbstractRequestFactory<TopicsApi>(token: token, agent: agent)
-    }
-}
-
-// MARK: TopicsRequestFactory extension to TopicsRequestFactoryProtocol
+// MARK: TopicsRequestFactoryProtocol extension
 
 extension TopicsRequestFactoryProtocol {
     
-    // MARK: - Factory methods
-
+    // MARK: - Functions
+    
     func listTopics(page: Int? = nil,
                     limit: Int? = nil,
                     forum: ForumParameter? = nil,
@@ -123,9 +116,7 @@ extension TopicsRequestFactoryProtocol {
                         endPoint: .postTopic(parameters: parameters),
                         completion: completion)
         } else {
-            delegate?.completionQueue.async {
-                completion(nil, "Invalid topic to add")
-            }
+            completion(nil, "Invalid topic to add")
         }
         return
 
@@ -163,9 +154,7 @@ extension TopicsRequestFactoryProtocol {
             parameters[APIKeys.topic.rawValue] = fieldsToChange
             delegate?.getResponse(type: TopicDTO.self, endPoint: .putTopic(id: id, parameters: parameters), completion: completion)
         } else {
-            delegate?.completionQueue.async {
                 completion(nil, "Nothing to change")
-            }
         }
         return
 
@@ -185,5 +174,20 @@ extension TopicsRequestFactoryProtocol {
             if !parameters.isEmpty { result = parameters }
             return result
         }
+    }
+}
+
+// MARK: - TopicsRequestFactory
+
+final class TopicsRequestFactory: TopicsRequestFactoryProtocol {
+    
+    // MARK: - Properties
+    
+    let delegate: (AbstractRequestFactory<TopicsApi>)?
+    
+    // MARK: - Construction
+    
+    init(token: String? = nil, agent: String? = nil) {
+        self.delegate = AbstractRequestFactory<TopicsApi>(token: token, agent: agent)
     }
 }
