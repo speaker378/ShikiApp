@@ -11,7 +11,7 @@ final class NewsDetailCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Private properties
 
-    private lazy var imageView: UIImageView = {
+    private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
@@ -32,6 +32,7 @@ final class NewsDetailCollectionViewCell: UICollectionViewCell {
     // MARK: - Functions
     
     override func prepareForReuse() {
+        super.prepareForReuse()
         imageView.image = nil
     }
     
@@ -45,10 +46,10 @@ final class NewsDetailCollectionViewCell: UICollectionViewCell {
         addSubview(imageView)
         
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: self.topAnchor),
-            imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+            imageView.topAnchor.constraint(equalTo: topAnchor),
+            imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            imageView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
 }

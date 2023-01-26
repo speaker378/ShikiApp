@@ -11,22 +11,24 @@ final class NewsDetailView: UIView {
     
     // MARK: - Private properties
     
-    private struct Constants {
+    private enum Layout {
+        
         static let itemWidht: CGFloat = 260
         static let itemHeight: CGFloat = 160
-        static let coverHeight: CGFloat = 200
-        static let sideInset: CGFloat = 16.0
-        static let maximumTitleLines = 5
+        static let itemSpacing: CGFloat = 8.0
     }
     
+    private let coverHeight: CGFloat = 200
+    private let sideInset: CGFloat = 16.0
+    private let topInset: CGFloat = 4.0
+    private let maximumTitleLines = 5
     private let coverImageView = UIImageView()
     private let gradientLayer = CAGradientLayer()
     private let dataSource: UICollectionViewDataSource?
     private let titleLabel = AppLabel(
         alignment: .left,
         fontSize: AppFont.openSansFont(ofSize: 20, weight: .bold),
-        fontСolor: AppColor.textInvert,
-        numberLines: Constants.maximumTitleLines
+        fontСolor: AppColor.textInvert
     )
     private let dateLabel = AppLabel(
         alignment: .left,
@@ -38,11 +40,11 @@ final class NewsDetailView: UIView {
         fontSize: AppFont.openSansFont(ofSize: 16, weight: .regular),
         numberLines: 0
     )
-    private let collectionView: UICollectionView = {
+    private var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.minimumInteritemSpacing = 8.0
-        layout.itemSize = CGSize(width: Constants.itemWidht, height: Constants.itemHeight)
+        layout.minimumInteritemSpacing = Layout.itemSpacing
+        layout.itemSize = CGSize(width: Layout.itemWidht, height: Layout.itemHeight)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.showsHorizontalScrollIndicator = false
         return collectionView
@@ -51,10 +53,9 @@ final class NewsDetailView: UIView {
     // MARK: - Construction
     
     init(news: NewsModel) {
-        coverImageView.image = news.image ?? AppImage.ErrorsIcons.nonConnectionIcon
         dataSource = NewsDetailCollectionViewDataSource(images: news.images)
         super.init(frame: .zero)
-        configure(title: news.title ?? "", date: news.date ?? "", content: news.subtitle ?? "")
+        configure(news: news)
     }
     
     required init?(coder: NSCoder) { nil }
@@ -68,12 +69,13 @@ final class NewsDetailView: UIView {
     
     // MARK: - Private functions
     
-    private func configure(title: String, date: String, content: String) {
+    private func configure(news: NewsModel) {
         collectionView.dataSource = dataSource
         collectionView.registerCell(NewsDetailCollectionViewCell.self)
-        titleLabel.text = title
-        dateLabel.text = date
-        contentLabel.text = content
+        titleLabel.text = news.title
+        dateLabel.text = news.date
+        contentLabel.text = news.subtitle
+        coverImageView.image = news.image ?? AppImage.ErrorsIcons.nonConnectionIcon
         configureUI()
     }
     
@@ -82,6 +84,7 @@ final class NewsDetailView: UIView {
         [coverImageView, titleLabel, dateLabel, contentLabel, collectionView].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
+        titleLabel.numberOfLines = maximumTitleLines
         configureCoverImageView()
         configureConstraints()
     }
@@ -91,25 +94,25 @@ final class NewsDetailView: UIView {
             coverImageView.topAnchor.constraint(equalTo: topAnchor),
             coverImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
             coverImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            coverImageView.heightAnchor.constraint(equalToConstant: Constants.coverHeight),
+            coverImageView.heightAnchor.constraint(equalToConstant: coverHeight),
             
-            dateLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.sideInset),
-            dateLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.sideInset),
-            dateLabel.bottomAnchor.constraint(equalTo: coverImageView.bottomAnchor, constant: -Constants.sideInset),
+            dateLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: sideInset),
+            dateLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -sideInset),
+            dateLabel.bottomAnchor.constraint(equalTo: coverImageView.bottomAnchor, constant: -sideInset),
             
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.sideInset),
-            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.sideInset),
-            titleLabel.bottomAnchor.constraint(equalTo: dateLabel.topAnchor, constant: -4.0),
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: sideInset),
+            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -sideInset),
+            titleLabel.bottomAnchor.constraint(equalTo: dateLabel.topAnchor, constant: -topInset),
             
-            contentLabel.topAnchor.constraint(equalTo: coverImageView.bottomAnchor, constant: Constants.sideInset),
-            contentLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.sideInset),
-            contentLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.sideInset),
+            contentLabel.topAnchor.constraint(equalTo: coverImageView.bottomAnchor, constant: sideInset),
+            contentLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: sideInset),
+            contentLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -sideInset),
             
-            collectionView.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant: Constants.sideInset),
+            collectionView.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant: sideInset),
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            collectionView.heightAnchor.constraint(equalToConstant: Constants.itemHeight)
+            collectionView.heightAnchor.constraint(equalToConstant: Layout.itemHeight)
         ])
     }
     
