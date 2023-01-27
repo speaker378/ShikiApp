@@ -1,5 +1,5 @@
 //
-//  NetworkErrorMessages.swift
+//  NetworkLayerErrorMessages.swift
 //  ShikiApp
 //
 //  Created by Алексей Шинкарев on 25.01.2023.
