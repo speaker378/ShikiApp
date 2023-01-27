@@ -7,11 +7,11 @@
 
 import Foundation
 
-public typealias HTTPHeaders = [String: String]
+typealias HTTPHeaders = [String: String]
 
 // MARK: - HTTPTask enum
 
-public enum HTTPTask {
+enum HTTPTask {
     case request
     case requestParameters(bodyParameters: Parameters?,
                            bodyEncoding: ParameterEncoding,

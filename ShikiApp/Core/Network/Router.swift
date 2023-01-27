@@ -7,7 +7,7 @@
 
 import Foundation
 
-public typealias NetworkRouterCompletion = (_ data: Data?, _ response: URLResponse?, _ error: Error?) -> Void
+typealias NetworkRouterCompletion = (_ data: Data?, _ response: URLResponse?, _ error: Error?) -> Void
 
 // MARK: - NetworkRouter protocol
 
@@ -68,15 +68,15 @@ final class Router<EndPoint: EndPointType>: NetworkRouter {
                                  timeoutInterval: 10.0)
         request.httpMethod = route.httpMethod.rawValue
         if let token = self.token {
-            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+            request.setValue("\(HttpConstants.bearer.rawValue) \(token)", forHTTPHeaderField: HttpConstants.authorization.rawValue)
         }
         if let userAgent = self.userAgent {
-            request.setValue(userAgent, forHTTPHeaderField: "User-Agent")
+            request.setValue(userAgent, forHTTPHeaderField: HttpConstants.agent.rawValue)
         }
         do {
             switch route.task {
             case .request:
-                request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.setValue(HttpConstants.jsonContent.rawValue, forHTTPHeaderField: HttpConstants.contentType.rawValue)
             case .requestParameters(let bodyParameters,
                                     let bodyEncoding,
                                     let urlParameters):

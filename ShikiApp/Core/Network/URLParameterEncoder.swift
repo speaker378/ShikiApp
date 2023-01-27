@@ -9,11 +9,11 @@ import Foundation
 
 // MARK: - URLParameterEncoder
 
-public struct URLParameterEncoder: ParameterEncoder {
+struct URLParameterEncoder: ParameterEncoder {
     
     // MARK: - ParameterEncoder protocol implementation
     
-    public func encode(urlRequest: inout URLRequest, with parameters: Parameters) throws {
+    func encode(urlRequest: inout URLRequest, with parameters: Parameters) throws {
         guard let url = urlRequest.url else { throw NetworkError.missingURL }
 
         if var urlComponents = URLComponents(url: url,
@@ -27,8 +27,8 @@ public struct URLParameterEncoder: ParameterEncoder {
             urlRequest.url = urlComponents.url
         }
 
-        if urlRequest.value(forHTTPHeaderField: "Content-Type") == nil {
-            urlRequest.setValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        if urlRequest.value(forHTTPHeaderField: HttpConstants.contentType.rawValue) == nil {
+            urlRequest.setValue(HttpConstants.formEncodedContent.rawValue, forHTTPHeaderField: HttpConstants.contentType.rawValue)
         }
     }
 }
