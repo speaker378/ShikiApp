@@ -20,7 +20,7 @@ protocol NetworkRouter {
 }
 
 final class Router<EndPoint: EndPointType>: NetworkRouter {
-    
+
     // MARK: - Properties
 
     var token: String?
@@ -63,9 +63,11 @@ final class Router<EndPoint: EndPointType>: NetworkRouter {
     // MARK: - Private functions
 
     private func buildRequest(from route: EndPoint) throws -> URLRequest {
-        var request = URLRequest(url: EndPoint.baseURL.appendingPathComponent(route.path),
-                                 cachePolicy: .reloadIgnoringLocalAndRemoteCacheData,
-                                 timeoutInterval: 10.0)
+        var request = URLRequest(
+            url: EndPoint.baseURL.appendingPathComponent(route.path),
+            cachePolicy: .reloadIgnoringLocalAndRemoteCacheData,
+            timeoutInterval: 10.0
+        )
         request.httpMethod = route.httpMethod.rawValue
         if let token = self.token {
             request.setValue("\(HttpConstants.bearer.rawValue) \(token)", forHTTPHeaderField: HttpConstants.authorization.rawValue)
@@ -76,26 +78,37 @@ final class Router<EndPoint: EndPointType>: NetworkRouter {
         do {
             switch route.task {
             case .request:
-                request.setValue(HttpConstants.jsonContent.rawValue, forHTTPHeaderField: HttpConstants.contentType.rawValue)
-            case .requestParameters(let bodyParameters,
-                                    let bodyEncoding,
-                                    let urlParameters):
-
-                try self.configureParameters(bodyParameters: bodyParameters,
-                                             bodyEncoding: bodyEncoding,
-                                             urlParameters: urlParameters,
-                                             request: &request)
-
-            case .requestParametersAndHeaders(let bodyParameters,
-                                              let bodyEncoding,
-                                              let urlParameters,
-                                              let additionalHeaders):
-
+                request.setValue(
+                    HttpConstants.jsonContent.rawValue,
+                    forHTTPHeaderField: HttpConstants.contentType.rawValue
+                )
+            case .requestParameters(
+                let bodyParameters,
+                let bodyEncoding,
+                let urlParameters
+            ):
+                
+                try self.configureParameters(
+                    bodyParameters: bodyParameters,
+                    bodyEncoding: bodyEncoding,
+                    urlParameters: urlParameters,
+                    request: &request
+                )
+                
+            case .requestParametersAndHeaders(
+                let bodyParameters,
+                let bodyEncoding,
+                let urlParameters,
+                let additionalHeaders
+            ):
+                
                 self.addAdditionalHeaders(additionalHeaders, request: &request)
-                try self.configureParameters(bodyParameters: bodyParameters,
-                                             bodyEncoding: bodyEncoding,
-                                             urlParameters: urlParameters,
-                                             request: &request)
+                try self.configureParameters(
+                    bodyParameters: bodyParameters,
+                    bodyEncoding: bodyEncoding,
+                    urlParameters: urlParameters,
+                    request: &request
+                )
             }
             return request
         } catch {
@@ -105,8 +118,11 @@ final class Router<EndPoint: EndPointType>: NetworkRouter {
 
     private func configureParameters(bodyParameters: Parameters?, bodyEncoding: ParameterEncoding, urlParameters: Parameters?, request: inout URLRequest) throws {
         do {
-            try bodyEncoding.encode(urlRequest: &request,
-                                    bodyParameters: bodyParameters, urlParameters: urlParameters)
+            try bodyEncoding.encode(
+                urlRequest: &request,
+                bodyParameters: bodyParameters,
+                urlParameters: urlParameters
+            )
         } catch {
             throw error
         }

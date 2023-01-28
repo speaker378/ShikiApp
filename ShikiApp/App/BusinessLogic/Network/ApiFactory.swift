@@ -19,7 +19,7 @@ protocol ApiFactoryProtocol {
 // MARK: - ApiFactory
 
 final class ApiFactory: ApiFactoryProtocol {
-    
+
     // MARK: - Private properties
 
     private static var token: String? {

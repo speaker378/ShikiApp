@@ -10,9 +10,13 @@ import XCTest
 
 final class ForumsApiTests: XCTestCase {
 
-    override func setUpWithError() throws {}
+    override func setUpWithError() throws {
+        try? super.setUpWithError()
+    }
 
-    override func tearDownWithError() throws {}
+    override func tearDownWithError() throws {
+        try? super.tearDownWithError()
+    }
     
     func testForumsRequests() throws {
         let factory = ApiFactory.makeForumsApi()

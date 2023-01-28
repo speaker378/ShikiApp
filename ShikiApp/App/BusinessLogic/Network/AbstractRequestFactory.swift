@@ -30,8 +30,12 @@ class AbstractRequestFactory<API: EndPointType>: AbstractRequestFactoryProtocol 
     init(token: String? = nil, agent: String? = nil) {
         router = Router<API>(token: token, userAgent: agent)
     }
-
-    func getResponse<Response: Codable>(type: Response.Type, endPoint: API, completion: @escaping (_ response: Response?, _ error: String?) -> Void) {
+    
+    func getResponse<Response: Codable>(
+        type: Response.Type,
+        endPoint: API,
+        completion: @escaping (_ response: Response?, _ error: String?) -> Void
+    ) {
         router.request(endPoint) { data, response, error in
             if let error {
                 DispatchQueue.main.async {

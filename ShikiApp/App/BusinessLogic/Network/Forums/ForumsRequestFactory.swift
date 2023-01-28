@@ -19,7 +19,7 @@ protocol ForumsRequestFactoryProtocol {
 // MARK: ForumsRequestFactoryProtocol extension
 
 extension ForumsRequestFactoryProtocol {
-    
+
     // MARK: - Functions
     
     func listForums(completion: @escaping (_ response: ForumsResponseDTO?, _ error: String?) -> Void) {
@@ -30,11 +30,11 @@ extension ForumsRequestFactoryProtocol {
 // MARK: - ForumsRequestFactory
 
 final class ForumsRequestFactory: ForumsRequestFactoryProtocol {
-    
+
     // MARK: - Properties
     
     let delegate: (AbstractRequestFactory<ForumsApi>)?
-    
+
     // MARK: - Construction
     
     init(token: String? = nil, agent: String? = nil) {

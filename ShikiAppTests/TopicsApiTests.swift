@@ -11,19 +11,25 @@ import XCTest
 final class TopicsApiTests: XCTestCase {
     private let factory = ApiFactory.makeTopicsApi()
     private let api2Test = "TopicsRequestFactory"
-    override func setUpWithError() throws {}
+    override func setUpWithError() throws {
+        try? super.setUpWithError()
+    }
 
-    override func tearDownWithError() throws {}
-
+    override func tearDownWithError() throws {
+        try? super.tearDownWithError()
+    }
+    
     func testlistTopics() throws {
         let request = "listTopics"
         var response: TopicsResponseDTO?
         var error: String?
         let expectation = self.expectation(description: "\(api2Test).\(request) expectation timeout")
-        factory.listTopics(page: 1,
-                           limit: 10,
-                           forum: .all,
-                           type: .topic) { data, errorMessage in
+        factory.listTopics(
+            page: 1,
+            limit: 10,
+            forum: .all,
+            type: .topic
+        ) { data, errorMessage in
             response = data
             error = errorMessage
             expectation.fulfill()
@@ -57,13 +63,15 @@ final class TopicsApiTests: XCTestCase {
         var response: NewsTopicsResponseDTO?
         var error: String?
         let expectation = self.expectation(description: "\(api2Test).\(request) expectation timeout")
-        factory.newTopics(page: 1,
-                          limit: 10) { data, errorMessage in
+        factory.newTopics(
+            page: 1,
+            limit: 10
+        ) { data, errorMessage in
             response = data
             error = errorMessage
             expectation.fulfill()
         }
-
+        
         waitForExpectations(timeout: 15)
         XCTAssertNil(error, "Unexpected \(api2Test).\(request) error \(error ?? "")")
 
@@ -100,7 +108,15 @@ final class TopicsApiTests: XCTestCase {
             guard let user = data else { return }
             forumFactory.listForums { data, errorMessage in
                 guard let forum = data?.first else { return }
-                let newTopic = NewTopicDTO(body: "test body", linkedType: nil, title: "Test title", type: "Topic", forumID: forum.id, linkedID: nil, userID: user.id)
+                let newTopic = NewTopicDTO(
+                    body: "test body",
+                    linkedType: nil,
+                    title: "Test title",
+                    type: "Topic",
+                    forumID: forum.id,
+                    linkedID: nil,
+                    userID: user.id
+                )
                 self.factory.addTopic(topic: newTopic) { data, errorMessage in
                     topic = data
                     error = errorMessage
@@ -128,7 +144,15 @@ final class TopicsApiTests: XCTestCase {
             guard let user = data else { return }
             forumFactory.listForums { data, errorMessage in
                 guard let forum = data?.first else { return }
-                let newTopic = NewTopicDTO(body: "test body", linkedType: nil, title: "Test title", type: "Topic", forumID: forum.id, linkedID: nil, userID: user.id)
+                let newTopic = NewTopicDTO(
+                    body: "test body",
+                    linkedType: nil,
+                    title: "Test title",
+                    type: "Topic",
+                    forumID: forum.id,
+                    linkedID: nil,
+                    userID: user.id
+                )
                 self.factory.addTopic(topic: newTopic) { data, errorMessage in
                     if let id = data?.id {
                         self.factory.deleteTopic(id: id) { data, errorMessage in
@@ -156,10 +180,24 @@ final class TopicsApiTests: XCTestCase {
             guard let user = data else { return }
             forumFactory.listForums { data, errorMessage in
                 guard let forum = data?.first else { return }
-                let newTopic = NewTopicDTO(body: "test body", linkedType: nil, title: "Test title", type: "Topic", forumID: forum.id, linkedID: nil, userID: user.id)
+                let newTopic = NewTopicDTO(
+                    body: "test body",
+                    linkedType: nil,
+                    title: "Test title",
+                    type: "Topic",
+                    forumID: forum.id,
+                    linkedID: nil,
+                    userID: user.id
+                )
                 self.factory.addTopic(topic: newTopic) { data, errorMessage in
                     if let id = data?.id {
-                        self.factory.putTopic(id: id, title: "new Title", body: "new Body", linkedId: nil, linkedType: nil) { data, errorMessage in
+                        self.factory.putTopic(
+                            id: id,
+                            title: "new Title",
+                            body: "new Body",
+                            linkedId: nil,
+                            linkedType: nil
+                        ) { data, errorMessage in
                             topic = data
                             error = errorMessage
                             expectation.fulfill()

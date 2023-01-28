@@ -10,7 +10,7 @@ import Foundation
 // MARK: - UsersRequestFactoryProtocol
 
 protocol UsersRequestFactoryProtocol {
-    
+
     // MARK: - Properties
     
     var delegate: (AbstractRequestFactory<UsersApi>)? { get }
@@ -39,8 +39,14 @@ protocol UsersRequestFactoryProtocol {
     
     func getFavorites(id: Int, completion: @escaping (_ response: UserFavoritesResponseDTO?, _ error: String?) -> Void)
     
-    func getHistory(id: Int, page: Int?, limit: Int?, targetId: Int?,
-                    type: TargetType?, completion: @escaping (_ response: UserHistoryResponseDTO?, _ error: String?) -> Void)
+    func getHistory(
+        id: Int,
+        page: Int?,
+        limit: Int?,
+        targetId: Int?,
+        type: TargetType?,
+        completion: @escaping (_ response: UserHistoryResponseDTO?, _ error: String?) -> Void
+    )
     
     func getBans(id: Int, completion: @escaping (_ response: BansResponseDTO?, _ error: String?) -> Void)
     
@@ -49,23 +55,29 @@ protocol UsersRequestFactoryProtocol {
 // MARK: - UsersRequestFactoryProtocol extension
 
 extension UsersRequestFactoryProtocol {
-    
+
     // MARK: - Functions
 
     func getUsers(page: Int?,
                   limit: Int?,
                   completion: @escaping (_ response: UsersResponseDTO?, _ error: String?) -> Void) {
         let parameters = validateParameters(page: page, limit: limit)
-        delegate?.getResponse(type: UsersResponseDTO.self,
-                    endPoint: .listUsers(parameters: parameters),
-                    completion: completion)
+        delegate?.getResponse(
+            type: UsersResponseDTO.self,
+            endPoint: .listUsers(parameters: parameters),
+            completion: completion
+        )
         return
 
         func validateParameters(page: Int?, limit: Int?) -> Parameters {
             var parameters = Parameters()
-            if let page = page, (1 ... APIRestrictions.maxPages.rawValue).contains(page) { parameters[APIKeys.page.rawValue] = page }
-            if let limit = limit, (1 ... APIRestrictions.limit100.rawValue).contains(limit) { parameters[APIKeys.limit.rawValue] = limit }
-
+            if let page = page,
+               (1 ... APIRestrictions.maxPages.rawValue).contains(page) {
+                parameters[APIKeys.page.rawValue] = page
+            }
+            if let limit = limit,
+               (1 ... APIRestrictions.limit100.rawValue).contains(limit) { parameters[APIKeys.limit.rawValue] = limit
+            }
             return parameters
         }
     }
@@ -75,9 +87,11 @@ extension UsersRequestFactoryProtocol {
     }
 
     func getUserByNickName(nick: String, completion: @escaping (_ response: UserProfileDTO?, _ error: String?) -> Void) {
-        delegate?.getResponse(type: UserProfileDTO.self,
-                    endPoint: .getUserByNickName(nick: nick, parameters: [APIKeys.isNickName.rawValue: 1]),
-                    completion: completion)
+        delegate?.getResponse(
+            type: UserProfileDTO.self,
+            endPoint: .getUserByNickName(nick: nick, parameters: [APIKeys.isNickName.rawValue: 1]),
+            completion: completion
+        )
     }
 
     func getUserInfo(id: Int, completion: @escaping (_ response: UserDTO?, _ error: String?) -> Void) {
@@ -106,10 +120,19 @@ extension UsersRequestFactoryProtocol {
                        status: UserContentState?,
                        isCensored: Bool?,
                        completion: @escaping (_ response: AnimeRatesResponseDTO?, _ error: String?) -> Void) {
-        delegate?.getResponse(type: AnimeRatesResponseDTO.self,
-                    endPoint: .listAnimeRates(id: id,
-                                              parameters: validateParameters(page: page, limit: limit, status: status, isCensored: isCensored)),
-                    completion: completion)
+        delegate?.getResponse(
+            type: AnimeRatesResponseDTO.self,
+            endPoint: .listAnimeRates(
+                id: id,
+                parameters: validateParameters(
+                    page: page,
+                    limit: limit,
+                    status: status,
+                    isCensored: isCensored
+                )
+            ),
+            completion: completion
+        )
         return
 
         func validateParameters(page: Int?,
@@ -117,8 +140,13 @@ extension UsersRequestFactoryProtocol {
                                 status: UserContentState?,
                                 isCensored: Bool?) -> Parameters {
             var parameters = Parameters()
-            if let page = page, (1 ... APIRestrictions.maxPages.rawValue).contains(page) { parameters[APIKeys.page.rawValue] = page }
-            if let limit = limit, (1 ... APIRestrictions.limit5000.rawValue).contains(limit) { parameters[APIKeys.limit.rawValue] = limit }
+            if let page = page,
+               (1 ... APIRestrictions.maxPages.rawValue).contains(page) {
+                parameters[APIKeys.page.rawValue] = page
+            }
+            if let limit = limit,
+               (1 ... APIRestrictions.limit5000.rawValue).contains(limit) { parameters[APIKeys.limit.rawValue] = limit
+            }
             if let status = status { parameters[APIKeys.status.rawValue] = status.rawValue }
             if let isCensored = isCensored { parameters[APIKeys.censored.rawValue] = isCensored }
             return parameters
@@ -131,15 +159,22 @@ extension UsersRequestFactoryProtocol {
                        isCensored: Bool?,
                        completion: @escaping (_ response: MangaRatesResponseDTO?, _ error: String?) -> Void) {
         let parameters = validateParameters(page: page, limit: limit, isCensored: isCensored)
-        delegate?.getResponse(type: MangaRatesResponseDTO.self,
-                    endPoint: .listMangaRates(id: id, parameters: parameters),
-                    completion: completion)
+        delegate?.getResponse(
+            type: MangaRatesResponseDTO.self,
+            endPoint: .listMangaRates(id: id, parameters: parameters),
+            completion: completion
+        )
         return
 
         func validateParameters(page: Int?, limit: Int?, isCensored: Bool?) -> Parameters {
             var parameters = Parameters()
-            if let page = page, (1 ... APIRestrictions.maxPages.rawValue).contains(page) { parameters[APIKeys.page.rawValue] = page }
-            if let limit = limit, (1 ... APIRestrictions.limit5000.rawValue).contains(limit) { parameters[APIKeys.limit.rawValue] = limit }
+            if let page = page,
+               (1 ... APIRestrictions.maxPages.rawValue).contains(page) {
+                parameters[APIKeys.page.rawValue] = page
+            }
+            if let limit = limit,
+               (1 ... APIRestrictions.limit5000.rawValue).contains(limit) { parameters[APIKeys.limit.rawValue] = limit
+            }
             if let isCensored = isCensored { parameters[APIKeys.censored.rawValue] = isCensored }
             return parameters
         }
@@ -147,7 +182,11 @@ extension UsersRequestFactoryProtocol {
 
     func getFavorites(id: Int,
                       completion: @escaping (_ response: UserFavoritesResponseDTO?, _ error: String?) -> Void) {
-        delegate?.getResponse(type: UserFavoritesResponseDTO.self, endPoint: .listFavorites(id: id), completion: completion)
+        delegate?.getResponse(
+            type: UserFavoritesResponseDTO.self,
+            endPoint: .listFavorites(id: id),
+            completion: completion
+        )
     }
 
     func getMessages(id: Int,
@@ -156,15 +195,24 @@ extension UsersRequestFactoryProtocol {
                      type: UserMessageType,
                      completion: @escaping (_ response: MessagesResponseDTO?, _ error: String?) -> Void) {
         let parameters = validateParameters(page: page, limit: page, type: type)
-        delegate?.getResponse(type: MessagesResponseDTO.self, endPoint: .listMessages(id: id, parameters: parameters), completion: completion)
+        delegate?.getResponse(
+            type: MessagesResponseDTO.self,
+            endPoint: .listMessages(id: id, parameters: parameters),
+            completion: completion
+        )
         return
 
         func validateParameters(page: Int?,
                                 limit: Int?,
                                 type: UserMessageType) -> Parameters {
             var parameters = Parameters()
-            if let page = page, (1 ... APIRestrictions.maxPages.rawValue).contains(page) { parameters[APIKeys.page.rawValue] = page }
-            if let limit = limit, (1 ... APIRestrictions.limit100.rawValue).contains(limit) { parameters[APIKeys.limit.rawValue] = limit }
+            if let page = page,
+               (1 ... APIRestrictions.maxPages.rawValue).contains(page) {
+                parameters[APIKeys.page.rawValue] = page
+            }
+            if let limit = limit,
+               (1 ... APIRestrictions.limit100.rawValue).contains(limit) { parameters[APIKeys.limit.rawValue] = limit
+            }
             parameters[APIKeys.type.rawValue] = type.rawValue
             return parameters
         }
@@ -172,7 +220,11 @@ extension UsersRequestFactoryProtocol {
 
     func getUnreadMessages(id: Int,
                            completion: @escaping (_ response: UnreadMessagesResponseDTO?, _ error: String?) -> Void) {
-        delegate?.getResponse(type: UnreadMessagesResponseDTO.self, endPoint: .unreadMessages(id: id), completion: completion)
+        delegate?.getResponse(
+            type: UnreadMessagesResponseDTO.self,
+            endPoint: .unreadMessages(id: id),
+            completion: completion
+        )
     }
 
     func getHistory(id: Int,
@@ -182,13 +234,21 @@ extension UsersRequestFactoryProtocol {
                     type: TargetType?,
                     completion: @escaping (_ response: UserHistoryResponseDTO?, _ error: String?) -> Void) {
         let parameters = validateParameters(page: page, limit: limit, targetId: targetId, type: type)
-        delegate?.getResponse(type: UserHistoryResponseDTO.self, endPoint: .listHistory(id: id, parameters: parameters), completion: completion)
+        delegate?.getResponse(
+            type: UserHistoryResponseDTO.self,
+            endPoint: .listHistory(id: id, parameters: parameters),
+            completion: completion
+        )
         return
 
         func validateParameters(page: Int?, limit: Int?, targetId: Int?, type: TargetType?) -> Parameters {
             var parameters = Parameters()
-            if let page = page, (1 ... APIRestrictions.maxPages.rawValue).contains(page) { parameters[APIKeys.page.rawValue] = page }
-            if let limit = limit, (1 ... APIRestrictions.limit100.rawValue).contains(limit) { parameters[APIKeys.limit.rawValue] = limit }
+            if let page = page,
+               (1 ... APIRestrictions.maxPages.rawValue).contains(page) { parameters[APIKeys.page.rawValue] = page
+            }
+            if let limit = limit,
+               (1 ... APIRestrictions.limit100.rawValue).contains(limit) { parameters[APIKeys.limit.rawValue] = limit
+            }
             if let targetId = targetId { parameters[APIKeys.targetId.rawValue] = targetId }
             if let type = type { parameters[APIKeys.targetType.rawValue] = type.rawValue }
             return parameters
@@ -203,11 +263,11 @@ extension UsersRequestFactoryProtocol {
 // MARK: - UsersRequestFactory
 
 final class UsersRequestFactory: UsersRequestFactoryProtocol {
-    
+
     // MARK: - Properties
     
     let delegate: (AbstractRequestFactory<UsersApi>)?
-    
+
     // MARK: - Construction
     
     init(token: String? = nil, agent: String? = nil) {

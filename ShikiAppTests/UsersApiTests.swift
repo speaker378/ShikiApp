@@ -12,9 +12,13 @@ final class UsersApiTests: XCTestCase {
     private let factory = ApiFactory.makeUsersApi()
     private let api2Test = "UsersRequestFactory"
 
-    override func setUpWithError() throws {}
+    override func setUpWithError() throws {
+        try super.setUpWithError()
+    }
 
-    override func tearDownWithError() throws {}
+    override func tearDownWithError() throws {
+        try super.tearDownWithError()
+    }
 
     func testlistUsers() throws {
         let request = "getUsers"

@@ -10,7 +10,7 @@ import Foundation
 // MARK: - JSONParameterEncoder
 
 struct JSONParameterEncoder: ParameterEncoder {
-    
+
     // MARK: - ParameterEncoder protocol implementation
     
     func encode(urlRequest: inout URLRequest, with parameters: Parameters) throws {
@@ -18,7 +18,10 @@ struct JSONParameterEncoder: ParameterEncoder {
             let jsonAsData = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)
             urlRequest.httpBody = jsonAsData
             if urlRequest.value(forHTTPHeaderField: HttpConstants.contentType.rawValue) == nil {
-                urlRequest.setValue(HttpConstants.jsonContent.rawValue, forHTTPHeaderField: HttpConstants.contentType.rawValue)
+                urlRequest.setValue(
+                    HttpConstants.jsonContent.rawValue,
+                    forHTTPHeaderField: HttpConstants.contentType.rawValue
+                )
             }
         } catch {
             throw NetworkError.encodingFailed
