@@ -44,23 +44,27 @@ final class TabBarViewController: UITabBarController, UITabBarControllerDelegate
         
         UITabBar.appearance().unselectedItemTintColor = AppColor.textMain
         UITabBar.appearance().tintColor = AppColor.accent
-        UITabBar.appearance().backgroundColor = .white
+        UITabBar.appearance().backgroundColor = AppColor.backgroundMain
         
     }
     
     private func wrappedInNavigationController(with: UIViewController, title: String) -> UINavigationController {
         let navVC = UINavigationController(rootViewController: with)
         navVC.navigationBar.barTintColor = AppColor.textMain
-        navVC.navigationBar.backgroundColor = .white
+        navVC.navigationBar.backgroundColor = AppColor.backgroundMain
         navVC.navigationBar.isTranslucent = true
         navVC.navigationBar.prefersLargeTitles = true
         navVC.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: AppColor.textMain]
         navVC.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: AppColor.textMain]
-        navVC.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.font: AppFont.openSansFont(ofSize: 28, weight: .extraBold)]
-        navVC.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: AppFont.openSansFont(ofSize: 20, weight: .semiBold)]
+        navVC.navigationBar.largeTitleTextAttributes = [
+            NSAttributedString.Key.font: AppFont.openSansFont(ofSize: 28, weight: .extraBold)
+        ]
+        navVC.navigationBar.titleTextAttributes = [
+            NSAttributedString.Key.font: AppFont.openSansFont(ofSize: 20, weight: .semiBold)
+        ]
         
         with.navigationItem.title = title
-        with.view.backgroundColor = .white
+        with.view.backgroundColor = AppColor.backgroundMain
         
         return navVC
     }

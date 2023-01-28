@@ -17,8 +17,8 @@ enum Texts {
         static let profile = "Профиль"
     }
     
-    enum NavigationsBar {
-        static let newTitle = "Новость"
+    enum NavigationBarTitles {
+        static let newsTitle = "Новость"
     }
     
     enum ErrorMessage {

@@ -16,5 +16,9 @@ enum AppColor {
     static let textMain = UIColor(named: "textMain") ?? missingColor
     static let textMinor = UIColor(named: "textMinor") ?? missingColor
     static let accent = UIColor(named: "accent") ?? missingColor
+    static let coverGradient1 = UIColor(named: "coverGradient1") ?? missingColor
+    static let coverGradient2 = UIColor(named: "coverGradient2") ?? missingColor
+    static let backgroundMain = UIColor(named: "backgroundMain") ?? missingColor
+    static let backrgoundMinor = UIColor(named: "backrgoundMinor") ?? missingColor
     
 }

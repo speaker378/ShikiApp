@@ -18,21 +18,21 @@ protocol NewsfeedViewOutput: AnyObject {
 }
 
 final class NewsfeedPresenter: NewsfeedViewOutput {
-    
+
     // MARK: - Properties
     
     weak var viewInput: (UIViewController & NewsfeedViewInput)?
-    
+
     // MARK: - Private properties
     
     private var newsList: [NewsModelAPI] {
         return NEWSCELLMODELLIST
     }
-    
+
     // MARK: - Functions
     
     func viewDidSelectNews(news: NewsModel) {
-        let newsDetailViewController = NewsDetailViewController(news: news)
+        let newsDetailViewController = NewsDetailBuilder.build(news: news)
         viewInput?.navigationController?.pushViewController(newsDetailViewController, animated: true)
     }
     

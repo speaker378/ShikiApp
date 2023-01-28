@@ -13,8 +13,9 @@ import UIKit
 enum AppImage {
     
     private static let missingImage = UIImage()
-    
+
     // MARK: - NavigationsBarIcons
+    
     enum NavigationsBarIcons {
         static let add = UIImage(named: "add") ?? missingImage
         static let back = UIImage(named: "back") ?? missingImage
@@ -28,14 +29,16 @@ enum AppImage {
         static let search = UIImage(named: "search_nav") ?? missingImage
         static let share = UIImage(named: "share") ?? missingImage
     }
-    
+
     // MARK: - ErrorsIcons
+    
     enum ErrorsIcons {
         static let nonConnectionIcon = UIImage(named: "noConnectionIcon") ?? missingImage
         static let noUserpicIcon = UIImage(named: "noUserpic") ?? missingImage
     }
-    
+
     // MARK: - TabBarIcons
+    
     enum TabBarIcons {
         static let home = UIImage(named: "home") ?? missingImage
         static let homeSelected = UIImage(named: "homeSelected") ?? missingImage

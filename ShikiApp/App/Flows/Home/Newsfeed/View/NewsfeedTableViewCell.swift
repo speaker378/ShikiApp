@@ -8,7 +8,7 @@
 import UIKit
 
 class NewsfeedTableViewCell: UITableViewCell {
-    
+
     // MARK: - Private properties
     
     private let lineWidth: CGFloat = 1
@@ -27,7 +27,11 @@ class NewsfeedTableViewCell: UITableViewCell {
     }()
     
     private var dateLabel: UILabel = {
-        let label = AppLabel(alignment: .left, fontSize: AppFont.openSansFont(ofSize: 12, weight: .regular), fontСolor: AppColor.textMinor)
+        let label = AppLabel(
+            alignment: .left,
+            fontSize: AppFont.openSansFont(ofSize: 12, weight: .regular),
+            fontСolor: AppColor.textMinor
+        )
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -57,7 +61,7 @@ class NewsfeedTableViewCell: UITableViewCell {
         view.backgroundColor = AppColor.accent
         return view
     }()
-    
+
     // MARK: - Construction
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -68,14 +72,14 @@ class NewsfeedTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     // MARK: - Lifecycle
     
     override func prepareForReuse() {
         newsImageView.image = nil
         [dateLabel, titleLabel, subtitleLabel].forEach { $0.text = nil }
     }
-    
+
     // MARK: - Private functions
     
     private func configureUI() {
@@ -119,7 +123,7 @@ class NewsfeedTableViewCell: UITableViewCell {
         }
         return false
     }
-    
+
     // MARK: - Functions
     
     func configure(with cellModel: NewsModel) {
