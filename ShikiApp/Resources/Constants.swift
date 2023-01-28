@@ -10,11 +10,10 @@ import Foundation
 
 struct Constants {
     
-    enum Url {
-       static let baseUrl = ""
+    enum Prefix {
+       static let byte = 1
+       static let kilobyte = 1024
+       static let megabyte = 1048576
     }
-    
-    enum Keys {
-        
-    }
+ 
 }

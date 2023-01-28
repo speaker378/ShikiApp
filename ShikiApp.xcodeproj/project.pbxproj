@@ -32,6 +32,7 @@
 		0010CADF29784E3C00F8705B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0010CADE29784E3C00F8705B /* Constants.swift */; };
 		0010CAE029784E3C00F8705B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0010CADE29784E3C00F8705B /* Constants.swift */; };
 		0010CAE129784E3C00F8705B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0010CADE29784E3C00F8705B /* Constants.swift */; };
+		0011E2CF2985A5660053DCCF /* UIImageView+downloadeImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0011E2CE2985A5660053DCCF /* UIImageView+downloadeImage.swift */; };
 		006031AF2979B79400CD9A16 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006031AE2979B79400CD9A16 /* TabBarViewController.swift */; };
 		006031B7297BCA6800CD9A16 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006031B6297BCA6800CD9A16 /* SearchViewController.swift */; };
 		006031B9297BCA7B00CD9A16 /* MyListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006031B8297BCA7B00CD9A16 /* MyListViewController.swift */; };
@@ -93,6 +94,7 @@
 		0010CAD029782E4800F8705B /* OpenSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-SemiBold.ttf"; sourceTree = "<group>"; };
 		0010CADA29783E7400F8705B /* AppImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppImage.swift; sourceTree = "<group>"; };
 		0010CADE29784E3C00F8705B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		0011E2CE2985A5660053DCCF /* UIImageView+downloadeImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+downloadeImage.swift"; sourceTree = "<group>"; };
 		006031AE2979B79400CD9A16 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		006031B6297BCA6800CD9A16 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		006031B8297BCA7B00CD9A16 /* MyListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyListViewController.swift; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 		0010CAB92978018C00F8705B /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				0011E2CD2985A50C0053DCCF /* UIImageView */,
 				3AFAFEE42980559500949FE2 /* String */,
 				0010CAC6297815F300F8705B /* UITableView */,
 				0010CAC129780D2E00F8705B /* UICollectionView */,
@@ -222,6 +225,14 @@
 				0010CACA29782E1500F8705B /* OpenSans-Bold.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		0011E2CD2985A50C0053DCCF /* UIImageView */ = {
+			isa = PBXGroup;
+			children = (
+				0011E2CE2985A5660053DCCF /* UIImageView+downloadeImage.swift */,
+			);
+			path = UIImageView;
 			sourceTree = "<group>";
 		};
 		006031AD2979B76C00CD9A16 /* TabBarVC */ = {
@@ -682,6 +693,7 @@
 				0010CADB29783E7400F8705B /* AppImage.swift in Sources */,
 				3A1A09692985400900846058 /* NewsDetailViewController.swift in Sources */,
 				006031C0297C087F00CD9A16 /* StartManager.swift in Sources */,
+				0011E2CF2985A5660053DCCF /* UIImageView+downloadeImage.swift in Sources */,
 				0010CAC82978161600F8705B /* UITableView+RegisterCell.swift in Sources */,
 				0010CADF29784E3C00F8705B /* Constants.swift in Sources */,
 				006031B7297BCA6800CD9A16 /* SearchViewController.swift in Sources */,
