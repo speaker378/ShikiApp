@@ -17,12 +17,31 @@ struct NewsModelAPI {
 
 // TODO: для проверки
 var NEWSCELLMODELLIST: [NewsModelAPI] {
-        return (0..<20).map { _ in
-            NewsModelAPI(
-                image: (UIImage(named: "noConnectionIcon")),
-                date: "Cегодня, 12:00",
-                title: "Анонсировано аниме «Dog Signal»",
-                subtitle: "Манга «Сигнал собаки» от получит аниме-адаптацию. Трансляция начнется осенью этого года."
-            )
-        }
+    var result = (0..<4).map { _ in
+        NewsModelAPI(
+            image: (UIImage(named: "noConnectionIcon")),
+            date: "Cегодня, 12:00",
+            title: "Анонсировано аниме «Dog Signal»",
+            subtitle: "Манга «Сигнал собаки» от получит аниме-адаптацию. Трансляция начнется осенью этого года."
+        )
+    }
+    
+    result.append(
+        NewsModelAPI(
+            image: (UIImage(named: "noConnectionIcon")),
+            date: "Cегодня, 12:00",
+            title: "Анонсировано аниме",
+            subtitle: "Манга «Сигнал собаки» от получит аниме-адаптацию. Трансляция начнется осенью этого года."
+        )
+    )
+    
+    result.append(
+        NewsModelAPI(
+            image: (UIImage(named: "noConnectionIcon")),
+            date: "Cегодня, 12:00",
+            title: "Манга «Сигнал собаки» от получит аниме-адаптацию. Трансляция начнется осенью этого года.",
+            subtitle: "Манга «Сигнал собаки» от получит аниме-адаптацию. Трансляция начнется осенью этого года."
+        )
+    )
+    return result
 }

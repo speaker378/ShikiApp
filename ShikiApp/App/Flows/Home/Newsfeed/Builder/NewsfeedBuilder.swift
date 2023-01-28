@@ -8,6 +8,7 @@
 import UIKit
 
 class NewsfeedBuilder {
+    
     static func build() -> (UIViewController & NewsfeedViewInput) {
         let presenter = NewsfeedPresenter()
         let viewController = NewsfeedViewController(presenter: presenter)

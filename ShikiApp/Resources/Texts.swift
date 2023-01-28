@@ -21,4 +21,7 @@ enum Texts {
         static let newTitle = "Новость"
     }
     
+    enum ErrorMessage {
+        static let general = "Что-то пошло не так.\nПопробуйте позже, должно получиться"
+    }
 }
