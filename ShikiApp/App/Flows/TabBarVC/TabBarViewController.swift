@@ -68,7 +68,7 @@ final class TabBarViewController: UITabBarController, UITabBarControllerDelegate
         UINavigationBar.appearance().standardAppearance = navigationBarAppearance
         UINavigationBar.appearance().compactAppearance = navigationBarAppearance
         UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
-        navigationBarAppearance.backgroundColor = .white
+        navigationBarAppearance.backgroundColor = AppColor.backgroundMain
         
         with.navigationItem.title = title
         with.view.backgroundColor = AppColor.backgroundMain
