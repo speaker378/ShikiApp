@@ -12,11 +12,13 @@ struct NewsModel {
     let date: String?
     let title: String?
     let subtitle: String?
+    let images: [UIImage]
+    let URLString: String?
     // ...
 }
 
-final class NewsViewModelFactory {
-    func constructViewModels(from news: [NewsModelAPI]) -> [NewsModel] {
+final class NewsModelFactory {
+    func makeModels(from news: [NewsModelAPI]) -> [NewsModel] {
         return news.compactMap(self.viewModel)
     }
     
@@ -25,12 +27,16 @@ final class NewsViewModelFactory {
         let date = news.date
         let title = news.title
         let subtitle = news.subtitle
+        let images = news.images
+        let URLString = news.URLString
 
         return NewsModel(
             image: image,
             date: date,
             title: title,
-            subtitle: subtitle
+            subtitle: subtitle,
+            images: images,
+            URLString: URLString
         )
     }
 }

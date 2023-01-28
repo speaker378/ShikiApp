@@ -8,31 +8,33 @@
 import UIKit
 
 class NewsfeedViewController: (UIViewController & NewsfeedViewInput) {
+
     // MARK: - Properties
-    internal var viewModels: [NewsModel] = [] {
+    
+    let presenter: NewsfeedViewOutput
+    var models: [NewsModel] = [] {
         didSet {
             tableView.reloadData()
         }
     }
-    
+
     // MARK: - Private Properties
-    private let presenter: NewsfeedViewOutput
     
-    private(set) lazy var tableView: UITableView = {
+    private var tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorStyle = .none
         return tableView
     }()
     
-    private(set) lazy var backgroundView: UIView = {
+    private var backgroundView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .systemBackground
         return view
     }()
     
-    private(set) lazy var backgroundImageView: UIImageView = {
+    private var backgroundImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
@@ -40,7 +42,7 @@ class NewsfeedViewController: (UIViewController & NewsfeedViewInput) {
         return imageView
     }()
     
-    private(set) lazy var backgroundLabel: UILabel = {
+    private var backgroundLabel: UILabel = {
         let label = AppLabel(
             alignment: .center,
             fontSize: AppFont.openSansFont(ofSize: 16, weight: .regular),
@@ -48,11 +50,12 @@ class NewsfeedViewController: (UIViewController & NewsfeedViewInput) {
             numberLines: 0
         )
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Что-то пошло не так.\nПопробуйте позже, должно получиться"
+        label.text = Texts.ErrorMessage.general
         return label
     }()
-    
+
     // MARK: - Construction
+    
     init(presenter: NewsfeedViewOutput) {
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
@@ -61,8 +64,9 @@ class NewsfeedViewController: (UIViewController & NewsfeedViewInput) {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     // MARK: - Lifecycle
+    
     override func loadView() {
         super.loadView()
         setupViews()
@@ -74,7 +78,13 @@ class NewsfeedViewController: (UIViewController & NewsfeedViewInput) {
         presenter.fetchData()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
+
     // MARK: - Private functions
+    
     private func setupViews() {
         backgroundView.addSubviews([backgroundImageView, backgroundLabel])
         tableView.backgroundView = backgroundView
@@ -108,31 +118,5 @@ class NewsfeedViewController: (UIViewController & NewsfeedViewInput) {
             backgroundLabel.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
             backgroundLabel.topAnchor.constraint(equalTo: backgroundImageView.bottomAnchor, constant: 24)
         ])
-    }
-}
-
-// MARK: - UITableViewDataSource
-extension NewsfeedViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModels.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell: NewsfeedTableViewCell = tableView.cell(forRowAt: indexPath) else { return UITableViewCell() }
-        cell.configure(with: viewModels[indexPath.row])
-        return cell
-    }
-}
-
-// MARK: - UITableViewDelegate
-extension NewsfeedViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        112
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        let news = viewModels[indexPath.row]
-        presenter.viewDidSelectNews(news: news)
     }
 }

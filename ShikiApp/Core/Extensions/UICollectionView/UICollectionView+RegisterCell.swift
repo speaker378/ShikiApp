@@ -45,16 +45,23 @@ extension UICollectionView {
     }
     
     func registerCell<T: UICollectionViewCell>(_ cellClass: T.Type) {
-        register(cellClass.self,
-                 forCellWithReuseIdentifier: cellClass.cellIdentifier)
+        register(cellClass.self, forCellWithReuseIdentifier: cellClass.cellIdentifier)
     }
     
     func registerHeader<T: UICollectionReusableView>(_ header: T.Type) {
-        register(T.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: T.cellIdentifier)
+        register(
+            T.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: T.cellIdentifier
+        )
     }
     
     func registerFooter<T: UICollectionReusableView>(_ footer: T.Type) {
-        register(T.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: T.cellIdentifier)
+        register(
+            T.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
+            withReuseIdentifier: T.cellIdentifier
+        )
     }
     
     func cell<T: ReusableCellIdentifiable>(forRowAt indexPath: IndexPath) -> T? {
@@ -67,8 +74,11 @@ extension UICollectionView {
     
     func cellFooterHeader<T: ReusableHeaderFooterCellIdentifiable>(ofKind kind: SupplementaryViewKind,
                                                                    forIndexPath indexPath: IndexPath) -> T? {
-        return dequeueReusableSupplementaryView(ofKind: kind.rawValue, withReuseIdentifier: T.cellIdentifier,
-                                                for: indexPath) as? T
+        return dequeueReusableSupplementaryView(
+            ofKind: kind.rawValue,
+            withReuseIdentifier: T.cellIdentifier,
+            for: indexPath
+        ) as? T
     }
     
 }

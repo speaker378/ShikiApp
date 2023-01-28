@@ -1,2 +1,7 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+# A tool for merging Xcode project files in git
+# Steps to prepare: 
+# 1. brew install mergepbx
+# 2. https://github.com/simonwagner/mergepbx#using-mergepbx-as-a-merge-driver
+*.pbxproj merge=mergepbx
