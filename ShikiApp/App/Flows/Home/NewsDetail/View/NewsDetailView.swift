@@ -8,7 +8,7 @@
 import UIKit
 
 final class NewsDetailView: UIView {
-    
+
     // MARK: - Private properties
     
     private enum Layout {
@@ -49,7 +49,7 @@ final class NewsDetailView: UIView {
         collectionView.showsHorizontalScrollIndicator = false
         return collectionView
     }()
-    
+
     // MARK: - Construction
     
     init(news: NewsModel) {
@@ -59,14 +59,14 @@ final class NewsDetailView: UIView {
     }
     
     required init?(coder: NSCoder) { nil }
-    
+
     // MARK: - Functions
     
     override func layoutSubviews() {
         super.layoutSubviews()
         gradientLayer.frame = coverImageView.bounds
     }
-    
+
     // MARK: - Private functions
     
     private func configure(news: NewsModel) {

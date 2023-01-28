@@ -10,7 +10,7 @@ import UIKit
 final class NewsDetailViewController: UIViewController, NewsDetailViewInput {
     
     var news: NewsModel
-    
+
     // MARK: - Private properties
     
     private let viewOutput: NewsDetailViewOutput
@@ -27,7 +27,7 @@ final class NewsDetailViewController: UIViewController, NewsDetailViewInput {
     }
     
     required init?(coder: NSCoder) { nil }
-    
+
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -39,7 +39,7 @@ final class NewsDetailViewController: UIViewController, NewsDetailViewInput {
         super.viewWillAppear(animated)
         configureNavBar()
     }
-    
+
     // MARK: - Private functions
     
     private func configureUI() {

@@ -8,7 +8,7 @@
 import UIKit
 
 class NewsfeedViewController: (UIViewController & NewsfeedViewInput) {
-    
+
     // MARK: - Properties
     
     let presenter: NewsfeedViewOutput
@@ -17,7 +17,7 @@ class NewsfeedViewController: (UIViewController & NewsfeedViewInput) {
             tableView.reloadData()
         }
     }
-    
+
     // MARK: - Private Properties
     
     private var tableView: UITableView = {
@@ -53,7 +53,7 @@ class NewsfeedViewController: (UIViewController & NewsfeedViewInput) {
         label.text = Texts.ErrorMessage.general
         return label
     }()
-    
+
     // MARK: - Construction
     
     init(presenter: NewsfeedViewOutput) {
@@ -64,7 +64,7 @@ class NewsfeedViewController: (UIViewController & NewsfeedViewInput) {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     // MARK: - Lifecycle
     
     override func loadView() {
@@ -82,7 +82,7 @@ class NewsfeedViewController: (UIViewController & NewsfeedViewInput) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.prefersLargeTitles = true
     }
-    
+
     // MARK: - Private functions
     
     private func setupViews() {

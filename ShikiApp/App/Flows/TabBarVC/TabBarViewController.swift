@@ -56,8 +56,12 @@ final class TabBarViewController: UITabBarController, UITabBarControllerDelegate
         navVC.navigationBar.prefersLargeTitles = true
         navVC.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: AppColor.textMain]
         navVC.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: AppColor.textMain]
-        navVC.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.font: AppFont.openSansFont(ofSize: 28, weight: .extraBold)]
-        navVC.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: AppFont.openSansFont(ofSize: 20, weight: .semiBold)]
+        navVC.navigationBar.largeTitleTextAttributes = [
+            NSAttributedString.Key.font: AppFont.openSansFont(ofSize: 28, weight: .extraBold)
+        ]
+        navVC.navigationBar.titleTextAttributes = [
+            NSAttributedString.Key.font: AppFont.openSansFont(ofSize: 20, weight: .semiBold)
+        ]
         
         with.navigationItem.title = title
         with.view.backgroundColor = AppColor.backgroundMain

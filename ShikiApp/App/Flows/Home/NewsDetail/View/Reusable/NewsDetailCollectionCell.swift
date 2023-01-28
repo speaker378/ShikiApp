@@ -8,7 +8,7 @@
 import UIKit
 
 final class NewsDetailCollectionViewCell: UICollectionViewCell {
-    
+
     // MARK: - Private properties
 
     private let imageView: UIImageView = {
@@ -19,7 +19,7 @@ final class NewsDetailCollectionViewCell: UICollectionViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-    
+
     // MARK: - Construction
     
     override init(frame: CGRect) {
@@ -28,7 +28,7 @@ final class NewsDetailCollectionViewCell: UICollectionViewCell {
     }
     
     required init?(coder: NSCoder) { nil }
-    
+
     // MARK: - Functions
     
     override func prepareForReuse() {
@@ -39,7 +39,7 @@ final class NewsDetailCollectionViewCell: UICollectionViewCell {
     func configure(image: UIImage) {
         imageView.image = image
     }
-    
+
     // MARK: - Private functions
     
     private func configureUI() {

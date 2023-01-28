@@ -8,17 +8,17 @@
 import UIKit
 
 final class NewsDetailCollectionViewDataSource: NSObject, UICollectionViewDataSource {
-    
+
     // MARK: - Private properties
     
     private let images: [UIImage]
-    
+
     // MARK: - Construction
     
     init(images: [UIImage]) {
         self.images = images
     }
-    
+
     // MARK: - Functions
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

@@ -16,11 +16,11 @@ protocol NewsDetailViewOutput: AnyObject {
 }
 
 final class NewsDetailPresenter: NewsDetailViewOutput {
-    
+
     // MARK: - Properties
     
     weak var viewInput: (UIViewController & NewsDetailViewInput)?
-    
+
     // MARK: - Functions
     
     func shareURL() {
