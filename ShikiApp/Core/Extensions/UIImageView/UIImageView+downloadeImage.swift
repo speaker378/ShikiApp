@@ -26,10 +26,11 @@ extension UIImageView {
         
         let configuration = URLSessionConfiguration.default
         configuration.urlCache = URLCache(
-            memoryCapacity: 50 * Constants.Prefix.megabyte,
-            diskCapacity: 50 * Constants.Prefix.megabyte,
+            memoryCapacity: Constants.ImageCacheParam.memoryCapacity,
+            diskCapacity: Constants.ImageCacheParam.diskCapacity,
             diskPath: "images"
         )
+        configuration.httpMaximumConnectionsPerHost = Constants.ImageCacheParam.maximumConnections
         
         let session = URLSession(configuration: configuration)
         
@@ -53,7 +54,7 @@ extension UIImageView {
                 return
             }
             
-            DispatchQueue.main.async() { [weak self] in
+            DispatchQueue.main.async { [weak self] in
                 guard let self else { return }
                 
                 self.image = image
