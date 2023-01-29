@@ -20,7 +20,7 @@ struct MangaRateDTO: Codable {
     let episodes: Int
     let chapters, volumes: Int?
     let textHTML: String?
-    let rewatches: Int
+    let rewatches: Int?
     let createdAt, updatedAt: String?
     let user: UserDTO
     let anime: AnimeInfoDTO?

@@ -27,10 +27,10 @@ struct URLParameterEncoder: ParameterEncoder {
             urlRequest.url = urlComponents.url
         }
         
-        if urlRequest.value(forHTTPHeaderField: HttpConstants.contentType.rawValue) == nil {
+        if urlRequest.value(forHTTPHeaderField: HttpConstants.contentType) == nil {
             urlRequest.setValue(
-                HttpConstants.formEncodedContent.rawValue,
-                forHTTPHeaderField: HttpConstants.contentType.rawValue
+                HttpConstants.formUrlEncodedContent,
+                forHTTPHeaderField: HttpConstants.contentType
             )
         }
     }

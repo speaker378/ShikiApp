@@ -54,7 +54,6 @@
 		3A7E4D802985492C00E7CA17 /* ForumsRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7E4D612985492C00E7CA17 /* ForumsRequestFactory.swift */; };
 		3A7E4D812985492C00E7CA17 /* ForumsApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7E4D622985492C00E7CA17 /* ForumsApi.swift */; };
 		3A7E4D822985492C00E7CA17 /* AbstractRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7E4D632985492C00E7CA17 /* AbstractRequestFactory.swift */; };
-		3A7E4D832985492C00E7CA17 /* NetworkResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7E4D642985492C00E7CA17 /* NetworkResponse.swift */; };
 		3A7E4D842985492C00E7CA17 /* ApiFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7E4D652985492C00E7CA17 /* ApiFactory.swift */; };
 		3A7E4D852985492C00E7CA17 /* UsersEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7E4D672985492C00E7CA17 /* UsersEnums.swift */; };
 		3A7E4D862985492C00E7CA17 /* UsersApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7E4D682985492C00E7CA17 /* UsersApi.swift */; };
@@ -154,7 +153,6 @@
 		3A7E4D612985492C00E7CA17 /* ForumsRequestFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForumsRequestFactory.swift; sourceTree = "<group>"; };
 		3A7E4D622985492C00E7CA17 /* ForumsApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForumsApi.swift; sourceTree = "<group>"; };
 		3A7E4D632985492C00E7CA17 /* AbstractRequestFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbstractRequestFactory.swift; sourceTree = "<group>"; };
-		3A7E4D642985492C00E7CA17 /* NetworkResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkResponse.swift; sourceTree = "<group>"; };
 		3A7E4D652985492C00E7CA17 /* ApiFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiFactory.swift; sourceTree = "<group>"; };
 		3A7E4D672985492C00E7CA17 /* UsersEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersEnums.swift; sourceTree = "<group>"; };
 		3A7E4D682985492C00E7CA17 /* UsersApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersApi.swift; sourceTree = "<group>"; };
@@ -445,12 +443,11 @@
 		3A7E4D5D2985492C00E7CA17 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				3A7E4D5E2985492C00E7CA17 /* Forums */,
 				3A7E4D632985492C00E7CA17 /* AbstractRequestFactory.swift */,
-				3A7E4D642985492C00E7CA17 /* NetworkResponse.swift */,
 				3A7E4D652985492C00E7CA17 /* ApiFactory.swift */,
-				3A7E4D662985492C00E7CA17 /* Users */,
 				3A7E4D752985492C00E7CA17 /* NetworkLayerErrorMessages.swift */,
+				3A7E4D5E2985492C00E7CA17 /* Forums */,
+				3A7E4D662985492C00E7CA17 /* Users */,
 				3A7E4D762985492C00E7CA17 /* Topics */,
 			);
 			path = Network;
@@ -479,8 +476,8 @@
 			children = (
 				3A7E4D672985492C00E7CA17 /* UsersEnums.swift */,
 				3A7E4D682985492C00E7CA17 /* UsersApi.swift */,
-				3A7E4D692985492C00E7CA17 /* DTOModels */,
 				3A7E4D742985492C00E7CA17 /* UsersRequestFactory.swift */,
+				3A7E4D692985492C00E7CA17 /* DTOModels */,
 			);
 			path = Users;
 			sourceTree = "<group>";
@@ -852,7 +849,6 @@
 				3A05E299297E8EA500987CFF /* NewsfeedBuilder.swift in Sources */,
 				3A1A096D2985400900846058 /* NewsDetailBuilder.swift in Sources */,
 				3A05E295297E696200987CFF /* NewsfeedPresenter.swift in Sources */,
-				3A7E4D832985492C00E7CA17 /* NetworkResponse.swift in Sources */,
 				3A7E4DA82985496A00E7CA17 /* URLParameterEncoder.swift in Sources */,
 				006031B9297BCA7B00CD9A16 /* MyListViewController.swift in Sources */,
 				3A275770297EFDD900EFD543 /* NewsModel.swift in Sources */,
@@ -1094,6 +1090,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1120,6 +1117,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1141,7 +1139,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.ShikiAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1160,7 +1158,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.ShikiAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1178,6 +1176,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.ShikiAppUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1195,6 +1194,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.ShikiAppUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";

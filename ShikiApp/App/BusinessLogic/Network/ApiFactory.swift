@@ -13,7 +13,7 @@ protocol ApiFactoryProtocol {
     
     static func makeForumsApi() -> ForumsRequestFactoryProtocol
     static func makeTopicsApi() -> TopicsRequestFactoryProtocol
-    static func makeAnonimousTopicsApi() -> TopicsRequestFactoryProtocol
+    static func makeAnonymousTopicsApi() -> TopicsRequestFactoryProtocol
 }
 
 // MARK: - ApiFactory
@@ -42,7 +42,7 @@ final class ApiFactory: ApiFactoryProtocol {
         TopicsRequestFactory(token: token, agent: agent)
     }
 
-    static func makeAnonimousTopicsApi() -> TopicsRequestFactoryProtocol {
+    static func makeAnonymousTopicsApi() -> TopicsRequestFactoryProtocol {
         TopicsRequestFactory(agent: agent)
     }
 

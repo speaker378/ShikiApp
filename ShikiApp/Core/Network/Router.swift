@@ -70,17 +70,17 @@ final class Router<EndPoint: EndPointType>: NetworkRouter {
         )
         request.httpMethod = route.httpMethod.rawValue
         if let token = self.token {
-            request.setValue("\(HttpConstants.bearer.rawValue) \(token)", forHTTPHeaderField: HttpConstants.authorization.rawValue)
+            request.setValue("\(HttpConstants.bearer) \(token)", forHTTPHeaderField: HttpConstants.authorization)
         }
         if let userAgent = self.userAgent {
-            request.setValue(userAgent, forHTTPHeaderField: HttpConstants.agent.rawValue)
+            request.setValue(userAgent, forHTTPHeaderField: HttpConstants.agent)
         }
         do {
             switch route.task {
             case .request:
                 request.setValue(
-                    HttpConstants.jsonContent.rawValue,
-                    forHTTPHeaderField: HttpConstants.contentType.rawValue
+                    HttpConstants.jsonContent,
+                    forHTTPHeaderField: HttpConstants.contentType
                 )
             case .requestParameters(
                 let bodyParameters,

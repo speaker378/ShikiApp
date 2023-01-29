@@ -6,12 +6,13 @@
 //
 
 import Foundation
-enum HttpConstants: String {
-
-    case contentType = "Content-Type"
-    case formEncodedContent = "application/x-www-form-urlencoded; charset=utf-8"
-    case jsonContent = "application/json"
-    case bearer = "Bearer"
-    case authorization = "Authorization"
-    case agent = "User-Agent"
+struct HttpConstants {
+    static let contentType = "Content-Type"
+    static let formUrlEncodedContent = "application/x-www-form-urlencoded; charset=utf-8"
+    static let jsonContent = "application/json"
+    static let bearer = "Bearer"
+    static let authorization = "Authorization"
+    static let agent = "User-Agent"
+    static let apiUrl = "API_URL"
+    static let urlError = "API Base URL could not be configured"
 }

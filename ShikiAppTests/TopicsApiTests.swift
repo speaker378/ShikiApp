@@ -19,7 +19,7 @@ final class TopicsApiTests: XCTestCase {
         try? super.tearDownWithError()
     }
     
-    func testlistTopics() throws {
+    func testListTopics() throws {
         let request = "listTopics"
         var response: TopicsResponseDTO?
         var error: String?

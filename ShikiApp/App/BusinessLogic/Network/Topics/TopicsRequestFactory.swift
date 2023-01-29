@@ -178,7 +178,7 @@ extension TopicsRequestFactoryProtocol {
                   linkedId: Int?,
                   linkedType: LinkedTypeParameter?,
                   completion: @escaping (_ response: TopicDTO?, _ error: String?) -> Void) {
-        if let fieldsToChange = validatePatameters(
+        if let fieldsToChange = validateParameters(
             title: title,
             body: body,
             linkedId: linkedId,
@@ -196,7 +196,7 @@ extension TopicsRequestFactoryProtocol {
         }
         return
 
-        func validatePatameters(title: String?,
+        func validateParameters(title: String?,
                                 body: String?,
                                 linkedId: Int?,
                                 linkedType: LinkedTypeParameter?) -> Parameters? {

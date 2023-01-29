@@ -20,7 +20,7 @@ final class UsersApiTests: XCTestCase {
         try super.tearDownWithError()
     }
 
-    func testlistUsers() throws {
+    func testListUsers() throws {
         let request = "getUsers"
         var response: UsersResponseDTO?
         var error: String?

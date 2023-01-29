@@ -17,10 +17,10 @@ struct JSONParameterEncoder: ParameterEncoder {
         do {
             let jsonAsData = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)
             urlRequest.httpBody = jsonAsData
-            if urlRequest.value(forHTTPHeaderField: HttpConstants.contentType.rawValue) == nil {
+            if urlRequest.value(forHTTPHeaderField: HttpConstants.contentType) == nil {
                 urlRequest.setValue(
-                    HttpConstants.jsonContent.rawValue,
-                    forHTTPHeaderField: HttpConstants.contentType.rawValue
+                    HttpConstants.jsonContent,
+                    forHTTPHeaderField: HttpConstants.contentType
                 )
             }
         } catch {

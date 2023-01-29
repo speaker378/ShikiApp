@@ -21,8 +21,8 @@ protocol EndPointType {
 
 extension EndPointType {
     static var baseURL: URL {
-        guard let url = URL(string: Bundle.main.object(forInfoDictionaryKey: "API_URL") as? String ?? "") else {
-            fatalError("API Base URL could not be configured")
+        guard let url = URL(string: Bundle.main.object(forInfoDictionaryKey: HttpConstants.apiUrl) as? String ?? "") else {
+            fatalError(HttpConstants.urlError)
         }
         return url
     }

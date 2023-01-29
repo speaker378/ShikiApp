@@ -7,13 +7,13 @@
 
 import Foundation
 
-enum NetworkLayerErrorMessages: String {
-    case success = "Success"
-    case authenticationError = "You need to be authenticated."
-    case badRequest = "Bad request"
-    case outdated = "The url is outdated."
-    case requestFailed = "Network request failed."
-    case noData = "Response returned with no data to decode."
-    case unableToDecode = "We could not decode the response"
-    case badResponse = "Bad response"
+struct NetworkLayerErrorMessages {
+    static let success = "Success"
+    static let authenticationError = "You need to be authenticated."
+    static let badRequest = "Bad request"
+    static let outdated = "The url is outdated."
+    static let requestFailed = "Network request failed."
+    static let noData = "Response returned with no data to decode."
+    static let unableToDecode = "We could not decode the response"
+    static let badResponse = "Bad response"
 }

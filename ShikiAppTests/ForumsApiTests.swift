@@ -18,7 +18,7 @@ final class ForumsApiTests: XCTestCase {
         try? super.tearDownWithError()
     }
     
-    func testForumsRequests() throws {
+    func testListForums() throws {
         let factory = ApiFactory.makeForumsApi()
         var forums: ForumsResponseDTO?
         var error: String?

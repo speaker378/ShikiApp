@@ -25,7 +25,7 @@ protocol AbstractRequestFactoryProtocol {
 // MARK: - AbstractRequestFactory
 
 class AbstractRequestFactory<API: EndPointType>: AbstractRequestFactoryProtocol {
-    internal var router: Router<API>
+    var router: Router<API>
 
     init(token: String? = nil, agent: String? = nil) {
         router = Router<API>(token: token, userAgent: agent)
@@ -45,7 +45,7 @@ class AbstractRequestFactory<API: EndPointType>: AbstractRequestFactoryProtocol 
             }
             guard let response = response as? HTTPURLResponse else {
                 DispatchQueue.main.async {
-                    completion(nil, NetworkResponse.badResponse.rawValue)
+                    completion(nil, NetworkLayerErrorMessages.badResponse)
                 }
                 return
             }
@@ -66,19 +66,19 @@ class AbstractRequestFactory<API: EndPointType>: AbstractRequestFactoryProtocol 
         func handleNetworkResponse(_ response: HTTPURLResponse) -> Result<String> {
             switch response.statusCode {
             case 200 ... 299: return .success
-            case 401 ... 500: return .failure(NetworkResponse.authenticationError.rawValue)
-            case 501 ... 599: return .failure(NetworkResponse.badRequest.rawValue)
-            case 600: return .failure(NetworkResponse.outdated.rawValue)
-            default: return .failure(NetworkResponse.failed.rawValue)
+            case 401 ... 500: return .failure(NetworkLayerErrorMessages.authenticationError)
+            case 501 ... 599: return .failure(NetworkLayerErrorMessages.badRequest)
+            case 600: return .failure(NetworkLayerErrorMessages.outdated)
+            default: return .failure(NetworkLayerErrorMessages.requestFailed)
             }
         }
 
         func decodeData(data: Data?) -> (Response?, String?) {
-            guard let data = data else { return (nil, NetworkResponse.noData.rawValue) }
+            guard let data = data else { return (nil, NetworkLayerErrorMessages.noData) }
             switch type.self {
             case is String.Type:
                 guard let data = String(data: data, encoding: .utf8) as? Response else {
-                    return (nil, NetworkResponse.unableToDecode.rawValue)
+                    return (nil, NetworkLayerErrorMessages.unableToDecode)
                 }
                 return (data, nil)
             default:
