@@ -63,6 +63,13 @@ final class TabBarViewController: UITabBarController, UITabBarControllerDelegate
             NSAttributedString.Key.font: AppFont.openSansFont(ofSize: 20, weight: .semiBold)
         ]
         
+        let navigationBarAppearance = UINavigationBarAppearance()
+        navigationBarAppearance.configureWithTransparentBackground()
+        UINavigationBar.appearance().standardAppearance = navigationBarAppearance
+        UINavigationBar.appearance().compactAppearance = navigationBarAppearance
+        UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
+        navigationBarAppearance.backgroundColor = AppColor.backgroundMain
+        
         with.navigationItem.title = title
         with.view.backgroundColor = AppColor.backgroundMain
         

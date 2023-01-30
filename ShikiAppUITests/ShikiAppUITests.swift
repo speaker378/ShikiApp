@@ -11,9 +11,11 @@ final class ShikiAppUITests: XCTestCase {
 
     override func setUpWithError() throws {
         continueAfterFailure = false
+        try? super.setUpWithError()
     }
 
     override func tearDownWithError() throws {
+        try? super.tearDownWithError()
     }
 
     func testExample() throws {
