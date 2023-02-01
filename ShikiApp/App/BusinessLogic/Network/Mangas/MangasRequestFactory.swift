@@ -86,7 +86,7 @@ extension MangasRequestFactoryProtocol {
         if let season = filters.season {
             parameters[APIKeys.season.rawValue] = season
         }
-        if let score = filters.score, (1...9).contains(score)  {
+        if let score = filters.score, (1...9).contains(score) {
             parameters[APIKeys.score.rawValue] = score
         }
         if let genre = filters.genre {
