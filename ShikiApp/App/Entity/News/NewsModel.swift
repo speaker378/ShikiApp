@@ -12,24 +12,23 @@ struct NewsModel {
     let date: String?
     let title: String?
     let subtitle: String?
-    let images: [UIImage]
+    let images: [UIImage?]
     let URLString: String?
-    // ...
 }
 
 final class NewsModelFactory {
-    func makeModels(from news: [NewsModelAPI]) -> [NewsModel] {
-        return news.compactMap(self.viewModel)
+    func makeModels(from news: TopicsResponseDTO) -> [NewsModel] {
+        return news.compactMap(self.convertModel)
     }
     
-    private func viewModel(from news: NewsModelAPI) -> NewsModel {
-        let image = news.image
-        let date = news.date
-        let title = news.title
-        let subtitle = news.subtitle
-        let images = news.images
-        let URLString = news.URLString
-
+    private func convertModel(from news: TopicDTO) -> NewsModel {
+        let image = AppImage.ErrorsIcons.nonConnectionIcon
+        let date = news.createdAt?.convertToDate()?.convertToString() ?? ""
+        let title = news.topicTitle
+        let subtitle = news.htmlBody?.htmlToString()
+        let images = [AppImage.ErrorsIcons.nonConnectionIcon, AppImage.ErrorsIcons.nonConnectionIcon]
+        let URLString = "\(Constants.Url.baseUrl)\(news.linked?.url ?? "")"
+        
         return NewsModel(
             image: image,
             date: date,
