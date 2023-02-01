@@ -7,7 +7,7 @@
 
 import Foundation
 
-// MARK: - EndPointType protocol
+// MARK: - EndPointType
 
 protocol EndPointType {
     static var baseURL: URL { get }
@@ -21,7 +21,9 @@ protocol EndPointType {
 
 extension EndPointType {
     static var baseURL: URL {
-        guard let url = URL(string: Bundle.main.object(forInfoDictionaryKey: HttpConstants.apiUrl) as? String ?? "") else {
+        guard let urlString = Bundle.main.object(forInfoDictionaryKey: HttpConstants.apiUrl) as? String,
+              let url = URL(string: urlString)
+        else {
             fatalError(HttpConstants.urlError)
         }
         return url

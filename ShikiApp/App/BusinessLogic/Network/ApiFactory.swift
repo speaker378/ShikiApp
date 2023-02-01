@@ -14,6 +14,8 @@ protocol ApiFactoryProtocol {
     static func makeForumsApi() -> ForumsRequestFactoryProtocol
     static func makeTopicsApi() -> TopicsRequestFactoryProtocol
     static func makeAnonymousTopicsApi() -> TopicsRequestFactoryProtocol
+    static func makeAnimesApi() -> AnimesRequestFactoryProtocol
+    static func makeMangasApi() -> MangasRequestFactoryProtocol
 }
 
 // MARK: - ApiFactory
@@ -34,6 +36,18 @@ final class ApiFactory: ApiFactoryProtocol {
 
     // MARK: - ApiFactoryProtocol implementation
 
+    static func makeMangasApi() -> MangasRequestFactoryProtocol {
+        MangasRequestFactory(token: token, agent: agent)
+    }
+    
+    static func makeRanobeApi() -> RanobeRequestFactoryProtocol {
+        RanobeRequestFactory(token: token, agent: agent)
+    }
+    
+    static func makeAnimesApi() -> AnimesRequestFactoryProtocol {
+        AnimesRequestFactory(token: token, agent: agent)
+    }
+    
     static func makeForumsApi() -> ForumsRequestFactoryProtocol {
         ForumsRequestFactory(agent: agent)
     }
