@@ -76,6 +76,7 @@ class NewsfeedTableViewCell: UITableViewCell {
     // MARK: - Lifecycle
     
     override func prepareForReuse() {
+        super.prepareForReuse()
         newsImageView.image = nil
         [dateLabel, titleLabel, subtitleLabel].forEach { $0.text = nil }
     }
