@@ -11,8 +11,8 @@ import Foundation
 struct Constants {
     
     enum Url {
-       static let baseUrl = ""
         static let apiUrl = Bundle.main.object(forInfoDictionaryKey: HttpConstants.apiUrl) as? String ?? ""
+        static let baseUrl = Bundle.main.object(forInfoDictionaryKey: HttpConstants.baseUrl) as? String ?? ""
     }
     
     enum Keys {

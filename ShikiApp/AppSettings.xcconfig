@@ -9,3 +9,4 @@
 // https://help.apple.com/xcode/#/dev745c5c974
 
 API_URL = https:/$()/shikimori.one/api/
+BASE_URL = https:/$()/shikimori.one

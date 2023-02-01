@@ -15,5 +15,6 @@ struct HttpConstants {
     static let authorization = "Authorization"
     static let agent = "User-Agent"
     static let apiUrl = "API_URL"
+    static let baseUrl = "BASE_URL"
     static let urlError = "API Base URL could not be configured"
 }
