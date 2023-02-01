@@ -1,16 +1,49 @@
 //
-//  UIImageView+downloadeImage.swift
+//  UIImageViewAsync.swift
 //  ShikiApp
 //
-//  Created by Константин Шмондрик on 29.01.2023.
+//  Created by Константин Шмондрик on 02.02.2023.
 //
 // Пример использования:
 // myImageView.downloadedImage(from: "http:\.........")
 
 import UIKit
 
-extension UIImageView {
+final class UIImageViewAsync: UIImageView {
+
+    // MARK: - Private properties
     
+    private var task: URLSessionDataTask?
+    
+    private var activityIndicator: UIActivityIndicatorView = {
+        let indicatorStyle = UIActivityIndicatorView.Style.medium
+        let activityIndicator = UIActivityIndicatorView.init(style: indicatorStyle)
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        return activityIndicator
+    }()
+
+    // MARK: - Construction
+    
+    init() {
+        super.init(frame: .zero)
+        setActivityIndicator()
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+
+    // MARK: - Functions
+    
+    /// Загрузка картинок по URL
+    /// - Parameters:
+    ///   - link: URL  изображения
+    ///   - mode: ContentMode  по умолчанию  scaleAspectFit
+    ///   - isActivityIndicator: наличие ActivityIndicator по умалчанию true
     func downloadedImage(from link: String,
                          contentMode mode: ContentMode = .scaleAspectFit,
                          isActivityIndicator: Bool = true) {
@@ -34,19 +67,18 @@ extension UIImageView {
         
         let session = URLSession(configuration: configuration)
         
-        let indicatorStyle = UIActivityIndicatorView.Style.medium
-        let activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView.init(style: indicatorStyle)
-        addSubview(activityIndicator)
-        activityIndicator.center = self.center
-        
         if isActivityIndicator {
             activityIndicator.startAnimating()
         }
         
-        session.dataTask(with: url) { data, response, error in
+        if let task = task {
+            task.cancel()
+        }
+        
+        self.task = session.dataTask(with: url) { data, response, error in
             guard
                 let httpURLResponse = response as? HTTPURLResponse,
-                    httpURLResponse.statusCode == 200,
+                httpURLResponse.statusCode == 200,
                 let mimeType = response?.mimeType, mimeType.hasPrefix("image"),
                 let data = data, error == nil,
                 let image = UIImage(data: data)
@@ -58,8 +90,21 @@ extension UIImageView {
                 guard let self else { return }
                 
                 self.image = image
-                activityIndicator.removeFromSuperview()
+                self.activityIndicator.removeFromSuperview()
             }
-        }.resume()
+        }
+        task?.resume()
     }
+    
+    func taskCancel() {
+        task?.cancel()
+    }
+
+    // MARK: - Private functions
+    
+    private func setActivityIndicator() {
+        addSubview(activityIndicator)
+        activityIndicator.center = self.center
+    }
+
 }
