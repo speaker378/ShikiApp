@@ -67,6 +67,7 @@ enum APIRestrictions: Int {
     case maxPages = 100_000
     case limit30 = 30
     case limit10 = 10
+    case limit50 = 50
     case limit100 = 100
     case limit5000 = 5_000
 }
@@ -90,4 +91,18 @@ enum APIKeys: String {
     case censored
     case targetId = "target_id"
     case targetType = "target_type"
+    case search
+    case order
+    case kind
+    case season
+    case score
+    case duration
+    case rating
+    case genre
+    case studio
+    case franchise
+    case myList
+    case ids
+    case excludeIds = "exclude_ids"
+    
 }

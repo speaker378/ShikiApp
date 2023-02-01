@@ -12,6 +12,7 @@ typealias TopicsResponseDTO = [TopicDTO]
 // MARK: - TopicDTO
 
 struct TopicDTO: Codable {
+    
     let id: Int
     let topicTitle, body, htmlBody, htmlFooter: String?
     let createdAt: String?
@@ -50,6 +51,7 @@ struct TopicDTO: Codable {
 // MARK: - LinkedDTO
 
 struct LinkedDTO: Codable {
+    
     let id: Int
     let name, russian: String?
     let image: ImageDTO?
@@ -74,6 +76,7 @@ struct ImageDTO: Codable {
 // MARK: - UserImageDTO
 
 struct UserImageDTO: Codable {
+    
     let x160, x148, x80, x64: String
     let x48, x32, x16: String
 }

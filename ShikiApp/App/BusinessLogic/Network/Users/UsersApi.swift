@@ -26,6 +26,7 @@ enum UsersApi {
 }
 
 extension UsersApi: EndPointType {
+    
     var path: String {
         switch self {
         case .listUsers:

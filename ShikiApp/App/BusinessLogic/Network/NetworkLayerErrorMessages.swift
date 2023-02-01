@@ -8,6 +8,7 @@
 import Foundation
 
 struct NetworkLayerErrorMessages {
+    
     static let success = "Success"
     static let authenticationError = "You need to be authenticated."
     static let badRequest = "Bad request"

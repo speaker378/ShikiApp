@@ -12,6 +12,7 @@ enum ForumsApi {
 }
 
 extension ForumsApi: EndPointType {
+    
     var path: String { "forums" }
 
     var httpMethod: HTTPMethod { .get }

@@ -10,6 +10,7 @@ import Foundation
 // MARK: - UserFavoritesResponseDTO
 
 struct UserFavoritesResponseDTO: Codable {
+    
     let animes: [FavoriteDTO]
     let mangas: [FavoriteDTO]
     let ranobe: [FavoriteDTO]
@@ -23,6 +24,7 @@ struct UserFavoritesResponseDTO: Codable {
 // MARK: - FavoriteDTO
 
 struct FavoriteDTO: Codable {
+    
     let id: Int
     let name: String?
     let russian: String?
