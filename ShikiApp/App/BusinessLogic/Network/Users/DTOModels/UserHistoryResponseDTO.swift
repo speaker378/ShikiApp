@@ -14,6 +14,7 @@ typealias UserHistoryResponseDTO = [HistoryItem]
 // MARK: - HistoryItem
 
 struct HistoryItem: Codable {
+    
     let id: Int
     let createdAt, description: String?
     let target: TargetDTO?
@@ -28,6 +29,7 @@ struct HistoryItem: Codable {
 // MARK: - TargetDTO
 
 struct TargetDTO: Codable {
+    
     let id: Int
     let name: String?
     let russian: String?

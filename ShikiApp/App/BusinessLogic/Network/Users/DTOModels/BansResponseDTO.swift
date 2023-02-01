@@ -14,6 +14,7 @@ typealias BansResponseDTO = [BanDTO]
 // MARK: - BanDTO
 
 struct BanDTO: Codable {
+    
     let id, userID: Int
     let comment: CommentDTO?
     let moderatorID: Int?
@@ -36,6 +37,7 @@ struct BanDTO: Codable {
 // MARK: - CommentDTO
 
 struct CommentDTO: Codable {
+    
     let id: Int
     let commentableID: Int?
     let commentableType, body: String?

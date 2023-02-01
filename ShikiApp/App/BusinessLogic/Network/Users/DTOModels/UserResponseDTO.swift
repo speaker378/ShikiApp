@@ -22,6 +22,7 @@ typealias FriendsResponseDTO = UsersResponseDTO
 // MARK: - UserDTO
 
 struct UserDTO: Codable {
+    
     let id: Int
     let nickname: String
     let avatar: String?

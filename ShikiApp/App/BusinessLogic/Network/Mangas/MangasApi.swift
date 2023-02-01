@@ -17,6 +17,7 @@ enum MangasApi {
 // MARK: MangasApi EndPointType extension
 
 extension MangasApi: EndPointType {
+    
     var path: String {
         switch self {
         case .list:

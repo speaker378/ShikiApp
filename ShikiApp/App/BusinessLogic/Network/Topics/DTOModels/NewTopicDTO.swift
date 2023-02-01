@@ -16,6 +16,7 @@ struct NewTopicRequestDTO: Codable {
 // MARK: - NewTopicDTO
 
 struct NewTopicDTO: Codable {
+    
     let body, linkedType, title, type: String?
     let forumID, linkedID: Int?
     let userID: Int

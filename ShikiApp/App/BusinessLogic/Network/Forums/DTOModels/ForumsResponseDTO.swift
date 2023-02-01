@@ -14,6 +14,7 @@ typealias ForumsResponseDTO = [ForumDTO]
 // MARK: - ForumDTO
 
 struct ForumDTO: Codable {
+    
     let id: Int
     let position: Int?
     let name: String?

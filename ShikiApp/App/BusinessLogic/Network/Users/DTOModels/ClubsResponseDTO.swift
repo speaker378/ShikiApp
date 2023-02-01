@@ -14,6 +14,7 @@ typealias ClubsResponseDTO = [ClubDTO]
 // MARK: - ClubDTO
 
 struct ClubDTO: Codable {
+    
     let id: Int
     let name: String
     let logo: LogoDTO?

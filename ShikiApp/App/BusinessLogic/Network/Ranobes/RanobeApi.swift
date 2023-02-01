@@ -17,6 +17,7 @@ enum RanobeApi {
 // MARK: RanobesApi EndPointType extension
 
 extension RanobeApi: EndPointType {
+    
     var path: String {
         switch self {
         case .list:

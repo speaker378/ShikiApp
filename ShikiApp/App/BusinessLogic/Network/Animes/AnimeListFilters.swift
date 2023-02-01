@@ -10,6 +10,7 @@ import Foundation
 // MARK: - AnimeListFilters
 
 struct AnimeListFilters {
+    
     var kind: AnimeContentKind?
     var status: AnimeContentStatus?
     var season: String?

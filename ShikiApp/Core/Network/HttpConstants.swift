@@ -7,6 +7,7 @@
 
 import Foundation
 struct HttpConstants {
+    
     static let contentType = "Content-Type"
     static let formUrlEncodedContent = "application/x-www-form-urlencoded; charset=utf-8"
     static let jsonContent = "application/json"

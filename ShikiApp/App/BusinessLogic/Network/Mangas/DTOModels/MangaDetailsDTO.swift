@@ -10,6 +10,7 @@ import Foundation
 // MARK: - MangaDetailsDTO
 
 struct MangaDetailsDTO: Codable {
+    
     let id: Int
     let name: String
     let russian: String?
@@ -58,6 +59,7 @@ struct MangaDetailsDTO: Codable {
 // MARK: - PublisherDTO
 
 struct PublisherDTO: Codable {
+    
     let id: Int
     let name: String?
 }

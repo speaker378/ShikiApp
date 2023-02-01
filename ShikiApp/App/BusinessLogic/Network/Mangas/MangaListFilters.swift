@@ -10,6 +10,7 @@ import Foundation
 // MARK: - MangaListFilters
 
 struct MangaListFilters {
+    
     var kind: MangaContentKind?
     var status: MangaContentStatus?
     var season: String?

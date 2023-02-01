@@ -12,6 +12,7 @@ typealias NewsTopicsResponseDTO = [NewsTopicDTO]
 // MARK: - NewsTopicDTO
 
 struct NewsTopicDTO: Codable {
+    
     let id: Int
     let linked: LinkedDTO?
     let event: String?

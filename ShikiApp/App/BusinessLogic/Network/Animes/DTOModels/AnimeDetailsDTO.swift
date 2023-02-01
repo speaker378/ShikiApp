@@ -10,6 +10,7 @@ import Foundation
 // MARK: - AnimeDetailsDTO
 
 struct AnimeDetailsDTO: Codable {
+    
     let id: Int
     let name: String
     let russian: String?
@@ -65,6 +66,7 @@ struct AnimeDetailsDTO: Codable {
 // MARK: - GenreDTO
 
 struct GenreDTO: Codable {
+    
     let id: Int
     let name: String
     let russian: String?
@@ -74,6 +76,7 @@ struct GenreDTO: Codable {
 // MARK: - RatesStatusesDTO
 
 struct RatesStatusesDTO: Codable {
+    
     let name: String
     let value: Int
 }
@@ -81,6 +84,7 @@ struct RatesStatusesDTO: Codable {
 // MARK: - RatesScoresDTO
 
 struct RatesScoresDTO: Codable {
+    
     let name: Int
     let value: Int
 }
@@ -88,6 +92,7 @@ struct RatesScoresDTO: Codable {
 // MARK: - StudioDTO
 
 struct StudioDTO: Codable {
+    
     let id: Int
     let name: String?
     let filteredName: String?
@@ -102,6 +107,7 @@ struct StudioDTO: Codable {
 // MARK: - VideoDTO
 
 struct VideoDTO: Codable {
+    
     let id: Int
     let url, imageUrl, playerUrl, name, kind, hosting: String?
     

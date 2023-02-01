@@ -12,9 +12,12 @@ typealias NetworkRouterCompletion = (_ data: Data?, _ response: URLResponse?, _ 
 // MARK: - NetworkRouter protocol
 
 protocol NetworkRouter {
+    
     associatedtype EndPoint: EndPointType
+    
     var token: String? { get }
     var userAgent: String? { get }
+    
     func request(_ route: EndPoint, completion: @escaping NetworkRouterCompletion)
     func cancel()
 }

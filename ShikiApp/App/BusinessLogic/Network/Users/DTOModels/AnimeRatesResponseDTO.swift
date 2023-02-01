@@ -11,6 +11,7 @@ typealias AnimeRatesResponseDTO = [AnimeRateDTO]
 // MARK: - AnimeRateDTO
 
 struct AnimeRateDTO: Codable {
+    
     let id, score: Int
     let status: String
     let text: String?
@@ -36,6 +37,7 @@ struct AnimeRateDTO: Codable {
 // MARK: - AnimeInfoDTO
 
 struct AnimeInfoDTO: Codable {
+    
     let id: Int
     let name: String
     let russian: String?

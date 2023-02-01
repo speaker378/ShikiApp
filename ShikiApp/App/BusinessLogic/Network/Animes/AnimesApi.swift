@@ -17,6 +17,7 @@ enum AnimesApi {
 // MARK: AnimesApi EndPointType extension
 
 extension AnimesApi: EndPointType {
+    
     var path: String {
         switch self {
         case .list:
