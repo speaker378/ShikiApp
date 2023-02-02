@@ -9,11 +9,13 @@ import Foundation
 
 extension Date {
     
-    func convertToString() -> String {
+    func convertToString(with format: String, relative: Bool = false) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = .current
-        dateFormatter.dateFormat = "dd MMMM, HH:mm"
+        dateFormatter.dateFormat = format
         var dateString = dateFormatter.string(from: self)
+        
+        guard relative else { return dateString }
         
         if Calendar.current.isDateInToday(self) {
             var array = dateString.components(separatedBy: ",")

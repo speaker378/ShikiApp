@@ -23,7 +23,10 @@ final class NewsModelFactory {
     
     private func convertModel(from news: TopicDTO) -> NewsModel {
         let image = AppImage.ErrorsIcons.nonConnectionIcon
-        let date = news.createdAt?.convertToDate()?.convertToString() ?? ""
+        let date = news
+            .createdAt?
+            .convertToDate()?
+            .convertToString(with: Constants.DateFormatter.dayMonthCommaHoursMinutes, relative: true) ?? ""
         let title = news.topicTitle
         let subtitle = news.htmlBody?.htmlToString()
         let images = [AppImage.ErrorsIcons.nonConnectionIcon, AppImage.ErrorsIcons.nonConnectionIcon]

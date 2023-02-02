@@ -35,7 +35,7 @@ final class NewsfeedPresenter: NewsfeedViewOutput {
 
     // MARK: - Private functions
     
-    private func getDataFromServer() {
+    private func fetchDataFromServer() {
         factory.listTopics(
             page: 1,
             limit: 20,
@@ -61,7 +61,7 @@ final class NewsfeedPresenter: NewsfeedViewOutput {
             viewInput?.models = NewsModelFactory().makeModels(from: newsList)
             viewInput?.reloadData()
         } else {
-            getDataFromServer()
+            fetchDataFromServer()
         }
     }
 }

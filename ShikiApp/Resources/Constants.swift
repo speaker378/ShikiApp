@@ -18,4 +18,8 @@ struct Constants {
     enum Keys {
         
     }
+    
+    enum DateFormatter {
+        static let dayMonthCommaHoursMinutes = "dd MMMM, HH:mm"
+    }
 }
