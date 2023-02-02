@@ -12,11 +12,7 @@ class NewsfeedViewController: (UIViewController & NewsfeedViewInput) {
     // MARK: - Properties
     
     let presenter: NewsfeedViewOutput
-    var models: [NewsModel] = [] {
-        didSet {
-            tableView.reloadData()
-        }
-    }
+    var models: [NewsModel] = []
 
     // MARK: - Private Properties
     
@@ -34,15 +30,23 @@ class NewsfeedViewController: (UIViewController & NewsfeedViewInput) {
         return view
     }()
     
-    private var backgroundImageView: UIImageView = {
+    private var activityIndicator: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.style = .large
+        return view
+    }()
+    
+    private var backgroundErrorImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
         imageView.image = AppImage.ErrorsIcons.nonConnectionIcon
+        imageView.isHidden = true
         return imageView
     }()
     
-    private var backgroundLabel: UILabel = {
+    private var backgroundErrorLabel: UILabel = {
         let label = AppLabel(
             alignment: .center,
             fontSize: AppFont.openSansFont(ofSize: 16, weight: .regular),
@@ -51,6 +55,7 @@ class NewsfeedViewController: (UIViewController & NewsfeedViewInput) {
         )
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = Texts.ErrorMessage.general
+        label.isHidden = true
         return label
     }()
 
@@ -83,10 +88,23 @@ class NewsfeedViewController: (UIViewController & NewsfeedViewInput) {
         navigationController?.navigationBar.prefersLargeTitles = true
     }
 
+    // MARK: - Functions
+    
+    func reloadData() {
+        activityIndicator.stopAnimating()
+        tableView.reloadData()
+    }
+    
+    func showErrorBackground() {
+        activityIndicator.stopAnimating()
+        backgroundErrorImageView.isHidden = false
+        backgroundErrorLabel.isHidden = false
+    }
+
     // MARK: - Private functions
     
     private func setupViews() {
-        backgroundView.addSubviews([backgroundImageView, backgroundLabel])
+        backgroundView.addSubviews([backgroundErrorImageView, backgroundErrorLabel, activityIndicator])
         tableView.backgroundView = backgroundView
         view.addSubview(tableView)
     }
@@ -96,6 +114,7 @@ class NewsfeedViewController: (UIViewController & NewsfeedViewInput) {
         tableView.registerCell(NewsfeedTableViewCell.self)
         tableView.delegate = self
         tableView.dataSource = self
+        activityIndicator.startAnimating()
     }
     
     private func setupConstraints() {
@@ -110,13 +129,16 @@ class NewsfeedViewController: (UIViewController & NewsfeedViewInput) {
             backgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             backgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
-            backgroundImageView.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
-            backgroundImageView.centerYAnchor.constraint(equalTo: backgroundView.centerYAnchor),
-            backgroundImageView.widthAnchor.constraint(equalToConstant: 105),
-            backgroundImageView.heightAnchor.constraint(equalToConstant: 105),
+            backgroundErrorImageView.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
+            backgroundErrorImageView.centerYAnchor.constraint(equalTo: backgroundView.centerYAnchor),
+            backgroundErrorImageView.widthAnchor.constraint(equalToConstant: 105),
+            backgroundErrorImageView.heightAnchor.constraint(equalToConstant: 105),
             
-            backgroundLabel.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
-            backgroundLabel.topAnchor.constraint(equalTo: backgroundImageView.bottomAnchor, constant: 24)
+            backgroundErrorLabel.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
+            backgroundErrorLabel.topAnchor.constraint(equalTo: backgroundErrorImageView.bottomAnchor, constant: 24),
+            
+            activityIndicator.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: backgroundView.centerYAnchor)
         ])
     }
 }
