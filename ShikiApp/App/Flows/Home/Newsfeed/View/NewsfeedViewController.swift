@@ -30,7 +30,7 @@ class NewsfeedViewController: (UIViewController & NewsfeedViewInput) {
     private var backgroundView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = AppColor.backgroundMain
         return view
     }()
     

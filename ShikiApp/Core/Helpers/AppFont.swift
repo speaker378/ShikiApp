@@ -20,8 +20,16 @@ struct AppFont {
         case extraBold = "-ExtraBold"
     }
     
+    enum Style {
+        static let subtitle = AppFont.openSansFont(ofSize: 12)
+        static let regularText = AppFont.openSansFont(ofSize: 16)
+        static let blockTitle = AppFont.openSansFont(ofSize: 16, weight: .bold)
+        static let pageTitle = AppFont.openSansFont(ofSize: 20, weight: .semiBold)
+        static let title = AppFont.openSansFont(ofSize: 20, weight: .bold)
+        static let pageLargeTitle = AppFont.openSansFont(ofSize: 28, weight: .extraBold)
+    }
+    
     static func openSansFont(ofSize size: CGFloat = UIFont.systemFontSize, weight: OpenSans = .regular) -> UIFont {
         return UIFont(name: "OpenSans\(weight.rawValue)", size: size) ?? .systemFont(ofSize: size)
     }
-    
 }
