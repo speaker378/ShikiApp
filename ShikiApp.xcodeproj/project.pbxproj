@@ -59,11 +59,13 @@
 		16B08249298A239000EB9061 /* RanobeRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B08248298A239000EB9061 /* RanobeRequestFactory.swift */; };
 		16B0824B298A243C00EB9061 /* RanobeDetailsDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B0824A298A243C00EB9061 /* RanobeDetailsDTO.swift */; };
 		16B0824D298A267900EB9061 /* RanobeApiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B0824C298A267900EB9061 /* RanobeApiTests.swift */; };
-		3A05E28F297D602800987CFF /* NewsModelAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A05E28E297D602800987CFF /* NewsModelAPI.swift */; };
 		3A05E291297D606B00987CFF /* NewsfeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A05E290297D606B00987CFF /* NewsfeedViewController.swift */; };
 		3A05E293297D60B100987CFF /* NewsfeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A05E292297D60B100987CFF /* NewsfeedTableViewCell.swift */; };
 		3A05E295297E696200987CFF /* NewsfeedPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A05E294297E696200987CFF /* NewsfeedPresenter.swift */; };
 		3A05E299297E8EA500987CFF /* NewsfeedBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A05E298297E8EA500987CFF /* NewsfeedBuilder.swift */; };
+		3A19C066298B757D0073D472 /* Date+toString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A19C065298B757D0073D472 /* Date+toString.swift */; };
+		3A19C068298B75A80073D472 /* String+htmlToString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A19C067298B75A80073D472 /* String+htmlToString.swift */; };
+		3A19C06A298B75B40073D472 /* String+toDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A19C069298B75B40073D472 /* String+toDate.swift */; };
 		3A1A09692985400900846058 /* NewsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1A09602985400900846058 /* NewsDetailViewController.swift */; };
 		3A1A096A2985400900846058 /* NewsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1A09612985400900846058 /* NewsDetailView.swift */; };
 		3A1A096B2985400900846058 /* NewsDetailCollectionViewDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1A09622985400900846058 /* NewsDetailCollectionViewDatasource.swift */; };
@@ -179,11 +181,13 @@
 		16B08248298A239000EB9061 /* RanobeRequestFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RanobeRequestFactory.swift; sourceTree = "<group>"; };
 		16B0824A298A243C00EB9061 /* RanobeDetailsDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RanobeDetailsDTO.swift; sourceTree = "<group>"; };
 		16B0824C298A267900EB9061 /* RanobeApiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RanobeApiTests.swift; sourceTree = "<group>"; };
-		3A05E28E297D602800987CFF /* NewsModelAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsModelAPI.swift; sourceTree = "<group>"; };
 		3A05E290297D606B00987CFF /* NewsfeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsfeedViewController.swift; sourceTree = "<group>"; };
 		3A05E292297D60B100987CFF /* NewsfeedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsfeedTableViewCell.swift; sourceTree = "<group>"; };
 		3A05E294297E696200987CFF /* NewsfeedPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsfeedPresenter.swift; sourceTree = "<group>"; };
 		3A05E298297E8EA500987CFF /* NewsfeedBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsfeedBuilder.swift; sourceTree = "<group>"; };
+		3A19C065298B757D0073D472 /* Date+toString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+toString.swift"; sourceTree = "<group>"; };
+		3A19C067298B75A80073D472 /* String+htmlToString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+htmlToString.swift"; sourceTree = "<group>"; };
+		3A19C069298B75B40073D472 /* String+toDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+toDate.swift"; sourceTree = "<group>"; };
 		3A1A09602985400900846058 /* NewsDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsDetailViewController.swift; sourceTree = "<group>"; };
 		3A1A09612985400900846058 /* NewsDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsDetailView.swift; sourceTree = "<group>"; };
 		3A1A09622985400900846058 /* NewsDetailCollectionViewDatasource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsDetailCollectionViewDatasource.swift; sourceTree = "<group>"; };
@@ -283,6 +287,7 @@
 		0010CAB92978018C00F8705B /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				3A19C064298B757D0073D472 /* Date */,
 				3AFAFEE42980559500949FE2 /* String */,
 				0010CAC6297815F300F8705B /* UITableView */,
 				0010CAC129780D2E00F8705B /* UICollectionView */,
@@ -501,6 +506,14 @@
 			path = NewsDetail;
 			sourceTree = "<group>";
 		};
+		3A19C064298B757D0073D472 /* Date */ = {
+			isa = PBXGroup;
+			children = (
+				3A19C065298B757D0073D472 /* Date+toString.swift */,
+			);
+			path = Date;
+			sourceTree = "<group>";
+		};
 		3A1A095F2985400900846058 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -539,7 +552,6 @@
 		3A275771297EFE2500EFD543 /* News */ = {
 			isa = PBXGroup;
 			children = (
-				3A05E28E297D602800987CFF /* NewsModelAPI.swift */,
 				3A27576F297EFDD900EFD543 /* NewsModel.swift */,
 			);
 			path = News;
@@ -784,6 +796,8 @@
 			isa = PBXGroup;
 			children = (
 				3AFAFEE5298055A900949FE2 /* String+heightText.swift */,
+				3A19C067298B75A80073D472 /* String+htmlToString.swift */,
+				3A19C069298B75B40073D472 /* String+toDate.swift */,
 			);
 			path = String;
 			sourceTree = "<group>";
@@ -973,7 +987,9 @@
 				166FA78F29894406009C2712 /* MangaEnums.swift in Sources */,
 				006031AF2979B79400CD9A16 /* TabBarViewController.swift in Sources */,
 				3A7E4D902985492C00E7CA17 /* BansResponseDTO.swift in Sources */,
+				3A19C068298B75A80073D472 /* String+htmlToString.swift in Sources */,
 				3A7E4D8C2985492C00E7CA17 /* UnreadMessagesResponseDTO.swift in Sources */,
+				3A19C066298B757D0073D472 /* Date+toString.swift in Sources */,
 				3A7E4D8A2985492C00E7CA17 /* AnimeRatesResponseDTO.swift in Sources */,
 				006031BB297BCA9600CD9A16 /* ProfileViewController.swift in Sources */,
 				16B08247298A22B300EB9061 /* RanobeApi.swift in Sources */,
@@ -982,6 +998,7 @@
 				3A7E4D922985492C00E7CA17 /* NetworkLayerErrorMessages.swift in Sources */,
 				3A1A096A2985400900846058 /* NewsDetailView.swift in Sources */,
 				3A7E4DA62985496A00E7CA17 /* HTTPMethod.swift in Sources */,
+				3A19C06A298B75B40073D472 /* String+toDate.swift in Sources */,
 				3A7E4DA32985496A00E7CA17 /* HttpConstants.swift in Sources */,
 				3A7E4DA92985496A00E7CA17 /* JSONParameterEncoder.swift in Sources */,
 				16130E542987348B00A4EC94 /* AnimesRequestFactory.swift in Sources */,
@@ -990,7 +1007,6 @@
 				3A7E4D932985492C00E7CA17 /* TopicsEnums.swift in Sources */,
 				0010CABD297801E900F8705B /* AppLabel.swift in Sources */,
 				3A05E291297D606B00987CFF /* NewsfeedViewController.swift in Sources */,
-				3A05E28F297D602800987CFF /* NewsModelAPI.swift in Sources */,
 				0010CADB29783E7400F8705B /* AppImage.swift in Sources */,
 				3A7E4D972985492C00E7CA17 /* DeleteTopicResponseDTO.swift in Sources */,
 				3A1A09692985400900846058 /* NewsDetailViewController.swift in Sources */,
