@@ -11,11 +11,11 @@ final class NewsDetailCollectionViewDataSource: NSObject, UICollectionViewDataSo
 
     // MARK: - Private properties
     
-    private let images: [UIImage]
+    private let images: [UIImage?]
 
     // MARK: - Construction
     
-    init(images: [UIImage]) {
+    init(images: [UIImage?]) {
         self.images = images
     }
 
@@ -27,10 +27,11 @@ final class NewsDetailCollectionViewDataSource: NSObject, UICollectionViewDataSo
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard
-            let cell: NewsDetailCollectionViewCell = collectionView.cell(forRowAt: indexPath),
-            images.indices.contains(indexPath.item)
+            !images.isEmpty,
+            images.indices.contains(indexPath.item),
+            let cell: NewsDetailCollectionViewCell = collectionView.cell(forRowAt: indexPath)
         else { return UICollectionViewCell() }
-        cell.configure(image: images[indexPath.item])
+        cell.configure(image: images[indexPath.item] ?? UIImage())
         return cell
     }
 }

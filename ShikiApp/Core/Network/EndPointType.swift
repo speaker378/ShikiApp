@@ -23,9 +23,7 @@ protocol EndPointType {
 extension EndPointType {
     
     static var baseURL: URL {
-        guard let urlString = Bundle.main.object(forInfoDictionaryKey: HttpConstants.apiUrl) as? String,
-              let url = URL(string: urlString)
-        else {
+        guard let url = URL(string: Constants.Url.apiUrl) else {
             fatalError(HttpConstants.urlError)
         }
         return url
