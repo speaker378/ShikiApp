@@ -17,6 +17,7 @@ enum Result<String> {
 // MARK: - AbstractRequestFactoryProtocol
 
 protocol AbstractRequestFactoryProtocol {
+    
     associatedtype API: EndPointType
     var router: Router<API> { get }
     func getResponse<Response: Codable>(type: Response.Type, endPoint: API, completion: @escaping (_ response: Response?, _ error: String?) -> Void)
@@ -25,6 +26,7 @@ protocol AbstractRequestFactoryProtocol {
 // MARK: - AbstractRequestFactory
 
 class AbstractRequestFactory<API: EndPointType>: AbstractRequestFactoryProtocol {
+    
     var router: Router<API>
 
     init(token: String? = nil, agent: String? = nil) {

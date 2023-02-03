@@ -18,6 +18,7 @@ enum TopicsApi {
 }
 
 extension TopicsApi: EndPointType {
+    
     var path: String {
         switch self {
         case .listTopics, .postTopic:

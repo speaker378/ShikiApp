@@ -10,6 +10,19 @@ import Foundation
 
 struct Constants {
     
+    enum Url {
+        static let apiUrl = Bundle.main.object(forInfoDictionaryKey: HttpConstants.apiUrl) as? String ?? ""
+        static let baseUrl = Bundle.main.object(forInfoDictionaryKey: HttpConstants.baseUrl) as? String ?? ""
+    }
+    
+    enum Keys {
+        
+    }
+    
+    enum DateFormatter {
+        static let dayMonthCommaHoursMinutes = "dd MMMM, HH:mm"
+    }
+    
     enum Prefix {
         static let byte = 1
         static let kilobyte = 1024
@@ -21,5 +34,4 @@ struct Constants {
         static let diskCapacity = 50 * Prefix.megabyte
         static let maximumConnections = 5
     }
-    
 }

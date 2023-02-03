@@ -12,6 +12,7 @@ typealias MessagesResponseDTO = [MessageDTO]
 // MARK: - Message
 
 struct MessageDTO: Codable {
+    
     let id: Int
     let kind: String?
     let read: Bool?
@@ -36,6 +37,7 @@ struct MessageDTO: Codable {
 // MARK: - LinkedDataDTO
 
 struct LinkedDataDTO: Codable {
+    
     let id: Int
     let topicURL: String?
     let threadID, topicID: Int?

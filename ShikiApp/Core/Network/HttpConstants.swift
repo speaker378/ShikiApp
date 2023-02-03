@@ -7,6 +7,7 @@
 
 import Foundation
 struct HttpConstants {
+    
     static let contentType = "Content-Type"
     static let formUrlEncodedContent = "application/x-www-form-urlencoded; charset=utf-8"
     static let jsonContent = "application/json"
@@ -14,5 +15,6 @@ struct HttpConstants {
     static let authorization = "Authorization"
     static let agent = "User-Agent"
     static let apiUrl = "API_URL"
+    static let baseUrl = "BASE_URL"
     static let urlError = "API Base URL could not be configured"
 }

@@ -38,12 +38,34 @@
 		006031BB297BCA9600CD9A16 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006031BA297BCA9600CD9A16 /* ProfileViewController.swift */; };
 		006031BD297BCB3500CD9A16 /* TabBarItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006031BC297BCB3500CD9A16 /* TabBarItems.swift */; };
 		006031C0297C087F00CD9A16 /* StartManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006031BF297C087F00CD9A16 /* StartManager.swift */; };
-		00CCD6C5298AE78D00B47662 /* UIImageViewAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CCD6C4298AE78D00B47662 /* UIImageViewAsync.swift */; };
-		3A05E28F297D602800987CFF /* NewsModelAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A05E28E297D602800987CFF /* NewsModelAPI.swift */; };
+		16130E5029872DBB00A4EC94 /* AnimesApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16130E4F29872DBB00A4EC94 /* AnimesApi.swift */; };
+		16130E5229872F5000A4EC94 /* AnimesResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16130E5129872F5000A4EC94 /* AnimesResponseDTO.swift */; };
+		16130E542987348B00A4EC94 /* AnimesRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16130E532987348A00A4EC94 /* AnimesRequestFactory.swift */; };
+		16130E562987371500A4EC94 /* AnimeDetailsDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16130E552987371500A4EC94 /* AnimeDetailsDTO.swift */; };
+		16130E5829873BEF00A4EC94 /* AnimeListFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16130E5729873BEF00A4EC94 /* AnimeListFilters.swift */; };
+		16130E5A29873C7600A4EC94 /* AnimeEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16130E5929873C7600A4EC94 /* AnimeEnums.swift */; };
+		16130E5C29875FA700A4EC94 /* AnimesApiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16130E5B29875FA700A4EC94 /* AnimesApiTests.swift */; };
+		166FA78D29894235009C2712 /* MangasApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166FA78C29894235009C2712 /* MangasApi.swift */; };
+		166FA78F29894406009C2712 /* MangaEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166FA78E29894406009C2712 /* MangaEnums.swift */; };
+		166FA791298945E2009C2712 /* MangaListFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166FA790298945E2009C2712 /* MangaListFilters.swift */; };
+		166FA79329894651009C2712 /* MangasRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166FA79229894651009C2712 /* MangasRequestFactory.swift */; };
+		166FA79529894842009C2712 /* MangaResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166FA79429894842009C2712 /* MangaResponseDTO.swift */; };
+		166FA79729894A16009C2712 /* MangaDetailsDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166FA79629894A16009C2712 /* MangaDetailsDTO.swift */; };
+		16B0823D298A133100EB9061 /* MangasApiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B0823C298A133100EB9061 /* MangasApiTests.swift */; };
+		16B08241298A1FAB00EB9061 /* RanobeResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B08240298A1FAB00EB9061 /* RanobeResponseDTO.swift */; };
+		16B08243298A21A400EB9061 /* RanobeEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B08242298A21A400EB9061 /* RanobeEnums.swift */; };
+		16B08245298A225100EB9061 /* RanobeListFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B08244298A225100EB9061 /* RanobeListFilters.swift */; };
+		16B08247298A22B300EB9061 /* RanobeApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B08246298A22B300EB9061 /* RanobeApi.swift */; };
+		16B08249298A239000EB9061 /* RanobeRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B08248298A239000EB9061 /* RanobeRequestFactory.swift */; };
+		16B0824B298A243C00EB9061 /* RanobeDetailsDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B0824A298A243C00EB9061 /* RanobeDetailsDTO.swift */; };
+		16B0824D298A267900EB9061 /* RanobeApiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B0824C298A267900EB9061 /* RanobeApiTests.swift */; };
 		3A05E291297D606B00987CFF /* NewsfeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A05E290297D606B00987CFF /* NewsfeedViewController.swift */; };
 		3A05E293297D60B100987CFF /* NewsfeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A05E292297D60B100987CFF /* NewsfeedTableViewCell.swift */; };
 		3A05E295297E696200987CFF /* NewsfeedPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A05E294297E696200987CFF /* NewsfeedPresenter.swift */; };
 		3A05E299297E8EA500987CFF /* NewsfeedBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A05E298297E8EA500987CFF /* NewsfeedBuilder.swift */; };
+		3A19C066298B757D0073D472 /* Date+toString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A19C065298B757D0073D472 /* Date+toString.swift */; };
+		3A19C068298B75A80073D472 /* String+htmlToString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A19C067298B75A80073D472 /* String+htmlToString.swift */; };
+		3A19C06A298B75B40073D472 /* String+toDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A19C069298B75B40073D472 /* String+toDate.swift */; };
 		3A1A09692985400900846058 /* NewsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1A09602985400900846058 /* NewsDetailViewController.swift */; };
 		3A1A096A2985400900846058 /* NewsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1A09612985400900846058 /* NewsDetailView.swift */; };
 		3A1A096B2985400900846058 /* NewsDetailCollectionViewDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1A09622985400900846058 /* NewsDetailCollectionViewDatasource.swift */; };
@@ -138,12 +160,34 @@
 		006031BA297BCA9600CD9A16 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		006031BC297BCB3500CD9A16 /* TabBarItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItems.swift; sourceTree = "<group>"; };
 		006031BF297C087F00CD9A16 /* StartManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartManager.swift; sourceTree = "<group>"; };
-		00CCD6C4298AE78D00B47662 /* UIImageViewAsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewAsync.swift; sourceTree = "<group>"; };
-		3A05E28E297D602800987CFF /* NewsModelAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsModelAPI.swift; sourceTree = "<group>"; };
+		16130E4F29872DBB00A4EC94 /* AnimesApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimesApi.swift; sourceTree = "<group>"; };
+		16130E5129872F5000A4EC94 /* AnimesResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimesResponseDTO.swift; sourceTree = "<group>"; };
+		16130E532987348A00A4EC94 /* AnimesRequestFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimesRequestFactory.swift; sourceTree = "<group>"; };
+		16130E552987371500A4EC94 /* AnimeDetailsDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeDetailsDTO.swift; sourceTree = "<group>"; };
+		16130E5729873BEF00A4EC94 /* AnimeListFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeListFilters.swift; sourceTree = "<group>"; };
+		16130E5929873C7600A4EC94 /* AnimeEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeEnums.swift; sourceTree = "<group>"; };
+		16130E5B29875FA700A4EC94 /* AnimesApiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimesApiTests.swift; sourceTree = "<group>"; };
+		166FA78C29894235009C2712 /* MangasApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangasApi.swift; sourceTree = "<group>"; };
+		166FA78E29894406009C2712 /* MangaEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaEnums.swift; sourceTree = "<group>"; };
+		166FA790298945E2009C2712 /* MangaListFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaListFilters.swift; sourceTree = "<group>"; };
+		166FA79229894651009C2712 /* MangasRequestFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangasRequestFactory.swift; sourceTree = "<group>"; };
+		166FA79429894842009C2712 /* MangaResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaResponseDTO.swift; sourceTree = "<group>"; };
+		166FA79629894A16009C2712 /* MangaDetailsDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaDetailsDTO.swift; sourceTree = "<group>"; };
+		16B0823C298A133100EB9061 /* MangasApiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangasApiTests.swift; sourceTree = "<group>"; };
+		16B08240298A1FAB00EB9061 /* RanobeResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RanobeResponseDTO.swift; sourceTree = "<group>"; };
+		16B08242298A21A400EB9061 /* RanobeEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RanobeEnums.swift; sourceTree = "<group>"; };
+		16B08244298A225100EB9061 /* RanobeListFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RanobeListFilters.swift; sourceTree = "<group>"; };
+		16B08246298A22B300EB9061 /* RanobeApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RanobeApi.swift; sourceTree = "<group>"; };
+		16B08248298A239000EB9061 /* RanobeRequestFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RanobeRequestFactory.swift; sourceTree = "<group>"; };
+		16B0824A298A243C00EB9061 /* RanobeDetailsDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RanobeDetailsDTO.swift; sourceTree = "<group>"; };
+		16B0824C298A267900EB9061 /* RanobeApiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RanobeApiTests.swift; sourceTree = "<group>"; };
 		3A05E290297D606B00987CFF /* NewsfeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsfeedViewController.swift; sourceTree = "<group>"; };
 		3A05E292297D60B100987CFF /* NewsfeedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsfeedTableViewCell.swift; sourceTree = "<group>"; };
 		3A05E294297E696200987CFF /* NewsfeedPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsfeedPresenter.swift; sourceTree = "<group>"; };
 		3A05E298297E8EA500987CFF /* NewsfeedBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsfeedBuilder.swift; sourceTree = "<group>"; };
+		3A19C065298B757D0073D472 /* Date+toString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+toString.swift"; sourceTree = "<group>"; };
+		3A19C067298B75A80073D472 /* String+htmlToString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+htmlToString.swift"; sourceTree = "<group>"; };
+		3A19C069298B75B40073D472 /* String+toDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+toDate.swift"; sourceTree = "<group>"; };
 		3A1A09602985400900846058 /* NewsDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsDetailViewController.swift; sourceTree = "<group>"; };
 		3A1A09612985400900846058 /* NewsDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsDetailView.swift; sourceTree = "<group>"; };
 		3A1A09622985400900846058 /* NewsDetailCollectionViewDatasource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsDetailCollectionViewDatasource.swift; sourceTree = "<group>"; };
@@ -243,6 +287,7 @@
 		0010CAB92978018C00F8705B /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				3A19C064298B757D0073D472 /* Date */,
 				3AFAFEE42980559500949FE2 /* String */,
 				0010CAC6297815F300F8705B /* UITableView */,
 				0010CAC129780D2E00F8705B /* UICollectionView */,
@@ -254,7 +299,6 @@
 		0010CABA297801A900F8705B /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
-				00CCD6C3298AE75F00B47662 /* UIImageView */,
 				0010CABB297801C300F8705B /* UILabel */,
 			);
 			path = UIComponents;
@@ -353,12 +397,67 @@
 			path = AppStartManager;
 			sourceTree = "<group>";
 		};
-		00CCD6C3298AE75F00B47662 /* UIImageView */ = {
+		16130E4D29872D5200A4EC94 /* Animes */ = {
 			isa = PBXGroup;
 			children = (
-				00CCD6C4298AE78D00B47662 /* UIImageViewAsync.swift */,
+				16130E4E29872D8800A4EC94 /* DTOModels */,
+				16130E4F29872DBB00A4EC94 /* AnimesApi.swift */,
+				16130E532987348A00A4EC94 /* AnimesRequestFactory.swift */,
+				16130E5729873BEF00A4EC94 /* AnimeListFilters.swift */,
+				16130E5929873C7600A4EC94 /* AnimeEnums.swift */,
 			);
-			path = UIImageView;
+			path = Animes;
+			sourceTree = "<group>";
+		};
+		16130E4E29872D8800A4EC94 /* DTOModels */ = {
+			isa = PBXGroup;
+			children = (
+				16130E5129872F5000A4EC94 /* AnimesResponseDTO.swift */,
+				16130E552987371500A4EC94 /* AnimeDetailsDTO.swift */,
+			);
+			path = DTOModels;
+			sourceTree = "<group>";
+		};
+		16130E5D2988183400A4EC94 /* Mangas */ = {
+			isa = PBXGroup;
+			children = (
+				16130E5E2988189D00A4EC94 /* DTOModels */,
+				166FA78C29894235009C2712 /* MangasApi.swift */,
+				166FA78E29894406009C2712 /* MangaEnums.swift */,
+				166FA790298945E2009C2712 /* MangaListFilters.swift */,
+				166FA79229894651009C2712 /* MangasRequestFactory.swift */,
+			);
+			path = Mangas;
+			sourceTree = "<group>";
+		};
+		16130E5E2988189D00A4EC94 /* DTOModels */ = {
+			isa = PBXGroup;
+			children = (
+				166FA79429894842009C2712 /* MangaResponseDTO.swift */,
+				166FA79629894A16009C2712 /* MangaDetailsDTO.swift */,
+			);
+			path = DTOModels;
+			sourceTree = "<group>";
+		};
+		16B0823E298A1F7600EB9061 /* Ranobes */ = {
+			isa = PBXGroup;
+			children = (
+				16B0823F298A1F8600EB9061 /* DTOModels */,
+				16B08242298A21A400EB9061 /* RanobeEnums.swift */,
+				16B08244298A225100EB9061 /* RanobeListFilters.swift */,
+				16B08246298A22B300EB9061 /* RanobeApi.swift */,
+				16B08248298A239000EB9061 /* RanobeRequestFactory.swift */,
+			);
+			path = Ranobes;
+			sourceTree = "<group>";
+		};
+		16B0823F298A1F8600EB9061 /* DTOModels */ = {
+			isa = PBXGroup;
+			children = (
+				16B08240298A1FAB00EB9061 /* RanobeResponseDTO.swift */,
+				16B0824A298A243C00EB9061 /* RanobeDetailsDTO.swift */,
+			);
+			path = DTOModels;
 			sourceTree = "<group>";
 		};
 		3A05E28A297D5FBB00987CFF /* Builder */ = {
@@ -407,6 +506,14 @@
 			path = NewsDetail;
 			sourceTree = "<group>";
 		};
+		3A19C064298B757D0073D472 /* Date */ = {
+			isa = PBXGroup;
+			children = (
+				3A19C065298B757D0073D472 /* Date+toString.swift */,
+			);
+			path = Date;
+			sourceTree = "<group>";
+		};
 		3A1A095F2985400900846058 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -445,7 +552,6 @@
 		3A275771297EFE2500EFD543 /* News */ = {
 			isa = PBXGroup;
 			children = (
-				3A05E28E297D602800987CFF /* NewsModelAPI.swift */,
 				3A27576F297EFDD900EFD543 /* NewsModel.swift */,
 			);
 			path = News;
@@ -454,9 +560,12 @@
 		3A7E4D5D2985492C00E7CA17 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				16B0823E298A1F7600EB9061 /* Ranobes */,
 				3A7E4D632985492C00E7CA17 /* AbstractRequestFactory.swift */,
 				3A7E4D652985492C00E7CA17 /* ApiFactory.swift */,
 				3A7E4D752985492C00E7CA17 /* NetworkLayerErrorMessages.swift */,
+				16130E5D2988183400A4EC94 /* Mangas */,
+				16130E4D29872D5200A4EC94 /* Animes */,
 				3A7E4D5E2985492C00E7CA17 /* Forums */,
 				3A7E4D662985492C00E7CA17 /* Users */,
 				3A7E4D762985492C00E7CA17 /* Topics */,
@@ -584,8 +693,11 @@
 			children = (
 				3A8F30F92974396000F24DF7 /* ShikiAppTests.swift */,
 				3A7E4DAC2985498C00E7CA17 /* ForumsApiTests.swift */,
+				16130E5B29875FA700A4EC94 /* AnimesApiTests.swift */,
 				3A7E4DAD2985498C00E7CA17 /* TopicsApiTests.swift */,
 				3A7E4DAB2985498C00E7CA17 /* UsersApiTests.swift */,
+				16B0823C298A133100EB9061 /* MangasApiTests.swift */,
+				16B0824C298A267900EB9061 /* RanobeApiTests.swift */,
 			);
 			path = ShikiAppTests;
 			sourceTree = "<group>";
@@ -684,6 +796,8 @@
 			isa = PBXGroup;
 			children = (
 				3AFAFEE5298055A900949FE2 /* String+heightText.swift */,
+				3A19C067298B75A80073D472 /* String+htmlToString.swift */,
+				3A19C069298B75B40073D472 /* String+toDate.swift */,
 			);
 			path = String;
 			sourceTree = "<group>";
@@ -857,42 +971,53 @@
 				0010CABF297802A700F8705B /* UIView+addSubviews.swift in Sources */,
 				3A7E4D882985492C00E7CA17 /* UserFavoritesResponseDTO.swift in Sources */,
 				3AFAFEE3298028BA00949FE2 /* NewsfeedViewController+Extension.swift in Sources */,
-				00CCD6C5298AE78D00B47662 /* UIImageViewAsync.swift in Sources */,
 				3A05E299297E8EA500987CFF /* NewsfeedBuilder.swift in Sources */,
 				3A1A096D2985400900846058 /* NewsDetailBuilder.swift in Sources */,
 				3A05E295297E696200987CFF /* NewsfeedPresenter.swift in Sources */,
 				3A7E4DA82985496A00E7CA17 /* URLParameterEncoder.swift in Sources */,
 				006031B9297BCA7B00CD9A16 /* MyListViewController.swift in Sources */,
+				16B08241298A1FAB00EB9061 /* RanobeResponseDTO.swift in Sources */,
 				3A275770297EFDD900EFD543 /* NewsModel.swift in Sources */,
 				3A7E4D952985492C00E7CA17 /* NewTopicDTO.swift in Sources */,
 				3A7E4D962985492C00E7CA17 /* NewsTopicsResponseDTO.swift in Sources */,
 				0010CAB62977FFBE00F8705B /* AppColor.swift in Sources */,
+				166FA79329894651009C2712 /* MangasRequestFactory.swift in Sources */,
 				3A7E4D842985492C00E7CA17 /* ApiFactory.swift in Sources */,
 				0010CAB82977FFDD00F8705B /* AppFont.swift in Sources */,
+				166FA78F29894406009C2712 /* MangaEnums.swift in Sources */,
 				006031AF2979B79400CD9A16 /* TabBarViewController.swift in Sources */,
 				3A7E4D902985492C00E7CA17 /* BansResponseDTO.swift in Sources */,
+				3A19C068298B75A80073D472 /* String+htmlToString.swift in Sources */,
 				3A7E4D8C2985492C00E7CA17 /* UnreadMessagesResponseDTO.swift in Sources */,
+				3A19C066298B757D0073D472 /* Date+toString.swift in Sources */,
 				3A7E4D8A2985492C00E7CA17 /* AnimeRatesResponseDTO.swift in Sources */,
 				006031BB297BCA9600CD9A16 /* ProfileViewController.swift in Sources */,
+				16B08247298A22B300EB9061 /* RanobeApi.swift in Sources */,
 				3A7E4D8D2985492C00E7CA17 /* UserHistoryResponseDTO.swift in Sources */,
+				16B0824B298A243C00EB9061 /* RanobeDetailsDTO.swift in Sources */,
 				3A7E4D922985492C00E7CA17 /* NetworkLayerErrorMessages.swift in Sources */,
 				3A1A096A2985400900846058 /* NewsDetailView.swift in Sources */,
 				3A7E4DA62985496A00E7CA17 /* HTTPMethod.swift in Sources */,
+				3A19C06A298B75B40073D472 /* String+toDate.swift in Sources */,
 				3A7E4DA32985496A00E7CA17 /* HttpConstants.swift in Sources */,
 				3A7E4DA92985496A00E7CA17 /* JSONParameterEncoder.swift in Sources */,
+				16130E542987348B00A4EC94 /* AnimesRequestFactory.swift in Sources */,
 				3AFAFEE6298055A900949FE2 /* String+heightText.swift in Sources */,
 				3A7E4D942985492C00E7CA17 /* TopicsRequestFactory.swift in Sources */,
 				3A7E4D932985492C00E7CA17 /* TopicsEnums.swift in Sources */,
 				0010CABD297801E900F8705B /* AppLabel.swift in Sources */,
 				3A05E291297D606B00987CFF /* NewsfeedViewController.swift in Sources */,
-				3A05E28F297D602800987CFF /* NewsModelAPI.swift in Sources */,
 				0010CADB29783E7400F8705B /* AppImage.swift in Sources */,
 				3A7E4D972985492C00E7CA17 /* DeleteTopicResponseDTO.swift in Sources */,
 				3A1A09692985400900846058 /* NewsDetailViewController.swift in Sources */,
+				16B08249298A239000EB9061 /* RanobeRequestFactory.swift in Sources */,
+				166FA79529894842009C2712 /* MangaResponseDTO.swift in Sources */,
+				16130E5029872DBB00A4EC94 /* AnimesApi.swift in Sources */,
 				3A7E4D892985492C00E7CA17 /* UserResponseDTO.swift in Sources */,
 				006031C0297C087F00CD9A16 /* StartManager.swift in Sources */,
 				3A7E4D812985492C00E7CA17 /* ForumsApi.swift in Sources */,
 				0010CAC82978161600F8705B /* UITableView+RegisterCell.swift in Sources */,
+				16130E562987371500A4EC94 /* AnimeDetailsDTO.swift in Sources */,
 				0010CADF29784E3C00F8705B /* Constants.swift in Sources */,
 				006031B7297BCA6800CD9A16 /* SearchViewController.swift in Sources */,
 				3A7E4DA72985496A00E7CA17 /* Router.swift in Sources */,
@@ -901,20 +1026,28 @@
 				3A7E4D7F2985492C00E7CA17 /* ForumsResponseDTO.swift in Sources */,
 				006031BD297BCB3500CD9A16 /* TabBarItems.swift in Sources */,
 				3A7E4DAA2985496A00E7CA17 /* EndPointType.swift in Sources */,
+				166FA791298945E2009C2712 /* MangaListFilters.swift in Sources */,
 				3A05E293297D60B100987CFF /* NewsfeedTableViewCell.swift in Sources */,
 				3A8F30E02974395F00F24DF7 /* AppDelegate.swift in Sources */,
 				3A7E4D862985492C00E7CA17 /* UsersApi.swift in Sources */,
+				16130E5A29873C7600A4EC94 /* AnimeEnums.swift in Sources */,
+				16B08243298A21A400EB9061 /* RanobeEnums.swift in Sources */,
 				3A7E4D802985492C00E7CA17 /* ForumsRequestFactory.swift in Sources */,
 				3A7E4D852985492C00E7CA17 /* UsersEnums.swift in Sources */,
 				3A7E4D822985492C00E7CA17 /* AbstractRequestFactory.swift in Sources */,
+				166FA79729894A16009C2712 /* MangaDetailsDTO.swift in Sources */,
 				3A7E4D912985492C00E7CA17 /* UsersRequestFactory.swift in Sources */,
+				166FA78D29894235009C2712 /* MangasApi.swift in Sources */,
 				3A1A096B2985400900846058 /* NewsDetailCollectionViewDatasource.swift in Sources */,
 				3A1A096C2985400900846058 /* NewsDetailCollectionCell.swift in Sources */,
+				16130E5229872F5000A4EC94 /* AnimesResponseDTO.swift in Sources */,
 				3A8F30EA2974395F00F24DF7 /* ShikiApp.xcdatamodeld in Sources */,
 				3A7E4D8B2985492C00E7CA17 /* MangaRatesResponseDTO.swift in Sources */,
 				3A7E4D8F2985492C00E7CA17 /* UserProfileDTO.swift in Sources */,
+				16130E5829873BEF00A4EC94 /* AnimeListFilters.swift in Sources */,
 				3A1A096E2985400900846058 /* NewsDetailPresenter.swift in Sources */,
 				3A8F30E22974395F00F24DF7 /* SceneDelegate.swift in Sources */,
+				16B08245298A225100EB9061 /* RanobeListFilters.swift in Sources */,
 				3A7E4DA42985496A00E7CA17 /* HTTPTask.swift in Sources */,
 				3A7E4DA52985496A00E7CA17 /* ParameterEncoding.swift in Sources */,
 				0010CAC52978138500F8705B /* Texts.swift in Sources */,
@@ -929,7 +1062,10 @@
 			files = (
 				3A8F30FA2974396000F24DF7 /* ShikiAppTests.swift in Sources */,
 				3A7E4DAE2985498C00E7CA17 /* UsersApiTests.swift in Sources */,
+				16B0824D298A267900EB9061 /* RanobeApiTests.swift in Sources */,
 				0010CADC29783E7400F8705B /* AppImage.swift in Sources */,
+				16B0823D298A133100EB9061 /* MangasApiTests.swift in Sources */,
+				16130E5C29875FA700A4EC94 /* AnimesApiTests.swift in Sources */,
 				0010CAE029784E3C00F8705B /* Constants.swift in Sources */,
 				3A7E4DB02985498C00E7CA17 /* TopicsApiTests.swift in Sources */,
 				3A7E4DAF2985498C00E7CA17 /* ForumsApiTests.swift in Sources */,

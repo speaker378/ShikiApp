@@ -8,7 +8,10 @@
 import UIKit
 
 protocol NewsfeedViewInput: AnyObject {
+    
     var models: [NewsModel] { get set }
+    func reloadData()
+    func showErrorBackground()
 }
 
 protocol NewsfeedViewOutput: AnyObject {
@@ -25,8 +28,25 @@ final class NewsfeedPresenter: NewsfeedViewOutput {
 
     // MARK: - Private properties
     
-    private var newsList: [NewsModelAPI] {
-        return NEWSCELLMODELLIST
+    private let factory = ApiFactory.makeTopicsApi()
+    private var newsList: TopicsResponseDTO? {
+        willSet { fetchData() }
+    }
+
+    // MARK: - Private functions
+    
+    private func fetchDataFromServer() {
+        factory.listTopics(
+            page: 1,
+            limit: 20,
+            forum: .news
+        ) { [weak self] data, _ in
+            guard let data else {
+                self?.viewInput?.showErrorBackground()
+                return
+            }
+            self?.newsList = data
+        }
     }
 
     // MARK: - Functions
@@ -37,6 +57,11 @@ final class NewsfeedPresenter: NewsfeedViewOutput {
     }
     
     func fetchData() {
-        viewInput?.models = NewsModelFactory().makeModels(from: newsList)
+        if let newsList {
+            viewInput?.models = NewsModelFactory().makeModels(from: newsList)
+            viewInput?.reloadData()
+        } else {
+            fetchDataFromServer()
+        }
     }
 }

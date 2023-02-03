@@ -39,6 +39,7 @@ struct MangaRateDTO: Codable {
 // MARK: - MangaInfoDTO
 
 struct MangaInfoDTO: Codable {
+    
     let id: Int
     let name: String
     let russian: String?

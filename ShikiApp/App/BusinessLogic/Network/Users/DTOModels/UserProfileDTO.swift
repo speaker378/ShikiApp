@@ -10,6 +10,7 @@ import Foundation
 // MARK: - UserProfileDTO
 
 struct UserProfileDTO: Codable {
+    
     let id: Int
     let nickname: String
     let avatar: String?
@@ -51,10 +52,13 @@ struct UserProfileDTO: Codable {
 // MARK: - StatsDTO
 
 struct StatsDTO: Codable {
+    
     let statuses, fullStatuses, scores, types: FullStatusesDTO?
     let ratings: RatingsDTO?
     let hasAnime, hasManga: Bool?
-    let genres, studios, publishers: [String]?
+    let genres: [GenreDTO]?
+    let studios: [StudioDTO]
+    let publishers: [PublisherDTO]?
     let activity: ActivityDTO?
 
     enum CodingKeys: String, CodingKey {
@@ -80,6 +84,7 @@ struct FullStatusesDTO: Codable {
 // MARK: - AnimeDTO
 
 struct AnimeDTO: Codable {
+    
     let id: Int
     let groupedID, name: String?
     let size: Int?
@@ -108,6 +113,7 @@ struct RatingsDTO: Codable {
 // MARK: - RatingDTO
 
 struct RatingDTO: Codable {
+    
     let name: String?
     let value: Int?
 }
