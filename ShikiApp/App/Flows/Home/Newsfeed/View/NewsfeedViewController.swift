@@ -95,6 +95,10 @@ class NewsfeedViewController: (UIViewController & NewsfeedViewInput) {
         tableView.reloadData()
     }
     
+    func insertRows(indexPath: [IndexPath]) {
+        tableView.insertRows(at: indexPath, with: .automatic)
+    }
+    
     func showErrorBackground() {
         activityIndicator.stopAnimating()
         backgroundErrorImageView.isHidden = false
@@ -114,6 +118,7 @@ class NewsfeedViewController: (UIViewController & NewsfeedViewInput) {
         tableView.registerCell(NewsfeedTableViewCell.self)
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.prefetchDataSource = self
         activityIndicator.startAnimating()
     }
     

@@ -35,3 +35,14 @@ extension NewsfeedViewController: UITableViewDelegate {
         self.presenter.viewDidSelectNews(news: news)
     }
 }
+
+// MARK: - UITableViewDataSourcePrefetching
+
+extension NewsfeedViewController: UITableViewDataSourcePrefetching {
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        guard let maxRow = indexPaths.map({ $0.row }).max() else { return }
+        if maxRow > models.count - 3 {
+            presenter.endOfTableReached()
+        }
+    }
+}
