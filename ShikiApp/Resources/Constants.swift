@@ -40,6 +40,7 @@ struct Constants {
         static let medium: CGFloat = 16.0
         static let small: CGFloat = 8.0
         static let xSmall: CGFloat = 4.0
+    }
 
     enum DateFormatter {
         static let dayMonthCommaHoursMinutes = "dd MMMM, HH:mm"
