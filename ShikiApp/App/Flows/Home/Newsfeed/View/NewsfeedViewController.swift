@@ -104,6 +104,13 @@ class NewsfeedViewController: (UIViewController & NewsfeedViewInput) {
         backgroundErrorImageView.isHidden = false
         backgroundErrorLabel.isHidden = false
     }
+    
+    @objc func refreshData() {
+        tableView.refreshControl?.beginRefreshing()
+        presenter.updateData { [weak self] in
+            self?.tableView.refreshControl?.endRefreshing()
+        }
+    }
 
     // MARK: - Private functions
     
@@ -119,7 +126,14 @@ class NewsfeedViewController: (UIViewController & NewsfeedViewInput) {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.prefetchDataSource = self
+        setupPullToRefresh()
         activityIndicator.startAnimating()
+    }
+    
+    private func setupPullToRefresh() {
+        tableView.refreshControl = UIRefreshControl()
+        tableView.refreshControl?.attributedTitle = NSAttributedString(string: "Загрузка...")
+        tableView.refreshControl?.addTarget(self, action: #selector(refreshData), for: .valueChanged)
     }
     
     private func setupConstraints() {

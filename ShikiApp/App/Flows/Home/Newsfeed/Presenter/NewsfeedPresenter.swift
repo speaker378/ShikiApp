@@ -20,6 +20,7 @@ protocol NewsfeedViewOutput: AnyObject {
     func viewDidSelectNews(news: NewsModel)
     func fetchData()
     func endOfTableReached()
+    func updateData(completion: @escaping () -> Void)
 }
 
 final class NewsfeedPresenter: NewsfeedViewOutput {
@@ -84,6 +85,17 @@ final class NewsfeedPresenter: NewsfeedViewOutput {
             self.viewInput?.models.append(contentsOf: self.modelFactory.makeModels(from: self.dataPortion))
             self.viewInput?.insertRows(indexPath: indexPaths)
             self.viewInput?.reloadData()
+        }
+    }
+    
+    func updateData(completion: @escaping () -> Void) {
+        lastPageRequested = 0
+        fetchDataFromServer { [weak self] in
+            guard let self else { return }
+            self.newsList = self.dataPortion
+            self.viewInput?.models = self.modelFactory.makeModels(from: self.newsList)
+            self.viewInput?.reloadData()
+            completion()
         }
     }
 }
