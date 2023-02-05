@@ -132,7 +132,7 @@ class NewsfeedViewController: (UIViewController & NewsfeedViewInput) {
     
     private func setupPullToRefresh() {
         tableView.refreshControl = UIRefreshControl()
-        tableView.refreshControl?.attributedTitle = NSAttributedString(string: "Загрузка...")
+        tableView.refreshControl?.attributedTitle = NSAttributedString(string: Texts.LoadingMessage.inProgress)
         tableView.refreshControl?.addTarget(self, action: #selector(refreshData), for: .valueChanged)
     }
     

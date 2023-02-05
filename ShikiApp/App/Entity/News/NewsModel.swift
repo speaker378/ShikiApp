@@ -8,6 +8,7 @@
 import UIKit
 
 struct NewsModel {
+    
     let imageUrls: [ImageSize: String]
     let date: String?
     let title: String?
@@ -21,6 +22,7 @@ enum ImageSize {
 }
 
 final class NewsModelFactory {
+    
     func makeModels(from news: TopicsResponseDTO) -> [NewsModel] {
         return news.compactMap(self.convertModel)
     }
