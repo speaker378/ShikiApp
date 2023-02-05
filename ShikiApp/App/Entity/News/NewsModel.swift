@@ -18,7 +18,7 @@ struct NewsModel {
 }
 
 enum ImageSize {
-    case original, preview, x96, x48
+    case original, preview
 }
 
 final class NewsModelFactory {
@@ -28,7 +28,7 @@ final class NewsModelFactory {
     }
     
     private func convertModel(from news: TopicDTO) -> NewsModel {
-        let imageUrls = getImageSizes(for: news.linked?.image)
+        let imageUrls = extractImageAddresses(from: news.htmlFooter)
         let date = news
             .createdAt?
             .convertToDate()?
@@ -36,7 +36,7 @@ final class NewsModelFactory {
         let title = news.topicTitle
         let subtitle = news.htmlBody?.htmlToString()
         let images = [AppImage.ErrorsIcons.nonConnectionIcon, AppImage.ErrorsIcons.nonConnectionIcon]
-        let URLString = "\(Constants.Url.baseUrl)\(news.linked?.url ?? "")"
+        let URLString = "\(Constants.Url.baseUrl)/forum/news/\(news.id)"
         
         return NewsModel(
             imageUrls: imageUrls,
@@ -48,13 +48,13 @@ final class NewsModelFactory {
         )
     }
     
-    private func getImageSizes(for image: ImageDTO?) -> [ImageSize: String] {
-        guard let image else { return [:] }
-        return [
-            .original: "\(Constants.Url.baseUrl)\(image.original)",
-            .preview: "\(Constants.Url.baseUrl)\(image.preview)",
-            .x96: "\(Constants.Url.baseUrl)\(image.x96)",
-            .x48: "\(Constants.Url.baseUrl)\(image.x48)"
-        ]
+    private func extractImageAddresses(from footer: String?) -> [ImageSize: String] {
+        var result = [ImageSize: String]()
+        guard let footer else { return result }
+        let urls = footer.extractURLs()
+        let imageUrls = urls.filter { $0.contains(".jpg") }
+        result[.preview] = imageUrls.first(where: { $0.contains("preview") })
+        result[.original] = imageUrls.first(where: { $0.contains("original") })
+        return result
     }
 }

@@ -128,7 +128,7 @@ class NewsfeedTableViewCell: UITableViewCell {
     // MARK: - Functions
     
     func configure(with cellModel: NewsModel) {
-        newsImageView.downloadedImage(from: cellModel.imageUrls[.x96] ?? "", contentMode: .scaleAspectFill)
+        newsImageView.downloadedImage(from: cellModel.imageUrls[.preview] ?? "", contentMode: .scaleAspectFill)
         dateLabel.text = cellModel.date
         titleLabel.text = cellModel.title
         subtitleLabel.text = cellModel.subtitle
