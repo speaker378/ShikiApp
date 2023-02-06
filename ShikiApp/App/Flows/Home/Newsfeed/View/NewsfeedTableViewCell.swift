@@ -19,10 +19,10 @@ class NewsfeedTableViewCell: UITableViewCell {
     private let bottom = -12.0
     private let verticalSpacing = 2.0
     
-    private var newsImageView: UIImageView = {
-        let imageView = UIImageView()
+    private var newsImageView: UIImageViewAsync = {
+        let imageView = UIImageViewAsync()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
+        imageView.clipsToBounds = true
         return imageView
     }()
     
@@ -128,7 +128,7 @@ class NewsfeedTableViewCell: UITableViewCell {
     // MARK: - Functions
     
     func configure(with cellModel: NewsModel) {
-        newsImageView.image = cellModel.image
+        newsImageView.downloadedImage(from: cellModel.imageUrls[.preview] ?? "", contentMode: .scaleAspectFill)
         dateLabel.text = cellModel.date
         titleLabel.text = cellModel.title
         subtitleLabel.text = cellModel.subtitle

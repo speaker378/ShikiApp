@@ -95,10 +95,21 @@ class NewsfeedViewController: (UIViewController & NewsfeedViewInput) {
         tableView.reloadData()
     }
     
+    func insertRows(indexPath: [IndexPath]) {
+        tableView.insertRows(at: indexPath, with: .automatic)
+    }
+    
     func showErrorBackground() {
         activityIndicator.stopAnimating()
         backgroundErrorImageView.isHidden = false
         backgroundErrorLabel.isHidden = false
+    }
+    
+    @objc func refreshData() {
+        tableView.refreshControl?.beginRefreshing()
+        presenter.updateData { [weak self] in
+            self?.tableView.refreshControl?.endRefreshing()
+        }
     }
 
     // MARK: - Private functions
@@ -114,7 +125,15 @@ class NewsfeedViewController: (UIViewController & NewsfeedViewInput) {
         tableView.registerCell(NewsfeedTableViewCell.self)
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.prefetchDataSource = self
+        setupPullToRefresh()
         activityIndicator.startAnimating()
+    }
+    
+    private func setupPullToRefresh() {
+        tableView.refreshControl = UIRefreshControl()
+        tableView.refreshControl?.attributedTitle = NSAttributedString(string: Texts.LoadingMessage.inProgress)
+        tableView.refreshControl?.addTarget(self, action: #selector(refreshData), for: .valueChanged)
     }
     
     private func setupConstraints() {

@@ -27,7 +27,7 @@ enum AppImage {
         static let search = UIImage(named: "search_nav") ?? missingImage
         static let share = UIImage(named: "share") ?? missingImage
     }
-    
+
     // MARK: - UserListsIcons
     
     enum UserListIcons {
