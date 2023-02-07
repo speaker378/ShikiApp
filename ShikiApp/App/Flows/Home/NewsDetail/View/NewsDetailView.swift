@@ -11,20 +11,10 @@ final class NewsDetailView: UIView {
 
     // MARK: - Private properties
     
-    private enum Layout {
-        
-        static let itemWidth: CGFloat = 260
-        static let itemHeight: CGFloat = 160
-        static let itemSpacing: CGFloat = 8.0
-    }
-    
     private let coverHeight: CGFloat = 200
-    private let sideInset: CGFloat = 16.0
     private let topInset: CGFloat = 4.0
     private let maximumTitleLines = 5
     private let coverImageView = UIImageViewAsync()
-    private let gradientLayer = CAGradientLayer()
-    private let dataSource: UICollectionViewDataSource?
     private let titleLabel = AppLabel(
         alignment: .left,
         fontSize: AppFont.openSansFont(ofSize: 20, weight: .bold),
@@ -40,42 +30,25 @@ final class NewsDetailView: UIView {
         fontSize: AppFont.openSansFont(ofSize: 16, weight: .regular),
         numberLines: 0
     )
-    private var collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.minimumInteritemSpacing = Layout.itemSpacing
-        layout.itemSize = CGSize(width: Layout.itemWidth, height: Layout.itemHeight)
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.showsHorizontalScrollIndicator = false
-        return collectionView
-    }()
+    private let collectionView: UICollectionView
 
     // MARK: - Construction
     
     init(news: NewsModel) {
-        dataSource = NewsDetailCollectionViewDataSource(images: news.images)
+        collectionView = AppCollectionView(imageURLStrings: news.footerImageURLs)
         super.init(frame: .zero)
         configure(news: news)
     }
     
     required init?(coder: NSCoder) { nil }
 
-    // MARK: - Functions
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        gradientLayer.frame = coverImageView.bounds
-    }
-
     // MARK: - Private functions
     
     private func configure(news: NewsModel) {
-        collectionView.dataSource = dataSource
-        collectionView.registerCell(NewsDetailCollectionViewCell.self)
         titleLabel.text = news.title
         dateLabel.text = news.date
         contentLabel.text = news.subtitle
-        coverImageView.downloadedImage(from: news.imageUrls[.original] ?? "")
+        coverImageView.downloadedImage(from: news.imageUrls[.original] ?? "", hasGradientLayer: true)
         configureUI()
     }
     
@@ -96,35 +69,36 @@ final class NewsDetailView: UIView {
             coverImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
             coverImageView.heightAnchor.constraint(equalToConstant: coverHeight),
             
-            dateLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: sideInset),
-            dateLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -sideInset),
-            dateLabel.bottomAnchor.constraint(equalTo: coverImageView.bottomAnchor, constant: -sideInset),
+            dateLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.Insets.sideInset),
+            dateLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.Insets.sideInset),
+            dateLabel.bottomAnchor.constraint(
+                equalTo: coverImageView.bottomAnchor,
+                constant: -Constants.Insets.sideInset
+            ),
             
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: sideInset),
-            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -sideInset),
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.Insets.sideInset),
+            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.Insets.sideInset),
             titleLabel.bottomAnchor.constraint(equalTo: dateLabel.topAnchor, constant: -topInset),
             
-            contentLabel.topAnchor.constraint(equalTo: coverImageView.bottomAnchor, constant: sideInset),
-            contentLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: sideInset),
-            contentLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -sideInset),
+            contentLabel.topAnchor.constraint(
+                equalTo: coverImageView.bottomAnchor,
+                constant: Constants.Insets.sideInset
+            ),
+            contentLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.Insets.sideInset),
+            contentLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.Insets.sideInset),
             
-            collectionView.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant: sideInset),
-            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            collectionView.topAnchor.constraint(
+                equalTo: contentLabel.bottomAnchor,
+                constant: Constants.Insets.sideInset
+            ),
+            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.Insets.sideInset),
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            collectionView.heightAnchor.constraint(equalToConstant: Layout.itemHeight)
+            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
     
     private func configureCoverImageView() {
-        configureGradientLayer()
         coverImageView.contentMode = .scaleAspectFill
         coverImageView.layer.masksToBounds = true
-    }
-    
-    private func configureGradientLayer() {
-        coverImageView.layer.addSublayer(gradientLayer)
-        gradientLayer.colors = [AppColor.coverGradient1.cgColor, AppColor.coverGradient2.cgColor]
-        gradientLayer.locations = [0.0, 1.0]
     }
 }

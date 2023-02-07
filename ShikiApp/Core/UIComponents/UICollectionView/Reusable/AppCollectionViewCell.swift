@@ -1,21 +1,21 @@
 //
-//  NewsDetailCollectionViewCell.swift
+//  AppCollectionViewCell.swift
 //  ShikiApp
 //
 //  Created by 👩🏻‍🎨 📱 december11 on 22.01.2023.
 //
 
+import AVFoundation
 import UIKit
 
-final class NewsDetailCollectionViewCell: UICollectionViewCell {
+final class AppCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Private properties
-
-    private let imageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
+    
+    private let imageView: UIImageViewAsync = {
+        let imageView = UIImageViewAsync()
         imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 8.0
+        imageView.layer.cornerRadius = Constants.CornerRadius.small
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -36,8 +36,17 @@ final class NewsDetailCollectionViewCell: UICollectionViewCell {
         imageView.image = nil
     }
     
-    func configure(image: UIImage) {
-        imageView.image = image
+    func configure(content: String) {
+        if content.contains("youtube") {
+            imageView.downloadedImage(
+                from: content,
+                contentMode: .scaleAspectFill,
+                hasGradientLayer: true,
+                isVideoPreview: true
+            )
+        } else {
+            imageView.downloadedImage(from: content, contentMode: .scaleAspectFill)
+        }
     }
 
     // MARK: - Private functions

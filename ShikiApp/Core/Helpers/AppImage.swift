@@ -61,9 +61,12 @@ enum AppImage {
         static let search = UIImage(named: "search") ?? missingImage
         static let searchSelected = UIImage(named: "searchSelected") ?? missingImage
     }
+
+    // MARK: - OtherIcons
     
     enum OtherIcons {
         static let link = UIImage(named: "link") ?? missingImage
         static let addToList = UIImage(named: "addToList") ?? missingImage
+        static let play = UIImage(named: "play") ?? missingImage
     }
 }

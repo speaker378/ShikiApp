@@ -14,6 +14,7 @@ struct NewsModel {
     let title: String?
     let subtitle: String?
     let images: [UIImage?]
+    let footerImageURLs: [String]
     let URLString: String?
 }
 
@@ -36,7 +37,10 @@ final class NewsModelFactory {
         let title = news.topicTitle
         let subtitle = news.htmlBody?.htmlToString()
         let images = [AppImage.ErrorsIcons.nonConnectionIcon, AppImage.ErrorsIcons.nonConnectionIcon]
-        let URLString = "\(Constants.Url.baseUrl)/forum/news/\(news.id)"
+        let footer = news.htmlFooter
+        var imageURLs = footer?.imageURLs ?? []
+        imageURLs.append(contentsOf: footer?.youtubePreviewURLs ?? [])
+        let URLString = "\(Constants.Url.baseUrl)\(news.linked?.url ?? "")"
         
         return NewsModel(
             imageUrls: imageUrls,
@@ -44,6 +48,7 @@ final class NewsModelFactory {
             title: title,
             subtitle: subtitle,
             images: images,
+            footerImageURLs: imageURLs,
             URLString: URLString
         )
     }
