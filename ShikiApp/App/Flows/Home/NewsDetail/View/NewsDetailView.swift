@@ -30,7 +30,8 @@ final class NewsDetailView: UIView {
         fontSize: AppFont.openSansFont(ofSize: 16, weight: .regular),
         numberLines: 0
     )
-    private let collectionView: UICollectionView
+    private let collectionView: AppCollectionView
+    private var tapHandler: ((String) -> Void)?
 
     // MARK: - Construction
     
@@ -42,6 +43,12 @@ final class NewsDetailView: UIView {
     
     required init?(coder: NSCoder) { nil }
 
+    // MARK: - Functions
+    
+    func tapHandler(completion: @escaping (String) -> Void) {
+        tapHandler = completion
+    }
+
     // MARK: - Private functions
     
     private func configure(news: NewsModel) {
@@ -49,6 +56,9 @@ final class NewsDetailView: UIView {
         dateLabel.text = news.date
         contentLabel.text = news.subtitle
         coverImageView.downloadedImage(from: news.imageUrls[.original] ?? "", hasGradientLayer: true)
+        collectionView.configureTapHandler { [weak self] content in
+            self?.tapHandler?(content)
+        }
         configureUI()
     }
     

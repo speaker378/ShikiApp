@@ -7,17 +7,6 @@
 
 import UIKit
 
-enum ContentType {
-    case image
-    case video
-}
-
-struct Content {
-
-    var URLString: String
-    var contentType: ContentType
-}
-
 final class AppCollectionView: UICollectionView {
 
     // MARK: - Private properties
@@ -28,6 +17,7 @@ final class AppCollectionView: UICollectionView {
     }
     
     private let contents: [String]
+    private var tapHandler: ((_ content: String) -> Void)?
     private let layout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -46,6 +36,12 @@ final class AppCollectionView: UICollectionView {
     
     required init?(coder: NSCoder) { nil }
 
+    // MARK: - Functions
+    
+    func configureTapHandler(completion: @escaping (_ content: String) -> Void) {
+        tapHandler = completion
+    }
+    
     // MARK: - Private functions
     
     private func configure() {
@@ -84,5 +80,9 @@ extension AppCollectionView: UICollectionViewDataSource {
 }
 
 extension AppCollectionView: UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        collectionView.deselectItem(at: indexPath, animated: true)
+        let URLString = contents[indexPath.row]
+        tapHandler?(URLString)
+    }
 }
