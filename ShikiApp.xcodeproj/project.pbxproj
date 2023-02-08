@@ -98,6 +98,9 @@
 		3A8F31062974396000F24DF7 /* ShikiAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8F31052974396000F24DF7 /* ShikiAppUITestsLaunchTests.swift */; };
 		3AFAFEE3298028BA00949FE2 /* NewsfeedViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFAFEE2298028BA00949FE2 /* NewsfeedViewController+Extension.swift */; };
 		3AFAFEE6298055A900949FE2 /* String+heightText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFAFEE5298055A900949FE2 /* String+heightText.swift */; };
+		DB220D2429907E8000C98FFA /* UserModelAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB220D2329907E8000C98FFA /* UserModelAPI.swift */; };
+		DB5E9E13298B2E7800752EE2 /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5E9E12298B2E7800752EE2 /* ProfilePresenter.swift */; };
+		DB5E9E15298B2E8600752EE2 /* ProfileBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5E9E14298B2E8600752EE2 /* ProfileBuilder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -201,6 +204,9 @@
 		3A8F31052974396000F24DF7 /* ShikiAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShikiAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		3AFAFEE2298028BA00949FE2 /* NewsfeedViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewsfeedViewController+Extension.swift"; sourceTree = "<group>"; };
 		3AFAFEE5298055A900949FE2 /* String+heightText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+heightText.swift"; sourceTree = "<group>"; };
+		DB220D2329907E8000C98FFA /* UserModelAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModelAPI.swift; sourceTree = "<group>"; };
+		DB5E9E12298B2E7800752EE2 /* ProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
+		DB5E9E14298B2E8600752EE2 /* ProfileBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBuilder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -312,7 +318,9 @@
 		006031B0297BC9B700CD9A16 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				006031BA297BCA9600CD9A16 /* ProfileViewController.swift */,
+				DB5E9E0F298B2E1700752EE2 /* View */,
+				DB5E9E10298B2E2800752EE2 /* Presenter */,
+				DB5E9E11298B2E3400752EE2 /* Builder */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -625,6 +633,7 @@
 		3A8F3115297441F400F24DF7 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
+				DB220D2229907E4100C98FFA /* User */,
 				3A275771297EFE2500EFD543 /* News */,
 				3A8F30E82974395F00F24DF7 /* ShikiApp.xcdatamodeld */,
 			);
@@ -675,6 +684,38 @@
 				3AFAFEE5298055A900949FE2 /* String+heightText.swift */,
 			);
 			path = String;
+			sourceTree = "<group>";
+		};
+		DB220D2229907E4100C98FFA /* User */ = {
+			isa = PBXGroup;
+			children = (
+				DB220D2329907E8000C98FFA /* UserModelAPI.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		DB5E9E0F298B2E1700752EE2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				006031BA297BCA9600CD9A16 /* ProfileViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DB5E9E10298B2E2800752EE2 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				DB5E9E12298B2E7800752EE2 /* ProfilePresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		DB5E9E11298B2E3400752EE2 /* Builder */ = {
+			isa = PBXGroup;
+			children = (
+				DB5E9E14298B2E8600752EE2 /* ProfileBuilder.swift */,
+			);
+			path = Builder;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -853,6 +894,7 @@
 				006031B9297BCA7B00CD9A16 /* MyListViewController.swift in Sources */,
 				3A275770297EFDD900EFD543 /* NewsModel.swift in Sources */,
 				3A7E4D952985492C00E7CA17 /* NewTopicDTO.swift in Sources */,
+				DB5E9E15298B2E8600752EE2 /* ProfileBuilder.swift in Sources */,
 				3A7E4D962985492C00E7CA17 /* NewsTopicsResponseDTO.swift in Sources */,
 				0010CAB62977FFBE00F8705B /* AppColor.swift in Sources */,
 				3A7E4D842985492C00E7CA17 /* ApiFactory.swift in Sources */,
@@ -898,8 +940,10 @@
 				3A7E4D912985492C00E7CA17 /* UsersRequestFactory.swift in Sources */,
 				3A1A096B2985400900846058 /* NewsDetailCollectionViewDatasource.swift in Sources */,
 				3A1A096C2985400900846058 /* NewsDetailCollectionCell.swift in Sources */,
+				DB5E9E13298B2E7800752EE2 /* ProfilePresenter.swift in Sources */,
 				3A8F30EA2974395F00F24DF7 /* ShikiApp.xcdatamodeld in Sources */,
 				3A7E4D8B2985492C00E7CA17 /* MangaRatesResponseDTO.swift in Sources */,
+				DB220D2429907E8000C98FFA /* UserModelAPI.swift in Sources */,
 				3A7E4D8F2985492C00E7CA17 /* UserProfileDTO.swift in Sources */,
 				3A1A096E2985400900846058 /* NewsDetailPresenter.swift in Sources */,
 				3A8F30E22974395F00F24DF7 /* SceneDelegate.swift in Sources */,

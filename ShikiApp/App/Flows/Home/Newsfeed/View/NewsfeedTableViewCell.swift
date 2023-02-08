@@ -16,7 +16,7 @@ class NewsfeedTableViewCell: UITableViewCell {
     private let trailing = -16.0
     private let leading = 8.0
     private let topInset = 12.0
-    private let bottom2 = -12.0
+    private let bottom = -12.0
     private let verticalSpacing = 2.0
     
     private var newsImageView: UIImageView = {

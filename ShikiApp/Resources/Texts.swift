@@ -24,4 +24,12 @@ enum Texts {
     enum ErrorMessage {
         static let general = "Что-то пошло не так.\nПопробуйте позже, должно получиться"
     }
+    
+    enum DummyTextForProfileVC {
+        static let nameLabelText = "Вел1чайший"
+        static let sexAndAgeLabelText = "мужчина, 24"
+        static let webLinkText = "myanimelist.com/firefly784"
+        static let logoutButtonText = "Выйити из аккаунта"
+        static let versionLabelText = "Версия 1.0.0(1)"
+    }
 }
