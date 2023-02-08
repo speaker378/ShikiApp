@@ -46,7 +46,6 @@ extension String {
     }
 
     // TODO: - Удалить
-
     // MARK: - Private functions
     
     private func makeStringsEqualRegexPattern(_ pattern: String) -> [String] {

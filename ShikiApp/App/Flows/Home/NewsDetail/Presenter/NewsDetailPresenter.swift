@@ -35,7 +35,7 @@ final class NewsDetailPresenter: NewsDetailViewOutput {
     }
     
     func showImage(URLString: String) {
-        let destination = NewsDetailContentBuilder.build(imageURLString: URLString)
+        let destination = NewsDetailContentBuilder.build(URLString: URLString)
         viewInput?.navigationController?.pushViewController(destination, animated: true)
     }
 }

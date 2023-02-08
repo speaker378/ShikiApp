@@ -27,10 +27,10 @@ final class NewsDetailContentViewController: UIViewController, NewsDetailContent
 
     // MARK: - Construction
     
-    init(presenter: NewsDetailContentViewOutput, imageURLString: String) {
-        self.imageView.downloadedImage(from: imageURLString, contentMode: .scaleAspectFit)
+    init(presenter: NewsDetailContentViewOutput, URLString: String) {
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
+        configure(with: URLString)
     }
     
     required init?(coder: NSCoder) { nil }
@@ -40,7 +40,6 @@ final class NewsDetailContentViewController: UIViewController, NewsDetailContent
     override func viewDidLoad() {
         super.viewDidLoad()
         scrollView.delegate = self
-        configureUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -55,12 +54,33 @@ final class NewsDetailContentViewController: UIViewController, NewsDetailContent
 
     // MARK: - Private functions
     
-    private func configureUI() {
+    private func configure(with URLString: String) {
+        if URLString.contains("youtube") {
+            guard
+                let youtubeID = presenter.makeYoutubeID(link: URLString),
+                let url = URL(string: "http://www.youtube.com/watch?v=\(youtubeID)")
+            else { return }
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            imageView.downloadedImage(from: URLString, contentMode: .scaleAspectFit)
+        }
+        
+        configureUI(with: URLString)
+    }
+    
+    private func configureUI(with URLString: String) {
         // TODO: - подумать какой должен быть заголовок
-        title = "@@ Тут должен быть какой-то заголовок? или нет?"
+        // title = "@@ Тут должен быть какой-то заголовок? или нет?"
         view.backgroundColor = AppColor.backgroundMain
+        
         view.addSubview(scrollView)
         scrollView.addSubview(imageView)
+        if URLString.contains("youtube") {
+            //
+        } else {
+//            view.addSubview(scrollView)
+//            scrollView.addSubview(imageView)
+        }
     }
     
     private func configureLeftBarItem() {
@@ -89,13 +109,13 @@ final class NewsDetailContentViewController: UIViewController, NewsDetailContent
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
+        // TODO: - сделать это только после того как изображ. скачается!
         guard let imageSize = imageView.image?.size else { return }
         let newSize = countScalingSize(originSize: imageSize, targetSize: scrollView.frame.size)
 
         NSLayoutConstraint.activate([
             imageView.widthAnchor.constraint(equalToConstant: newSize.width),
-            imageView.heightAnchor.constraint(equalToConstant: newSize.height),
-            imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            imageView.heightAnchor.constraint(equalToConstant: newSize.height)
         ])
     }
     
@@ -103,15 +123,11 @@ final class NewsDetailContentViewController: UIViewController, NewsDetailContent
     private func countScalingSize(originSize: CGSize, targetSize: CGSize) -> CGSize {
         let widthRatio = targetSize.width / originSize.width
         let heightRatio = targetSize.height / originSize.height
-        // проверяем по какой стороне ужимать картинку
+        
         let newSize = widthRatio > heightRatio
         ? CGSize(width: originSize.width * heightRatio, height: originSize.height * heightRatio)
         : CGSize(width: originSize.width * widthRatio, height: originSize.height * widthRatio)
         return newSize
-    }
-    
-    private func makeYoutubeID(link: String) -> String {
-        
     }
 }
 

@@ -9,9 +9,9 @@ import UIKit
 
 final class NewsDetailContentBuilder {
     
-    static func build(imageURLString: String) -> (UIViewController & NewsDetailContentViewInput) {
+    static func build(URLString: String) -> (UIViewController & NewsDetailContentViewInput) {
         let presenter = NewsDetailContentPresenter()
-        let viewController = NewsDetailContentViewController(presenter: presenter, imageURLString: imageURLString)
+        let viewController = NewsDetailContentViewController(presenter: presenter, URLString: URLString)
         
         presenter.viewInput = viewController
         return viewController
