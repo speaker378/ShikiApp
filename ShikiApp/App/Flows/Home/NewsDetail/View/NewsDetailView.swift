@@ -56,8 +56,8 @@ final class NewsDetailView: UIView {
         dateLabel.text = news.date
         contentLabel.text = news.subtitle
         coverImageView.downloadedImage(from: news.imageUrls[.original] ?? "", hasGradientLayer: true)
-        collectionView.configureTapHandler { [weak self] content in
-            self?.tapHandler?(content)
+        collectionView.configureTapHandler { [weak self] contentURLString in
+            self?.tapHandler?(contentURLString)
         }
         configureUI()
     }

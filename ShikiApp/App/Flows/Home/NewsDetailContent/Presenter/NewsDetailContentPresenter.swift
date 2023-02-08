@@ -12,7 +12,7 @@ protocol NewsDetailContentViewInput: AnyObject {
 }
 
 protocol NewsDetailContentViewOutput: AnyObject {
-    func shareURL()
+
 }
 
 final class NewsDetailContentPresenter: NewsDetailContentViewOutput {
@@ -21,9 +21,5 @@ final class NewsDetailContentPresenter: NewsDetailContentViewOutput {
     
     weak var viewInput: (UIViewController & NewsDetailContentViewInput)?
 
-    // MARK: - Functions
     
-    func shareURL() {
-        //
-    }
 }
