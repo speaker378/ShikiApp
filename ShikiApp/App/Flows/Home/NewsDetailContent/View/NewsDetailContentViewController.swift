@@ -12,23 +12,15 @@ final class NewsDetailContentViewController: UIViewController, NewsDetailContent
     // MARK: - Private properties
     
     private let presenter: NewsDetailContentViewOutput
-    private let scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.zoomScale = 1.0
-        scrollView.minimumZoomScale = 1.0
-        scrollView.maximumZoomScale = 5.0
-        scrollView.contentMode = .center
-        scrollView.showsVerticalScrollIndicator = false
-        scrollView.showsHorizontalScrollIndicator = false
-        return scrollView
-    }()
-    private let imageView = UIImageViewAsync()
+    private let isVideoPreview: Bool
+    private var imageView: NewsDetailImageContentView?
+    private var videoView: NewsDetailVideoContentView?
 
     // MARK: - Construction
     
     init(presenter: NewsDetailContentViewOutput, URLString: String) {
         self.presenter = presenter
+        isVideoPreview = URLString.contains("youtube")
         super.init(nibName: nil, bundle: nil)
         configure(with: URLString)
     }
@@ -39,47 +31,34 @@ final class NewsDetailContentViewController: UIViewController, NewsDetailContent
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        scrollView.delegate = self
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         configureNavBar()
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        configureConstraints()
     }
 
     // MARK: - Private functions
     
     private func configure(with URLString: String) {
-        if URLString.contains("youtube") {
-            guard
-                let youtubeID = presenter.makeYoutubeID(link: URLString),
-                let url = URL(string: "http://www.youtube.com/watch?v=\(youtubeID)")
-            else { return }
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        if isVideoPreview {
+            guard let youtubeID = presenter.makeYoutubeID(link: URLString) else { return }
+            videoView = NewsDetailVideoContentView(youtubeID: youtubeID)
+            videoView?.configureTapHandler {
+                guard let url = URL(string: "\(Constants.Url.deeplinkYoutubeUrl)\(youtubeID)") else { return }
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+            view.addSubview(videoView ?? UIView())
         } else {
-            imageView.downloadedImage(from: URLString, contentMode: .scaleAspectFit)
+            imageView = NewsDetailImageContentView(URLString: URLString)
+            view.addSubview(imageView ?? UIView())
         }
-        
         configureUI(with: URLString)
     }
     
     private func configureUI(with URLString: String) {
-        // TODO: - подумать какой должен быть заголовок
-        // title = "@@ Тут должен быть какой-то заголовок? или нет?"
         view.backgroundColor = AppColor.backgroundMain
-        
-        view.addSubview(scrollView)
-        scrollView.addSubview(imageView)
-        if URLString.contains("youtube") {
-            //
-        } else {
-//            view.addSubview(scrollView)
-//            scrollView.addSubview(imageView)
+        if let videoView {
+            configureConstraints(contentView: videoView)
+        }
+        if let imageView {
+            configureConstraints(contentView: imageView)
         }
     }
     
@@ -97,45 +76,17 @@ final class NewsDetailContentViewController: UIViewController, NewsDetailContent
     private func configureNavBar() {
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationController?.navigationBar.layoutIfNeeded()
+        navigationController?.navigationBar.isTranslucent = false
         configureLeftBarItem()
     }
     
-    private func configureConstraints() {
-        imageView.translatesAutoresizingMaskIntoConstraints = false
+    private func configureConstraints(contentView: UIView) {
+        contentView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            contentView.topAnchor.constraint(equalTo: view.topAnchor),
+            contentView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-        
-        // TODO: - сделать это только после того как изображ. скачается!
-        guard let imageSize = imageView.image?.size else { return }
-        let newSize = countScalingSize(originSize: imageSize, targetSize: scrollView.frame.size)
-
-        NSLayoutConstraint.activate([
-            imageView.widthAnchor.constraint(equalToConstant: newSize.width),
-            imageView.heightAnchor.constraint(equalToConstant: newSize.height)
-        ])
-    }
-    
-    // TODO: - вынести в презентер?
-    private func countScalingSize(originSize: CGSize, targetSize: CGSize) -> CGSize {
-        let widthRatio = targetSize.width / originSize.width
-        let heightRatio = targetSize.height / originSize.height
-        
-        let newSize = widthRatio > heightRatio
-        ? CGSize(width: originSize.width * heightRatio, height: originSize.height * heightRatio)
-        : CGSize(width: originSize.width * widthRatio, height: originSize.height * widthRatio)
-        return newSize
-    }
-}
-
-// MARK: - UIScrollViewDelegate
-
-extension NewsDetailContentViewController: UIScrollViewDelegate {
-    
-    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        return imageView
     }
 }

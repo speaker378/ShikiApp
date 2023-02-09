@@ -122,6 +122,9 @@
 		3A8F31062974396000F24DF7 /* ShikiAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8F31052974396000F24DF7 /* ShikiAppUITestsLaunchTests.swift */; };
 		3AFAFEE3298028BA00949FE2 /* NewsfeedViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFAFEE2298028BA00949FE2 /* NewsfeedViewController+Extension.swift */; };
 		3AFAFEE6298055A900949FE2 /* String+heightText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFAFEE5298055A900949FE2 /* String+heightText.swift */; };
+		BA27FB492993E431007C3BEC /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA27FB482993E431007C3BEC /* WebKit.framework */; };
+		BA27FB4B29953660007C3BEC /* NewsDetailImageContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA27FB4A29953660007C3BEC /* NewsDetailImageContentView.swift */; };
+		BA27FB4D2995384E007C3BEC /* NewsDetailVideoContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA27FB4C2995384E007C3BEC /* NewsDetailVideoContentView.swift */; };
 		BA2D462B298D119B006365FF /* AppCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2D462A298D119B006365FF /* AppCollectionView.swift */; };
 		BAE4C1D22992803C00D9E7E8 /* NewsDetailContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE4C1D12992803C00D9E7E8 /* NewsDetailContentViewController.swift */; };
 		BAE4C1D4299283F400D9E7E8 /* NewsDetailContentPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE4C1D3299283F400D9E7E8 /* NewsDetailContentPresenter.swift */; };
@@ -253,6 +256,9 @@
 		3A8F31052974396000F24DF7 /* ShikiAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShikiAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		3AFAFEE2298028BA00949FE2 /* NewsfeedViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewsfeedViewController+Extension.swift"; sourceTree = "<group>"; };
 		3AFAFEE5298055A900949FE2 /* String+heightText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+heightText.swift"; sourceTree = "<group>"; };
+		BA27FB482993E431007C3BEC /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		BA27FB4A29953660007C3BEC /* NewsDetailImageContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailImageContentView.swift; sourceTree = "<group>"; };
+		BA27FB4C2995384E007C3BEC /* NewsDetailVideoContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailVideoContentView.swift; sourceTree = "<group>"; };
 		BA2D462A298D119B006365FF /* AppCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCollectionView.swift; sourceTree = "<group>"; };
 		BAE4C1D12992803C00D9E7E8 /* NewsDetailContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailContentViewController.swift; sourceTree = "<group>"; };
 		BAE4C1D3299283F400D9E7E8 /* NewsDetailContentPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailContentPresenter.swift; sourceTree = "<group>"; };
@@ -264,6 +270,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA27FB492993E431007C3BEC /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -682,6 +689,7 @@
 				3A8F30F82974396000F24DF7 /* ShikiAppTests */,
 				3A8F31022974396000F24DF7 /* ShikiAppUITests */,
 				3A8F30DD2974395F00F24DF7 /* Products */,
+				BA27FB472993E431007C3BEC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -822,6 +830,14 @@
 			path = String;
 			sourceTree = "<group>";
 		};
+		BA27FB472993E431007C3BEC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BA27FB482993E431007C3BEC /* WebKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		BA2D4629298D117B006365FF /* UICollectionView */ = {
 			isa = PBXGroup;
 			children = (
@@ -861,6 +877,8 @@
 			isa = PBXGroup;
 			children = (
 				BAE4C1D12992803C00D9E7E8 /* NewsDetailContentViewController.swift */,
+				BA27FB4C2995384E007C3BEC /* NewsDetailVideoContentView.swift */,
+				BA27FB4A29953660007C3BEC /* NewsDetailImageContentView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1089,6 +1107,7 @@
 				0010CADF29784E3C00F8705B /* Constants.swift in Sources */,
 				006031B7297BCA6800CD9A16 /* SearchViewController.swift in Sources */,
 				3A7E4DA72985496A00E7CA17 /* Router.swift in Sources */,
+				BA27FB4D2995384E007C3BEC /* NewsDetailVideoContentView.swift in Sources */,
 				3A7E4D982985492C00E7CA17 /* TopicsResponseDTO.swift in Sources */,
 				3A7E4D872985492C00E7CA17 /* MessagesResponseDTO.swift in Sources */,
 				3A7E4D7F2985492C00E7CA17 /* ForumsResponseDTO.swift in Sources */,
@@ -1106,6 +1125,7 @@
 				166FA79729894A16009C2712 /* MangaDetailsDTO.swift in Sources */,
 				3A19C076298FECC70073D472 /* String+extractURLs.swift in Sources */,
 				3A7E4D912985492C00E7CA17 /* UsersRequestFactory.swift in Sources */,
+				BA27FB4B29953660007C3BEC /* NewsDetailImageContentView.swift in Sources */,
 				166FA78D29894235009C2712 /* MangasApi.swift in Sources */,
 				3A1A096C2985400900846058 /* AppCollectionViewCell.swift in Sources */,
 				16130E5229872F5000A4EC94 /* AnimesResponseDTO.swift in Sources */,
@@ -1300,12 +1320,13 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ShikiApp/Environments/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1327,12 +1348,13 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ShikiApp/Environments/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

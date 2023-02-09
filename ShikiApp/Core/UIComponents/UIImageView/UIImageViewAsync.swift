@@ -31,6 +31,8 @@ final class UIImageViewAsync: UIImageView {
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         return activityIndicator
     }()
+    
+    private var completion: (() -> Void)?
 
     // MARK: - Construction
     
@@ -116,9 +118,14 @@ final class UIImageViewAsync: UIImageView {
                 
                 self.image = image
                 self.activityIndicator.removeFromSuperview()
+                self.completion?()
             }
         }
         task?.resume()
+    }
+    
+    func configureCompletion(completion: @escaping () -> Void) {
+        self.completion = completion
     }
     
     func taskCancel() {
@@ -128,19 +135,6 @@ final class UIImageViewAsync: UIImageView {
     override func layoutSubviews() {
         super.layoutSubviews()
         gradientLayer.frame = bounds
-    }
-    
-    // TODO: - удалить
-    // пример ссылки на видео: "https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
-    func prepareVideoThumbnail(from URLString: String) {
-        activityIndicator.startAnimating()
-        DispatchQueue.global().async { [weak self] in
-            guard let URL = URL(string: URLString), let image = self?.prepareThumbnail(from: URL) else { return }
-            DispatchQueue.main.async {
-                self?.activityIndicator.stopAnimating()
-                self?.image = image
-            }
-        }
     }
 
     // MARK: - Private functions
@@ -163,20 +157,5 @@ final class UIImageViewAsync: UIImageView {
             playIconImageView.heightAnchor.constraint(equalToConstant: iconHeight),
             playIconImageView.widthAnchor.constraint(equalToConstant: iconHeight)
         ])
-    }
-    
-    // TODO: - удалить
-    private func prepareThumbnail(from url: URL) -> UIImage? {
-        let asset = AVAsset(url: url)
-        let assetImgGenerate = AVAssetImageGenerator(asset: asset)
-        let time = CMTimeMakeWithSeconds(600, preferredTimescale: 600)
-        do {
-            let img = try assetImgGenerate.copyCGImage(at: time, actualTime: nil)
-            let thumbnail = UIImage(cgImage: img)
-            return thumbnail
-        } catch {
-            print(error.localizedDescription)
-            return nil
-        }
     }
 }
