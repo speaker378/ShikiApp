@@ -7,9 +7,7 @@
 
 import UIKit
 
-protocol NewsDetailContentViewInput: AnyObject {
-    
-}
+protocol NewsDetailContentViewInput: AnyObject { }
 
 protocol NewsDetailContentViewOutput: AnyObject {
     func makeYoutubeID(link: String) -> String?
@@ -23,11 +21,12 @@ final class NewsDetailContentPresenter: NewsDetailContentViewOutput {
 
     func makeYoutubeID(link: String) -> String? {
         guard link.contains("youtube") else { return nil }
-        
-        let youtubeID = link
-                        .replacingOccurrences(of: "https://img.youtube.com/vi/", with: "")
-                        .replacingOccurrences(of: "/hqdefault.jpg", with: "")
-        
+        var youtubeID = link.replacingOccurrences(of: "/hqdefault.jpg", with: "")
+        if link.hasPrefix("http://") {
+            youtubeID = youtubeID.replacingOccurrences(of: "http://img.youtube.com/vi/", with: "")
+        } else {
+            youtubeID = youtubeID.replacingOccurrences(of: "https://img.youtube.com/vi/", with: "")
+        }
         return youtubeID
     }
 }

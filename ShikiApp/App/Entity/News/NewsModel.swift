@@ -37,9 +37,7 @@ final class NewsModelFactory {
         let title = news.topicTitle
         let subtitle = news.htmlBody?.htmlToString()
         let images = [AppImage.ErrorsIcons.nonConnectionIcon, AppImage.ErrorsIcons.nonConnectionIcon]
-        let footer = news.htmlFooter
-        var imageURLs = footer?.imageURLs ?? []
-        imageURLs.append(contentsOf: footer?.youtubePreviewURLs ?? [])
+        let footerContentURLs = extractContentURLStrings(from: news.htmlFooter)
         let URLString = "\(Constants.Url.baseUrl)\(news.linked?.url ?? "")"
         
         return NewsModel(
@@ -48,7 +46,7 @@ final class NewsModelFactory {
             title: title,
             subtitle: subtitle,
             images: images,
-            footerImageURLs: imageURLs,
+            footerImageURLs: footerContentURLs,
             URLString: URLString
         )
     }
@@ -67,6 +65,16 @@ final class NewsModelFactory {
         }
         result[.preview] = imageUrls.first(where: { $0.contains("preview") })
         result[.original] = imageUrls.first(where: { $0.contains("original") })
+        return result
+    }
+    
+    private func extractContentURLStrings(from footer: String?) -> [String] {
+        var result = [String]()
+        guard let footer else { return result }
+        result = footer
+            .extractURLs()
+            .filter { $0.contains(".jpg") && !$0.contains("preview") }
+        
         return result
     }
 }

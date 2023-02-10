@@ -13,8 +13,6 @@ final class NewsDetailContentViewController: UIViewController, NewsDetailContent
     
     private let presenter: NewsDetailContentViewOutput
     private let isVideoPreview: Bool
-    private var imageView: NewsDetailImageContentView?
-    private var videoView: NewsDetailVideoContentView?
 
     // MARK: - Construction
     
@@ -22,7 +20,7 @@ final class NewsDetailContentViewController: UIViewController, NewsDetailContent
         self.presenter = presenter
         isVideoPreview = URLString.contains("youtube")
         super.init(nibName: nil, bundle: nil)
-        configure(with: URLString)
+        configureUI(with: URLString)
     }
     
     required init?(coder: NSCoder) { nil }
@@ -36,28 +34,21 @@ final class NewsDetailContentViewController: UIViewController, NewsDetailContent
 
     // MARK: - Private functions
     
-    private func configure(with URLString: String) {
+    private func configureUI(with URLString: String) {
+        view.backgroundColor = AppColor.backgroundMain
         if isVideoPreview {
             guard let youtubeID = presenter.makeYoutubeID(link: URLString) else { return }
-            videoView = NewsDetailVideoContentView(youtubeID: youtubeID)
-            videoView?.configureTapHandler {
+            let videoView = NewsDetailVideoContentView(youtubeID: youtubeID)
+            videoView.configureCompletion {
                 guard let url = URL(string: "\(Constants.Url.deeplinkYoutubeUrl)\(youtubeID)") else { return }
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
-            view.addSubview(videoView ?? UIView())
-        } else {
-            imageView = NewsDetailImageContentView(URLString: URLString)
-            view.addSubview(imageView ?? UIView())
-        }
-        configureUI(with: URLString)
-    }
-    
-    private func configureUI(with URLString: String) {
-        view.backgroundColor = AppColor.backgroundMain
-        if let videoView {
+            
+            view.addSubview(videoView)
             configureConstraints(contentView: videoView)
-        }
-        if let imageView {
+        } else {
+            let imageView = NewsDetailImageContentView(URLString: URLString)
+            view.addSubview(imageView)
             configureConstraints(contentView: imageView)
         }
     }

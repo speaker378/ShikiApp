@@ -31,7 +31,7 @@ final class NewsDetailView: UIView {
         numberLines: 0
     )
     private let collectionView: AppCollectionView
-    private var tapHandler: ((String) -> Void)?
+    private var completionHandler: ((String) -> Void)?
 
     // MARK: - Construction
     
@@ -46,7 +46,7 @@ final class NewsDetailView: UIView {
     // MARK: - Functions
     
     func tapHandler(completion: @escaping (String) -> Void) {
-        tapHandler = completion
+        completionHandler = completion
     }
 
     // MARK: - Private functions
@@ -56,8 +56,8 @@ final class NewsDetailView: UIView {
         dateLabel.text = news.date
         contentLabel.text = news.subtitle
         coverImageView.downloadedImage(from: news.imageUrls[.original] ?? "", hasGradientLayer: true)
-        collectionView.configureTapHandler { [weak self] contentURLString in
-            self?.tapHandler?(contentURLString)
+        collectionView.configureHandler { [weak self] contentURLString in
+            self?.completionHandler?(contentURLString)
         }
         configureUI()
     }

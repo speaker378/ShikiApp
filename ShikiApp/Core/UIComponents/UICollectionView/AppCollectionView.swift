@@ -17,7 +17,7 @@ final class AppCollectionView: UICollectionView {
     }
     
     private let contents: [String]
-    private var tapHandler: ((String) -> Void)?
+    private var completionHandler: ((String) -> Void)?
     private let layout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -38,8 +38,8 @@ final class AppCollectionView: UICollectionView {
 
     // MARK: - Functions
     
-    func configureTapHandler(completion: @escaping (String) -> Void) {
-        tapHandler = completion
+    func configureHandler(completionHandler: @escaping (String) -> Void) {
+        self.completionHandler = completionHandler
     }
 
     // MARK: - Private functions
@@ -83,6 +83,6 @@ extension AppCollectionView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         let contentURLString = contents[indexPath.row]
-        tapHandler?(contentURLString)
+        completionHandler?(contentURLString)
     }
 }

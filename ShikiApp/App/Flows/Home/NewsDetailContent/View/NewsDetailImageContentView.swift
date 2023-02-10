@@ -9,7 +9,6 @@ import UIKit
 
 final class NewsDetailImageContentView: UIView {
     
-    private let view = UIView()
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -22,13 +21,10 @@ final class NewsDetailImageContentView: UIView {
         return scrollView
     }()
     private let imageView = UIImageViewAsync()
-    private var imageURLString: String
-    private var imageSize: CGSize?
 
     // MARK: - Construction
     
     init(URLString: String) {
-        self.imageURLString = URLString
         super.init(frame: .zero)
         imageView.downloadedImage(from: URLString, contentMode: .scaleAspectFit)
         configure()
@@ -51,26 +47,18 @@ final class NewsDetailImageContentView: UIView {
     }
     
     private func configureUI() {
-        addSubview(view)
-        view.addSubview(scrollView)
+        addSubview(scrollView)
         scrollView.addSubview(imageView)
         configureConstraints()
     }
     
     private func configureConstraints() {
-        [view, imageView].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            view.topAnchor.constraint(equalTo: topAnchor),
-            view.leadingAnchor.constraint(equalTo: leadingAnchor),
-            view.trailingAnchor.constraint(equalTo: trailingAnchor),
-            view.bottomAnchor.constraint(equalTo: bottomAnchor),
-            
-            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            scrollView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height),
-            scrollView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width)
+            scrollView.topAnchor.constraint(equalTo: self.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
     }
     
@@ -79,24 +67,13 @@ final class NewsDetailImageContentView: UIView {
             guard let self = self, let imageSize = self.imageView.image?.size else {
                 return
             }
-            let newSize = self.countScalingSize(originSize: imageSize, targetSize: self.scrollView.frame.size)
+            let newSize = imageSize.scaleToSize(self.scrollView.frame.size)
 
             NSLayoutConstraint.activate([
                 self.imageView.widthAnchor.constraint(equalToConstant: newSize.width),
                 self.imageView.heightAnchor.constraint(equalToConstant: newSize.height)
             ])
         }
-    }
-    
-    // TODO: - вынести в презентер?
-    private func countScalingSize(originSize: CGSize, targetSize: CGSize) -> CGSize {
-        let widthRatio = targetSize.width / originSize.width
-        let heightRatio = targetSize.height / originSize.height
-        
-        let newSize = widthRatio > heightRatio
-        ? CGSize(width: originSize.width * heightRatio, height: originSize.height * heightRatio)
-        : CGSize(width: originSize.width * widthRatio, height: originSize.height * widthRatio)
-        return newSize
     }
 }
 

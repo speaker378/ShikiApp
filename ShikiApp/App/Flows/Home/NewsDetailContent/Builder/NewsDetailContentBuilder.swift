@@ -12,7 +12,6 @@ final class NewsDetailContentBuilder {
     static func build(URLString: String) -> (UIViewController & NewsDetailContentViewInput) {
         let presenter = NewsDetailContentPresenter()
         let viewController = NewsDetailContentViewController(presenter: presenter, URLString: URLString)
-        
         presenter.viewInput = viewController
         return viewController
     }

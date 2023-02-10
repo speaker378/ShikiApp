@@ -36,7 +36,7 @@ final class NewsDetailVideoContentView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-    private var tapHandler: (() -> Void)?
+    private var completionHandler: (() -> Void)?
 
     // MARK: - Construction
     
@@ -50,8 +50,8 @@ final class NewsDetailVideoContentView: UIView {
 
     // MARK: - Functions
     
-    func configureTapHandler(handler: @escaping () -> Void) {
-        tapHandler = handler
+    func configureCompletion(completionHandler: @escaping () -> Void) {
+        self.completionHandler = completionHandler
     }
 
     // MARK: - Private functions
@@ -60,7 +60,7 @@ final class NewsDetailVideoContentView: UIView {
         guard let videoURL = URL(string: "\(Constants.Url.baseYoutubeUrl)\(youtubeID)") else { return }
         webPlayerView.navigationDelegate = self
         let request = URLRequest(url: videoURL)
-        webPlayerView.load(request)
+        self.webPlayerView.load(request)
         button.addTarget(self, action: #selector(openInYoutube), for: .touchUpInside)
     }
     
@@ -69,8 +69,6 @@ final class NewsDetailVideoContentView: UIView {
         contentView.addSubviews([linkView, webPlayerView])
         webPlayerView.addSubview(activityIndicator)
         linkView.addSubviews([titleLabel, button])
-        
-        linkView.backgroundColor = AppColor.backgroundMinor
         configureConstraints()
     }
     
@@ -113,7 +111,7 @@ final class NewsDetailVideoContentView: UIView {
     }
     
     @objc private func openInYoutube() {
-        tapHandler?()
+        completionHandler?()
     }
 }
 
@@ -131,5 +129,6 @@ extension NewsDetailVideoContentView: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         activityIndicator.stopAnimating()
+        print(error.localizedDescription)
     }
 }
