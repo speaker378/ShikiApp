@@ -79,7 +79,10 @@ extension AppCollectionView: UICollectionViewDataSource {
     }
 }
 
+// MARK: - UICollectionViewDelegate
+
 extension AppCollectionView: UICollectionViewDelegate {
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         let contentURLString = contents[indexPath.row]

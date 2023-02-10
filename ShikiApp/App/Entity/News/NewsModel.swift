@@ -23,10 +23,14 @@ enum ImageSize {
 }
 
 final class NewsModelFactory {
+
+    // MARK: - Functions
     
     func makeModels(from news: TopicsResponseDTO) -> [NewsModel] {
         return news.compactMap(self.convertModel)
     }
+
+    // MARK: - Private functions
     
     private func convertModel(from news: TopicDTO) -> NewsModel {
         let imageUrls = extractImageAddresses(from: news.htmlFooter)

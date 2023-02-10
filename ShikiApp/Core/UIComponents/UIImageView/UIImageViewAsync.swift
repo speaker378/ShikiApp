@@ -7,7 +7,6 @@
 // Пример использования:
 // myImageView.downloadedImage(from: "http:\.........")
 
-import AVFoundation
 import UIKit
 
 final class UIImageViewAsync: UIImageView {

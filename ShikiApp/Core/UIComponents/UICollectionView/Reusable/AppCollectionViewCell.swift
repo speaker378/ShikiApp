@@ -5,7 +5,6 @@
 //  Created by 👩🏻‍🎨 📱 december11 on 22.01.2023.
 //
 
-import AVFoundation
 import UIKit
 
 final class AppCollectionViewCell: UICollectionViewCell {

@@ -12,6 +12,7 @@ protocol NewsDetailViewInput: AnyObject {
 }
 
 protocol NewsDetailViewOutput: AnyObject {
+    
     func shareURL()
     func showImage(URLString: String)
 }

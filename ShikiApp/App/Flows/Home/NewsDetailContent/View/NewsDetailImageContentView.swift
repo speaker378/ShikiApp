@@ -8,6 +8,8 @@
 import UIKit
 
 final class NewsDetailImageContentView: UIView {
+
+    // MARK: - Private properties
     
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
