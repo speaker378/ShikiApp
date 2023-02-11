@@ -33,7 +33,7 @@ final class NewsDetailViewController: UIViewController, NewsDetailViewInput {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = Texts.NavigationBarTitles.newsTitle
-        contentView.tapHandler { [weak self] contentURLString in
+        contentView.itemTapCompletion = { [weak self] contentURLString in
             self?.viewOutput.showImage(URLString: contentURLString)
         }
         configureUI()

@@ -13,7 +13,6 @@ struct NewsModel {
     let date: String?
     let title: String?
     let subtitle: String?
-    let images: [UIImage?]
     let footerImageURLs: [String]
     let URLString: String?
 }
@@ -40,16 +39,14 @@ final class NewsModelFactory {
             .convertToString(with: Constants.DateFormatter.dayMonthCommaHoursMinutes, relative: true) ?? ""
         let title = news.topicTitle
         let subtitle = news.htmlBody?.htmlToString()
-        let images = [AppImage.ErrorsIcons.nonConnectionIcon, AppImage.ErrorsIcons.nonConnectionIcon]
         let footerContentURLs = extractContentURLStrings(from: news.htmlFooter)
-        let URLString = "\(Constants.Url.baseUrl)\(news.linked?.url ?? "")"
+        let URLString = "\(Constants.Url.baseUrl)/forum/news/\(news.id)"
         
         return NewsModel(
             imageUrls: imageUrls,
             date: date,
             title: title,
             subtitle: subtitle,
-            images: images,
             footerImageURLs: footerContentURLs,
             URLString: URLString
         )

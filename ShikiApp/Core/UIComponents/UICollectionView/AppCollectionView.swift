@@ -9,6 +9,10 @@ import UIKit
 
 final class AppCollectionView: UICollectionView {
 
+    // MARK: - Properties
+    
+    var itemTapCompletion: ((String) -> Void)?
+
     // MARK: - Private properties
     
     private enum Layout {
@@ -17,7 +21,6 @@ final class AppCollectionView: UICollectionView {
     }
     
     private let contents: [String]
-    private var completionHandler: ((String) -> Void)?
     private let layout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -35,12 +38,6 @@ final class AppCollectionView: UICollectionView {
     }
     
     required init?(coder: NSCoder) { nil }
-
-    // MARK: - Functions
-    
-    func configureHandler(completionHandler: @escaping (String) -> Void) {
-        self.completionHandler = completionHandler
-    }
 
     // MARK: - Private functions
     
@@ -86,6 +83,6 @@ extension AppCollectionView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         let contentURLString = contents[indexPath.row]
-        completionHandler?(contentURLString)
+        itemTapCompletion?(contentURLString)
     }
 }

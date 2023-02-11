@@ -27,8 +27,8 @@ final class NewsDetailImageContentView: UIView {
     // MARK: - Construction
     
     init(URLString: String) {
-        super.init(frame: .zero)
         imageView.downloadedImage(from: URLString, contentMode: .scaleAspectFit)
+        super.init(frame: .zero)
         configure()
     }
     
@@ -65,7 +65,8 @@ final class NewsDetailImageContentView: UIView {
     }
     
     private func scalingImage() {
-        imageView.configureCompletion { [weak self] in
+        imageView.completion = { [weak self] in
+            
             guard let self = self, let imageSize = self.imageView.image?.size else {
                 return
             }

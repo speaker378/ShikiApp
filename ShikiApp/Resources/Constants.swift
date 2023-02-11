@@ -14,7 +14,7 @@ struct Constants {
         static let apiUrl = Bundle.main.object(forInfoDictionaryKey: HttpConstants.apiUrl) as? String ?? ""
         static let baseUrl = Bundle.main.object(forInfoDictionaryKey: HttpConstants.baseUrl) as? String ?? ""
         static let baseYoutubeUrl = "https://www.youtube.com/embed/"
-        static let deeplinkYoutubeUrl = "http://www.youtube.com/watch?v="
+        static let deeplinkYoutubeUrl = "https://www.youtube.com/watch?v="
     }
     
     enum Keys {

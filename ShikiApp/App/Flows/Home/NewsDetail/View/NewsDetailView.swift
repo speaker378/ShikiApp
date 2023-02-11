@@ -9,6 +9,10 @@ import UIKit
 
 final class NewsDetailView: UIView {
 
+    // MARK: - Properties
+    
+    var itemTapCompletion: ((String) -> Void)?
+
     // MARK: - Private properties
     
     private let coverHeight: CGFloat = 200
@@ -30,8 +34,13 @@ final class NewsDetailView: UIView {
         fontSize: AppFont.openSansFont(ofSize: 16, weight: .regular),
         numberLines: 0
     )
+    private let gradientLayer: CAGradientLayer = {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.colors = [AppColor.coverGradient1.cgColor, AppColor.coverGradient2.cgColor]
+        gradientLayer.locations = [0.0, 1.0]
+        return gradientLayer
+    }()
     private let collectionView: AppCollectionView
-    private var completionHandler: ((String) -> Void)?
 
     // MARK: - Construction
     
@@ -45,8 +54,9 @@ final class NewsDetailView: UIView {
 
     // MARK: - Functions
     
-    func tapHandler(completion: @escaping (String) -> Void) {
-        completionHandler = completion
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        gradientLayer.frame = coverImageView.bounds
     }
 
     // MARK: - Private functions
@@ -55,9 +65,9 @@ final class NewsDetailView: UIView {
         titleLabel.text = news.title
         dateLabel.text = news.date
         contentLabel.text = news.subtitle
-        coverImageView.downloadedImage(from: news.imageUrls[.original] ?? "", hasGradientLayer: true)
-        collectionView.configureHandler { [weak self] contentURLString in
-            self?.completionHandler?(contentURLString)
+        coverImageView.downloadedImage(from: news.imageUrls[.original] ?? "")
+        collectionView.itemTapCompletion = { [weak self] contentURLString in
+            self?.itemTapCompletion?(contentURLString)
         }
         configureUI()
     }
@@ -108,6 +118,7 @@ final class NewsDetailView: UIView {
     }
     
     private func configureCoverImageView() {
+        coverImageView.layer.addSublayer(gradientLayer)
         coverImageView.contentMode = .scaleAspectFill
         coverImageView.layer.masksToBounds = true
     }

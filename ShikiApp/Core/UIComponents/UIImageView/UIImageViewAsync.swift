@@ -11,16 +11,11 @@ import UIKit
 
 final class UIImageViewAsync: UIImageView {
 
-    // MARK: - Private properties
+    // MARK: - Properties
     
-    private let iconHeight: CGFloat = 52.0
-    private let playIconImageView = UIImageView(image: AppImage.OtherIcons.play)
-    private let gradientLayer: CAGradientLayer = {
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.colors = [AppColor.coverGradient1.cgColor, AppColor.coverGradient2.cgColor]
-        gradientLayer.locations = [0.0, 1.0]
-        return gradientLayer
-    }()
+    var completion: (() -> Void)?
+
+    // MARK: - Private properties
     
     private var task: URLSessionDataTask?
     
@@ -30,16 +25,12 @@ final class UIImageViewAsync: UIImageView {
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         return activityIndicator
     }()
-    
-    private var completion: (() -> Void)?
 
     // MARK: - Construction
     
     init() {
         super.init(frame: .zero)
         setActivityIndicator()
-        layer.addSublayer(gradientLayer)
-        setPlayIcon()
     }
     
     override init(frame: CGRect) {
@@ -59,29 +50,21 @@ final class UIImageViewAsync: UIImageView {
     ///   - isActivityIndicator: наличие ActivityIndicator по умолчанию true
     func downloadedImage(from link: String,
                          contentMode mode: ContentMode = .scaleAspectFit,
-                         isActivityIndicator: Bool = true,
-                         hasGradientLayer: Bool = false,
-                         isVideoPreview: Bool = false) {
+                         isActivityIndicator: Bool = true) {
         
         guard let url = URL(string: link) else { return }
         
         downloadedImage(
             from: url,
             contentMode: mode,
-            isActivityIndicator: isActivityIndicator,
-            hasGradientLayer: hasGradientLayer,
-            isVideoPreview: isVideoPreview
+            isActivityIndicator: isActivityIndicator
         )
     }
     
     func downloadedImage(from url: URL,
                          contentMode mode: ContentMode = .scaleAspectFit,
-                         isActivityIndicator: Bool = true,
-                         hasGradientLayer: Bool = false,
-                         isVideoPreview: Bool = false) {
+                         isActivityIndicator: Bool = true) {
         contentMode = mode
-        gradientLayer.isHidden = !hasGradientLayer
-        playIconImageView.isHidden = !isVideoPreview
         
         let configuration = URLSessionConfiguration.default
         configuration.urlCache = URLCache(
@@ -123,17 +106,8 @@ final class UIImageViewAsync: UIImageView {
         task?.resume()
     }
     
-    func configureCompletion(completion: @escaping () -> Void) {
-        self.completion = completion
-    }
-    
     func taskCancel() {
         task?.cancel()
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        gradientLayer.frame = bounds
     }
 
     // MARK: - Private functions
@@ -144,17 +118,6 @@ final class UIImageViewAsync: UIImageView {
         NSLayoutConstraint.activate([
             activityIndicator.centerXAnchor.constraint(equalTo: centerXAnchor),
             activityIndicator.centerYAnchor.constraint(equalTo: centerYAnchor)
-        ])
-    }
-    
-    private func setPlayIcon() {
-        addSubview(playIconImageView)
-        playIconImageView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            playIconImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            playIconImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            playIconImageView.heightAnchor.constraint(equalToConstant: iconHeight),
-            playIconImageView.widthAnchor.constraint(equalToConstant: iconHeight)
         ])
     }
 }

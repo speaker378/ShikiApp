@@ -13,10 +13,17 @@ final class AppCollectionViewCell: UICollectionViewCell {
     
     private let imageView: UIImageViewAsync = {
         let imageView = UIImageViewAsync()
-        imageView.clipsToBounds = true
+        imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = Constants.CornerRadius.small
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
+    }()
+    
+    private var gradientLayer: CAGradientLayer = {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.colors = [AppColor.coverGradient1.cgColor, AppColor.coverGradient2.cgColor]
+        gradientLayer.locations = [0.0, 1.0]
+        return gradientLayer
     }()
 
     // MARK: - Construction
@@ -30,6 +37,11 @@ final class AppCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Functions
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        gradientLayer.frame = bounds
+    }
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         imageView.image = nil
@@ -37,12 +49,9 @@ final class AppCollectionViewCell: UICollectionViewCell {
     
     func configure(content: String) {
         if content.contains("youtube") {
-            imageView.downloadedImage(
-                from: content,
-                contentMode: .scaleAspectFill,
-                hasGradientLayer: true,
-                isVideoPreview: true
-            )
+            imageView.downloadedImage(from: content, contentMode: .scaleAspectFill)
+            imageView.layer.addSublayer(gradientLayer)
+            addPlayVideoIcon()
         } else {
             imageView.downloadedImage(from: content, contentMode: .scaleAspectFill)
         }
@@ -58,6 +67,21 @@ final class AppCollectionViewCell: UICollectionViewCell {
             imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
             imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
             imageView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
+    }
+    
+    private func addPlayVideoIcon() {
+        let iconHeight: CGFloat = 52.0
+        let playIconImageView = UIImageView(image: AppImage.OtherIcons.play)
+        
+        playIconImageView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(playIconImageView)
+
+        NSLayoutConstraint.activate([
+            playIconImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            playIconImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            playIconImageView.heightAnchor.constraint(equalToConstant: iconHeight),
+            playIconImageView.widthAnchor.constraint(equalToConstant: iconHeight)
         ])
     }
 }
