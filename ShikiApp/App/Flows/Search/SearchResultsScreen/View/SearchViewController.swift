@@ -32,7 +32,7 @@ final class SearchViewController: UIViewController, SearchViewInput {
         }
     }
 
-    // MARK: - Construction
+    // MARK: - Constructions
 
     init(presenter: SearchViewOutput) {
         self.presenter = presenter

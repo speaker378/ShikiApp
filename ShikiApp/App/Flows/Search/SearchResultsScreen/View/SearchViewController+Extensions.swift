@@ -17,9 +17,8 @@ extension SearchViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell: SearchTableCell = tableView.cell(forRowAt: indexPath) else { return UITableViewCell() }
-        guard models.indices.contains(indexPath.row) else { return cell }
         cell.configure(with: models[indexPath.row])
-        return UITableViewCell()
+        return cell
     }
 }
 

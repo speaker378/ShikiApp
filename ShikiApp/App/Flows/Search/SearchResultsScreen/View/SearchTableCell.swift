@@ -27,6 +27,7 @@ class SearchTableCell: UITableViewCell {
         let imageView = UIImageViewAsync()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
+        imageView.layer.masksToBounds = true
         return imageView
     }()
     
@@ -93,7 +94,7 @@ class SearchTableCell: UITableViewCell {
     // MARK: - Functions
 
     func configure(with cellModel: SearchModel) {
-        contentImageView.downloadedImage(from: cellModel.imageUrlString, contentMode: .scaleAspectFit)
+        contentImageView.downloadedImage(from: cellModel.imageUrlString, contentMode: .scaleAspectFill)
         titleLabel.text = cellModel.title
         scoreLabel.text = cellModel.score.value
         scoreLabel.backgroundColor = cellModel.score.color
