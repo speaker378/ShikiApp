@@ -8,6 +8,8 @@
 import Foundation
 
 extension String {
+
+    // MARK: - Functions
     
     func htmlToString() -> String {
         var htmlToAttributedString: NSAttributedString? {

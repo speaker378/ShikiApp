@@ -12,7 +12,9 @@ protocol NewsDetailViewInput: AnyObject {
 }
 
 protocol NewsDetailViewOutput: AnyObject {
+    
     func shareURL()
+    func showImage(URLString: String)
 }
 
 final class NewsDetailPresenter: NewsDetailViewOutput {
@@ -31,5 +33,10 @@ final class NewsDetailPresenter: NewsDetailViewOutput {
         else { return }
         let activityViewController = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
         self.viewInput?.present(activityViewController, animated: true)
+    }
+    
+    func showImage(URLString: String) {
+        let destination = NewsDetailContentBuilder.build(URLString: URLString)
+        viewInput?.navigationController?.pushViewController(destination, animated: true)
     }
 }
