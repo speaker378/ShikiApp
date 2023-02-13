@@ -29,7 +29,7 @@ enum AppImage {
     }
 
     // MARK: - UserListsIcons
-    
+
     enum UserListIcons {
         static let watching = UIImage(named: "watching") ?? missingImage
         static let watched = UIImage(named: "watched") ?? missingImage
