@@ -24,4 +24,8 @@ enum Texts {
     enum ErrorMessage {
         static let general = "Что-то пошло не так.\nПопробуйте позже, должно получиться"
     }
+    
+    enum LoadingMessage {
+        static let inProgress = "Загрузка..."
+    }
 }

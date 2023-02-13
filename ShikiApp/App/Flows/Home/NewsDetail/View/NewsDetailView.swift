@@ -13,7 +13,7 @@ final class NewsDetailView: UIView {
     
     private enum Layout {
         
-        static let itemWidht: CGFloat = 260
+        static let itemWidth: CGFloat = 260
         static let itemHeight: CGFloat = 160
         static let itemSpacing: CGFloat = 8.0
     }
@@ -22,7 +22,7 @@ final class NewsDetailView: UIView {
     private let sideInset: CGFloat = 16.0
     private let topInset: CGFloat = 4.0
     private let maximumTitleLines = 5
-    private let coverImageView = UIImageView()
+    private let coverImageView = UIImageViewAsync()
     private let gradientLayer = CAGradientLayer()
     private let dataSource: UICollectionViewDataSource?
     private let titleLabel = AppLabel(
@@ -44,7 +44,7 @@ final class NewsDetailView: UIView {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumInteritemSpacing = Layout.itemSpacing
-        layout.itemSize = CGSize(width: Layout.itemWidht, height: Layout.itemHeight)
+        layout.itemSize = CGSize(width: Layout.itemWidth, height: Layout.itemHeight)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.showsHorizontalScrollIndicator = false
         return collectionView
@@ -75,7 +75,7 @@ final class NewsDetailView: UIView {
         titleLabel.text = news.title
         dateLabel.text = news.date
         contentLabel.text = news.subtitle
-        coverImageView.image = news.image ?? AppImage.ErrorsIcons.nonConnectionIcon
+        coverImageView.downloadedImage(from: news.imageUrls[.original] ?? "")
         configureUI()
     }
     
