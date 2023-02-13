@@ -15,10 +15,7 @@ struct Constants {
         static let baseUrl = Bundle.main.object(forInfoDictionaryKey: HttpConstants.baseUrl) as? String ?? ""
         static let baseYoutubeUrl = "https://www.youtube.com/embed/"
         static let deeplinkYoutubeUrl = "https://www.youtube.com/watch?v="
-    }
-    
-    enum Keys {
-        
+		static let redirectUri = "ShikiApp://callback"
     }
     
     enum Insets {
