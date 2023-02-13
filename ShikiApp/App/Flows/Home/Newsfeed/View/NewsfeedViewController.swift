@@ -13,6 +13,11 @@ class NewsfeedViewController: (UIViewController & NewsfeedViewInput) {
     
     let presenter: NewsfeedViewOutput
     var models: [NewsModel] = []
+    var isAuth: Bool {
+        didSet {
+            configureRightBarItem()
+        }
+    }
 
     // MARK: - Private Properties
     
@@ -63,6 +68,7 @@ class NewsfeedViewController: (UIViewController & NewsfeedViewInput) {
     
     init(presenter: NewsfeedViewOutput) {
         self.presenter = presenter
+        self.isAuth = presenter.isAuth()
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -111,8 +117,23 @@ class NewsfeedViewController: (UIViewController & NewsfeedViewInput) {
             self?.tableView.refreshControl?.endRefreshing()
         }
     }
+    
+    @objc func didPressedRightBarItem() {
+        presenter.didPressedRightBarItem()
+    }
 
     // MARK: - Private functions
+    
+    private func configureRightBarItem() {
+        let loginItem = UIBarButtonItem(
+            image: isAuth ? AppImage.NavigationsBarIcons.logout : AppImage.NavigationsBarIcons.login,
+            style: .plain,
+            target: self,
+            action: #selector(didPressedRightBarItem)
+        )
+        loginItem.tintColor = AppColor.textMain
+        navigationItem.rightBarButtonItem = loginItem
+    }
     
     private func setupViews() {
         backgroundView.addSubviews([backgroundErrorImageView, backgroundErrorLabel, activityIndicator])
@@ -128,6 +149,7 @@ class NewsfeedViewController: (UIViewController & NewsfeedViewInput) {
         tableView.prefetchDataSource = self
         setupPullToRefresh()
         activityIndicator.startAnimating()
+        configureRightBarItem()
     }
     
     private func setupPullToRefresh() {

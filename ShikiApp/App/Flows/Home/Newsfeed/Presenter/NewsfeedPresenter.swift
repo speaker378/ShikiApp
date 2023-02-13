@@ -10,6 +10,7 @@ import UIKit
 protocol NewsfeedViewInput: AnyObject {
     
     var models: [NewsModel] { get set }
+    var isAuth: Bool { get set }
     func reloadData()
     func insertRows(indexPath: [IndexPath])
     func showErrorBackground()
@@ -21,6 +22,8 @@ protocol NewsfeedViewOutput: AnyObject {
     func fetchData()
     func endOfTableReached()
     func updateData(completion: @escaping () -> Void)
+    func didPressedRightBarItem()
+    func isAuth() -> Bool
 }
 
 final class NewsfeedPresenter: NewsfeedViewOutput {
@@ -97,5 +100,22 @@ final class NewsfeedPresenter: NewsfeedViewOutput {
             self.viewInput?.reloadData()
             completion()
         }
+    }
+    
+    func didPressedRightBarItem() {
+        if isAuth() {
+            AuthManager.share.logOut()
+            viewInput?.isAuth = false
+        } else {
+            AuthManager.share.auth { [weak self] result in
+                DispatchQueue.main.async {
+                    self?.viewInput?.isAuth = result
+                }
+            }
+        }
+    }
+    
+    func isAuth() -> Bool {
+        AuthManager.share.isAuth()
     }
 }
