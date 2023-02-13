@@ -68,6 +68,8 @@
 		3A19C06A298B75B40073D472 /* String+toDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A19C069298B75B40073D472 /* String+toDate.swift */; };
 		3A19C074298D75670073D472 /* UIImageViewAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A19C073298D75670073D472 /* UIImageViewAsync.swift */; };
 		3A19C076298FECC70073D472 /* String+extractURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A19C075298FECC70073D472 /* String+extractURLs.swift */; };
+		3A19C07A29941B890073D472 /* OAuth2Credential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A19C07929941B890073D472 /* OAuth2Credential.swift */; };
+		3A19C07C29941B990073D472 /* OAuth2Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A19C07B29941B990073D472 /* OAuth2Request.swift */; };
 		3A19C084299A38E50073D472 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A19C083299A38E50073D472 /* KeychainManager.swift */; };
 		3A1A09692985400900846058 /* NewsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1A09602985400900846058 /* NewsDetailViewController.swift */; };
 		3A1A096A2985400900846058 /* NewsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1A09612985400900846058 /* NewsDetailView.swift */; };
@@ -200,6 +202,8 @@
 		3A19C069298B75B40073D472 /* String+toDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+toDate.swift"; sourceTree = "<group>"; };
 		3A19C073298D75670073D472 /* UIImageViewAsync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageViewAsync.swift; sourceTree = "<group>"; };
 		3A19C075298FECC70073D472 /* String+extractURLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+extractURLs.swift"; sourceTree = "<group>"; };
+		3A19C07929941B890073D472 /* OAuth2Credential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuth2Credential.swift; sourceTree = "<group>"; };
+		3A19C07B29941B990073D472 /* OAuth2Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuth2Request.swift; sourceTree = "<group>"; };
 		3A19C083299A38E50073D472 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		3A1A09602985400900846058 /* NewsDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsDetailViewController.swift; sourceTree = "<group>"; };
 		3A1A09612985400900846058 /* NewsDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsDetailView.swift; sourceTree = "<group>"; };
@@ -684,6 +688,8 @@
 				3A7E4DA02985496A00E7CA17 /* URLParameterEncoder.swift */,
 				3A7E4DA12985496A00E7CA17 /* JSONParameterEncoder.swift */,
 				3A7E4DA22985496A00E7CA17 /* EndPointType.swift */,
+				3A19C07929941B890073D472 /* OAuth2Credential.swift */,
+				3A19C07B29941B990073D472 /* OAuth2Request.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -1068,6 +1074,7 @@
 				3AFAFEE3298028BA00949FE2 /* NewsfeedViewController+Extension.swift in Sources */,
 				3A05E299297E8EA500987CFF /* NewsfeedBuilder.swift in Sources */,
 				3A1A096D2985400900846058 /* NewsDetailBuilder.swift in Sources */,
+				3A19C07C29941B990073D472 /* OAuth2Request.swift in Sources */,
 				3A05E295297E696200987CFF /* NewsfeedPresenter.swift in Sources */,
 				3A7E4DA82985496A00E7CA17 /* URLParameterEncoder.swift in Sources */,
 				006031B9297BCA7B00CD9A16 /* MyListViewController.swift in Sources */,
@@ -1089,6 +1096,7 @@
 				3A19C066298B757D0073D472 /* Date+toString.swift in Sources */,
 				3A7E4D8A2985492C00E7CA17 /* AnimeRatesResponseDTO.swift in Sources */,
 				006031BB297BCA9600CD9A16 /* ProfileViewController.swift in Sources */,
+				3A19C07A29941B890073D472 /* OAuth2Credential.swift in Sources */,
 				16B08247298A22B300EB9061 /* RanobeApi.swift in Sources */,
 				3A7E4D8D2985492C00E7CA17 /* UserHistoryResponseDTO.swift in Sources */,
 				BA27FB5529964EF5007C3BEC /* CGSize+scaling.swift in Sources */,
