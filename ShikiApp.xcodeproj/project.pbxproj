@@ -71,6 +71,7 @@
 		3A19C078299415AC0073D472 /* OAuth2Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A19C077299415AC0073D472 /* OAuth2Manager.swift */; };
 		3A19C07A29941B890073D472 /* OAuth2Credential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A19C07929941B890073D472 /* OAuth2Credential.swift */; };
 		3A19C07C29941B990073D472 /* OAuth2Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A19C07B29941B990073D472 /* OAuth2Request.swift */; };
+		3A19C08229995AB60073D472 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A19C08129995AB60073D472 /* AuthManager.swift */; };
 		3A19C084299A38E50073D472 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A19C083299A38E50073D472 /* KeychainManager.swift */; };
 		3A1A09692985400900846058 /* NewsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1A09602985400900846058 /* NewsDetailViewController.swift */; };
 		3A1A096A2985400900846058 /* NewsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1A09612985400900846058 /* NewsDetailView.swift */; };
@@ -206,6 +207,7 @@
 		3A19C077299415AC0073D472 /* OAuth2Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuth2Manager.swift; sourceTree = "<group>"; };
 		3A19C07929941B890073D472 /* OAuth2Credential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuth2Credential.swift; sourceTree = "<group>"; };
 		3A19C07B29941B990073D472 /* OAuth2Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuth2Request.swift; sourceTree = "<group>"; };
+		3A19C08129995AB60073D472 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		3A19C083299A38E50073D472 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		3A1A09602985400900846058 /* NewsDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsDetailViewController.swift; sourceTree = "<group>"; };
 		3A1A09612985400900846058 /* NewsDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsDetailView.swift; sourceTree = "<group>"; };
@@ -607,6 +609,7 @@
 				3A7E4D5E2985492C00E7CA17 /* Forums */,
 				3A7E4D662985492C00E7CA17 /* Users */,
 				3A7E4D762985492C00E7CA17 /* Topics */,
+				3A19C08129995AB60073D472 /* AuthManager.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -1072,6 +1075,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A7E4D8E2985492C00E7CA17 /* ClubsResponseDTO.swift in Sources */,
+				3A19C08229995AB60073D472 /* AuthManager.swift in Sources */,
 				0010CABF297802A700F8705B /* UIView+addSubviews.swift in Sources */,
 				3A7E4D882985492C00E7CA17 /* UserFavoritesResponseDTO.swift in Sources */,
 				3AFAFEE3298028BA00949FE2 /* NewsfeedViewController+Extension.swift in Sources */,
