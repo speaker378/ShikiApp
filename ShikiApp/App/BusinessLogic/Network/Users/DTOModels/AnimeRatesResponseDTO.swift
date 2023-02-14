@@ -36,7 +36,7 @@ struct AnimeRateDTO: Codable {
 
 // MARK: - AnimeInfoDTO
 
-struct AnimeInfoDTO: Codable, SearchContent {
+struct AnimeInfoDTO: Codable, SearchContentProtocol {
     
     let id: Int
     let name: String

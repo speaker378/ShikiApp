@@ -5,7 +5,6 @@
 //  Created by Алексей Шинкарев on 02.02.2023.
 //
 
-import Foundation
 import UIKit
 
 // MARK: - SearchModelFactory
@@ -14,26 +13,26 @@ final class SearchModelFactory {
 
     // MARK: - Functions
 
-    func makeModels(from source: [SearchContent]) -> [SearchModel] {
+    func makeModels(from source: [SearchContentProtocol]) -> [SearchModel] {
         return source.compactMap(self.viewModel)
     }
 
-    // MARK: - Private fnctions
+    // MARK: - Private functions
     
-    private func viewModel(from source: SearchContent) -> SearchModel {
+    private func viewModel(from source: SearchContentProtocol) -> SearchModel {
         let delimiter = "·"
         let id = source.id
-        let urlString = SearchFormatters.extractUrlString(image: source.image)
-        let airedReleasedDates = SearchFormatters.extractYears(
+        let urlString = extractUrlString(image: source.image)
+        let airedReleasedDates = extractYears(
             airedOn: source.airedOn,
             releasedOn: source.releasedOn,
             kind: source.kind
         )
         let title = source.russian ?? source.name
-        let kind = SearchFormatters.extractKind(kind: source.kind)
+        let kind = extractKind(kind: source.kind)
         let score = Score(
-            value: SearchFormatters.extractScore(score: source.score),
-            color: SearchFormatters.extractScoreColor(score: source.score)
+            value: extractScore(score: source.score),
+            color: extractScoreColor(score: source.score)
         )
         let subtitle = "\(kind) \(delimiter) \(airedReleasedDates)"
 
@@ -44,6 +43,58 @@ final class SearchModelFactory {
             subtitle: subtitle,
             score: score
         )
+    }
+    private var dateYearFormatter: DateFormatter = {
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = Constants.DateFormatter.yearMonthDay
+        formatter.timeZone = TimeZone(identifier: "GMT")
+        return formatter
+    }()
+
+    private func extractYear(date: String?) -> String {
+
+        guard let date,
+              let date = dateYearFormatter.date(from: date) else { return "..." }
+        return "\(Calendar.current.component(.year, from: date))"
+    }
+    
+    private func extractYears(airedOn: String?, releasedOn: String?, kind: String?) -> String {
+        
+        let airedYear = extractYear(date: airedOn)
+        return isSingleDateKind(kind: kind) ? airedYear : "\(airedYear) - \(extractYear(date: releasedOn))"
+    }
+    
+    private func extractUrlString(image: ImageDTO?) -> String {
+        
+        guard let image else { return "" }
+        return "\(Constants.Url.baseUrl)\(image.preview)"
+    }
+
+    private func extractKind(kind: String?) -> String {
+        
+        guard let kind,
+              let kindDescription = Constants.kindsDictionary[kind]
+        else { return "" }
+        return kindDescription
+    }
+    
+    private func isSingleDateKind(kind: String?) -> Bool {
+        
+        guard let kind else { return true}
+        return Constants.singleDateKinds.contains(kind)
+    }
+    
+    private func extractScore(score: String?) -> String {
+        
+        guard let score,
+              let floatScore = Float(score) else { return "" }
+        return String(format: "%.1f", floatScore)
+    }
+    
+    private func extractScoreColor(score: String?) -> UIColor {
+        
+        Constants.scoreColors[score?.first ?? " "] ?? AppColor.line
     }
 }
 
@@ -59,6 +110,7 @@ struct SearchModel {
 }
 
 struct Score {
+    
     let value: String
     let color: UIColor
 }

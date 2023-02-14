@@ -14,6 +14,7 @@ final class SearchViewController: UIViewController, SearchViewInput {
 
     // MARK: - Properties
 
+    let keyboardDelay = 1000
     let presenter: SearchViewOutput
     let searchView = SearchView()
     var cancelable = [AnyCancellable]()
@@ -42,7 +43,6 @@ final class SearchViewController: UIViewController, SearchViewInput {
         searchView.tableView.dataSource = self
     }
 
-    @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -107,7 +107,7 @@ final class SearchViewController: UIViewController, SearchViewInput {
             .map {
                 ($0.object as? UITextField)?.text
             }
-            .debounce(for: .milliseconds(SearchConstants.keyboardDelay), scheduler: RunLoop.main)
+            .debounce(for: .milliseconds(keyboardDelay), scheduler: RunLoop.main)
             .sink(receiveValue: { text in
                 DispatchQueue.global(qos: .userInteractive).async { [weak self] in
                     self?.presenter.setSearchString(searchString: text)

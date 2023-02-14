@@ -51,7 +51,7 @@ final class SearchPresenter: SearchViewOutput {
         }
         viewInput?.showError(errorString: errorString)
     } }
-    private var entityList = [SearchContent]() {
+    private var entityList = [SearchContentProtocol]() {
         didSet {
             viewInput?.models = SearchModelFactory().makeModels(from: entityList)
             viewInput?.tableHeader = buildHeader()
@@ -102,14 +102,14 @@ final class SearchPresenter: SearchViewOutput {
 
     private func buildHeader() -> String {
         if (searchString ?? "").isEmpty {
-            return "\(ControlConstants.Header.emptyStringResult) \(layer.rawValue.lowercased())"
+            return "\(Constants.SearchHeader.emptyStringResult) \(layer.rawValue.lowercased())"
         }
         if page == 1 && entityList.isEmpty {
-            return "\(ControlConstants.Header.emptyResult)"
+            return ""
         }
         if (1 ..< pageSize).contains(entityList.count) {
-            return "\(ControlConstants.Header.exactResult) \(entityList.count + pageSize * (page - 1))"
+            return "\(Constants.SearchHeader.exactResult) \(entityList.count + pageSize * (page - 1))"
         }
-        return "\(ControlConstants.Header.approximateResult)"
+        return "\(Constants.SearchHeader.approximateResult)"
     }
 }

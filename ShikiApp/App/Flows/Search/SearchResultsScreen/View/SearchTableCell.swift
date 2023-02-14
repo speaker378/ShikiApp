@@ -48,7 +48,7 @@ class SearchTableCell: UITableViewCell {
         label.textColor = AppColor.textMain
         label.translatesAutoresizingMaskIntoConstraints = false
         label.lineBreakMode = .byWordWrapping
-        label.numberOfLines = 2
+        label.numberOfLines = 0
         return label
     }()
     
@@ -99,11 +99,6 @@ class SearchTableCell: UITableViewCell {
         scoreLabel.text = cellModel.score.value
         scoreLabel.backgroundColor = cellModel.score.color
         subtitleLabel.text = cellModel.subtitle
-        
-        if textIsShort(titleLabel.text) {
-            titleLabel.numberOfLines = 1
-            subtitleLabel.numberOfLines = 2
-        }
     }
 
     // MARK: - Private functions
@@ -138,15 +133,5 @@ class SearchTableCell: UITableViewCell {
             strokeView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             strokeView.heightAnchor.constraint(equalToConstant: lineWidth)
         ])
-    }
-    
-    private func textIsShort(_ text: String?) -> Bool {
-        let widthTitle = contentView.bounds.width - imageWidth - leading + trailing
-        let titleHeight = text?.getTextHeight(width: widthTitle, font: titleLabel.font) ?? 0
-        let oneLineTitleHeight = "".getTextHeight(width: widthTitle, font: titleLabel.font)
-        if titleHeight < (oneLineTitleHeight * 2) {
-            return true
-        }
-        return false
     }
 }

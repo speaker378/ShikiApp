@@ -1,5 +1,5 @@
 //
-//  SearchContent.swift
+//  SearchContentProtocol.swift
 //  ShikiApp
 //
 //  Created by Алексей Шинкарев on 02.02.2023.
@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - SearchContent
 
-protocol SearchContent {
+protocol SearchContentProtocol {
     
     var id: Int { get }
     var name: String { get }

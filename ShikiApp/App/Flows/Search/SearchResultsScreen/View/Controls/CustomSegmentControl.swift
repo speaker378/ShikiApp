@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CustomSegmentControl: UISegmentedControl {
+final class CustomSegmentControl: UISegmentedControl {
 
     // MARK: - Construction
     

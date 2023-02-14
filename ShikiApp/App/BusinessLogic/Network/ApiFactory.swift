@@ -16,6 +16,7 @@ protocol ApiFactoryProtocol {
     static func makeAnonymousTopicsApi() -> TopicsRequestFactoryProtocol
     static func makeAnimesApi() -> AnimesRequestFactoryProtocol
     static func makeMangasApi() -> MangasRequestFactoryProtocol
+    static func makeRanobeApi() -> RanobeRequestFactoryProtocol
 }
 
 // MARK: - ApiFactory

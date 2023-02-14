@@ -18,9 +18,9 @@ final class RanobeProvider: ContentProviderProtocol {
     
     private let factory = ApiFactory.makeRanobeApi()
 
-    // MARK: - Internal properties
+    // MARK: - Properties
 
-    internal var filters: RanobeListFilters?
+    var filters: RanobeListFilters?
 
     // MARK: - Functions
 
@@ -31,7 +31,7 @@ final class RanobeProvider: ContentProviderProtocol {
     
     func getFilters() -> ListFilters<RanobeContentKind, RanobeContentStatus>? { filters }
     
-    func fetchData(searchString: String?, page: Int = 1, completion: @escaping ([SearchContent]?, String?) -> Void) {
+    func fetchData(searchString: String?, page: Int = 1, completion: @escaping ([SearchContentProtocol]?, String?) -> Void) {
         factory.getRanobes(
             page: page,
             limit: APIRestrictions.limit50.rawValue,

@@ -7,12 +7,12 @@
 
 import UIKit
 
-class BorderedTextField: UITextField {
+final class BorderedTextField: UITextField {
 
     // MARK: - Private properties
     
     private let rightBorder: UIView = {
-        let view = UIView.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        let view = UIView.init(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = AppColor.line
         return view
@@ -25,7 +25,6 @@ class BorderedTextField: UITextField {
         configureUI()
     }
 
-    @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

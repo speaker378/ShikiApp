@@ -18,9 +18,9 @@ final class MangaProvider: ContentProviderProtocol {
     
     private let factory = ApiFactory.makeMangasApi()
 
-    // MARK: - Internal properties
+    // MARK: - Properties
     
-    internal var filters: MangaListFilters?
+    var filters: MangaListFilters?
 
     // MARK: - Functions
 
@@ -31,7 +31,7 @@ final class MangaProvider: ContentProviderProtocol {
     
     func getFilters() -> ListFilters<ContentKind, ContentStatus>? { filters }
     
-    func fetchData(searchString: String?, page: Int = 1, completion: @escaping ([SearchContent]?, String?) -> Void) {
+    func fetchData(searchString: String?, page: Int = 1, completion: @escaping ([SearchContentProtocol]?, String?) -> Void) {
         factory.getMangas(
             page: page,
             limit: APIRestrictions.limit50.rawValue,

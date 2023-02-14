@@ -14,12 +14,7 @@ struct ControlConstants {
         UIImage(systemName: "slider.horizontal.3") ?? UIImage()}()
     static let searchPlaceHolder = "Аниме, манга, ранобэ"
 
-    enum Header {
-        static let emptyResult = ""
-        static let emptyStringResult = "Лучшие"
-        static let exactResult = "Найдено:"
-        static let approximateResult = "Результаты поиска"
-    }
+
     enum Properties {
         static let cellHeight: CGFloat = 112
         static let tableHeaderHeight: CGFloat = 27

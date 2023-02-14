@@ -7,10 +7,14 @@
 
 import UIKit
 
-class CounterButton: UIButton {
+final class CounterButton: UIButton {
 
     // MARK: - Private Properties
 
+    private let counterViewFactor = 0.333
+    private let mainViewFactor = 0.417
+    private let counterViewTopOffset = 2.0
+    private let counterViewTrailingInset = -2.0
     private var counterView: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleAspectFit
@@ -29,6 +33,10 @@ class CounterButton: UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureUI()
+    }
+
+    required init?(coder _: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: - Functions
@@ -75,19 +83,14 @@ class CounterButton: UIButton {
 
     private func configureConstraints() {
         NSLayoutConstraint.activate([
-            mainView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.417),
+            mainView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: mainViewFactor),
             mainView.heightAnchor.constraint(equalTo: mainView.widthAnchor),
             mainView.centerYAnchor.constraint(equalTo: centerYAnchor),
             mainView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            counterView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.333),
+            counterView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: counterViewFactor),
             counterView.heightAnchor.constraint(equalTo: counterView.widthAnchor),
-            counterView.topAnchor.constraint(equalTo: topAnchor, constant: 2),
-            counterView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -2)
+            counterView.topAnchor.constraint(equalTo: topAnchor, constant: counterViewTopOffset),
+            counterView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: counterViewTrailingInset)
         ])
-    }
-
-    @available(*, unavailable)
-    required init?(coder _: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }
