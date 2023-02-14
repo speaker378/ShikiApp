@@ -87,7 +87,6 @@ final class NewsfeedPresenter: NewsfeedViewOutput {
             self.newsList.append(contentsOf: self.dataPortion)
             self.viewInput?.models.append(contentsOf: self.modelFactory.makeModels(from: self.dataPortion))
             self.viewInput?.insertRows(indexPath: indexPaths)
-            self.viewInput?.reloadData()
         }
     }
     
