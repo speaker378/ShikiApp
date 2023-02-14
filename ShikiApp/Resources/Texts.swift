@@ -29,4 +29,9 @@ enum Texts {
     enum LoadingMessage {
         static let inProgress = "Загрузка..."
     }
+    
+    enum OtherMessage {
+        static let open = "Открыть"
+        static let openInYoutube = "Открыть в Youtube"
+    }
 }
