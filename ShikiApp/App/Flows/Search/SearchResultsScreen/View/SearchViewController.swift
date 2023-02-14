@@ -5,7 +5,6 @@
 //  Created by Алексей Шинкарев on 02.02.2023.
 //
 
-import Combine
 import UIKit
 
 // MARK: - SearchViewController
@@ -14,10 +13,10 @@ final class SearchViewController: UIViewController, SearchViewInput {
 
     // MARK: - Properties
 
-    let keyboardDelay = 1000
+    let keyboardDelay: TimeInterval = 1
     let presenter: SearchViewOutput
     let searchView = SearchView()
-    var cancelable = [AnyCancellable]()
+    var timerSearch = Timer()
     var tableHeader: String = "" {
         didSet {
             DispatchQueue.main.async {
@@ -59,6 +58,7 @@ final class SearchViewController: UIViewController, SearchViewInput {
         applySearch()
         addTapGestureToHideKeyboard()
         presenter.fetchData()
+        searchView.searchTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -99,20 +99,16 @@ final class SearchViewController: UIViewController, SearchViewInput {
         searchView.addGestureRecognizer(tapGesture)
     }
     
-    private func applySearch() {
-        let publisher = NotificationCenter
-            .default
-            .publisher(for: UITextField.textDidChangeNotification, object: searchView.searchTextField)
-        publisher
-            .map {
-                ($0.object as? UITextField)?.text
-            }
-            .debounce(for: .milliseconds(keyboardDelay), scheduler: RunLoop.main)
-            .sink(receiveValue: { text in
-                DispatchQueue.global(qos: .userInteractive).async { [weak self] in
-                    self?.presenter.setSearchString(searchString: text)
-                }
-            })
-            .store(in: &cancelable)
+    private func applySearch(_ text: String? = nil) {
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            self?.presenter.setSearchString(searchString: text)
+        }
+    }
+
+    @objc private func textFieldDidChange(textField: UITextField) {
+        timerSearch.invalidate()
+        timerSearch = Timer.scheduledTimer(withTimeInterval: keyboardDelay, repeats: false) { [weak self] _ in
+            self?.applySearch(textField.text)
+        }
     }
 }
