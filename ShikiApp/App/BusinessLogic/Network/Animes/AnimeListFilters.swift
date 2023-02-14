@@ -9,11 +9,4 @@ import Foundation
 
 // MARK: - AnimeListFilters
 
-struct AnimeListFilters {
-    
-    var kind: AnimeContentKind?
-    var status: AnimeContentStatus?
-    var season: String?
-    var score: Int?
-    var genre: [Int]?
-}
+typealias AnimeListFilters = ListFilters<AnimeContentKind, AnimeContentStatus>

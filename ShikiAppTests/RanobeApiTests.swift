@@ -32,11 +32,10 @@ final class RanobeApiTests: XCTestCase {
         var response: RanobeResponseDTO?
         var error: String?
         let expectation = self.expectation(description: "\(api2Test).\(request) expectation timeout")
-        factory.getRanobeList(
+        factory.getRanobes(
             page: 1,
             limit: 10,
             filters: filters,
-//            search: "M",
             order: .byPopularity
         ) { data, errorMessage in
             response = data
@@ -56,7 +55,7 @@ final class RanobeApiTests: XCTestCase {
         var response: RanobeDetailsDTO?
         var error: String?
         let expectation = self.expectation(description: "\(api2Test).\(request) expectation timeout")
-        factory.getRanobeList { data, errorMessage in
+        factory.getRanobes { data, errorMessage in
             guard let id = data?.first?.id else { return }
             self.factory.getRanobeById(id: id) { data, errorMessage in
                 response = data

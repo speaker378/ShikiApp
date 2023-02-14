@@ -17,7 +17,7 @@ protocol RanobeRequestFactoryProtocol {
 
     // MARK: - Functions
 
-    func getRanobeList(page: Int?, limit: Int?, filters: RanobeListFilters?, search: String?, order: OrderBy?, completion: @escaping (_ response: RanobeResponseDTO?, _ error: String?) -> Void)
+    func getRanobes(page: Int?, limit: Int?, filters: RanobeListFilters?, search: String?, order: OrderBy?, completion: @escaping (_ response: RanobeResponseDTO?, _ error: String?) -> Void)
 
     func getRanobeById(id: Int, completion: @escaping (_ response: RanobeDetailsDTO?, _ error: String?) -> Void)
 }
@@ -28,12 +28,14 @@ extension RanobeRequestFactoryProtocol {
 
     // MARK: - Functions
 
-    func getRanobeList(page: Int? = nil,
-                       limit: Int? = nil,
-                       filters: RanobeListFilters? = nil,
-                       search: String? = nil,
-                       order: OrderBy? = nil,
-                       completion: @escaping (_ response: RanobeResponseDTO?, _ error: String?) -> Void) {
+    func getRanobes(
+        page: Int? = nil,
+        limit: Int? = nil,
+        filters: RanobeListFilters? = nil,
+        search: String? = nil,
+        order: OrderBy? = nil,
+        completion: @escaping (_ response: RanobeResponseDTO?, _ error: String?) -> Void
+    ) {
         let parameters = validateListParameters(
             page: page,
             limit: limit,

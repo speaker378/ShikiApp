@@ -72,7 +72,7 @@ class AbstractRequestFactory<API: EndPointType>: AbstractRequestFactoryProtocol 
         }
     }
 
-    // MARK: - Private Funcions
+    // MARK: - Private functions
     
     private func handleNetworkResponse(_ response: HTTPURLResponse) -> Result<String> {
         switch response.statusCode {

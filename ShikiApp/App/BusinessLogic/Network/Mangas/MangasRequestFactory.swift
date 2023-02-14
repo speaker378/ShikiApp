@@ -34,6 +34,7 @@ extension MangasRequestFactoryProtocol {
                    search: String? = nil,
                    order: OrderBy? = nil,
                    completion: @escaping (_ response: MangaResponseDTO?, _ error: String?) -> Void) {
+        
         let parameters = validateListParameters(
             page: page,
             limit: limit,
@@ -86,7 +87,7 @@ extension MangasRequestFactoryProtocol {
         if let season = filters.season {
             parameters[APIKeys.season.rawValue] = season
         }
-        if let score = filters.score, (1...9).contains(score) {
+        if let score = filters.score, (1 ... 9).contains(score) {
             parameters[APIKeys.score.rawValue] = score
         }
         if let genre = filters.genre {

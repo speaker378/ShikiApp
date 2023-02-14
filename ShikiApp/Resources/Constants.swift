@@ -6,7 +6,7 @@
 //
 //  класс предназначен для различных констант, используемых по всему приложению
 
-import Foundation
+import UIKit
 
 struct Constants {
     
@@ -47,6 +47,7 @@ struct Constants {
 
     enum DateFormatter {
         static let dayMonthCommaHoursMinutes = "dd MMMM, HH:mm"
+        static let yearMonthDay = "yyyy-MM-dd"
     }
     
     enum Prefix {
@@ -60,4 +61,41 @@ struct Constants {
         static let diskCapacity = 50 * Prefix.megabyte
         static let maximumConnections = 5
     }
+    
+    enum SearchHeader {
+        static let emptyStringResult = "Лучшие"
+        static let exactResult = "Найдено:"
+        static let approximateResult = "Результаты поиска"
+    }
+    
+    static let kindsDictionary = [
+        "tv": "TV Сериал",
+        "tv_13": "TV Сериал(короткий)",
+        "tv_24": "TV Сериал(средний)",
+        "tv_48": "TV Сериал(длинный)",
+        "movie": "Фильм",
+        "music": "Клип",
+        "special": "Спешл",
+        "ova": "OVA",
+        "ona": "ONA",
+        "manga": "Манга",
+        "manhwa": "Манхва",
+        "manhua": "Маньхуа",
+        "light_novel": "Ранобэ",
+        "novel": "Новелла",
+        "one_shot": "Ваншот",
+        "doujin": "Додзинси"
+    ]
+    static let singleDateKinds = ["movie", "music", "one_shot"]
+    static let scoreColors: [Character: UIColor] = [
+        "9": AppColor.green,
+        "8": AppColor.green,
+        "7": AppColor.green,
+        "6": AppColor.yellow,
+        "5": AppColor.red,
+        "4": AppColor.red,
+        "3": AppColor.red,
+        "2": AppColor.red,
+        "1": AppColor.red
+    ]
 }
