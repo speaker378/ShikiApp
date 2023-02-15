@@ -8,6 +8,7 @@
 import Foundation
 
 struct FiltersModel {
+    
     var ratingList: [String]
     var typeList: [String]
     var statusList: [String]
@@ -16,6 +17,7 @@ struct FiltersModel {
 }
 
 final class FiltersModelFactory {
+    
     // Для примера заполнения фильтров
     let filtersList = FiltersModel(
         ratingList: ["1.0",
@@ -31,20 +33,19 @@ final class FiltersModelFactory {
         typeList: ["Все",
                    "Фильм",
                    "TV сериал",
-                   "OVA", "ONA",
-                   "Спешал",
+                   "OVA",
+                   "ONA",
+                   "Спешл",
                    "Клипт"],
-        statusList: ["Все",
-                     "Фильм",
-                     "TV сериал",
-                     "OVA", "ONA",
-                     "Спешал",
-                     "Клипт"],
+        statusList: ["Анонсировано",
+                     "Сейчас выходит",
+                     "Недавно вышедшее",
+                     "Вышедшее"],
         genreList: ["Сёнен",
                     "Сёнен-ай",
                     "Сэйнэн",
                     "Сёдзё",
-                    "Сёдзё-фй",
+                    "Сёдзё-ай",
                     "Дзёсей",
                     "Комедия",
                     "Романтика",
@@ -58,5 +59,4 @@ final class FiltersModelFactory {
                      "Весна 2022",
                      "Зима 2022"]
     )
-    
 }

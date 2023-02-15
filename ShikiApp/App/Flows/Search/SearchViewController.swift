@@ -21,7 +21,7 @@ class SearchViewController: UIViewController, UINavigationControllerDelegate {
 extension SearchViewController {
     private func configureRightBarItem() {
         let shareItem = UIBarButtonItem(
-            image: AppImage.NavigationsBarIcons.options,
+            image: AppImage.NavigationsBarIcons.done,
             style: .plain,
             target: self,
             action: #selector(filtersButtonTapped)

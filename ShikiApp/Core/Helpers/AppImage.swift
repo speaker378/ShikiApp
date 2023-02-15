@@ -26,7 +26,6 @@ enum AppImage {
         static let logout = UIImage(named: "logout") ?? missingImage
         static let search = UIImage(named: "search_nav") ?? missingImage
         static let share = UIImage(named: "share") ?? missingImage
-        static let options = UIImage(named: "options") ?? missingImage
     }
 
     // MARK: - UserListsIcons

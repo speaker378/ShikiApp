@@ -43,12 +43,6 @@ class FiltersViewController: UIViewController, FiltersViewInput {
         configureNavBar()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationBar.layoutIfNeeded()
-    }
-
     // MARK: - Private functions
 
     private func configureUI() {

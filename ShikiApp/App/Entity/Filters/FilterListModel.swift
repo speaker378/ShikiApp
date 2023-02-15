@@ -8,6 +8,7 @@
 import Foundation
 
 struct FilterListModel {
+    
     var ratingList: String
     var typeList: String
     var statusList: String

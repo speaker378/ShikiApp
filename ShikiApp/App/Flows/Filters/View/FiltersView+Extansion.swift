@@ -47,7 +47,7 @@ extension FiltersView: UITableViewDelegate, UITableViewDataSource {
         let tapgesture = UITapGestureRecognizer(target: self, action: #selector(removeTransparentView))
         transparentView.addGestureRecognizer(tapgesture)
         transparentView.alpha = 0
-        let haight: CGFloat = dataSource.count < 5 ?
+        let height: CGFloat = dataSource.count < 5 ?
         CGFloat(CGFloat(self.dataSource.count) * Constants.Insets.controlHeight) :
         CGFloat(220)
         
@@ -63,7 +63,7 @@ extension FiltersView: UITableViewDelegate, UITableViewDataSource {
                     x: frames.origin.x,
                     y: frames.origin.y + frames.height + 5,
                     width: frames.width,
-                    height: haight
+                    height: height
                 )
             }, completion: nil
         )

@@ -1,5 +1,5 @@
 //
-//  UIApplication+Extantion.swift
+//  UIApplication+Extensions.swift
 //  ShikiApp
 //
 //  Created by Константин Шмондрик on 11.02.2023.
