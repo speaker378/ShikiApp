@@ -155,6 +155,9 @@
 		BAE4C1D22992803C00D9E7E8 /* NewsDetailContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE4C1D12992803C00D9E7E8 /* NewsDetailContentViewController.swift */; };
 		BAE4C1D4299283F400D9E7E8 /* NewsDetailContentPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE4C1D3299283F400D9E7E8 /* NewsDetailContentPresenter.swift */; };
 		BAE4C1D62992869900D9E7E8 /* NewsDetailContentBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE4C1D52992869900D9E7E8 /* NewsDetailContentBuilder.swift */; };
+		DBB84C6D299DA13600791292 /* ProfileBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB84C6C299DA13600791292 /* ProfileBuilder.swift */; };
+		DBB84C6F299DA18700791292 /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB84C6E299DA18700791292 /* ProfilePresenter.swift */; };
+		DBB84C72299DA47E00791292 /* UserModelAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB84C71299DA47E00791292 /* UserModelAPI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -311,6 +314,9 @@
 		BAE4C1D12992803C00D9E7E8 /* NewsDetailContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailContentViewController.swift; sourceTree = "<group>"; };
 		BAE4C1D3299283F400D9E7E8 /* NewsDetailContentPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailContentPresenter.swift; sourceTree = "<group>"; };
 		BAE4C1D52992869900D9E7E8 /* NewsDetailContentBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailContentBuilder.swift; sourceTree = "<group>"; };
+		DBB84C6C299DA13600791292 /* ProfileBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBuilder.swift; sourceTree = "<group>"; };
+		DBB84C6E299DA18700791292 /* ProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
+		DBB84C71299DA47E00791292 /* UserModelAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModelAPI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -428,7 +434,9 @@
 		006031B0297BC9B700CD9A16 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				006031BA297BCA9600CD9A16 /* ProfileViewController.swift */,
+				DBB84C6B299DA10700791292 /* Builder */,
+				DBB84C6A299DA0E000791292 /* Presenter */,
+				DBB84C69299DA0CD00791292 /* View */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -892,6 +900,7 @@
 		3A8F3115297441F400F24DF7 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
+				DBB84C70299DA46E00791292 /* User */,
 				16B0824E298BBB9900EB9061 /* Search */,
 				3A275771297EFE2500EFD543 /* News */,
 				3A8F30E82974395F00F24DF7 /* ShikiApp.xcdatamodeld */,
@@ -1007,6 +1016,38 @@
 				BA27FB4A29953660007C3BEC /* NewsDetailImageContentView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		DBB84C69299DA0CD00791292 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				006031BA297BCA9600CD9A16 /* ProfileViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DBB84C6A299DA0E000791292 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				DBB84C6E299DA18700791292 /* ProfilePresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		DBB84C6B299DA10700791292 /* Builder */ = {
+			isa = PBXGroup;
+			children = (
+				DBB84C6C299DA13600791292 /* ProfileBuilder.swift */,
+			);
+			path = Builder;
+			sourceTree = "<group>";
+		};
+		DBB84C70299DA46E00791292 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				DBB84C71299DA47E00791292 /* UserModelAPI.swift */,
+			);
+			path = User;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1243,6 +1284,7 @@
 				16B08261298C48DC00EB9061 /* SearchContentProtocol.swift in Sources */,
 				16130E5029872DBB00A4EC94 /* AnimesApi.swift in Sources */,
 				3A7E4D892985492C00E7CA17 /* UserResponseDTO.swift in Sources */,
+				DBB84C72299DA47E00791292 /* UserModelAPI.swift in Sources */,
 				006031C0297C087F00CD9A16 /* StartManager.swift in Sources */,
 				3A7E4D812985492C00E7CA17 /* ForumsApi.swift in Sources */,
 				0010CAC82978161600F8705B /* UITableView+RegisterCell.swift in Sources */,
@@ -1251,6 +1293,7 @@
 				006031B7297BCA6800CD9A16 /* SearchViewController.swift in Sources */,
 				3A7E4DA72985496A00E7CA17 /* Router.swift in Sources */,
 				BA27FB4D2995384E007C3BEC /* NewsDetailVideoContentView.swift in Sources */,
+				DBB84C6F299DA18700791292 /* ProfilePresenter.swift in Sources */,
 				3A19C078299415AC0073D472 /* OAuth2Manager.swift in Sources */,
 				3A7E4D982985492C00E7CA17 /* TopicsResponseDTO.swift in Sources */,
 				3A7E4D872985492C00E7CA17 /* MessagesResponseDTO.swift in Sources */,
@@ -1261,6 +1304,7 @@
 				3A05E293297D60B100987CFF /* NewsfeedTableViewCell.swift in Sources */,
 				3A8F30E02974395F00F24DF7 /* AppDelegate.swift in Sources */,
 				3A7E4D862985492C00E7CA17 /* UsersApi.swift in Sources */,
+				DBB84C6D299DA13600791292 /* ProfileBuilder.swift in Sources */,
 				16130E5A29873C7600A4EC94 /* AnimeEnums.swift in Sources */,
 				16B08243298A21A400EB9061 /* RanobeEnums.swift in Sources */,
 				3A7E4D802985492C00E7CA17 /* ForumsRequestFactory.swift in Sources */,
