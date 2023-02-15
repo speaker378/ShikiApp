@@ -24,12 +24,13 @@ enum AppImage {
         static let done = UIImage(named: "done") ?? missingImage
         static let login = UIImage(named: "login") ?? missingImage
         static let logout = UIImage(named: "logout") ?? missingImage
+        static let options = UIImage(named: "options") ?? missingImage
         static let search = UIImage(named: "search_nav") ?? missingImage
         static let share = UIImage(named: "share") ?? missingImage
     }
 
     // MARK: - UserListsIcons
-    
+
     enum UserListIcons {
         static let watching = UIImage(named: "watching") ?? missingImage
         static let watched = UIImage(named: "watched") ?? missingImage
@@ -61,9 +62,12 @@ enum AppImage {
         static let search = UIImage(named: "search") ?? missingImage
         static let searchSelected = UIImage(named: "searchSelected") ?? missingImage
     }
+
+    // MARK: - OtherIcons
     
     enum OtherIcons {
         static let link = UIImage(named: "link") ?? missingImage
         static let addToList = UIImage(named: "addToList") ?? missingImage
+        static let play = UIImage(named: "play") ?? missingImage
     }
 }

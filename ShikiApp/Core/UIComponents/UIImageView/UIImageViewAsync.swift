@@ -11,6 +11,10 @@ import UIKit
 
 final class UIImageViewAsync: UIImageView {
 
+    // MARK: - Properties
+    
+    var completion: (() -> Void)?
+
     // MARK: - Private properties
     
     private var task: URLSessionDataTask?
@@ -43,13 +47,18 @@ final class UIImageViewAsync: UIImageView {
     /// - Parameters:
     ///   - link: URL  изображения
     ///   - mode: ContentMode  по умолчанию  scaleAspectFit
-    ///   - isActivityIndicator: наличие ActivityIndicator по умалчанию true
+    ///   - isActivityIndicator: наличие ActivityIndicator по умолчанию true
     func downloadedImage(from link: String,
                          contentMode mode: ContentMode = .scaleAspectFit,
                          isActivityIndicator: Bool = true) {
+        
         guard let url = URL(string: link) else { return }
         
-        downloadedImage(from: url, contentMode: mode, isActivityIndicator: isActivityIndicator)
+        downloadedImage(
+            from: url,
+            contentMode: mode,
+            isActivityIndicator: isActivityIndicator
+        )
     }
     
     func downloadedImage(from url: URL,
@@ -91,6 +100,7 @@ final class UIImageViewAsync: UIImageView {
                 
                 self.image = image
                 self.activityIndicator.removeFromSuperview()
+                self.completion?()
             }
         }
         task?.resume()
@@ -104,7 +114,10 @@ final class UIImageViewAsync: UIImageView {
     
     private func setActivityIndicator() {
         addSubview(activityIndicator)
-        activityIndicator.center = self.center
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            activityIndicator.centerXAnchor.constraint(equalTo: centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: centerYAnchor)
+        ])
     }
-
 }

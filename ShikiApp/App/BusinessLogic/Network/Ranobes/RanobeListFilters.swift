@@ -9,10 +9,4 @@ import Foundation
 
 // MARK: - RanobeListFilters
 
-struct RanobeListFilters {
-    
-    var status: RanobeContentStatus?
-    var season: String?
-    var score: Int?
-    var genre: [Int]?
-}
+typealias RanobeListFilters = ListFilters<RanobeContentKind, RanobeContentStatus>

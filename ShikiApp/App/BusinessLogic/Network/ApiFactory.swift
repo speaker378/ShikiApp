@@ -16,6 +16,7 @@ protocol ApiFactoryProtocol {
     static func makeAnonymousTopicsApi() -> TopicsRequestFactoryProtocol
     static func makeAnimesApi() -> AnimesRequestFactoryProtocol
     static func makeMangasApi() -> MangasRequestFactoryProtocol
+    static func makeRanobeApi() -> RanobeRequestFactoryProtocol
 }
 
 // MARK: - ApiFactory
@@ -30,7 +31,7 @@ final class ApiFactory: ApiFactoryProtocol {
     }
 
     private static var agent: String? {
-        guard let agent = ProcessInfo.processInfo.environment["USER_AGENT"] else { return nil }
+        guard let agent = Bundle.main.infoDictionary?["CFBundleName"] as? String else { return nil }
         return agent
     }
 

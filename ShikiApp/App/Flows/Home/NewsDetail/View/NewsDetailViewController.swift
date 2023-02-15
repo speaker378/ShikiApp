@@ -32,6 +32,10 @@ final class NewsDetailViewController: UIViewController, NewsDetailViewInput {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = Texts.NavigationBarTitles.newsTitle
+        contentView.itemTapCompletion = { [weak self] contentURLString in
+            self?.viewOutput.showImage(URLString: contentURLString)
+        }
         configureUI()
     }
     
@@ -43,7 +47,6 @@ final class NewsDetailViewController: UIViewController, NewsDetailViewInput {
     // MARK: - Private functions
     
     private func configureUI() {
-        title = Texts.NavigationBarTitles.newsTitle
         view.backgroundColor = AppColor.backgroundMain
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)

@@ -13,7 +13,7 @@ struct NewsModel {
     let date: String?
     let title: String?
     let subtitle: String?
-    let images: [UIImage?]
+    let footerImageURLs: [String]
     let URLString: String?
 }
 
@@ -22,10 +22,14 @@ enum ImageSize {
 }
 
 final class NewsModelFactory {
+
+    // MARK: - Functions
     
     func makeModels(from news: TopicsResponseDTO) -> [NewsModel] {
         return news.compactMap(self.convertModel)
     }
+
+    // MARK: - Private functions
     
     private func convertModel(from news: TopicDTO) -> NewsModel {
         let imageUrls = extractImageAddresses(from: news.htmlFooter)
@@ -35,7 +39,7 @@ final class NewsModelFactory {
             .convertToString(with: Constants.DateFormatter.dayMonthCommaHoursMinutes, relative: true) ?? ""
         let title = news.topicTitle
         let subtitle = news.htmlBody?.htmlToString()
-        let images = [AppImage.ErrorsIcons.nonConnectionIcon, AppImage.ErrorsIcons.nonConnectionIcon]
+        let footerContentURLs = extractContentURLStrings(from: news.htmlFooter)
         let URLString = "\(Constants.Url.baseUrl)/forum/news/\(news.id)"
         
         return NewsModel(
@@ -43,7 +47,7 @@ final class NewsModelFactory {
             date: date,
             title: title,
             subtitle: subtitle,
-            images: images,
+            footerImageURLs: footerContentURLs,
             URLString: URLString
         )
     }
@@ -62,6 +66,16 @@ final class NewsModelFactory {
         }
         result[.preview] = imageUrls.first(where: { $0.contains("preview") })
         result[.original] = imageUrls.first(where: { $0.contains("original") })
+        return result
+    }
+    
+    private func extractContentURLStrings(from footer: String?) -> [String] {
+        var result = [String]()
+        guard let footer else { return result }
+        result = footer
+            .extractURLs()
+            .filter { $0.contains(".jpg") && !$0.contains("preview") }
+        
         return result
     }
 }

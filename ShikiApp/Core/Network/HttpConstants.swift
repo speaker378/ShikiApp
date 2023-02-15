@@ -6,6 +6,7 @@
 //
 
 import Foundation
+
 struct HttpConstants {
     
     static let contentType = "Content-Type"

@@ -24,8 +24,8 @@ final class TabBarViewController: UITabBarController, UITabBarControllerDelegate
                 let newsViewController = NewsfeedBuilder.build()
                 return self.wrappedInNavigationController(with: newsViewController, title: $0.title)
             case .search:
-                let searchViewController = SearchViewController()
-                return self.wrappedInNavigationController(with: searchViewController, title: $0.title)
+                let searchViewController = SearchBuilder.build()
+                 return self.wrappedInNavigationController(with: searchViewController, title: $0.title)
             case .myList:
                 let myListViewController = MyListViewController()
                 return self.wrappedInNavigationController(with: myListViewController, title: $0.title)

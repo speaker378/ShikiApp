@@ -24,12 +24,13 @@ enum Texts {
     
     enum ErrorMessage {
         static let general = "Что-то пошло не так.\nПопробуйте позже, должно получиться"
+        static let noResults = "Ничего не найдено"
     }
     
     enum LoadingMessage {
         static let inProgress = "Загрузка..."
     }
-    
+
     enum FilterLabels {
         static let raiting = "Оценка от"
         static let type = "Тип"
@@ -54,5 +55,9 @@ enum Texts {
         static let season = "Выберите сезон"
         static let resetAll = "Сбросить все"
         static let apply = "Применить"
+
+    enum OtherMessage {
+        static let open = "Открыть"
+        static let openInYoutube = "Открыть в Youtube"
     }
 }
