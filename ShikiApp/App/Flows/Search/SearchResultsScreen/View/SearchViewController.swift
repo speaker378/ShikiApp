@@ -37,9 +37,7 @@ final class SearchViewController: UIViewController, SearchViewInput {
     init(presenter: SearchViewOutput) {
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
-        searchView.searchTextField.delegate = self
-        searchView.tableView.delegate = self
-        searchView.tableView.dataSource = self
+
     }
 
     required init?(coder _: NSCoder) {
@@ -54,16 +52,13 @@ final class SearchViewController: UIViewController, SearchViewInput {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        searchView.delegate = self
-        applySearch()
-        addTapGestureToHideKeyboard()
-        presenter.fetchData()
-        searchView.searchTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        configureOnViewDidLoad()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
+        presenter.fetchData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -94,8 +89,20 @@ final class SearchViewController: UIViewController, SearchViewInput {
 
     // MARK: - Private functions
 
+    private func configureOnViewDidLoad() {
+        searchView.searchTextField.delegate = self
+        searchView.tableView.delegate = self
+        searchView.tableView.dataSource = self
+        searchView.tableView.prefetchDataSource = self
+        searchView.delegate = self
+        applySearch()
+        addTapGestureToHideKeyboard()
+        searchView.searchTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+    }
+
     private func addTapGestureToHideKeyboard() {
         let tapGesture = UITapGestureRecognizer(target: searchView, action: #selector(searchView.endEditing))
+        tapGesture.cancelsTouchesInView = false
         searchView.addGestureRecognizer(tapGesture)
     }
     

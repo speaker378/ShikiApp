@@ -10,10 +10,8 @@ import UIKit
 
 struct ControlConstants {
     
-    static let sliderImage: UIImage = {
-        UIImage(systemName: "slider.horizontal.3") ?? UIImage()}()
+    static let sliderImage: UIImage = AppImage.NavigationsBarIcons.options
     static let searchPlaceHolder = "Аниме, манга, ранобэ"
-
 
     enum Properties {
         static let cellHeight: CGFloat = 112

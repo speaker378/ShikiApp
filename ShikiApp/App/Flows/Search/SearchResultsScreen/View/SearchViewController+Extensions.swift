@@ -33,7 +33,7 @@ extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let entity = models[indexPath.row]
-        self.presenter.viewDidSelectNews(entity: entity)
+        self.presenter.viewDidSelectEntity(entity: entity)
     }
 }
 
@@ -70,5 +70,16 @@ extension SearchViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+}
+
+// MARK: - UITableViewDataSourcePrefetching
+
+extension SearchViewController: UITableViewDataSourcePrefetching {
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        guard let maxRow = indexPaths.map({ $0.row }).max() else { return }
+        if maxRow > models.count - 3 {
+            presenter.endOfTableReached()
+        }
     }
 }

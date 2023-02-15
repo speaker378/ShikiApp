@@ -23,11 +23,12 @@ protocol SearchViewInput: AnyObject {
 protocol SearchViewOutput: AnyObject {
     
     func requestFilters()
-    func viewDidSelectNews(entity: SearchModel)
+    func viewDidSelectEntity(entity: SearchModel)
     func fetchData()
     func setFilter(filter: Any?)
     func setLayer(layer: SearchContentEnum)
     func setSearchString(searchString: String?)
+    func endOfTableReached()
 }
 
 // MARK: - SearchPresenter
@@ -40,10 +41,10 @@ final class SearchPresenter: SearchViewOutput {
 
     // MARK: - Private properties
 
-    private var page = 1
+    private var page = 0
     private let pageSize = APIRestrictions.limit50.rawValue
-    private var layer: SearchContentEnum = .anime { didSet { fetchData() } }
-    private var searchString: String? { didSet { fetchData() } }
+    private var layer: SearchContentEnum = .anime { didSet { fetchFirstPage() } }
+    private var searchString: String? { didSet { fetchFirstPage() } }
     private var errorString: String? { didSet {
         guard let errorString  else {
             viewInput?.hideError()
@@ -51,12 +52,9 @@ final class SearchPresenter: SearchViewOutput {
         }
         viewInput?.showError(errorString: errorString)
     } }
-    private var entityList = [SearchContentProtocol]() {
-        didSet {
-            viewInput?.models = SearchModelFactory().makeModels(from: entityList)
-            viewInput?.tableHeader = buildHeader()
-        }
-    }
+    private var entityList = [SearchContentProtocol]() { didSet { refreshView() } }
+    private var isLoading = false
+
     private var providers: [SearchContentEnum: any ContentProviderProtocol] = [
         .anime: AnimeProvider(),
         .manga: MangaProvider(),
@@ -64,6 +62,10 @@ final class SearchPresenter: SearchViewOutput {
     ]
 
     // MARK: - Functions
+
+    func endOfTableReached() {
+        fetchNextPage()
+    }
 
     func requestFilters() {
         print("Select Filters screen will be displayed here")
@@ -82,34 +84,59 @@ final class SearchPresenter: SearchViewOutput {
         self.searchString = searchString
     }
 
-    func viewDidSelectNews(entity _: SearchModel) {
-        print("Entity details screen will be done here")
+    func viewDidSelectEntity(entity _: SearchModel) {
+        print("Entity details screen build will be done here\n entity type see self.layer,\n entityId see entity.id")
     }
 
     func fetchData() {
-        providers[layer]?.fetchData(searchString: searchString, page: page) {[weak self] data, error in
-            if let data {
-                self?.entityList = data
-                self?.errorString  = data.isEmpty ? Texts.ErrorMessage.noResults : nil
-                return
-            }
-            self?.entityList.removeAll()
-            self?.errorString = error
-        }
+        fetchFirstPage()
     }
 
     // MARK: - Private functions
 
+    private func refreshView() {
+        switch page {
+        case 0:
+            viewInput?.models.removeAll()
+        case 1:
+            viewInput?.models = SearchModelFactory().makeModels(from: entityList)
+        default:
+            viewInput?.models.append(contentsOf: SearchModelFactory().makeModels(from: entityList))
+        }
+        viewInput?.tableHeader = buildHeader()
+    }
+    
     private func buildHeader() -> String {
         if (searchString ?? "").isEmpty {
             return "\(Constants.SearchHeader.emptyStringResult) \(layer.rawValue.lowercased())"
         }
-        if page == 1 && entityList.isEmpty {
+        if page == 0 && entityList.isEmpty {
             return ""
         }
         if (1 ..< pageSize).contains(entityList.count) {
             return "\(Constants.SearchHeader.exactResult) \(entityList.count + pageSize * (page - 1))"
         }
         return "\(Constants.SearchHeader.approximateResult)"
+    }
+    
+    private func fetchFirstPage() {
+        page = 0
+        fetchNextPage()
+    }
+    
+    private func fetchNextPage() {
+        if isLoading { return }
+        isLoading = true
+        providers[layer]?.fetchData(searchString: searchString, page: page + 1) { [weak self] data, error in
+            if let data, !data.isEmpty {
+                self?.page += 1
+                self?.entityList = data
+                self?.isLoading = false
+                return
+            }
+            if let error { self?.errorString = error }
+            self?.entityList.removeAll()
+            self?.isLoading = false
+        }
     }
 }

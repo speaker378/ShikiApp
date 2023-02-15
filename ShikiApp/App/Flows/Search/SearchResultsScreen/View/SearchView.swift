@@ -27,6 +27,7 @@ class SearchView: UIView {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorStyle = .none
+//        tableView.allowsSelection = true
         return tableView
     }()
     
