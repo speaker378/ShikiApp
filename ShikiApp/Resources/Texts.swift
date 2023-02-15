@@ -53,9 +53,6 @@ enum Texts {
         static let releaseYearStart = "С"
         static let releaseYearEnd = "По"
         static let season = "Выберите сезон"
-        static let resetAll = "Сбросить все"
-        static let apply = "Применить"
-        
     }
         enum OtherMessage {
             static let open = "Открыть"
