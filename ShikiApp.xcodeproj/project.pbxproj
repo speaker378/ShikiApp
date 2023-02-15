@@ -88,6 +88,11 @@
 		3A19C06A298B75B40073D472 /* String+toDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A19C069298B75B40073D472 /* String+toDate.swift */; };
 		3A19C074298D75670073D472 /* UIImageViewAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A19C073298D75670073D472 /* UIImageViewAsync.swift */; };
 		3A19C076298FECC70073D472 /* String+extractURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A19C075298FECC70073D472 /* String+extractURLs.swift */; };
+		3A19C078299415AC0073D472 /* OAuth2Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A19C077299415AC0073D472 /* OAuth2Manager.swift */; };
+		3A19C07A29941B890073D472 /* OAuth2Credential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A19C07929941B890073D472 /* OAuth2Credential.swift */; };
+		3A19C07C29941B990073D472 /* OAuth2Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A19C07B29941B990073D472 /* OAuth2Request.swift */; };
+		3A19C08229995AB60073D472 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A19C08129995AB60073D472 /* AuthManager.swift */; };
+		3A19C084299A38E50073D472 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A19C083299A38E50073D472 /* KeychainManager.swift */; };
 		3A1A09692985400900846058 /* NewsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1A09602985400900846058 /* NewsDetailViewController.swift */; };
 		3A1A096A2985400900846058 /* NewsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1A09612985400900846058 /* NewsDetailView.swift */; };
 		3A1A096C2985400900846058 /* AppCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1A09642985400900846058 /* AppCollectionViewCell.swift */; };
@@ -235,6 +240,11 @@
 		3A19C069298B75B40073D472 /* String+toDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+toDate.swift"; sourceTree = "<group>"; };
 		3A19C073298D75670073D472 /* UIImageViewAsync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageViewAsync.swift; sourceTree = "<group>"; };
 		3A19C075298FECC70073D472 /* String+extractURLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+extractURLs.swift"; sourceTree = "<group>"; };
+		3A19C077299415AC0073D472 /* OAuth2Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuth2Manager.swift; sourceTree = "<group>"; };
+		3A19C07929941B890073D472 /* OAuth2Credential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuth2Credential.swift; sourceTree = "<group>"; };
+		3A19C07B29941B990073D472 /* OAuth2Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuth2Request.swift; sourceTree = "<group>"; };
+		3A19C08129995AB60073D472 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
+		3A19C083299A38E50073D472 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		3A1A09602985400900846058 /* NewsDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsDetailViewController.swift; sourceTree = "<group>"; };
 		3A1A09612985400900846058 /* NewsDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsDetailView.swift; sourceTree = "<group>"; };
 		3A1A09642985400900846058 /* AppCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -335,6 +345,7 @@
 				0010CAB52977FFBE00F8705B /* AppColor.swift */,
 				0010CAB72977FFDC00F8705B /* AppFont.swift */,
 				0010CADA29783E7400F8705B /* AppImage.swift */,
+				3A19C083299A38E50073D472 /* KeychainManager.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -697,6 +708,7 @@
 				3A7E4D5E2985492C00E7CA17 /* Forums */,
 				3A7E4D662985492C00E7CA17 /* Users */,
 				3A7E4D762985492C00E7CA17 /* Topics */,
+				3A19C08129995AB60073D472 /* AuthManager.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -780,6 +792,9 @@
 				3A7E4DA02985496A00E7CA17 /* URLParameterEncoder.swift */,
 				3A7E4DA12985496A00E7CA17 /* JSONParameterEncoder.swift */,
 				3A7E4DA22985496A00E7CA17 /* EndPointType.swift */,
+				3A19C077299415AC0073D472 /* OAuth2Manager.swift */,
+				3A19C07929941B890073D472 /* OAuth2Credential.swift */,
+				3A19C07B29941B990073D472 /* OAuth2Request.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -1160,11 +1175,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A7E4D8E2985492C00E7CA17 /* ClubsResponseDTO.swift in Sources */,
+				3A19C08229995AB60073D472 /* AuthManager.swift in Sources */,
 				0010CABF297802A700F8705B /* UIView+addSubviews.swift in Sources */,
 				3A7E4D882985492C00E7CA17 /* UserFavoritesResponseDTO.swift in Sources */,
 				3AFAFEE3298028BA00949FE2 /* NewsfeedViewController+Extension.swift in Sources */,
 				3A05E299297E8EA500987CFF /* NewsfeedBuilder.swift in Sources */,
 				3A1A096D2985400900846058 /* NewsDetailBuilder.swift in Sources */,
+				3A19C07C29941B990073D472 /* OAuth2Request.swift in Sources */,
 				3A05E295297E696200987CFF /* NewsfeedPresenter.swift in Sources */,
 				3A7E4DA82985496A00E7CA17 /* URLParameterEncoder.swift in Sources */,
 				006031B9297BCA7B00CD9A16 /* MyListViewController.swift in Sources */,
@@ -1185,6 +1202,7 @@
 				006031AF2979B79400CD9A16 /* TabBarViewController.swift in Sources */,
 				16B08263298C49F900EB9061 /* SearchContentEnum.swift in Sources */,
 				3A7E4D902985492C00E7CA17 /* BansResponseDTO.swift in Sources */,
+				3A19C084299A38E50073D472 /* KeychainManager.swift in Sources */,
 				3A19C068298B75A80073D472 /* String+htmlToString.swift in Sources */,
 				3A7E4D8C2985492C00E7CA17 /* UnreadMessagesResponseDTO.swift in Sources */,
 				3A19C066298B757D0073D472 /* Date+toString.swift in Sources */,
@@ -1192,6 +1210,7 @@
 				16B0825B298BEFFA00EB9061 /* SearchPresenter.swift in Sources */,
 				3A7E4D8A2985492C00E7CA17 /* AnimeRatesResponseDTO.swift in Sources */,
 				006031BB297BCA9600CD9A16 /* ProfileViewController.swift in Sources */,
+				3A19C07A29941B890073D472 /* OAuth2Credential.swift in Sources */,
 				16B08247298A22B300EB9061 /* RanobeApi.swift in Sources */,
 				3A7E4D8D2985492C00E7CA17 /* UserHistoryResponseDTO.swift in Sources */,
 				BA27FB5529964EF5007C3BEC /* CGSize+scaling.swift in Sources */,
@@ -1232,6 +1251,7 @@
 				006031B7297BCA6800CD9A16 /* SearchViewController.swift in Sources */,
 				3A7E4DA72985496A00E7CA17 /* Router.swift in Sources */,
 				BA27FB4D2995384E007C3BEC /* NewsDetailVideoContentView.swift in Sources */,
+				3A19C078299415AC0073D472 /* OAuth2Manager.swift in Sources */,
 				3A7E4D982985492C00E7CA17 /* TopicsResponseDTO.swift in Sources */,
 				3A7E4D872985492C00E7CA17 /* MessagesResponseDTO.swift in Sources */,
 				3A7E4D7F2985492C00E7CA17 /* ForumsResponseDTO.swift in Sources */,

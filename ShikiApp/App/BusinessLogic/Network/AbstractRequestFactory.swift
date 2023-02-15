@@ -10,7 +10,7 @@ import Foundation
 // MARK: - Result
 
 enum Result<String> {
-    case success
+    case success(String)
     case failure(String)
 }
 
@@ -76,7 +76,7 @@ class AbstractRequestFactory<API: EndPointType>: AbstractRequestFactoryProtocol 
     
     private func handleNetworkResponse(_ response: HTTPURLResponse) -> Result<String> {
         switch response.statusCode {
-        case 200 ... 299: return .success
+        case 200 ... 299: return .success(NetworkLayerErrorMessages.success)
         case 401 ... 500: return .failure(NetworkLayerErrorMessages.authenticationError)
         case 501 ... 599: return .failure(NetworkLayerErrorMessages.badRequest)
         case 600: return .failure(NetworkLayerErrorMessages.outdated)
