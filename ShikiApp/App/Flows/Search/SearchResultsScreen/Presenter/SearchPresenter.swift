@@ -66,6 +66,8 @@ final class SearchPresenter: SearchViewOutput {
     // MARK: - Functions
 
     func requestFilters() {
+        let filtersViewController = FiltersBuilder.build(filters: FiltersModelFactory().filtersList)
+        viewInput?.navigationController?.pushViewController(filtersViewController, animated: true)
         print("Select Filters screen will be displayed here")
     }
     
