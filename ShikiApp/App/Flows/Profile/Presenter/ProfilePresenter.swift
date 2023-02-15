@@ -31,8 +31,7 @@ final class ProfilePresenter: ProfileViewOutputProtocol {
     // MARK: - Functions
     
     func viewDidSelectUser(user: UserProfileDTO) {
-        let profileViewController = ProfileBuilder.build()
-        viewInput?.navigationController?.pushViewController(profileViewController, animated: true)
+        
     }
     
     func fetchData() {

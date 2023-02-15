@@ -29,7 +29,7 @@ class ProfileViewController: (UIViewController & ProfileViewInputProtocol) {
     private let labelWidthMultiplier = 0.5
     
     
-    private var topDivider: UIView = {
+    private let topDivider: UIView = {
         let dividerView = UIView()
         dividerView.translatesAutoresizingMaskIntoConstraints = false
         dividerView.layer.borderWidth = 1
@@ -38,7 +38,7 @@ class ProfileViewController: (UIViewController & ProfileViewInputProtocol) {
     }()
     
     
-    private var profileImageView: UIImageView = {
+    private let profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = AppImage.ErrorsIcons.noUserpicIcon
@@ -49,7 +49,7 @@ class ProfileViewController: (UIViewController & ProfileViewInputProtocol) {
         return imageView
     }()
     
-    private var nameLabel: UILabel = {
+    private let nameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = Texts.DummyTextForProfileVC.nameLabelText
@@ -59,7 +59,7 @@ class ProfileViewController: (UIViewController & ProfileViewInputProtocol) {
         return label
     }()
     
-    private var sexAndAgeLabel: UILabel = {
+    private let sexAndAgeLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = Texts.DummyTextForProfileVC.sexAndAgeLabelText
@@ -69,7 +69,7 @@ class ProfileViewController: (UIViewController & ProfileViewInputProtocol) {
         return label
     }()
     
-    private var linkImageView: UIImageView = {
+    private let linkImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.tintColor = AppColor.textMinor
@@ -77,7 +77,7 @@ class ProfileViewController: (UIViewController & ProfileViewInputProtocol) {
         return imageView
     }()
     
-    private var linkButton: UIButton = {
+    private let linkButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(Texts.DummyTextForProfileVC.webLinkText, for: .normal)
@@ -86,7 +86,7 @@ class ProfileViewController: (UIViewController & ProfileViewInputProtocol) {
         return button
     }()
     
-    private var logoutButton: UIButton = {
+    private let logoutButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(Texts.DummyTextForProfileVC.logoutButtonText, for: .normal)
@@ -96,7 +96,7 @@ class ProfileViewController: (UIViewController & ProfileViewInputProtocol) {
         return button
     }()
     
-    private var versionLabel: UILabel = {
+    private let versionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = Texts.DummyTextForProfileVC.versionLabelText
@@ -128,11 +128,6 @@ class ProfileViewController: (UIViewController & ProfileViewInputProtocol) {
         super.viewDidLoad()
         configureUI()
         presenter.fetchData()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.navigationBar.prefersLargeTitles = true
     }
 
     // MARK: - Private functions

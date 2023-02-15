@@ -29,7 +29,7 @@ enum Texts {
         static let nameLabelText = "Вел1чайший"
         static let sexAndAgeLabelText = "мужчина, 24"
         static let webLinkText = "myanimelist.com/firefly784"
-        static let logoutButtonText = "Выйити из аккаунта"
+        static let logoutButtonText = "Выйти из аккаунта"
         static let versionLabelText = "Версия 1.0.0(1)"
     }
 }
