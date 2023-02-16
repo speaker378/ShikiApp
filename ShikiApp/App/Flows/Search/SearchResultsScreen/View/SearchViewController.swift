@@ -53,12 +53,12 @@ final class SearchViewController: UIViewController, SearchViewInput {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureOnViewDidLoad()
+        presenter.fetchData()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
-        presenter.fetchData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {

@@ -95,13 +95,14 @@ final class SearchPresenter: SearchViewOutput {
     // MARK: - Private functions
 
     private func refreshView() {
-        switch page {
-        case 0:
-            viewInput?.models.removeAll()
-        case 1:
-            viewInput?.models = SearchModelFactory().makeModels(from: entityList)
-        default:
-            viewInput?.models.append(contentsOf: SearchModelFactory().makeModels(from: entityList))
+        if !entityList.isEmpty {
+            if page > 1 {
+                viewInput?.models.append(contentsOf: SearchModelFactory().makeModels(from: entityList))
+            } else {
+                viewInput?.models = SearchModelFactory().makeModels(from: entityList)
+            }
+        } else {
+            if page == 0 { viewInput?.models.removeAll() }
         }
         viewInput?.tableHeader = buildHeader()
     }
@@ -113,8 +114,8 @@ final class SearchPresenter: SearchViewOutput {
         if page == 0 && entityList.isEmpty {
             return ""
         }
-        if (1 ..< pageSize).contains(entityList.count) {
-            return "\(Constants.SearchHeader.exactResult) \(entityList.count + pageSize * (page - 1))"
+        if (0 ..< pageSize).contains(entityList.count) {
+            return "\(Constants.SearchHeader.exactResult) \(viewInput?.models.count ?? 0)"
         }
         return "\(Constants.SearchHeader.approximateResult)"
     }

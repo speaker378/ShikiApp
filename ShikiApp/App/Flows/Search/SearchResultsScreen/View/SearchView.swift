@@ -27,7 +27,6 @@ class SearchView: UIView {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorStyle = .none
-//        tableView.allowsSelection = true
         return tableView
     }()
     
@@ -47,6 +46,7 @@ class SearchView: UIView {
         textField.layer.masksToBounds = true
         textField.keyboardType = .default
         textField.keyboardAppearance = .light
+        textField.autocorrectionType = .no
         return textField
     }()
     
