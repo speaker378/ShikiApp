@@ -226,15 +226,22 @@ class SearchView: UIView {
             tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            backgroundImageView.centerXAnchor.constraint(equalTo: tableView.centerXAnchor),
-            backgroundImageView.centerYAnchor.constraint(equalTo: tableView.centerYAnchor),
+            mainBackgroundView.topAnchor.constraint(
+                equalTo: topAnchor,
+                constant: ControlConstants.Properties.tableTop
+            ),
+            mainBackgroundView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            mainBackgroundView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            mainBackgroundView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            backgroundImageView.centerXAnchor.constraint(equalTo: mainBackgroundView.centerXAnchor),
+            backgroundImageView.centerYAnchor.constraint(equalTo: mainBackgroundView.centerYAnchor),
             backgroundImageView.widthAnchor.constraint(
                 equalToConstant: ControlConstants.Properties.backgroundImageSize
             ),
             backgroundImageView.heightAnchor.constraint(
                 equalToConstant: ControlConstants.Properties.backgroundImageSize
             ),
-            backgroundLabel.centerXAnchor.constraint(equalTo: tableView.centerXAnchor),
+            backgroundLabel.centerXAnchor.constraint(equalTo: mainBackgroundView.centerXAnchor),
             backgroundLabel.topAnchor.constraint(
                 equalTo: backgroundImageView.bottomAnchor, constant: ControlConstants.Properties.backgroundLabelInset
             )
