@@ -19,6 +19,7 @@ enum Texts {
     
     enum NavigationBarTitles {
         static let newsTitle = "Новость"
+        static let filtersTitle = "Фильтры"
     }
     
     enum ErrorMessage {
@@ -30,6 +31,29 @@ enum Texts {
         static let inProgress = "Загрузка..."
     }
     
+    enum FilterLabels {
+        static let rating = "Оценка от"
+        static let type = "Тип"
+        static let status = "Статус"
+        static let genre = "Жанр"
+        static let releaseYear = "Год выхода"
+        static let season = "Сезон"
+    }
+    
+    enum FilterButtons {
+        static let resetAll = "Сбросить все"
+        static let apply = "Применить"
+    }
+    
+    enum FilterPlaceholders {
+        static let rating = "Выберите оценку"
+        static let type = "Выберите тип"
+        static let status = "Выберите статус"
+        static let genre = "Выберите жанр"
+        static let releaseYearStart = "С"
+        static let releaseYearEnd = "По"
+        static let season = "Выберите сезон"
+    }
     enum OtherMessage {
         static let open = "Открыть"
         static let openInYoutube = "Открыть в Youtube"

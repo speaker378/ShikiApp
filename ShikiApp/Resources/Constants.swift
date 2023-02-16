@@ -23,7 +23,8 @@ struct Constants {
         static let sideInset: CGFloat = 16.0
         /// высота у кнопок, полей
         static let controlHeight: CGFloat = 48.0
-        /// высота обложки у ячеек
+        static let controlHeightLarge: CGFloat = 55.0
+        // высота и ширина обложки у ячеек
         static let coverHeight: CGFloat = 112.0
         /// ширина обложки у ячеек
         static let coverWidth: CGFloat = 88.0
@@ -44,6 +45,7 @@ struct Constants {
 
     enum DateFormatter {
         static let dayMonthCommaHoursMinutes = "dd MMMM, HH:mm"
+        static let year = "yyyy"
         static let yearMonthDay = "yyyy-MM-dd"
     }
     
@@ -57,6 +59,10 @@ struct Constants {
         static let memoryCapacity = 50 * Prefix.megabyte
         static let diskCapacity = 50 * Prefix.megabyte
         static let maximumConnections = 5
+    }
+    
+    enum Dates {
+        static let startYearForFilter = 1970
     }
     
     enum SearchHeader {

@@ -42,10 +42,13 @@ final class TabBarViewController: UITabBarController, UITabBarControllerDelegate
             $1.tabBarItem.imageInsets = UIEdgeInsets(top: .zero, left: .zero, bottom: .zero, right: .zero)
         }
         
+        let tabBarAppearance = UITabBarAppearance()
+        tabBarAppearance.configureWithTransparentBackground()
+        UITabBar.appearance().standardAppearance = tabBarAppearance
+        UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
         UITabBar.appearance().unselectedItemTintColor = AppColor.textMain
         UITabBar.appearance().tintColor = AppColor.accent
         UITabBar.appearance().backgroundColor = AppColor.backgroundMain
-        
     }
     
     private func wrappedInNavigationController(with: UIViewController, title: String) -> UINavigationController {
