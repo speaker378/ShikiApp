@@ -1,5 +1,5 @@
 //
-//  FiltersView+Extantion.swift
+//  FiltersView+Extansion.swift
 //  ShikiApp
 //
 //  Created by Константин Шмондрик on 12.02.2023.
@@ -44,8 +44,8 @@ extension FiltersView: UITableViewDelegate, UITableViewDataSource {
         
         transparentView.backgroundColor = AppColor.backgroundMinor
         tableView.reloadData()
-        let tapgesture = UITapGestureRecognizer(target: self, action: #selector(removeTransparentView))
-        transparentView.addGestureRecognizer(tapgesture)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(removeTransparentView))
+        transparentView.addGestureRecognizer(tapGesture)
         transparentView.alpha = 0
         let height: CGFloat = dataSource.count < 5 ?
         CGFloat(CGFloat(self.dataSource.count) * Constants.Insets.controlHeight) :

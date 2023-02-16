@@ -11,11 +11,11 @@ protocol FiltersViewInput: AnyObject {
     var filters: FiltersModel { get set }
 }
 
-protocol FilterslViewOutput: AnyObject {
-    func getFilterList(filrers: FilterListModel)
+protocol FiltersViewOutput: AnyObject {
+    func getFilterList(filters: FilterListModel)
 }
 
-final class FiltersPresenter: FilterslViewOutput {
+final class FiltersPresenter: FiltersViewOutput {
 
     // MARK: - Properties
     
@@ -23,7 +23,7 @@ final class FiltersPresenter: FilterslViewOutput {
 
     // MARK: - Functions
 
-    func getFilterList(filrers: FilterListModel) {
-        print(filrers)
+    func getFilterList(filters: FilterListModel) {
+        print(filters)
     }
 }

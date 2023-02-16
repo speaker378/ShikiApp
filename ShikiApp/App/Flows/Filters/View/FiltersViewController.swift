@@ -13,14 +13,14 @@ class FiltersViewController: UIViewController, FiltersViewInput {
 
     // MARK: - Private properties
 
-    private let viewOutput: FilterslViewOutput
+    private let viewOutput: FiltersViewOutput
     private let scrollView = UIScrollView()
     private let contentView: FiltersView
     private let footerView: FooterFilterView
 
     // MARK: - Construction
-    
-    init(presenter: FilterslViewOutput, filters: FiltersModel) {
+
+    init(presenter: FiltersViewOutput, filters: FiltersModel) {
         self.filters = filters
         viewOutput = presenter
         contentView = FiltersView(filtersList: filters)
@@ -42,7 +42,7 @@ class FiltersViewController: UIViewController, FiltersViewInput {
         super.viewWillAppear(animated)
         configureNavBar()
     }
-    
+
     // MARK: - Private functions
 
     private func configureUI() {
@@ -96,7 +96,7 @@ class FiltersViewController: UIViewController, FiltersViewInput {
 
 extension FiltersViewController: FooterFilterViewDelegate {
     func tapResetAllButton() {
-        contentView.ratingSelectButton.configurate(text: Texts.FilterPlaceholders.raiting, isSelect: false)
+        contentView.ratingSelectButton.configurate(text: Texts.FilterPlaceholders.rating, isSelect: false)
         contentView.typeSelectButton.configurate(text: Texts.FilterPlaceholders.type, isSelect: false)
         contentView.statusSelectButton.configurate(text: Texts.FilterPlaceholders.status, isSelect: false)
         contentView.genreSelectButton.configurate(text: Texts.FilterPlaceholders.genre, isSelect: false)
@@ -111,8 +111,8 @@ extension FiltersViewController: FooterFilterViewDelegate {
         )
     }
     
-    func tapapplyButton() {
-        let rating = contentView.ratingSelectButton.titleLabel.text == Texts.FilterPlaceholders.raiting
+    func tapApplyButton() {
+        let rating = contentView.ratingSelectButton.titleLabel.text == Texts.FilterPlaceholders.rating
         ? "" : contentView.ratingSelectButton.titleLabel.text
         
         let type = contentView.typeSelectButton.titleLabel.text == Texts.FilterPlaceholders.type
@@ -145,6 +145,6 @@ extension FiltersViewController: FooterFilterViewDelegate {
             releaseYearEnd: releaseYearEnd ?? ""
         )
         
-        viewOutput.getFilterList(filrers: filters)
+        viewOutput.getFilterList(filters: filters)
     }
 }

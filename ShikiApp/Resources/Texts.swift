@@ -32,7 +32,7 @@ enum Texts {
     }
     
     enum FilterLabels {
-        static let raiting = "Оценка от"
+        static let rating = "Оценка от"
         static let type = "Тип"
         static let status = "Статус"
         static let genre = "Жанр"
@@ -46,7 +46,7 @@ enum Texts {
     }
     
     enum FilterPlaceholders {
-        static let raiting = "Выберите оценку"
+        static let rating = "Выберите оценку"
         static let type = "Выберите тип"
         static let status = "Выберите статус"
         static let genre = "Выберите жанр"
@@ -54,8 +54,8 @@ enum Texts {
         static let releaseYearEnd = "По"
         static let season = "Выберите сезон"
     }
-        enum OtherMessage {
-            static let open = "Открыть"
-            static let openInYoutube = "Открыть в Youtube"
-        }
+    enum OtherMessage {
+        static let open = "Открыть"
+        static let openInYoutube = "Открыть в Youtube"
     }
+}

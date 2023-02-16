@@ -9,7 +9,7 @@ import UIKit
 
 protocol FooterFilterViewDelegate: AnyObject {
     func tapResetAllButton()
-    func tapapplyButton()
+    func tapApplyButton()
 }
 
 final class FooterFilterView: UIView {
@@ -100,6 +100,6 @@ final class FooterFilterView: UIView {
     }
     
     @objc func applyButtonPressed() {
-        delegate?.tapapplyButton()
+        delegate?.tapApplyButton()
     }
 }

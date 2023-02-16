@@ -27,13 +27,13 @@ final class FiltersView: UIView {
 
     // MARK: - Private properties
 
-    private let labelOfcet: CGFloat = 32
+    private let labelOffset: CGFloat = 32
     private let labelHeight: CGFloat = 22
     private let separatorHeight: CGFloat = 2
-    private let bottomOfcet: CGFloat = 340
+    private let bottomOffset: CGFloat = 340
 
     private let ratingLabel = AppLabel(
-        title: Texts.FilterLabels.raiting,
+        title: Texts.FilterLabels.rating,
         alignment: .left,
         fontSize: AppFont.Style.regularText,
         fontСolor: AppColor.textMain
@@ -82,7 +82,7 @@ final class FiltersView: UIView {
     
     private(set) lazy var ratingSelectButton: SelectedButton = {
         let button = SelectedButton()
-        button.configurate(text: Texts.FilterPlaceholders.raiting, isSelect: false)
+        button.configurate(text: Texts.FilterPlaceholders.rating, isSelect: false)
         button.addTarget(self, action: #selector(ratingSelectTapped), for: .touchUpInside)
         return button
     }()
@@ -125,7 +125,7 @@ final class FiltersView: UIView {
     private(set) lazy var releaseYearEndSelectButton: SelectedButton = {
         let button = SelectedButton()
         button.configurate(text: Texts.FilterPlaceholders.releaseYearEnd, isSelect: false)
-        button.addTarget(self, action: #selector(releaseYearEndtSelectTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(releaseYearEndSelectTapped), for: .touchUpInside)
         return button
     }()
 
@@ -200,11 +200,11 @@ final class FiltersView: UIView {
             ),
             ratingLabel.leadingAnchor.constraint(
                 equalTo: leadingAnchor,
-                constant: labelOfcet
+                constant: labelOffset
             ),
             ratingLabel.trailingAnchor.constraint(
                 equalTo: trailingAnchor,
-                constant: -labelOfcet
+                constant: -labelOffset
             ),
             ratingLabel.heightAnchor.constraint(equalToConstant: labelHeight),
             ratingSelectButton.topAnchor.constraint(
@@ -231,11 +231,11 @@ final class FiltersView: UIView {
             ),
             typeLabel.leadingAnchor.constraint(
                 equalTo: leadingAnchor,
-                constant: labelOfcet
+                constant: labelOffset
             ),
             typeLabel.trailingAnchor.constraint(
                 equalTo: trailingAnchor,
-                constant: -labelOfcet
+                constant: -labelOffset
             ),
             typeLabel.heightAnchor.constraint(equalToConstant: labelHeight),
             typeSelectButton.topAnchor.constraint(
@@ -257,7 +257,7 @@ final class FiltersView: UIView {
             ),
             statusLabel.leadingAnchor.constraint(
                 equalTo: leadingAnchor,
-                constant: labelOfcet
+                constant: labelOffset
             )
         ])
     }
@@ -266,7 +266,7 @@ final class FiltersView: UIView {
         NSLayoutConstraint.activate([
             statusLabel.trailingAnchor.constraint(
                 equalTo: trailingAnchor,
-                constant: -labelOfcet
+                constant: -labelOffset
             ),
             statusLabel.heightAnchor.constraint(equalToConstant: labelHeight),
             
@@ -294,11 +294,11 @@ final class FiltersView: UIView {
             ),
             genreLabel.leadingAnchor.constraint(
                 equalTo: leadingAnchor,
-                constant: labelOfcet
+                constant: labelOffset
             ),
             genreLabel.trailingAnchor.constraint(
                 equalTo: trailingAnchor,
-                constant: -labelOfcet
+                constant: -labelOffset
             ),
             genreLabel.heightAnchor.constraint(equalToConstant: labelHeight),
             
@@ -327,11 +327,11 @@ final class FiltersView: UIView {
         NSLayoutConstraint.activate([
             releaseYearLabel.leadingAnchor.constraint(
                 equalTo: leadingAnchor,
-                constant: labelOfcet
+                constant: labelOffset
             ),
             releaseYearLabel.trailingAnchor.constraint(
                 equalTo: trailingAnchor,
-                constant: -labelOfcet
+                constant: -labelOffset
             ),
             releaseYearLabel.heightAnchor.constraint(equalToConstant: labelHeight),
             
@@ -378,11 +378,11 @@ final class FiltersView: UIView {
             ),
             seasonLabel.leadingAnchor.constraint(
                 equalTo: leadingAnchor,
-                constant: labelOfcet
+                constant: labelOffset
             ),
             seasonLabel.trailingAnchor.constraint(
                 equalTo: trailingAnchor,
-                constant: -labelOfcet
+                constant: -labelOffset
             ),
             seasonLabel.heightAnchor.constraint(equalToConstant: labelHeight),
             
@@ -399,7 +399,7 @@ final class FiltersView: UIView {
                 constant: -Constants.Insets.sideInset
             ),
             seasonSelectButton.heightAnchor.constraint(equalToConstant: Constants.Insets.controlHeight),
-            seasonSelectButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -bottomOfcet)
+            seasonSelectButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -bottomOffset)
         ])
     }
     
@@ -449,7 +449,7 @@ final class FiltersView: UIView {
         addTransparentView(frames: releaseYearStartSelectButton.frame)
     }
     
-    @objc private func releaseYearEndtSelectTapped() {
+    @objc private func releaseYearEndSelectTapped() {
         if releaseYearStartSelectButton.titleLabel.text != Texts.FilterPlaceholders.releaseYearStart {
             dataSource = yearsTillNow(
                 startYear: Int(releaseYearStartSelectButton.titleLabel.text ?? "") ?? 0,
