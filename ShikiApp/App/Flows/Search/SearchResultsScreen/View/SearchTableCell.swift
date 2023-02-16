@@ -12,6 +12,7 @@ class SearchTableCell: UITableViewCell {
     // MARK: - Private properties
     
     private let lineWidth: CGFloat = 1
+    private let maxTitleLines = 3
     private let imageWidth: CGFloat = 88
     private let scoreWidth: CGFloat = 39
     private let scoreHeight: CGFloat = 24
@@ -47,8 +48,8 @@ class SearchTableCell: UITableViewCell {
         let label = AppLabel(alignment: .left, fontSize: AppFont.openSansFont(ofSize: 16, weight: .bold))
         label.textColor = AppColor.textMain
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.lineBreakMode = .byWordWrapping
-        label.numberOfLines = 0
+        label.lineBreakMode = .byTruncatingTail
+        label.numberOfLines = 3
         return label
     }()
     
