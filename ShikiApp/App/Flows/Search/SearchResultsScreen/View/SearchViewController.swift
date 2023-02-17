@@ -63,11 +63,11 @@ final class SearchViewController: UIViewController, SearchViewInput {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: false)
     }
 
     // MARK: - Functions

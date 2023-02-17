@@ -11,9 +11,8 @@ class SearchTableCell: UITableViewCell {
 
     // MARK: - Private properties
     
-    private let lineWidth: CGFloat = 1
+    private let lineHeight: CGFloat = 1
     private let maxTitleLines = 3
-    private let imageWidth: CGFloat = 88
     private let scoreWidth: CGFloat = 39
     private let scoreHeight: CGFloat = 24
     private let scoreTopInset: CGFloat = 8
@@ -114,7 +113,7 @@ class SearchTableCell: UITableViewCell {
         NSLayoutConstraint.activate([
             contentImageView.topAnchor.constraint(equalTo: topAnchor),
             contentImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            contentImageView.widthAnchor.constraint(equalToConstant: imageWidth),
+            contentImageView.widthAnchor.constraint(equalToConstant: Constants.Insets.coverWidth),
             contentImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
             scoreLabel.leadingAnchor.constraint(equalTo: contentImageView.leadingAnchor, constant: leading),
             scoreLabel.widthAnchor.constraint(equalToConstant: scoreWidth),
@@ -132,7 +131,7 @@ class SearchTableCell: UITableViewCell {
             strokeView.leadingAnchor.constraint(equalTo: contentImageView.trailingAnchor, constant: leading),
             strokeView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: trailing),
             strokeView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            strokeView.heightAnchor.constraint(equalToConstant: lineWidth)
+            strokeView.heightAnchor.constraint(equalToConstant: lineHeight)
         ])
     }
 }

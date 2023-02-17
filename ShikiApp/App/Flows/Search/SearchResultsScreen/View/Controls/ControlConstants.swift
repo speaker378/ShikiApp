@@ -11,7 +11,7 @@ import UIKit
 struct ControlConstants {
     
     static let sliderImage: UIImage = AppImage.NavigationsBarIcons.options
-    static let searchPlaceHolder = "Аниме, манга, ранобэ"
+    static let searchPlaceHolder = "Поиск по названию"
 
     enum Properties {
         static let cellHeight: CGFloat = 112
