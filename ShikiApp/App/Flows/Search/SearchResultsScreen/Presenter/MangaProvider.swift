@@ -41,4 +41,11 @@ final class MangaProvider: ContentProviderProtocol {
             completion: completion
         )
     }
+    
+    func fetchDetailData(
+        id: Int,
+        completion: @escaping (_ response: SearchDetailContentProtocol?, _ error: String?
+        ) -> Void) {
+        factory.getMangaById(id: id, completion: completion)
+    }
 }

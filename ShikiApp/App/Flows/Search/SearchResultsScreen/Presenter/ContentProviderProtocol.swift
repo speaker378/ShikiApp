@@ -23,6 +23,10 @@ protocol ContentProviderProtocol {
     func setFilters(filters: Any?) -> Int
     func getFilters() -> ListFilters<ContentKind, ContentStatus>?
     func fetchData(searchString: String?, page: Int, completion: @escaping (_ response: [SearchContentProtocol]?, _ error: String?) -> Void )
+    func fetchDetailData(id: Int, completion: @escaping (
+        _ response: SearchDetailContentProtocol?,
+        _ error: String?
+    ) -> Void)
 }
 
 extension ContentProviderProtocol {

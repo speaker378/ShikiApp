@@ -62,7 +62,8 @@ final class SearchModelFactory {
     private func extractYears(airedOn: String?, releasedOn: String?, kind: String?) -> String {
         
         let airedYear = extractYear(date: airedOn)
-        return isSingleDateKind(kind: kind) ? airedYear : "\(airedYear) - \(extractYear(date: releasedOn))"
+        let releasedYear = extractYear(date: releasedOn)
+        return isSingleDateKind(kind: kind) || releasedYear == airedYear ? airedYear : "\(airedYear)–\(releasedYear)"
     }
     
     private func extractUrlString(image: ImageDTO?) -> String {
@@ -95,6 +96,16 @@ final class SearchModelFactory {
     private func extractScoreColor(score: String?) -> UIColor {
         
         Constants.scoreColors[score?.first ?? " "] ?? AppColor.line
+    }
+    
+    private func extractStatus(status: String?, kind: String?) -> String {
+        guard let status, let kind else { return "" }
+        switch kind {
+        case "manga", "manhwa", "manhua", "light_novel", "novel", "one_shot", "doujin":
+            return Constants.mangaStatuses[status] ?? ""
+        default:
+            return Constants.animeStatuses[status] ?? ""
+        }
     }
 }
 

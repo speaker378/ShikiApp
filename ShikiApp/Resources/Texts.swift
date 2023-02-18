@@ -57,5 +57,11 @@ enum Texts {
     enum OtherMessage {
         static let open = "Открыть"
         static let openInYoutube = "Открыть в Youtube"
+        static let episodes = "эп."
+        static let minutes = "мин."
+    }
+    
+    enum ButtonTitles {
+        static let addToList = "Добавить в список"
     }
 }

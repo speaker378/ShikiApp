@@ -42,5 +42,10 @@ final class RanobeProvider: ContentProviderProtocol {
         )
     }
     
-
+    func fetchDetailData(
+        id: Int,
+        completion: @escaping (_ response: SearchDetailContentProtocol?, _ error: String?
+        ) -> Void) {
+        factory.getRanobeById(id: id, completion: completion)
+    }
 }
