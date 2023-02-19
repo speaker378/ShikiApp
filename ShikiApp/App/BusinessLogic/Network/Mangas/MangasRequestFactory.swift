@@ -107,7 +107,7 @@ final class MangasRequestFactory: MangasRequestFactoryProtocol {
 
     // MARK: - Construction
 
-    init(token: String? = nil, agent: String? = nil) {
-        delegate = AbstractRequestFactory<MangasApi>(token: token, agent: agent)
+    init() {
+        delegate = AbstractRequestFactory<MangasApi>()
     }
 }
