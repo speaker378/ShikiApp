@@ -48,10 +48,7 @@ final class SearchDetailViewController: UIViewController, SearchDetailViewInput 
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: Texts.ButtonTitles.close, style: .default))
         present(alertController, animated: true)
-    }
-    
-    func addToList(_ content: SearchDetailModel) {
-        
+        activityIndicator.stopAnimating()
     }
 
     // MARK: - Private functions
