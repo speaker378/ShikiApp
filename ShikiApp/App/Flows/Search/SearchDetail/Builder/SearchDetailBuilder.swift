@@ -9,12 +9,11 @@ import UIKit
 
 // MARK: - SearchBuilder
 
-class SearchDetailBuilder {
+final class SearchDetailBuilder {
     
-    static func build(content: SearchDetailModel) -> (UIViewController & SearchDetailViewInput) {
-        let presenter = SearchDetailPresenter()
-        let viewController = SearchDetailViewController(presenter: presenter, content: content)
-
+    static func build(id: Int, provider: any ContentProviderProtocol) -> (UIViewController & SearchDetailViewInput) {
+        let presenter = SearchDetailPresenter(provider: provider)
+        let viewController = SearchDetailViewController(presenter: presenter, id: id)
         presenter.viewInput = viewController
         return viewController
     }

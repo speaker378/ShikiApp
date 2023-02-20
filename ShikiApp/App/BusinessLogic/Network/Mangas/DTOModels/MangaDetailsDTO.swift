@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - MangaDetailsDTO
 
-struct MangaDetailsDTO: Codable {
+struct MangaDetailsDTO: Codable, SearchDetailContentProtocol {
     
     let id: Int
     let name: String
@@ -67,19 +67,3 @@ struct PublisherDTO: Codable {
 // MARK: - MangaImageDTO
 
 typealias MangaImageDTO = ImageDTO
-
-// MARK: - SearchDetailContentProtocol
-
-extension MangaDetailsDTO: SearchDetailContentProtocol {
-    
-    var genreList: [String] {
-        return genres?.compactMap { $0.russian } ?? []
-    }
-    var studioList: [String] {
-        return publishers?.compactMap { $0.name } ?? []
-    }
-    var rating: String? { return nil }
-    var episodes: Int? { return nil }
-    var episodesAired: Int? { return nil }
-    var duration: Int? { return nil }
-}

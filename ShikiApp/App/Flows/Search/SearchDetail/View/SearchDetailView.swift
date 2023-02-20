@@ -13,7 +13,6 @@ final class SearchDetailView: UIView {
     
     private let inset: CGFloat = 24.0
     private let infoViewWidth: CGFloat = UIScreen.main.bounds.width - Constants.Insets.sideInset * 2
-    
     private let itemInfoView: ItemInfoView
     private let genreTableView: ChipsTableView
     private let scrollView: UIScrollView = {
@@ -40,12 +39,10 @@ final class SearchDetailView: UIView {
 
     // MARK: - Construction
     
-    init(content: SearchDetailModel) {
+    init(content: SearchDetailModel, tapHandler: @escaping () -> Void) {
         itemInfoView = ItemInfoView(content: content)
         genreTableView = ChipsTableView(values: content.genres)
-        if content.genres.isEmpty {
-            genreTableView.isHidden = true
-        }
+        button.tapHandler = tapHandler
         super.init(frame: .zero)
         configure(with: content)
     }
@@ -58,16 +55,15 @@ final class SearchDetailView: UIView {
         addSubview(scrollView)
         scrollView.addSubviews([itemInfoView, button, titleLabel, genreTableView, descriptionLabel])
         [itemInfoView, genreTableView].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
-        
         titleLabel.text = content.title
         descriptionLabel.text = content.description
         genreTableView.reloadData()
+        
         configureConstraints()
     }
     
     private func configureConstraints() {
         let tableViewHeight = CGFloat(genreTableView.numberOfRows(inSection: 0)) * inset
-        // TODO: - проверить что там когда нет жанров
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: topAnchor, constant: Constants.Insets.sideInset),

@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - AnimeDetailsDTO
 
-struct AnimeDetailsDTO: Codable {
+struct AnimeDetailsDTO: Codable, SearchDetailContentProtocol {
     
     let id: Int
     let name: String
@@ -120,17 +120,4 @@ struct VideoDTO: Codable {
 
 struct ScreenshotDTO: Codable {
     let original, preview: String?
-}
-
-// MARK: - SearchDetailContentProtocol
-
-extension AnimeDetailsDTO: SearchDetailContentProtocol {
-    
-    var volumes: Int? { return nil }
-    var genreList: [String] {
-        return genres.compactMap { $0.russian }
-    }
-    var studioList: [String] {
-        return studios.compactMap { $0.name }
-    }
 }

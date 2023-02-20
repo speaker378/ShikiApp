@@ -7,25 +7,30 @@
 
 import UIKit
 
-// TODO: - добавить анимацию на загрузку данных
-
 final class SearchDetailViewController: UIViewController, SearchDetailViewInput {
 
     // MARK: - Private properties
     
     private let presenter: SearchDetailViewOutput
-    private let contentView: SearchDetailView
+    private let activityIndicator: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.style = .large
+        return view
+    }()
+    private var contentView: SearchDetailView?
 
     // MARK: - Construction
     
-    init(presenter: SearchDetailViewOutput, content: SearchDetailModel) {
+    init(presenter: SearchDetailViewOutput, id: Int) {
         self.presenter = presenter
-        contentView = SearchDetailView(content: content)
         super.init(nibName: nil, bundle: nil)
-        title = content.title
+        configure(with: id)
     }
     
     required init?(coder: NSCoder) { nil }
+
+    // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,14 +42,52 @@ final class SearchDetailViewController: UIViewController, SearchDetailViewInput 
         configureNavBar()
     }
 
+    // MARK: - Functions
+    
+    func showAlert(title: String, message: String? = nil) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: Texts.ButtonTitles.close, style: .default))
+        present(alertController, animated: true)
+    }
+    
+    func addToList(_ content: SearchDetailModel) {
+        
+    }
+
     // MARK: - Private functions
+    
+    private func configure(with id: Int) {
+        presenter.fetchData(id: id) { [weak self] content in
+            guard let self else { return }
+            self.activityIndicator.stopAnimating()
+            self.title = content.title
+            self.contentView = SearchDetailView(content: content) {
+                AddedToListData.shared.addToList(content)
+            }
+            self.configureContentView()
+        }
+    }
     
     private func configureUI() {
         view.backgroundColor = AppColor.backgroundMain
-        view.addSubview(contentView)
-        configureConstraints()
+        view.addSubview(activityIndicator)
+        activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        activityIndicator.startAnimating()
     }
     
+    private func configureContentView() {
+        guard let contentView else { return }
+        view.addSubview(contentView)
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            contentView.topAnchor.constraint(equalTo: view.topAnchor),
+            contentView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
+
     private func configureNavBar() {
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationController?.navigationBar.layoutIfNeeded()
@@ -61,16 +104,5 @@ final class SearchDetailViewController: UIViewController, SearchDetailViewInput 
         )
         backItem.tintColor = AppColor.textMain
         navigationItem.leftBarButtonItem = backItem
-    }
-    
-    private func configureConstraints() {
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            contentView.topAnchor.constraint(equalTo: view.topAnchor),
-            contentView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
     }
 }

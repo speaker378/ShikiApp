@@ -11,6 +11,7 @@ final class ChipsTableView: UITableView {
 
     // MARK: - Private properties
     
+    private let cellHeight = 24.0
     private var values = [String]()
     private var chipValues = [[String]]()
 
@@ -19,7 +20,6 @@ final class ChipsTableView: UITableView {
     init(values: [String]) {
         self.values = values
         super.init(frame: .zero, style: .plain)
-        self.chipValues = makeChipsValues()
         configure()
     }
     
@@ -28,14 +28,55 @@ final class ChipsTableView: UITableView {
     // MARK: - Private functions
     
     private func configure() {
-        delegate = self
         dataSource = self
+        chipValues = ChipsBuilder(values: values).makeChipsValues()
         registerCell(ChipsTableViewCell.self)
         separatorStyle = .none
     }
+}
+
+// MARK: - UITableViewDataSource
+
+extension ChipsTableView: UITableViewDataSource {
     
-    // TODO: - перенести в презентер
-    private func makeChipsValues() -> [[String]] {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        chipValues.count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        cellHeight
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard
+            chipValues.indices.contains(indexPath.row),
+            let cell: ChipsTableViewCell = tableView.cell(forRowAt: indexPath)
+        else { return UITableViewCell() }
+        
+        cell.configure(content: chipValues[indexPath.row])
+        return cell
+    }
+}
+
+// MARK: - ChipsBuilder
+
+final class ChipsBuilder {
+
+    // MARK: - Private properties
+    
+    private var chips: [[String]] = []
+    private var values: [String]
+
+    // MARK: - Constructions
+    
+    init(values: [String]) {
+        self.values = values
+        
+    }
+
+    // MARK: - Functions
+    
+    func makeChipsValues() -> [[String]] {
         let maxWidth = UIScreen.main.bounds.width - 32.0
         let chipsHorizontalInset: CGFloat = 8.0
         let spacing = 4.0
@@ -56,33 +97,4 @@ final class ChipsTableView: UITableView {
         }
         return results
     }
-}
-
-// MARK: - UITableViewDataSource
-
-extension ChipsTableView: UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return chipValues.count
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        24.0
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard
-            chipValues.indices.contains(indexPath.row),
-            let cell: ChipsTableViewCell = tableView.cell(forRowAt: indexPath)
-        else { return UITableViewCell() }
-        
-        cell.configure(content: chipValues[indexPath.row])
-        return cell
-    }
-}
-
-// MARK: - UITableViewDelegate
-
-extension ChipsTableView: UITableViewDelegate {
-    
 }

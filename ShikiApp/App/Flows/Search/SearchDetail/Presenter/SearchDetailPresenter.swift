@@ -9,10 +9,12 @@ import UIKit
 
 protocol SearchDetailViewInput: AnyObject {
     
+    func showAlert(title: String, message: String?)
+    func addToList(_ content: SearchDetailModel)
 }
 
 protocol SearchDetailViewOutput: AnyObject {
-    
+    func fetchData(id: Int, completion: @escaping (SearchDetailModel) -> Void)
 }
 
 final class SearchDetailPresenter: SearchDetailViewOutput {
@@ -21,41 +23,26 @@ final class SearchDetailPresenter: SearchDetailViewOutput {
     
     weak var viewInput: (UIViewController & SearchDetailViewInput)?
     
-//    private var errorString: String? { didSet {
-//        guard let errorString  else {
-//            viewInput?.hideError()
-//            return
-//        }
-//        viewInput?.showError(errorString: errorString)
-//        }
-//    }
+    // MARK: Private properties
     
-//    private let animeProvider = AnimeDetailProvider()
-//
-//    private var entityList = [SearchContentProtocol]() {
-//        didSet {
-//            viewInput?.models = SearchModelFactory().makeModels(from: entityList)
-//        }
-//    }
-//
-//    private var providers: [SearchContentEnum: any ContentProviderProtocol] = [
-//        .anime: AnimeProvider(),
-//        .manga: MangaProvider(),
-//        .ranobe: RanobeProvider()
-//    ]
+    private var provider: any ContentProviderProtocol
+
+    // MARK: - Constructors
+    
+    init(provider: any ContentProviderProtocol) {
+        self.provider = provider
+    }
 
     // MARK: - Functions
 
-//    func fetchData() {
-//        animeProvider.fetchAnimeDetailData(id: <#T##Int#>, completion: { response, error in
-//            <#code#>
-//        })  {[weak self] data, error in
-//            if let data {
-//                self?.entityList = data
-//                return
-//            }
-//            self?.entityList.removeAll()
-//            self?.errorString = error
-//        }
-//    }
+    func fetchData(id: Int, completion: @escaping (SearchDetailModel) -> Void) {
+        provider.fetchDetailData(id: id, completion: { [weak self] response, error in
+            guard let response else {
+                self?.viewInput?.showAlert(title: Texts.ErrorMessage.failLoading, message: error)
+                return
+            }
+            let content = SearchDetailModelFactory().makeDetailModel(from: response)
+            completion(content)
+        })
+    }
 }

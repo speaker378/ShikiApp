@@ -20,11 +20,23 @@ protocol SearchDetailContentProtocol {
     var status: String? { get }
     var description: String? { get }
     var rating: String? { get }
-    var studioList: [String] { get }
-    var genreList: [String] { get }
+    var studios: [StudioDTO] { get }
+    var publishers: [PublisherDTO] { get }
+    var genres: [GenreDTO] { get }
     var episodes: Int? { get }
     var episodesAired: Int? { get }
     var volumes: Int? { get }
     var duration: Int? { get }
-
  }
+
+extension SearchDetailContentProtocol {
+    
+    var volumes: Int? { return nil }
+    var genres: [GenreDTO] { return [] }
+    var studios: [StudioDTO] { return [] }
+    var publishers: [PublisherDTO] { return [] }
+    var rating: String? { return nil }
+    var episodes: Int? { return nil }
+    var episodesAired: Int? { return nil }
+    var duration: Int? { return nil }
+}

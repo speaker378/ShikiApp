@@ -86,15 +86,9 @@ final class SearchPresenter: SearchViewOutput {
     }
 
     func viewDidSelectEntity(entity: SearchModel) {
-        providers[layer]?.fetchDetailData(id: entity.id, completion: { [weak self] response, error in
-            guard let response else {
-                // TODO: - добавить алерт об ошибке
-                return
-            }
-            let content = SearchDetailModelFactory().makeDetailModel(from: response)
-            let searchDetailViewController = SearchDetailBuilder.build(content: content)
-            self?.viewInput?.navigationController?.pushViewController(searchDetailViewController, animated: true)
-        })
+        guard let provider = providers[layer] else { return }
+        let searchDetailViewController = SearchDetailBuilder.build(id: entity.id, provider: provider)
+        viewInput?.navigationController?.pushViewController(searchDetailViewController, animated: true)
     }
 
     func fetchData() {

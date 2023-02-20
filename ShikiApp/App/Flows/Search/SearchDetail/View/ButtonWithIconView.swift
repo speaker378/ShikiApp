@@ -8,6 +8,12 @@
 import UIKit
 
 final class ButtonWithIconView: UIView {
+
+    // MARK: - Properties
+    
+    var tapHandler: (() -> Void)?
+
+    // MARK: - Private properties
     
     private let imageView = UIImageView()
     private let titleLabel: AppLabel = {
@@ -56,9 +62,10 @@ final class ButtonWithIconView: UIView {
     
     @objc private func tapped() {
         UIView.animate(withDuration: 0.3, delay: 0.0) {
-            self.layer.opacity = 0.95
+            self.layer.opacity = 0.9
         } completion: { _ in
             self.layer.opacity = 1.0
         }
+        tapHandler?()
     }
 }
