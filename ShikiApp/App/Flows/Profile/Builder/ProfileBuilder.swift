@@ -2,7 +2,6 @@
 //  ProfileBuilder.swift
 //  ShikiApp
 //
-//  Created as per https://www.youtube.com/watch?v=2z5uWBRGjFI
 
 import UIKit
 

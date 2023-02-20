@@ -5,9 +5,6 @@
 //  Created by Константин Шмондрик on 21.01.2023.
 //
 
-//  As per https://www.youtube.com/watch?v=2z5uWBRGjFI
-//  Layouts per Akulov Ivan, https://youtu.be/T92q6dHyE0E
-
 import UIKit
 
 class ProfileViewController: (UIViewController & ProfileViewInputProtocol) {
@@ -17,37 +14,33 @@ class ProfileViewController: (UIViewController & ProfileViewInputProtocol) {
     let presenter: ProfileViewOutputProtocol
     var model: UserProfileDTO?
 
-    private var userUrlString: String = ""
-
     // MARK: - Private Properties
 
-    private let lineWidth: CGFloat = 1
+    private let lineHeight: CGFloat = 1
     private let imageWidth: CGFloat = 100
-    private let linkImgWidth: CGFloat = 20
+    private let linkImgWidth: CGFloat = 16
     private let trailing = -16.0
     private let leading = 12.0
-    private let topInset = 12.0
-    private let bottom = -60.0
-    private let labelWidthMultiplier = 0.5
+    private let leadingForLinkButton = 5.84
+    private let topInset = 24.0
+    private let bottom = -48.0
+    private let versionLabelTopInset = 8
 
 
     private let topDivider: UIView = {
         let dividerView = UIView()
         dividerView.translatesAutoresizingMaskIntoConstraints = false
         dividerView.layer.borderWidth = 1
-        dividerView.layer.borderColor = UIColor.systemGray5.cgColor
+        dividerView.layer.borderColor = AppColor.line.cgColor
         return dividerView
     }()
-
 
     private let profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = AppImage.ErrorsIcons.noUserpicIcon
-        imageView.tintColor = UIColor.systemGray3
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 50
-        imageView.clipsToBounds = true
         return imageView
     }()
 
@@ -56,7 +49,7 @@ class ProfileViewController: (UIViewController & ProfileViewInputProtocol) {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = Texts.DummyTextForProfileVC.nameLabelText
         label.textAlignment = .left
-        label.font = AppFont.openSansFont(ofSize: 26, weight: .semiBold)
+        label.font = AppFont.openSansFont(ofSize: 20, weight: .semiBold)
         label.textColor = AppColor.textMain
         return label
     }()
@@ -66,7 +59,7 @@ class ProfileViewController: (UIViewController & ProfileViewInputProtocol) {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = Texts.DummyTextForProfileVC.sexAndAgeLabelText
         label.textAlignment = .left
-        label.font = AppFont.openSansFont(ofSize: 20, weight: .regular)
+        label.font = AppFont.openSansFont(ofSize: 16, weight: .regular)
         label.textColor = AppColor.textMain
         return label
     }()
@@ -83,7 +76,7 @@ class ProfileViewController: (UIViewController & ProfileViewInputProtocol) {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(Texts.DummyTextForProfileVC.webLinkText, for: .normal)
-        button.titleLabel?.font = AppFont.openSansFont(ofSize: 20, weight: .regular)
+        button.titleLabel?.font = AppFont.openSansFont(ofSize: 16, weight: .regular)
         button.titleLabel?.textColor = AppColor.accent
         return button
     }()
@@ -92,8 +85,8 @@ class ProfileViewController: (UIViewController & ProfileViewInputProtocol) {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(Texts.DummyTextForProfileVC.logoutButtonText, for: .normal)
-        button.tintColor = .red
-        button.titleLabel?.font = AppFont.openSansFont(ofSize: 20, weight: .regular)
+        button.tintColor = AppColor.red
+        button.titleLabel?.font = AppFont.openSansFont(ofSize: 16, weight: .regular)
         button.titleLabel?.textAlignment = .center
         return button
     }()
@@ -102,7 +95,7 @@ class ProfileViewController: (UIViewController & ProfileViewInputProtocol) {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = Texts.DummyTextForProfileVC.versionLabelText
-        label.font = AppFont.openSansFont(ofSize: 14, weight: .regular)
+        label.font = AppFont.openSansFont(ofSize: 12, weight: .regular)
         label.textColor = AppColor.textMinor
         return label
     }()
@@ -120,11 +113,6 @@ class ProfileViewController: (UIViewController & ProfileViewInputProtocol) {
     }
 
     // MARK: - Lifecycle
-
-    override func loadView() {
-        super.loadView()
-        setupViews()
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -148,105 +136,76 @@ class ProfileViewController: (UIViewController & ProfileViewInputProtocol) {
     }
 
     private func configureUI() {
-        setupConstraints()
+        setupViews()
+        setupConstraints1()
+        setupConstraints2()
     }
 
-    private func setupConstraints() {
+    private func setupConstraints1() {
         NSLayoutConstraint.activate([
-            topDivider.leadingAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.leadingAnchor,
-                constant: lineWidth
-            ),
-            topDivider.trailingAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.trailingAnchor,
-                constant: -lineWidth
-            ),
-            topDivider.heightAnchor.constraint(
-                equalToConstant: lineWidth
-            ),
+            topDivider.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            topDivider.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            topDivider.heightAnchor.constraint(equalToConstant: lineHeight),
             topDivider.topAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.topAnchor,
-                constant: topInset
+                equalTo: view.safeAreaLayoutGuide.topAnchor, constant: topInset
             ),
       
             profileImageView.leadingAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.leadingAnchor,
-                constant: leading
+                equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: leading
             ),
             profileImageView.topAnchor.constraint(
-                equalTo: topDivider.bottomAnchor,
-                constant: topInset
+                equalTo: topDivider.bottomAnchor, constant: topInset
             ),
-            profileImageView.widthAnchor.constraint(
-                equalToConstant: imageWidth
-            ),
-            profileImageView.heightAnchor.constraint(
-                equalToConstant: imageWidth
-            ),
+            profileImageView.widthAnchor.constraint(equalToConstant: imageWidth),
+            profileImageView.heightAnchor.constraint(equalToConstant: imageWidth),
       
             nameLabel.leadingAnchor.constraint(
-                equalTo: profileImageView.trailingAnchor,
-                constant: leading
+                equalTo: profileImageView.trailingAnchor, constant: leading
             ),
             nameLabel.topAnchor.constraint(
-                equalTo: profileImageView.topAnchor,
-                constant: topInset
+                equalTo: profileImageView.topAnchor, constant: topInset
             ),
-            nameLabel.widthAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.widthAnchor,
-                multiplier: labelWidthMultiplier
-            ),
-      
+            nameLabel.trailingAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: trailing
+            )
+        ])
+    }
+    
+    private func setupConstraints2() {
+        NSLayoutConstraint.activate([
             sexAndAgeLabel.leadingAnchor.constraint(
-                equalTo: profileImageView.trailingAnchor,
-                constant: leading
+                equalTo: profileImageView.trailingAnchor, constant: leading
             ),
-            sexAndAgeLabel.topAnchor.constraint(
-                equalTo: nameLabel.bottomAnchor
-            ),
-            sexAndAgeLabel.widthAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.widthAnchor,
-                multiplier: labelWidthMultiplier
+            sexAndAgeLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor),
+            sexAndAgeLabel.trailingAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: trailing
             ),
       
             linkImageView.leadingAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.leadingAnchor,
-                constant: leading
+                equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: leading
             ),
             linkImageView.topAnchor.constraint(
-                equalTo: profileImageView.bottomAnchor,
-                constant: topInset+topInset
+                equalTo: profileImageView.bottomAnchor, constant: -trailing
             ),
-            linkImageView.widthAnchor.constraint(
-                equalToConstant: linkImgWidth
-            ),
-            linkImageView.heightAnchor.constraint(
-                equalToConstant: linkImgWidth
-            ),
+            linkImageView.widthAnchor.constraint(equalToConstant: linkImgWidth),
+            linkImageView.heightAnchor.constraint(equalToConstant: linkImgWidth),
       
             linkButton.leadingAnchor.constraint(
-                equalTo: linkImageView.trailingAnchor,
-                constant: leading
+                equalTo: linkImageView.trailingAnchor, constant: leadingForLinkButton
             ),
             linkButton.topAnchor.constraint(
-                equalTo: profileImageView.bottomAnchor,
-                constant: topInset
+                equalTo: profileImageView.bottomAnchor, constant: 5
             ),
       
-            logoutButton.centerXAnchor.constraint(
-                equalTo: view.centerXAnchor
-            ),
+            logoutButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             logoutButton.bottomAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.bottomAnchor,
-                constant: bottom
+                equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: bottom
             ),
       
-            versionLabel.centerXAnchor.constraint(
-                equalTo: view.centerXAnchor
-            ),
+            versionLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             versionLabel.topAnchor.constraint(
                 equalTo: logoutButton.bottomAnchor,
-                constant: topInset
+                constant: CGFloat(versionLabelTopInset)
             )
         ])
     }
