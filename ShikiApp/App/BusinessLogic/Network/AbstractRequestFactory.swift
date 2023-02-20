@@ -33,8 +33,8 @@ class AbstractRequestFactory<API: EndPointType>: AbstractRequestFactoryProtocol 
 
     // MARK: - Constructions
 
-    init(token: String? = nil, agent: String? = nil) {
-        router = Router<API>(token: token, userAgent: agent)
+    init() {
+        router = Router<API>()
     }
 
     // MARK: - Funcions

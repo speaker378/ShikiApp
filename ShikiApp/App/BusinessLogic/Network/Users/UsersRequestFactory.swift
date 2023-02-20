@@ -269,8 +269,8 @@ final class UsersRequestFactory: UsersRequestFactoryProtocol {
     let delegate: (AbstractRequestFactory<UsersApi>)?
 
     // MARK: - Construction
-    
-    init(token: String? = nil, agent: String? = nil) {
-        self.delegate = AbstractRequestFactory<UsersApi>(token: token, agent: agent)
+
+    init() {
+        delegate = AbstractRequestFactory<UsersApi>()
     }
 }

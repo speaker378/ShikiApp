@@ -14,33 +14,27 @@ typealias NetworkRouterCompletion = (_ data: Data?, _ response: URLResponse?, _ 
 protocol NetworkRouter {
     
     associatedtype EndPoint: EndPointType
-    
-    var token: String? { get }
-    var userAgent: String? { get }
-    
+
     func request(_ route: EndPoint, completion: @escaping NetworkRouterCompletion)
     func cancel()
 }
 
 final class Router<EndPoint: EndPointType>: NetworkRouter {
 
-    // MARK: - Properties
-
-    var token: String?
-    var userAgent: String?
-
-    // MARK: - Properties
+    // MARK: - Private properties
 
     private let queue: OperationQueue
     private var task: URLSessionTask?
+    private let userAgent: String?
+    private let authManager: AuthManagerProtocol
 
     // MARK: - Construction
 
-    init(token: String?, userAgent: String?) {
+    init() {
         queue = OperationQueue()
         queue.qualityOfService = .utility
-        self.token = token
-        self.userAgent = userAgent
+        userAgent = Bundle.main.infoDictionary?["CFBundleName"] as? String
+        authManager = AuthManager.share
     }
 
     // MARK: - Functions
@@ -72,7 +66,7 @@ final class Router<EndPoint: EndPointType>: NetworkRouter {
             timeoutInterval: 10.0
         )
         request.httpMethod = route.httpMethod.rawValue
-        if let token = self.token {
+        if let token = authManager.getToken() {
             request.setValue("\(HttpConstants.bearer) \(token)", forHTTPHeaderField: HttpConstants.authorization)
         }
         if let userAgent = self.userAgent {

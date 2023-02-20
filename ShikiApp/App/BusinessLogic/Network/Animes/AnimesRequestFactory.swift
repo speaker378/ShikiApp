@@ -106,7 +106,7 @@ final class AnimesRequestFactory: AnimesRequestFactoryProtocol {
 
     // MARK: - Construction
 
-    init(token: String? = nil, agent: String? = nil) {
-        delegate = AbstractRequestFactory<AnimesApi>(token: token, agent: agent)
+    init() {
+        delegate = AbstractRequestFactory<AnimesApi>()
     }
 }
