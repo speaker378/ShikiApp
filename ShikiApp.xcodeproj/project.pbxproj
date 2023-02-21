@@ -123,6 +123,10 @@
 		3A05E293297D60B100987CFF /* NewsfeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A05E292297D60B100987CFF /* NewsfeedTableViewCell.swift */; };
 		3A05E295297E696200987CFF /* NewsfeedPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A05E294297E696200987CFF /* NewsfeedPresenter.swift */; };
 		3A05E299297E8EA500987CFF /* NewsfeedBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A05E298297E8EA500987CFF /* NewsfeedBuilder.swift */; };
+		3A17612329A4FEBA0069583B /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A17612229A4FEBA0069583B /* CoreDataStack.swift */; };
+		3A17612A29A5046C0069583B /* UserRates+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A17612829A5046C0069583B /* UserRates+CoreDataClass.swift */; };
+		3A17612E29A504D40069583B /* UserRatesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A17612D29A504D40069583B /* UserRatesProvider.swift */; };
+		3A17613929A531270069583B /* UserRates+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A17613729A531270069583B /* UserRates+CoreDataProperties.swift */; };
 		3A19C066298B757D0073D472 /* Date+toString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A19C065298B757D0073D472 /* Date+toString.swift */; };
 		3A19C068298B75A80073D472 /* String+htmlToString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A19C067298B75A80073D472 /* String+htmlToString.swift */; };
 		3A19C06A298B75B40073D472 /* String+toDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A19C069298B75B40073D472 /* String+toDate.swift */; };
@@ -333,6 +337,10 @@
 		3A05E292297D60B100987CFF /* NewsfeedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsfeedTableViewCell.swift; sourceTree = "<group>"; };
 		3A05E294297E696200987CFF /* NewsfeedPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsfeedPresenter.swift; sourceTree = "<group>"; };
 		3A05E298297E8EA500987CFF /* NewsfeedBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsfeedBuilder.swift; sourceTree = "<group>"; };
+		3A17612229A4FEBA0069583B /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		3A17612829A5046C0069583B /* UserRates+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserRates+CoreDataClass.swift"; sourceTree = "<group>"; };
+		3A17612D29A504D40069583B /* UserRatesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRatesProvider.swift; sourceTree = "<group>"; };
+		3A17613729A531270069583B /* UserRates+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserRates+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3A19C065298B757D0073D472 /* Date+toString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+toString.swift"; sourceTree = "<group>"; };
 		3A19C067298B75A80073D472 /* String+htmlToString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+htmlToString.swift"; sourceTree = "<group>"; };
 		3A19C069298B75B40073D472 /* String+toDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+toDate.swift"; sourceTree = "<group>"; };
@@ -924,6 +932,31 @@
 			path = NewsDetail;
 			sourceTree = "<group>";
 		};
+		3A17612129A4FEA50069583B /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				3A17612229A4FEBA0069583B /* CoreDataStack.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		3A17612C29A504BC0069583B /* CoreDataProvider */ = {
+			isa = PBXGroup;
+			children = (
+				3A17612D29A504D40069583B /* UserRatesProvider.swift */,
+			);
+			path = CoreDataProvider;
+			sourceTree = "<group>";
+		};
+		3A17612F29A506A30069583B /* UserRates */ = {
+			isa = PBXGroup;
+			children = (
+				3A17613729A531270069583B /* UserRates+CoreDataProperties.swift */,
+				3A17612829A5046C0069583B /* UserRates+CoreDataClass.swift */,
+			);
+			path = UserRates;
+			sourceTree = "<group>";
+		};
 		3A19C064298B757D0073D472 /* Date */ = {
 			isa = PBXGroup;
 			children = (
@@ -999,11 +1032,11 @@
 				16B0823E298A1F7600EB9061 /* Ranobes */,
 				3A7E4D652985492C00E7CA17 /* ApiFactory.swift */,
 				16130E5D2988183400A4EC94 /* Mangas */,
+				16B0823E298A1F7600EB9061 /* Ranobes */,
 				16130E4D29872D5200A4EC94 /* Animes */,
 				3A7E4D5E2985492C00E7CA17 /* Forums */,
 				3A7E4D662985492C00E7CA17 /* Users */,
 				3A7E4D762985492C00E7CA17 /* Topics */,
-				3A19C08129995AB60073D472 /* AuthManager.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -1180,6 +1213,7 @@
 		3A8F3114297441EB00F24DF7 /* BusinessLogic */ = {
 			isa = PBXGroup;
 			children = (
+				3A17612C29A504BC0069583B /* CoreDataProvider */,
 				006031BE297C086400CD9A16 /* AppStartManager */,
 				3A7E4D5D2985492C00E7CA17 /* Network */,
 			);
@@ -1194,6 +1228,7 @@
 				006240FF299AB37900498D51 /* Filters */,
 				16B0824E298BBB9900EB9061 /* Search */,
 				3A275771297EFE2500EFD543 /* News */,
+				3A17612F29A506A30069583B /* UserRates */,
 				3A8F30E82974395F00F24DF7 /* ShikiApp.xcdatamodeld */,
 			);
 			path = Entity;
@@ -1210,6 +1245,7 @@
 			isa = PBXGroup;
 			children = (
 				16DBE56E29B9F6E3001AEFBB /* UserDefaultsService */,
+				3A17612129A4FEA50069583B /* CoreData */,
 				3A7E4D9A2985496A00E7CA17 /* Network */,
 				0010CAB42977FF9A00F8705B /* Helpers */,
 				0010CABA297801A900F8705B /* UIComponents */,
@@ -1573,6 +1609,7 @@
 				3A05E295297E696200987CFF /* NewsfeedPresenter.swift in Sources */,
 				00624103299B6B2200498D51 /* FilterListModel.swift in Sources */,
 				3A7E4DA82985496A00E7CA17 /* URLParameterEncoder.swift in Sources */,
+				3A17612E29A504D40069583B /* UserRatesProvider.swift in Sources */,
 				006240EE29978B0600498D51 /* FiltersView.swift in Sources */,
 				006031B9297BCA7B00CD9A16 /* UserRatesViewController.swift in Sources */,
 				16D49EA9298EF5660008CAA4 /* RanobeProvider.swift in Sources */,
@@ -1585,6 +1622,7 @@
 				3A7E4D962985492C00E7CA17 /* NewsTopicsResponseDTO.swift in Sources */,
 				16C340222992714A0061785F /* ControlConstants.swift in Sources */,
 				0010CAB62977FFBE00F8705B /* AppColor.swift in Sources */,
+				3A17613929A531270069583B /* UserRates+CoreDataProperties.swift in Sources */,
 				16B08257298BEFB500EB9061 /* SearchView.swift in Sources */,
 				166FA79329894651009C2712 /* MangasRequestFactory.swift in Sources */,
 				1640B98C29914AAB0063AC8C /* CounterButton.swift in Sources */,
@@ -1596,6 +1634,7 @@
 				006031AF2979B79400CD9A16 /* TabBarViewController.swift in Sources */,
 				BA01BBE629B118BA00EA3EEB /* ListTableViewCell.swift in Sources */,
 				16B08263298C49F900EB9061 /* SearchContentEnum.swift in Sources */,
+				3A17612329A4FEBA0069583B /* CoreDataStack.swift in Sources */,
 				3A7E4D902985492C00E7CA17 /* BansResponseDTO.swift in Sources */,
 				3A19C084299A38E50073D472 /* KeychainManager.swift in Sources */,
 				3A19C068298B75A80073D472 /* String+htmlToString.swift in Sources */,
@@ -1604,6 +1643,7 @@
 				1634B66E29A8F3E0004A4B02 /* UserRatesEnums.swift in Sources */,
 				16D49EA5298EC9070008CAA4 /* AnimeProvider.swift in Sources */,
 				16B0825B298BEFFA00EB9061 /* SearchPresenter.swift in Sources */,
+				3A17612A29A5046C0069583B /* UserRates+CoreDataClass.swift in Sources */,
 				3A7E4D8A2985492C00E7CA17 /* AnimeRatesResponseDTO.swift in Sources */,
 				006031BB297BCA9600CD9A16 /* ProfileViewController.swift in Sources */,
 				3A19C07A29941B890073D472 /* OAuth2Credential.swift in Sources */,
