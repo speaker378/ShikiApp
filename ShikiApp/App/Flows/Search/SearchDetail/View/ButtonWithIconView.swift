@@ -61,7 +61,10 @@ final class ButtonWithIconView: UIView {
     }
     
     @objc private func tapped() {
-        UIView.animate(withDuration: 0.3, delay: 0.0) {
+        UIView.animate(
+            withDuration: 0.3,
+            delay: 0.0
+        ) {
             self.layer.opacity = 0.9
         } completion: { _ in
             self.layer.opacity = 1.0

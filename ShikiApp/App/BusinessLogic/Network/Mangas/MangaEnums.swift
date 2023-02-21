@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum MangaContentKind: String {
+enum MangaContentKind: String, CaseIterable {
     case manga
     case manhwa
     case manhua

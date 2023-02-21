@@ -59,17 +59,13 @@ final class ConvertationService {
     
     func extractStatus(status: String?, kind: String?) -> String {
         guard let status, let kind else { return "" }
-        switch kind {
-        case "manga", "manhwa", "manhua", "light_novel", "novel", "one_shot", "doujin":
-            return Constants.mangaStatuses[status] ?? ""
-        default:
-            return Constants.animeStatuses[status] ?? ""
-        }
+        let isManga = MangaContentKind.allCases.map { $0.rawValue }.contains(kind)
+        return isManga ? Constants.mangaStatuses[status] ?? "" : Constants.animeStatuses[status] ?? ""
     }
     
-    func extractRating(_ rating: String?) -> String {
-        guard let rating else { return "" }
-        return Constants.rating[rating] ?? ""
+    func extractRating(_ rating: String?) -> String? {
+        guard let rating else { return nil }
+        return Constants.rating[rating]
     }
     
     func extractGenres(_ genres: [GenreDTO]?) -> [String] {
@@ -85,5 +81,14 @@ final class ConvertationService {
         } else {
             return []
         }
+    }
+    
+    func extractDuration(duration: Int?, volumes: Int?) -> String {
+        if let duration {
+            return "\(duration) \(Texts.OtherMessage.minutes)"
+        } else if let volumes {
+            return "\(volumes) \(Texts.OtherMessage.volumes)"
+        }
+        return ""
     }
 }

@@ -61,6 +61,7 @@ enum Texts {
         static let openInYoutube = "Открыть в Youtube"
         static let episodes = "эп."
         static let minutes = "мин."
+        static let volumes = "т."
     }
     
     enum ButtonTitles {

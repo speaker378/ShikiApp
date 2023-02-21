@@ -8,9 +8,7 @@
 import UIKit
 
 protocol SearchDetailViewInput: AnyObject {
-    
     func showAlert(title: String, message: String?)
-    func addToList(_ content: SearchDetailModel)
 }
 
 protocol SearchDetailViewOutput: AnyObject {

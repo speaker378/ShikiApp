@@ -24,6 +24,7 @@ struct SearchDetailModel: Equatable {
     let episodesAired: Int?
     let volumes: Int?
     let duration: Int?
+    let durationOrVolumes: String
 }
 
 final class SearchDetailModelFactory {
@@ -44,6 +45,7 @@ final class SearchDetailModelFactory {
         let rating = service.extractRating(source.rating)
         let score = service.extractScore(source.score)
         let studios = service.extractStudios(studios: source.studios, publishers: source.publishers)
+        let duration = service.extractDuration(duration: source.duration, volumes: source.volumes)
         
         return SearchDetailModel(
             id: source.id,
@@ -60,7 +62,8 @@ final class SearchDetailModelFactory {
             episodes: source.episodes,
             episodesAired: source.episodesAired,
             volumes: source.volumes,
-            duration: source.duration
+            duration: source.duration,
+            durationOrVolumes: duration
         )
     }
 }

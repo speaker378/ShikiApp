@@ -71,7 +71,7 @@ final class ItemInfoView: UIView {
         scoreLabel.text = content.score
         typeAndDateLabel.text = "\(content.kindAndDate)"
         episodesLabel.text = makeEpisodesText(with: content)
-        durationLabel.text = makeDurationText(duration: content.duration)
+        durationLabel.text = content.durationOrVolumes
         
         configureUI()
     }
@@ -82,11 +82,6 @@ final class ItemInfoView: UIView {
         configureConstraints()
         configureRatingView()
         configureStudioView()
-    }
-    
-    private func makeDurationText(duration: Int?) -> String {
-        guard let duration else { return "" }
-        return "\(duration) \(Texts.OtherMessage.minutes)"
     }
     
     private func makeRatingView(with content: SearchDetailModel) -> ChipsView? {
