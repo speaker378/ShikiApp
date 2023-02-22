@@ -11,19 +11,19 @@ import CoreData
 
 extension UserRates {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<UserRates> {
+    @nonobjc static func fetchRequest() -> NSFetchRequest<UserRates> {
         return NSFetchRequest<UserRates>(entityName: "UserRates")
     }
 
-    @NSManaged public var id: Int64
-    @NSManaged public var score: Int16
-    @NSManaged public var status: String?
-    @NSManaged public var rewatches: Int64
-    @NSManaged public var episodes: Int64
-    @NSManaged public var volumes: Int64
-    @NSManaged public var chapters: Int64
-    @NSManaged public var createdAt: Date?
-    @NSManaged public var updatedAt: Date?
+    @NSManaged var id: Int64
+    @NSManaged var score: Int16
+    @NSManaged var status: String?
+    @NSManaged var rewatches: Int64
+    @NSManaged var episodes: Int64
+    @NSManaged var volumes: Int64
+    @NSManaged var chapters: Int64
+    @NSManaged var createdAt: Date?
+    @NSManaged var updatedAt: Date?
 
 }
 
