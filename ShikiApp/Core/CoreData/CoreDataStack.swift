@@ -9,10 +9,13 @@ import CoreData
 
 final class CoreDataStack {
 
+    // MARK: - Properties
+
+    lazy var managedContext: NSManagedObjectContext = self.storeContainer.viewContext
+
     // MARK: - Private properties
 
     private let modelName: String
-    lazy var managedContext: NSManagedObjectContext = self.storeContainer.viewContext
     private lazy var storeContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: self.modelName)
         container.loadPersistentStores { _, error in

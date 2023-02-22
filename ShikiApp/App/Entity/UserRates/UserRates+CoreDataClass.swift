@@ -9,9 +9,9 @@
 import CoreData
 
 @objc(UserRates)
-public class UserRates: NSManagedObject {
+class UserRates: NSManagedObject {
     
-    class func createOrUpdate(item: AnimeRateDTO, with stack: CoreDataStack) {
+    static func createOrUpdate(item: AnimeRateDTO, with stack: CoreDataStack) {
         var currentUserRate: UserRates?
         let newsPostFetch: NSFetchRequest<UserRates> = UserRates.fetchRequest()
         let newsItemIDPredicate = NSPredicate(format: "id == %i", item.id)
