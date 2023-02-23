@@ -71,7 +71,6 @@ final class ChipsBuilder {
     
     init(values: [String]) {
         self.values = values
-        
     }
 
     // MARK: - Functions

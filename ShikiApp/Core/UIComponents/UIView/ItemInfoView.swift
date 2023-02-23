@@ -151,12 +151,12 @@ final class ItemInfoView: UIView {
             episodesLabel.centerYAnchor.constraint(equalTo: statusChipsView.centerYAnchor),
             episodesLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
             episodesLabel.heightAnchor.constraint(equalToConstant: infoLabelHeight),
+            episodesLabel.leadingAnchor.constraint(equalTo: statusChipsView.trailingAnchor, constant: spacing),
             
             statusChipsView.topAnchor.constraint(
                 equalTo: typeAndDateLabel.bottomAnchor,
                 constant: Constants.Spacing.medium
             ),
-            statusChipsView.trailingAnchor.constraint(equalTo: episodesLabel.leadingAnchor, constant: -spacing),
             
             durationLabel.topAnchor.constraint(equalTo: episodesLabel.bottomAnchor, constant: Constants.Spacing.medium),
             durationLabel.trailingAnchor.constraint(equalTo: trailingAnchor),

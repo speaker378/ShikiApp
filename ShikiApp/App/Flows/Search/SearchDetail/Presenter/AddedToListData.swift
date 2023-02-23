@@ -12,6 +12,9 @@ final class AddedToListData {
     // MARK: - Properties
     
     static let shared = AddedToListData()
+
+    // MARK: - Private properties
+    
     private(set) var addedModels = [SearchDetailModel]()
 
     // MARK: - Constructions

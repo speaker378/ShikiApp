@@ -5,8 +5,7 @@
 //  Created by 👩🏻‍🎨 📱 december11 on 17.02.2023.
 //
 //
-// import Foundation
-//
+
 protocol SearchDetailContentProtocol {
     
     var id: Int { get }

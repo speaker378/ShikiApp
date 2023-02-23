@@ -8,6 +8,8 @@
 import UIKit
 
 final class ChipsTableViewCell: UITableViewCell {
+
+    // MARK: - Private properties
     
     private let verticalInset = 2.0
     private let stackView: UIStackView = {
@@ -29,6 +31,8 @@ final class ChipsTableViewCell: UITableViewCell {
             stackView.addArrangedSubview(chipsView)
         }
     }
+
+    // MARK: - Private functions
     
     private func configureConstraints() {
         NSLayoutConstraint.activate([

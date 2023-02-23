@@ -7,7 +7,7 @@
 
 import UIKit
 
-// MARK: - SearchBuilder
+// MARK: - SearchDetailBuilder
 
 final class SearchDetailBuilder {
     
