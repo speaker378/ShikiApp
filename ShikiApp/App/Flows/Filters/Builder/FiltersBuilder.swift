@@ -7,12 +7,16 @@
 
 import UIKit
 
+// MARK: - FiltersBuilder
+
 final class FiltersBuilder {
-    
-    static func build(filters: FiltersModel) -> (UIViewController & FiltersViewInput) {
+
+    // MARK: - Functions
+
+    static func build(consumer: FilterConsumerProtocol, filters: FiltersModel) -> (UIViewController & FiltersViewInput) {
         let presenter = FiltersPresenter()
         let viewController = FiltersViewController(presenter: presenter, filters: filters)
-        
+        presenter.consumer = consumer
         presenter.viewInput = viewController
         return viewController
     }

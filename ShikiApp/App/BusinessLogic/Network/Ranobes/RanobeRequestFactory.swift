@@ -76,7 +76,7 @@ extension RanobeRequestFactoryProtocol {
         }
         return parameters
     }
-
+    
     private func validateListFilters(filters: RanobeListFilters) -> Parameters {
         var parameters = Parameters()
         if let status = filters.status {

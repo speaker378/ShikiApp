@@ -54,7 +54,7 @@ final class SearchPresenter: SearchViewOutput {
     } }
     private var entityList = [SearchContentProtocol]() { didSet { refreshView() } }
     private var isLoading = false
-
+    private let filtersModelFactory = FiltersModelFactory()
     private var providers: [SearchContentEnum: any ContentProviderProtocol] = [
         .anime: AnimeProvider(),
         .manga: MangaProvider(),
@@ -68,13 +68,17 @@ final class SearchPresenter: SearchViewOutput {
     }
 
     func requestFilters() {
-        let filtersViewController = FiltersBuilder.build(filters: FiltersModelFactory().filtersList)
+        let filtersViewController = FiltersBuilder.build(
+            consumer: self,
+            filters: filtersModelFactory.buildFiltersModel(layer: layer)
+        )
         viewInput?.navigationController?.pushViewController(filtersViewController, animated: true)
     }
     
     func setFilter(filter: Any?) {
         guard let count = providers[layer]?.setFilters(filters: filter) else { return }
         viewInput?.setFiltersCounter(count: count)
+        fetchFirstPage()
     }
 
     func setLayer(layer: SearchContentEnum) {
@@ -109,7 +113,7 @@ final class SearchPresenter: SearchViewOutput {
     }
     
     private func buildHeader() -> String {
-        if (searchString ?? "").isEmpty {
+        if (searchString ?? "").isEmpty && providers[layer]?.getFiltersCount() ?? 0 == 0 {
             return "\(Constants.SearchHeader.emptyStringResult) \(layer.rawValue.lowercased())"
         }
         if page == 0 && entityList.isEmpty {
@@ -141,4 +145,16 @@ final class SearchPresenter: SearchViewOutput {
             self?.isLoading = false
         }
     }
+}
+
+extension SearchPresenter: FilterConsumerProtocol {
+
+    // MARK: - Functions
+
+    func applyFilterList(filters: FilterListModel) {
+        let filter = filtersModelFactory.buildFilter(filters: filters, layer: layer)
+        setFilter(filter: filter)
+        viewInput?.navigationController?.popViewController(animated: true)
+    }
+    
 }
