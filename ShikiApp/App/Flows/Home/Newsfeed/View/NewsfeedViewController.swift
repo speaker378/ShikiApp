@@ -147,6 +147,7 @@ class NewsfeedViewController: (UIViewController & NewsfeedViewInput) {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.prefetchDataSource = self
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
         setupPullToRefresh()
         activityIndicator.startAnimating()
         configureRightBarItem()
