@@ -98,6 +98,7 @@ final class TopicsApiTests: XCTestCase {
     }
 
     func testAddTopic() throws {
+        if !AuthManager.share.isAuth() { return }
         let request = "addTopic"
         var topic: TopicDTO?
         var error: String?
@@ -134,6 +135,7 @@ final class TopicsApiTests: XCTestCase {
         }
     }
     func testDeleteTopic() throws {
+        if !AuthManager.share.isAuth() { return }
         let request = "deleteTopic"
         var topic: DeleteTopicResponseDTO?
         var error: String?
@@ -170,6 +172,7 @@ final class TopicsApiTests: XCTestCase {
     }
     
     func testChangeTopic() throws {
+        if !AuthManager.share.isAuth() { return }
         let request = "putTopic"
         var topic: TopicDTO?
         var error: String?
