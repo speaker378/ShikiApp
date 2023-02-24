@@ -2,16 +2,19 @@
 //  ProfilePresenter.swift
 //  ShikiApp
 //
-  
+
 import UIKit
 
 protocol ProfileViewInputProtocol: AnyObject {
     var model: UserProfileDTO? { get set }
+    var isAuth: Bool { get set }
 }
 
 protocol ProfileViewOutputProtocol: AnyObject {
     func viewDidSelectUser(user: UserProfileDTO)
     func fetchData()
+    func didPressedLogoutButton()
+    func isAuth() -> Bool
 }
 
 final class ProfilePresenter: ProfileViewOutputProtocol {
@@ -22,19 +25,55 @@ final class ProfilePresenter: ProfileViewOutputProtocol {
 
     // MARK: - Private properties
 
-    private var user: UserModelAPI {
-        return USERMODEL
-    }
+    private let apiFactory = ApiFactory.makeUsersApi()
+    private let modelFactory = UserModelFactory()
+    private var userData: UserDTO
+    
+    // MARK: - Private functions
+    
+    private func fetchDataFromServer(completion: @escaping () -> Void) {
+            apiFactory.whoAmI(
+            ) { [weak self] data, _ in
+                guard var data else {
+                    return
+                }
+                self?.userData = data
+            completion()
+        }
+        }
 
     // MARK: - Functions
 
     func viewDidSelectUser(user: UserProfileDTO) {
-    
     }
 
     func fetchData() {
-    
+        if AuthManager.share.isAuth() == true {
+            fetchDataFromServer { [weak self] in
+                guard let self else { return }
+                self.userData = self.userData
+            }
+        } else {
+            print("User is not logged in")
+        }
     }
+    
+    func didPressedLogoutButton() {
+            if isAuth() {
+                AuthManager.share.logOut()
+                viewInput?.isAuth = false
+            } else {
+                AuthManager.share.auth { [weak self] result in
+                    DispatchQueue.main.async {
+                        self?.viewInput?.isAuth = result
+                    }
+                }
+            }
+        }
+        
+        func isAuth() -> Bool {
+            AuthManager.share.isAuth()
+        }
 }
 
   
