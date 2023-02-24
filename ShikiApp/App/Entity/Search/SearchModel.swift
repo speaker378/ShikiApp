@@ -20,7 +20,7 @@ final class SearchModelFactory {
     // MARK: - Private functions
     
     private func viewModel(from source: SearchContentProtocol) -> SearchModel {
-        let service = ConvertationService()
+        let service = SearchModelInfoService()
         let delimiter = "·"
         let id = source.id
         let urlString = service.extractUrlString(image: source.image)

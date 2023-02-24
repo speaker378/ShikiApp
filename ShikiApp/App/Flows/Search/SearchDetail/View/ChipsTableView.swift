@@ -15,7 +15,7 @@ final class ChipsTableView: UITableView {
     private var values = [String]()
     private var chipValues = [[String]]()
 
-    // MARK: - Consructions
+    // MARK: - Construction
     
     init(values: [String]) {
         self.values = values
@@ -52,7 +52,7 @@ extension ChipsTableView: UITableViewDataSource {
             chipValues.indices.contains(indexPath.row),
             let cell: ChipsTableViewCell = tableView.cell(forRowAt: indexPath)
         else { return UITableViewCell() }
-        
+        cell.selectionStyle = .none
         cell.configure(content: chipValues[indexPath.row])
         return cell
     }

@@ -1,5 +1,5 @@
 //
-//  ConvertationService.swift
+//  SearchModelInfoService.swift
 //  ShikiApp
 //
 //  Created by 👩🏻‍🎨 📱 december11 on 20.02.2023.
@@ -7,11 +7,11 @@
 
 import UIKit
 
-final class ConvertationService {
+/// подготовка отображения информации на экранах Поиска и детальной инфы о тайтле
+final class SearchModelInfoService {
 
     // MARK: - Private properties
     
-    private var delimiter: String { return "·" }
     private var dateYearFormatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateFormat = Constants.DateFormatter.yearMonthDay

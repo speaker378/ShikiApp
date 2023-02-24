@@ -30,7 +30,7 @@ struct SearchDetailModel: Equatable {
 final class SearchDetailModelFactory {
     
     func makeDetailModel(from source: SearchDetailContentProtocol) -> SearchDetailModel {
-        let service = ConvertationService()
+        let service = SearchModelInfoService()
         let delimiter = "·"
         let urlString = service.extractUrlString(image: source.image)
         let airedReleasedDates = service.extractYears(

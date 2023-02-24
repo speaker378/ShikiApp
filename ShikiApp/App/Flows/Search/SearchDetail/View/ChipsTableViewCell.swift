@@ -39,7 +39,7 @@ final class ChipsTableViewCell: UITableViewCell {
             stackView.topAnchor.constraint(equalTo: topAnchor, constant: verticalInset),
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
             stackView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor),
-            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: verticalInset)
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -verticalInset)
         ])
     }
 }
