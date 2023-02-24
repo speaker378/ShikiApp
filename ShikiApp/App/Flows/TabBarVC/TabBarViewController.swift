@@ -57,22 +57,21 @@ final class TabBarViewController: UITabBarController, UITabBarControllerDelegate
         navVC.navigationBar.backgroundColor = AppColor.backgroundMain
         navVC.navigationBar.isTranslucent = true
         navVC.navigationBar.prefersLargeTitles = true
-        navVC.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: AppColor.textMain]
-        navVC.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: AppColor.textMain]
-        navVC.navigationBar.largeTitleTextAttributes = [
-            NSAttributedString.Key.font: AppFont.openSansFont(ofSize: 28, weight: .extraBold)
-        ]
-        navVC.navigationBar.titleTextAttributes = [
-            NSAttributedString.Key.font: AppFont.openSansFont(ofSize: 20, weight: .semiBold)
-        ]
         
         let navigationBarAppearance = UINavigationBarAppearance()
         navigationBarAppearance.configureWithTransparentBackground()
+        navigationBarAppearance.backgroundColor = AppColor.backgroundMain
+        navigationBarAppearance.titleTextAttributes = [
+            NSAttributedString.Key.font: AppFont.openSansFont(ofSize: 20, weight: .semiBold),
+            NSAttributedString.Key.foregroundColor: AppColor.textMain
+        ]
+        navigationBarAppearance.largeTitleTextAttributes = [
+            NSAttributedString.Key.font: AppFont.openSansFont(ofSize: 28, weight: .extraBold),
+            NSAttributedString.Key.foregroundColor: AppColor.textMain
+        ]
         UINavigationBar.appearance().standardAppearance = navigationBarAppearance
         UINavigationBar.appearance().compactAppearance = navigationBarAppearance
         UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
-        navigationBarAppearance.backgroundColor = AppColor.backgroundMain
-        
         with.navigationItem.title = title
         with.view.backgroundColor = AppColor.backgroundMain
         
