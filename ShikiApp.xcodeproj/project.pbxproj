@@ -61,6 +61,12 @@
 		16130E5829873BEF00A4EC94 /* AnimeListFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16130E5729873BEF00A4EC94 /* AnimeListFilters.swift */; };
 		16130E5A29873C7600A4EC94 /* AnimeEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16130E5929873C7600A4EC94 /* AnimeEnums.swift */; };
 		16130E5C29875FA700A4EC94 /* AnimesApiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16130E5B29875FA700A4EC94 /* AnimesApiTests.swift */; };
+		1634B66A29A8E579004A4B02 /* UserRatesApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1634B66929A8E579004A4B02 /* UserRatesApi.swift */; };
+		1634B66C29A8F248004A4B02 /* UserRatesDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1634B66B29A8F248004A4B02 /* UserRatesDTO.swift */; };
+		1634B66E29A8F3E0004A4B02 /* UserRatesEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1634B66D29A8F3E0004A4B02 /* UserRatesEnums.swift */; };
+		1634B67029A8F5BE004A4B02 /* UserRatesRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1634B66F29A8F5BE004A4B02 /* UserRatesRequestFactory.swift */; };
+		1634B67229A92208004A4B02 /* UserRatesApiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1634B67129A92208004A4B02 /* UserRatesApiTests.swift */; };
+		1634B67429A93E14004A4B02 /* UserRatesState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1634B67329A93E14004A4B02 /* UserRatesState.swift */; };
 		1640B98A299131480063AC8C /* CustomSegmentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1640B989299131480063AC8C /* CustomSegmentControl.swift */; };
 		1640B98C29914AAB0063AC8C /* CounterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1640B98B29914AAB0063AC8C /* CounterButton.swift */; };
 		165DCDB8298FF50A0087CEDF /* HttpConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7E4D9B2985496A00E7CA17 /* HttpConstants.swift */; };
@@ -228,6 +234,12 @@
 		16130E5729873BEF00A4EC94 /* AnimeListFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeListFilters.swift; sourceTree = "<group>"; };
 		16130E5929873C7600A4EC94 /* AnimeEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeEnums.swift; sourceTree = "<group>"; };
 		16130E5B29875FA700A4EC94 /* AnimesApiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimesApiTests.swift; sourceTree = "<group>"; };
+		1634B66929A8E579004A4B02 /* UserRatesApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRatesApi.swift; sourceTree = "<group>"; };
+		1634B66B29A8F248004A4B02 /* UserRatesDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRatesDTO.swift; sourceTree = "<group>"; };
+		1634B66D29A8F3E0004A4B02 /* UserRatesEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRatesEnums.swift; sourceTree = "<group>"; };
+		1634B66F29A8F5BE004A4B02 /* UserRatesRequestFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRatesRequestFactory.swift; sourceTree = "<group>"; };
+		1634B67129A92208004A4B02 /* UserRatesApiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRatesApiTests.swift; sourceTree = "<group>"; };
+		1634B67329A93E14004A4B02 /* UserRatesState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRatesState.swift; sourceTree = "<group>"; };
 		1640B989299131480063AC8C /* CustomSegmentControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentControl.swift; sourceTree = "<group>"; };
 		1640B98B29914AAB0063AC8C /* CounterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterButton.swift; sourceTree = "<group>"; };
 		166FA78C29894235009C2712 /* MangasApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangasApi.swift; sourceTree = "<group>"; };
@@ -602,6 +614,26 @@
 			path = DTOModels;
 			sourceTree = "<group>";
 		};
+		1634B66729A8E522004A4B02 /* UserRates */ = {
+			isa = PBXGroup;
+			children = (
+				1634B67329A93E14004A4B02 /* UserRatesState.swift */,
+				1634B66829A8E535004A4B02 /* DTOModels */,
+				1634B66929A8E579004A4B02 /* UserRatesApi.swift */,
+				1634B66D29A8F3E0004A4B02 /* UserRatesEnums.swift */,
+				1634B66F29A8F5BE004A4B02 /* UserRatesRequestFactory.swift */,
+			);
+			path = UserRates;
+			sourceTree = "<group>";
+		};
+		1634B66829A8E535004A4B02 /* DTOModels */ = {
+			isa = PBXGroup;
+			children = (
+				1634B66B29A8F248004A4B02 /* UserRatesDTO.swift */,
+			);
+			path = DTOModels;
+			sourceTree = "<group>";
+		};
 		1640B988299130E80063AC8C /* Controls */ = {
 			isa = PBXGroup;
 			children = (
@@ -792,6 +824,7 @@
 		3A7E4D5D2985492C00E7CA17 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				1634B66729A8E522004A4B02 /* UserRates */,
 				16B0823E298A1F7600EB9061 /* Ranobes */,
 				3A7E4D632985492C00E7CA17 /* AbstractRequestFactory.swift */,
 				3A7E4D652985492C00E7CA17 /* ApiFactory.swift */,
@@ -935,6 +968,7 @@
 				3A7E4DAB2985498C00E7CA17 /* UsersApiTests.swift */,
 				16B0823C298A133100EB9061 /* MangasApiTests.swift */,
 				16B0824C298A267900EB9061 /* RanobeApiTests.swift */,
+				1634B67129A92208004A4B02 /* UserRatesApiTests.swift */,
 			);
 			path = ShikiAppTests;
 			sourceTree = "<group>";
@@ -1304,6 +1338,7 @@
 				3A19C068298B75A80073D472 /* String+htmlToString.swift in Sources */,
 				3A7E4D8C2985492C00E7CA17 /* UnreadMessagesResponseDTO.swift in Sources */,
 				3A19C066298B757D0073D472 /* Date+toString.swift in Sources */,
+				1634B66E29A8F3E0004A4B02 /* UserRatesEnums.swift in Sources */,
 				16D49EA5298EC9070008CAA4 /* AnimeProvider.swift in Sources */,
 				16B0825B298BEFFA00EB9061 /* SearchPresenter.swift in Sources */,
 				3A7E4D8A2985492C00E7CA17 /* AnimeRatesResponseDTO.swift in Sources */,
@@ -1311,6 +1346,7 @@
 				3A19C07A29941B890073D472 /* OAuth2Credential.swift in Sources */,
 				16B08247298A22B300EB9061 /* RanobeApi.swift in Sources */,
 				3A7E4D8D2985492C00E7CA17 /* UserHistoryResponseDTO.swift in Sources */,
+				1634B67029A8F5BE004A4B02 /* UserRatesRequestFactory.swift in Sources */,
 				006240E829977E4B00498D51 /* FiltersViewController.swift in Sources */,
 				BA27FB5529964EF5007C3BEC /* CGSize+scaling.swift in Sources */,
 				16B0824B298A243C00EB9061 /* RanobeDetailsDTO.swift in Sources */,
@@ -1351,6 +1387,7 @@
 				006240FA299A75E600498D51 /* UIView+roundCorners.swift in Sources */,
 				0010CAC82978161600F8705B /* UITableView+RegisterCell.swift in Sources */,
 				16130E562987371500A4EC94 /* AnimeDetailsDTO.swift in Sources */,
+				1634B67429A93E14004A4B02 /* UserRatesState.swift in Sources */,
 				0010CADF29784E3C00F8705B /* Constants.swift in Sources */,
 				006031B7297BCA6800CD9A16 /* SearchViewController.swift in Sources */,
 				006240F32997AF7C00498D51 /* UIApplication+Extensions.swift in Sources */,
@@ -1367,6 +1404,7 @@
 				166FA791298945E2009C2712 /* MangaListFilters.swift in Sources */,
 				3A05E293297D60B100987CFF /* NewsfeedTableViewCell.swift in Sources */,
 				3A8F30E02974395F00F24DF7 /* AppDelegate.swift in Sources */,
+				1634B66A29A8E579004A4B02 /* UserRatesApi.swift in Sources */,
 				3A7E4D862985492C00E7CA17 /* UsersApi.swift in Sources */,
 				16130E5A29873C7600A4EC94 /* AnimeEnums.swift in Sources */,
 				16B08243298A21A400EB9061 /* RanobeEnums.swift in Sources */,
@@ -1388,6 +1426,7 @@
 				16130E5829873BEF00A4EC94 /* AnimeListFilters.swift in Sources */,
 				006240EA29977E7200498D51 /* FiltersBuilder.swift in Sources */,
 				3A1A096E2985400900846058 /* NewsDetailPresenter.swift in Sources */,
+				1634B66C29A8F248004A4B02 /* UserRatesDTO.swift in Sources */,
 				3A8F30E22974395F00F24DF7 /* SceneDelegate.swift in Sources */,
 				16B08250298BBBDC00EB9061 /* SearchModel.swift in Sources */,
 				16B08245298A225100EB9061 /* RanobeListFilters.swift in Sources */,
@@ -1413,6 +1452,7 @@
 				16130E5C29875FA700A4EC94 /* AnimesApiTests.swift in Sources */,
 				0010CAE029784E3C00F8705B /* Constants.swift in Sources */,
 				3A7E4DB02985498C00E7CA17 /* TopicsApiTests.swift in Sources */,
+				1634B67229A92208004A4B02 /* UserRatesApiTests.swift in Sources */,
 				16092D04299B8D7C00CEE770 /* AppColor.swift in Sources */,
 				3A7E4DAF2985498C00E7CA17 /* ForumsApiTests.swift in Sources */,
 			);
