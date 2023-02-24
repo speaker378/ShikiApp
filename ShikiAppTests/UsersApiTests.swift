@@ -94,6 +94,7 @@ final class UsersApiTests: XCTestCase {
     }
 
     func testWhoAmI() throws {
+        if !AuthManager.share.isAuth() { return }
         let request = "whoAmI"
         var response: UserDTO?
         var error: String?
@@ -109,6 +110,7 @@ final class UsersApiTests: XCTestCase {
     }
     
     func testGetUserFriends() throws {
+        if !AuthManager.share.isAuth() { return }
         let request = "getUserFriends"
         var response: FriendsResponseDTO?
         var error: String?
@@ -128,6 +130,7 @@ final class UsersApiTests: XCTestCase {
     }
     
     func testGetUserClubs() throws {
+        if !AuthManager.share.isAuth() { return }
         let request = "getUserClubs"
         var response: ClubsResponseDTO?
         var error: String?
@@ -147,6 +150,7 @@ final class UsersApiTests: XCTestCase {
     }
     
     func testGetUserAnimeRates() throws {
+        if !AuthManager.share.isAuth() { return }
         let request = "getUserAnimeRates"
         var response: AnimeRatesResponseDTO?
         var error: String?
@@ -166,6 +170,7 @@ final class UsersApiTests: XCTestCase {
     }
     
     func testGetUserFavorites() throws {
+        if !AuthManager.share.isAuth() { return }
         let request = "getUserFavorites"
         var response: UserFavoritesResponseDTO?
         var error: String?
@@ -185,6 +190,7 @@ final class UsersApiTests: XCTestCase {
     }
     
     func testGetUserMangaRates() throws {
+        if !AuthManager.share.isAuth() { return }
         let request = "getUserMangaRates"
         var response: MangaRatesResponseDTO?
         var error: String?
@@ -204,6 +210,7 @@ final class UsersApiTests: XCTestCase {
     }
     
     func testGetUserMessages() throws {
+        if !AuthManager.share.isAuth() { return }
         let request = "getUserMessages"
         var response: MessagesResponseDTO?
         var error: String?
@@ -223,6 +230,7 @@ final class UsersApiTests: XCTestCase {
     }
     
     func testGetUnreadMessages() throws {
+        if !AuthManager.share.isAuth() { return }
         let request = "getUnreadMessages"
         var response: UnreadMessagesResponseDTO?
         var error: String?
@@ -242,6 +250,7 @@ final class UsersApiTests: XCTestCase {
     }
     
     func testGetHistory() throws {
+        if !AuthManager.share.isAuth() { return }
         let request = "getHistory"
         var response: UserHistoryResponseDTO?
         var error: String?
@@ -261,6 +270,7 @@ final class UsersApiTests: XCTestCase {
     }
     
     func testGetBans() throws {
+        if !AuthManager.share.isAuth() { return }
         let request = "getBans"
         var response: BansResponseDTO?
         var error: String?
