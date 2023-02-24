@@ -46,9 +46,23 @@ final class TabBarViewController: UITabBarController, UITabBarControllerDelegate
         tabBarAppearance.configureWithTransparentBackground()
         UITabBar.appearance().standardAppearance = tabBarAppearance
         UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
-        UITabBar.appearance().unselectedItemTintColor = AppColor.textMain
         UITabBar.appearance().tintColor = AppColor.accent
-        UITabBar.appearance().backgroundColor = AppColor.backgroundMain
+        tabBarAppearance.backgroundColor = AppColor.backgroundMain
+        tabBarAppearance.compactInlineLayoutAppearance.normal.iconColor = AppColor.textMain
+        tabBarAppearance.compactInlineLayoutAppearance.normal.titleTextAttributes = [
+            .foregroundColor: AppColor.textMain,
+            .font: AppFont.openSansFont(ofSize: 11)
+        ]
+        tabBarAppearance.inlineLayoutAppearance.normal.iconColor = AppColor.textMain
+        tabBarAppearance.inlineLayoutAppearance.normal.titleTextAttributes = [
+            .foregroundColor: AppColor.textMain,
+            .font: AppFont.openSansFont(ofSize: 11)
+        ]
+        tabBarAppearance.stackedLayoutAppearance.normal.iconColor = AppColor.textMain
+        tabBarAppearance.stackedLayoutAppearance.normal.titleTextAttributes = [
+            .foregroundColor: AppColor.textMain,
+            .font: AppFont.openSansFont(ofSize: 11)
+        ]
     }
     
     private func wrappedInNavigationController(with: UIViewController, title: String) -> UINavigationController {
@@ -60,6 +74,9 @@ final class TabBarViewController: UITabBarController, UITabBarControllerDelegate
         
         let navigationBarAppearance = UINavigationBarAppearance()
         navigationBarAppearance.configureWithTransparentBackground()
+        UINavigationBar.appearance().standardAppearance = navigationBarAppearance
+        UINavigationBar.appearance().compactAppearance = navigationBarAppearance
+        UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
         navigationBarAppearance.backgroundColor = AppColor.backgroundMain
         navigationBarAppearance.titleTextAttributes = [
             NSAttributedString.Key.font: AppFont.openSansFont(ofSize: 20, weight: .semiBold),
@@ -69,9 +86,6 @@ final class TabBarViewController: UITabBarController, UITabBarControllerDelegate
             NSAttributedString.Key.font: AppFont.openSansFont(ofSize: 28, weight: .extraBold),
             NSAttributedString.Key.foregroundColor: AppColor.textMain
         ]
-        UINavigationBar.appearance().standardAppearance = navigationBarAppearance
-        UINavigationBar.appearance().compactAppearance = navigationBarAppearance
-        UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
         with.navigationItem.title = title
         with.view.backgroundColor = AppColor.backgroundMain
         
