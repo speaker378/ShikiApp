@@ -29,6 +29,7 @@ final class ChipsTableView: UITableView {
     
     private func configure() {
         dataSource = self
+        isScrollEnabled = false
         chipValues = ChipsBuilder(values: values).makeChipsValues()
         registerCell(ChipsTableViewCell.self)
         separatorStyle = .none
