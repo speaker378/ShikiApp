@@ -37,11 +37,6 @@ class UserRatesViewController: UIViewController, UserRatesViewInput {
 
     // MARK: - Lifecycle
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.changeSegmentedValueChanged(index: 0)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         contentView.delegate = self

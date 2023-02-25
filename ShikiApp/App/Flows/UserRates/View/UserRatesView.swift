@@ -18,7 +18,6 @@ class UserRatesView: UIView {
     // MARK: - Properties
 
     var model: [UserRatesModel]
-    
     var filteredModel: [UserRatesModel] = [] {
         didSet {
             DispatchQueue.main.async {
@@ -26,11 +25,9 @@ class UserRatesView: UIView {
             }
         }
     }
-    
     var index: Int = 0
 
     weak var delegate: UserRatesViewDlegate?
-    
     
     var selectedButton = SelectedButton()
     var dataSource = [String]()
