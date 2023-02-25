@@ -61,7 +61,7 @@ struct Constants {
     }
 
     enum Dates {
-        static let startYearForFilter = 1970
+        static let startYearForFilter = 1917
     }
 
     enum SearchHeader {
@@ -107,10 +107,6 @@ struct Constants {
         "paused": "Приостановлено",
         "discontinued": "Прекращено"
     ]
-
-    static let contentStartYear = 1917
-
-    static let contentEndYear = 2923
 
     static let singleDateKinds = ["movie", "music", "one_shot"]
 
