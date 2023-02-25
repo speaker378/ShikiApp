@@ -42,7 +42,9 @@ class UserRatesViewController: UIViewController, UserRatesViewInput {
         contentView.delegate = self
         configureUI()
     }
-    
+
+    // MARK: - Private functions
+
     private func configureUI() {
         view.backgroundColor = AppColor.backgroundMain
         view.addSubview(scrollView)
