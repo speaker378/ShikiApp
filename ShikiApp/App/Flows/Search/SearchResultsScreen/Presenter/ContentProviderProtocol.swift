@@ -21,6 +21,7 @@ protocol ContentProviderProtocol {
     // MARK: - Functions
 
     func setFilters(filters: Any?) -> Int
+    func getFiltersCounter() -> Int
     func getFilters() -> ListFilters<ContentKind, ContentStatus>?
     func fetchData(searchString: String?, page: Int, completion: @escaping (_ response: [SearchContentProtocol]?, _ error: String?) -> Void )
 }

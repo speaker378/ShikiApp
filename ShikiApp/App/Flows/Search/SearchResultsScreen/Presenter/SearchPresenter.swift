@@ -83,6 +83,8 @@ final class SearchPresenter: SearchViewOutput {
 
     func setLayer(layer: SearchContentEnum) {
         self.layer = layer
+        guard let count = providers[layer]?.getFiltersCounter() else { return }
+        viewInput?.setFiltersCounter(count: count)
     }
 
     func setSearchString(searchString: String?) {

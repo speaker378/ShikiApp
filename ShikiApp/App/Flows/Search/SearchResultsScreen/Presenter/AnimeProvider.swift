@@ -29,6 +29,10 @@ final class AnimeProvider: ContentProviderProtocol {
         return getFiltersCount()
     }
 
+    func getFiltersCounter() -> Int {
+        return getFiltersCount()
+    }
+    
     func getFilters() -> ListFilters<ContentKind, ContentStatus>? { filters }
 
     func fetchData(searchString: String? = nil, page: Int = 1, completion: @escaping (_ response: [SearchContentProtocol]?, _ error: String?) -> Void) {

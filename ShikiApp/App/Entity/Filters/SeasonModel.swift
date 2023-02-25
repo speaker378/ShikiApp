@@ -1,5 +1,5 @@
 //
-//  SeasonViewModel.swift
+//  SeasonModel.swift
 //  ShikiApp
 //
 //  Created by Алексей Шинкарев on 22.02.2023.
@@ -7,24 +7,29 @@
 
 import Foundation
 
-// MARK: - SeasonViewModel
+// MARK: - SeasonModel
 
-struct SeasonViewModel {
-    let season: String
-    let year: Int
-    var description: String {
-        "\(season) \(year)"
+struct SeasonModel {
+
+    // MARK: - Properties
+
+    var description: String
+
+    // MARK: - Constructions
+
+    init(season: String, year: Int) {
+        description = "\(season) \(year)"
     }
 }
 
-// MARK: - SeasonViewModelFactory
+// MARK: - SeasonModelFactory
 
-final class SeasonViewModelFactory {
+final class SeasonModelFactory {
 
     // MARK: - Functions
 
-    func build() -> [SeasonViewModel] {
-        var result: [SeasonViewModel] = []
+    func build() -> [SeasonModel] {
+        var result: [SeasonModel] = []
         guard let year = Calendar.current.dateComponents([.year], from: Date()).year else { return result }
         let seasons = Seasons
             .allCases
@@ -34,7 +39,7 @@ final class SeasonViewModelFactory {
 
         for yearOffset in 0 ... 1 {
             for season in seasons {
-                result.append(SeasonViewModel(season: season, year: year - yearOffset))
+                result.append(SeasonModel(season: season, year: year - yearOffset))
             }
         }
         return result
