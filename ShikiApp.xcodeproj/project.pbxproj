@@ -917,8 +917,6 @@
 		3A8F30DE2974395F00F24DF7 /* ShikiApp */ = {
 			isa = PBXGroup;
 			children = (
-				3A048CFA29AA3269002D99AB /* ShikiApp.entitlements */,
-				3A7E4DB1298553B900E7CA17 /* AppSettings.xcconfig */,
 				3A8F3112297441BD00F24DF7 /* App */,
 				3A8F31172974422100F24DF7 /* Core */,
 				3A8F31182974422900F24DF7 /* Resources */,
@@ -1029,6 +1027,8 @@
 		3A8F31192974423200F24DF7 /* Environments */ = {
 			isa = PBXGroup;
 			children = (
+				3A048CFA29AA3269002D99AB /* ShikiApp.entitlements */,
+				3A7E4DB1298553B900E7CA17 /* AppSettings.xcconfig */,
 				3A8F30F02974396000F24DF7 /* Info.plist */,
 			);
 			path = Environments;
