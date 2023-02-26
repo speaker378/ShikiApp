@@ -70,7 +70,7 @@ class UserRatesViewController: UIViewController, UserRatesViewInput {
     }
 }
 
-extension UserRatesViewController: UserRatesViewDlegate {
+extension UserRatesViewController: UserRatesViewDelegate {
     func statusValueChanged(status: String) {
         self.viewOutput.statusValueChanged(status: status)
     }

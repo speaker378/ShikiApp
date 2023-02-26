@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol UserRatesViewDlegate: AnyObject {
+protocol UserRatesViewDelegate: AnyObject {
     func changeSegmentedValueChanged(index: Int)
     func viewDidSelectEntity(entity: UserRatesModel)
     func statusValueChanged(status: String)
@@ -27,7 +27,7 @@ class UserRatesView: UIView {
     }
     var index: Int = 0
 
-    weak var delegate: UserRatesViewDlegate?
+    weak var delegate: UserRatesViewDelegate?
     
     var selectedButton = SelectedButton()
     var dataSource = [String]()
