@@ -6,7 +6,7 @@
 import UIKit
 
 protocol ProfileViewInputProtocol: AnyObject {
-    var model: UserProfileDTO? { get set }
+    var model: UserViewModel? { get set }
     var isAuth: Bool { get set }
 }
 
@@ -27,19 +27,18 @@ final class ProfilePresenter: ProfileViewOutputProtocol {
 
     private let apiFactory = ApiFactory.makeUsersApi()
     private let modelFactory = UserModelFactory()
-    private var userData: UserDTO
-    
+    private var userData: UserDTO?
+
     // MARK: - Private functions
     
     private func fetchDataFromServer(completion: @escaping () -> Void) {
-            apiFactory.whoAmI(
-            ) { [weak self] data, _ in
-                guard var data else {
+            apiFactory.whoAmI { [weak self] data, _ in
+                guard let data else {
                     return
                 }
                 self?.userData = data
-            completion()
-        }
+                completion()
+            }
         }
 
     // MARK: - Functions

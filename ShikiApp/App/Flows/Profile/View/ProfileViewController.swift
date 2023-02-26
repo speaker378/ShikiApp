@@ -12,7 +12,12 @@ class ProfileViewController: (UIViewController & ProfileViewInputProtocol) {
     // MARK: - Properties
 
     let presenter: ProfileViewOutputProtocol
-    var model: UserProfileDTO?
+    var model: UserViewModel?
+    var isAuth: Bool {
+        didSet {
+            configureLogoutButton()
+        }
+    }
 
     // MARK: - Private Properties
 
@@ -47,7 +52,7 @@ class ProfileViewController: (UIViewController & ProfileViewInputProtocol) {
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = Texts.DummyTextForProfileVC.nameLabelText
+        label.text = model?.nickname
         label.textAlignment = .left
         label.font = AppFont.openSansFont(ofSize: 20, weight: .semiBold)
         label.textColor = AppColor.textMain
@@ -105,6 +110,7 @@ class ProfileViewController: (UIViewController & ProfileViewInputProtocol) {
 
     init(presenter: ProfileViewOutputProtocol) {
         self.presenter = presenter
+        self.isAuth = presenter.isAuth()
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -120,8 +126,25 @@ class ProfileViewController: (UIViewController & ProfileViewInputProtocol) {
         presenter.fetchData()
     }
 
+    // MARK: - Functions
+    
+    @objc func didPressedLogoutButton() {
+        presenter.didPressedLogoutButton()
+    }
+
     // MARK: - Private functions
 
+    private func configureLogoutButton() {
+        let loginItem = UIBarButtonItem(
+            image: isAuth ? AppImage.NavigationsBarIcons.logout : AppImage.NavigationsBarIcons.login,
+            style: .plain,
+            target: self,
+            action: #selector(didPressedLogoutButton)
+        )
+        loginItem.tintColor = AppColor.textMain
+        navigationItem.rightBarButtonItem = loginItem
+    }
+    
     private func setupViews() {
         view.addSubviews([
             topDivider,

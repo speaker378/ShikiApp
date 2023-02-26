@@ -17,7 +17,7 @@ enum UserImageSize {
 }
 
 final class UserModelFactory {
-    
+
     // MARK: - Functions
     
     func convertModel(from user: UserProfileDTO) -> UserViewModel {
@@ -32,11 +32,12 @@ final class UserModelFactory {
             avatarURLString: profileImageUrl,
             sex: userSex,
             fullYears: userAge,
-            website: userWebSite)
+            website: userWebSite
+        )
     }
     
     private func extractImageAddress(from avatar: String?) -> String {
-        var result = String()
+        let result = String()
         guard let avatar else { return result }
         let imageUrl = avatar
         return imageUrl
