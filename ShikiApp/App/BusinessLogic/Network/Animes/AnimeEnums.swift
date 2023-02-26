@@ -20,7 +20,7 @@ enum OrderBy: String {
     case random = "random"
 }
 
-enum AnimeContentKind: String {
+enum AnimeContentKind: String, CaseIterable {
     case tvSeries = "tv"
     case movie
     case ova
@@ -32,6 +32,6 @@ enum AnimeContentKind: String {
     case tv48 = "tv_48"
 }
 
-enum AnimeContentStatus: String {
-    case anons, ongoing, released
+enum AnimeContentStatus: String, CaseIterable {
+    case anons, ongoing, released, latest
 }

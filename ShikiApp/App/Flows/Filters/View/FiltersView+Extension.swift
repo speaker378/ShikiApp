@@ -1,5 +1,5 @@
 //
-//  FiltersView+Extansion.swift
+//  FiltersView+Extension.swift
 //  ShikiApp
 //
 //  Created by Константин Шмондрик on 12.02.2023.
@@ -8,6 +8,9 @@
 import UIKit
 
 extension FiltersView: UITableViewDelegate, UITableViewDataSource {
+
+    // MARK: - Functions
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataSource.count
     }

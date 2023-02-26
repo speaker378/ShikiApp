@@ -10,7 +10,8 @@ import Foundation
 // MARK: - ApiFactoryProtocol
 
 protocol ApiFactoryProtocol {
-    static func makeUsersApi() -> UsersRequestFactoryProtocol
+    
+    static func makeGenresApi() -> GenresRequestFactoryProtocol
     static func makeForumsApi() -> ForumsRequestFactoryProtocol
     static func makeTopicsApi() -> TopicsRequestFactoryProtocol
     static func makeAnimesApi() -> AnimesRequestFactoryProtocol
@@ -25,6 +26,10 @@ final class ApiFactory: ApiFactoryProtocol {
 
     // MARK: - ApiFactoryProtocol implementation
 
+    static func makeGenresApi() -> GenresRequestFactoryProtocol {
+        GenresRequestFactory()
+    }
+    
     static func makeUserRatesApi() -> UserRatesRequestFactoryProtocol {
         UserRatesRequestFactory()
     }

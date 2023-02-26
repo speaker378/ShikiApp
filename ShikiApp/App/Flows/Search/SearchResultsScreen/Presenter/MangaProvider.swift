@@ -29,6 +29,10 @@ final class MangaProvider: ContentProviderProtocol {
         return getFiltersCount()
     }
     
+    func getFiltersCounter() -> Int {
+        return getFiltersCount()
+    }
+    
     func getFilters() -> ListFilters<ContentKind, ContentStatus>? { filters }
     
     func fetchData(searchString: String?, page: Int = 1, completion: @escaping ([SearchContentProtocol]?, String?) -> Void) {
