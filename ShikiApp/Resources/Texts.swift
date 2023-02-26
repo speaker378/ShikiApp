@@ -55,7 +55,9 @@ enum Texts {
         static let releaseYearStart = "С"
         static let releaseYearEnd = "По"
         static let season = "Выберите сезон"
+        static let all = "Вce"
     }
+   
     enum OtherMessage {
         static let open = "Открыть"
         static let openInYoutube = "Открыть в Youtube"
@@ -67,5 +69,15 @@ enum Texts {
     enum ButtonTitles {
         static let addToList = "Добавить в список"
         static let close = "Закрыть"
+    }
+    
+    enum ListTypesSelectItems {
+        static let all = "Вce"
+        static let completed = "Просмотрено"
+        static let planned = "Запланировано"
+        static let watching = "Смотрю"
+        static let onHold = "На паузе"
+        static let dropped = "Брошено"
+        static let rewatching = "Пересматриваю"
     }
 }

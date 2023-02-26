@@ -34,7 +34,7 @@
 		0010CAE129784E3C00F8705B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0010CADE29784E3C00F8705B /* Constants.swift */; };
 		006031AF2979B79400CD9A16 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006031AE2979B79400CD9A16 /* TabBarViewController.swift */; };
 		006031B7297BCA6800CD9A16 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006031B6297BCA6800CD9A16 /* SearchViewController.swift */; };
-		006031B9297BCA7B00CD9A16 /* MyListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006031B8297BCA7B00CD9A16 /* MyListViewController.swift */; };
+		006031B9297BCA7B00CD9A16 /* UserRatesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006031B8297BCA7B00CD9A16 /* UserRatesViewController.swift */; };
 		006031BB297BCA9600CD9A16 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006031BA297BCA9600CD9A16 /* ProfileViewController.swift */; };
 		006031BD297BCB3500CD9A16 /* TabBarItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006031BC297BCB3500CD9A16 /* TabBarItems.swift */; };
 		006031C0297C087F00CD9A16 /* StartManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006031BF297C087F00CD9A16 /* StartManager.swift */; };
@@ -51,6 +51,15 @@
 		006240FE299A8F0300498D51 /* UIView+setShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006240FD299A8F0300498D51 /* UIView+setShadow.swift */; };
 		00624101299AB39B00498D51 /* FiltersModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00624100299AB39B00498D51 /* FiltersModel.swift */; };
 		00624103299B6B2200498D51 /* FilterListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00624102299B6B2200498D51 /* FilterListModel.swift */; };
+		009F06B529A78CFE00B87195 /* UserRatesContentProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009F06B429A78CFE00B87195 /* UserRatesContentProtocol.swift */; };
+		00AFC6CC29A24C590000B645 /* UserRatesBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AFC6CB29A24C590000B645 /* UserRatesBuilder.swift */; };
+		00AFC6CE29A24CA80000B645 /* UserRatesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AFC6CD29A24CA80000B645 /* UserRatesPresenter.swift */; };
+		00AFC6D029A24F470000B645 /* UserRatesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AFC6CF29A24F470000B645 /* UserRatesView.swift */; };
+		00AFC6D329A251FA0000B645 /* UserRatesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AFC6D229A251FA0000B645 /* UserRatesModel.swift */; };
+		00AFC6D729A275FB0000B645 /* UserRatesView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AFC6D629A275FB0000B645 /* UserRatesView+Extension.swift */; };
+		00AFC6D929A2766F0000B645 /* MenuItemsListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AFC6D829A2766F0000B645 /* MenuItemsListTableViewCell.swift */; };
+		00AFC6DB29A290210000B645 /* RatesTypeItemEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AFC6DA29A290210000B645 /* RatesTypeItemEnum.swift */; };
+		00AFC6DD29A292580000B645 /* UserRatesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AFC6DC29A292580000B645 /* UserRatesTableViewCell.swift */; };
 		16082BE729A269FD00450D43 /* GenreResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16082BE629A269FD00450D43 /* GenreResponseDTO.swift */; };
 		16082BE929A26A1E00450D43 /* GenreInfoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16082BE829A26A1E00450D43 /* GenreInfoDTO.swift */; };
 		16082BEB29A26CD600450D43 /* GenreApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16082BEA29A26CD600450D43 /* GenreApi.swift */; };
@@ -231,7 +240,7 @@
 		0010CADE29784E3C00F8705B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		006031AE2979B79400CD9A16 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		006031B6297BCA6800CD9A16 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
-		006031B8297BCA7B00CD9A16 /* MyListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyListViewController.swift; sourceTree = "<group>"; };
+		006031B8297BCA7B00CD9A16 /* UserRatesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRatesViewController.swift; sourceTree = "<group>"; };
 		006031BA297BCA9600CD9A16 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		006031BC297BCB3500CD9A16 /* TabBarItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItems.swift; sourceTree = "<group>"; };
 		006031BF297C087F00CD9A16 /* StartManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartManager.swift; sourceTree = "<group>"; };
@@ -248,6 +257,15 @@
 		006240FD299A8F0300498D51 /* UIView+setShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+setShadow.swift"; sourceTree = "<group>"; };
 		00624100299AB39B00498D51 /* FiltersModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersModel.swift; sourceTree = "<group>"; };
 		00624102299B6B2200498D51 /* FilterListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterListModel.swift; sourceTree = "<group>"; };
+		009F06B429A78CFE00B87195 /* UserRatesContentProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRatesContentProtocol.swift; sourceTree = "<group>"; };
+		00AFC6CB29A24C590000B645 /* UserRatesBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRatesBuilder.swift; sourceTree = "<group>"; };
+		00AFC6CD29A24CA80000B645 /* UserRatesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRatesPresenter.swift; sourceTree = "<group>"; };
+		00AFC6CF29A24F470000B645 /* UserRatesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRatesView.swift; sourceTree = "<group>"; };
+		00AFC6D229A251FA0000B645 /* UserRatesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRatesModel.swift; sourceTree = "<group>"; };
+		00AFC6D629A275FB0000B645 /* UserRatesView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserRatesView+Extension.swift"; sourceTree = "<group>"; };
+		00AFC6D829A2766F0000B645 /* MenuItemsListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemsListTableViewCell.swift; sourceTree = "<group>"; };
+		00AFC6DA29A290210000B645 /* RatesTypeItemEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatesTypeItemEnum.swift; sourceTree = "<group>"; };
+		00AFC6DC29A292580000B645 /* UserRatesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRatesTableViewCell.swift; sourceTree = "<group>"; };
 		16082BE629A269FD00450D43 /* GenreResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreResponseDTO.swift; sourceTree = "<group>"; };
 		16082BE829A26A1E00450D43 /* GenreInfoDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreInfoDTO.swift; sourceTree = "<group>"; };
 		16082BEA29A26CD600450D43 /* GenreApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreApi.swift; sourceTree = "<group>"; };
@@ -522,12 +540,14 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
-		006031B1297BC9BB00CD9A16 /* MyList */ = {
+		006031B1297BC9BB00CD9A16 /* UserRates */ = {
 			isa = PBXGroup;
 			children = (
-				006031B8297BCA7B00CD9A16 /* MyListViewController.swift */,
+				00AFC6C829A24C020000B645 /* Builder */,
+				00AFC6C929A24C160000B645 /* Presenter */,
+				00AFC6CA29A24C230000B645 /* View */,
 			);
-			path = MyList;
+			path = UserRates;
 			sourceTree = "<group>";
 		};
 		006031B2297BC9C900CD9A16 /* Search */ = {
@@ -622,6 +642,52 @@
 			);
 			path = Filters;
 			sourceTree = "<group>";
+		};
+		00AFC6C829A24C020000B645 /* Builder */ = {
+			isa = PBXGroup;
+			children = (
+				00AFC6CB29A24C590000B645 /* UserRatesBuilder.swift */,
+			);
+			path = Builder;
+			sourceTree = "<group>";
+		};
+		00AFC6C929A24C160000B645 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				00AFC6CD29A24CA80000B645 /* UserRatesPresenter.swift */,
+				009F06B429A78CFE00B87195 /* UserRatesContentProtocol.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		00AFC6CA29A24C230000B645 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				00AFC6E429A2A87A0000B645 /* MenuItemsList */,
+				006031B8297BCA7B00CD9A16 /* UserRatesViewController.swift */,
+				00AFC6CF29A24F470000B645 /* UserRatesView.swift */,
+				00AFC6D629A275FB0000B645 /* UserRatesView+Extension.swift */,
+				00AFC6DC29A292580000B645 /* UserRatesTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		00AFC6D129A251E60000B645 /* UserRates */ = {
+			isa = PBXGroup;
+			children = (
+				00AFC6D229A251FA0000B645 /* UserRatesModel.swift */,
+			);
+			path = UserRates;
+			sourceTree = "<group>";
+		};
+		00AFC6E429A2A87A0000B645 /* MenuItemsList */ = {
+			isa = PBXGroup;
+			children = (
+				00AFC6D829A2766F0000B645 /* MenuItemsListTableViewCell.swift */,
+				00AFC6DA29A290210000B645 /* RatesTypeItemEnum.swift */,
+			);
+			path = MenuItemsList;
+      		sourceTree = "<group>";
 		};
 		16082BE429A269AA00450D43 /* Genres */ = {
 			isa = PBXGroup;
@@ -1076,7 +1142,7 @@
 				006031B3297BC9CE00CD9A16 /* Home */,
 				006031B2297BC9C900CD9A16 /* Search */,
 				006240E329977DB600498D51 /* Filters */,
-				006031B1297BC9BB00CD9A16 /* MyList */,
+				006031B1297BC9BB00CD9A16 /* UserRates */,
 				006031B0297BC9B700CD9A16 /* Profile */,
 			);
 			path = Flows;
@@ -1094,6 +1160,7 @@
 		3A8F3115297441F400F24DF7 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
+				00AFC6D129A251E60000B645 /* UserRates */,
 				006240FF299AB37900498D51 /* Filters */,
 				16B0824E298BBB9900EB9061 /* Search */,
 				3A275771297EFE2500EFD543 /* News */,
@@ -1428,6 +1495,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A7E4D8E2985492C00E7CA17 /* ClubsResponseDTO.swift in Sources */,
+				00AFC6DB29A290210000B645 /* RatesTypeItemEnum.swift in Sources */,
 				3A19C08229995AB60073D472 /* AuthManager.swift in Sources */,
 				0010CABF297802A700F8705B /* UIView+addSubviews.swift in Sources */,
 				3A7E4D882985492C00E7CA17 /* UserFavoritesResponseDTO.swift in Sources */,
@@ -1435,13 +1503,16 @@
 				3AFAFEE3298028BA00949FE2 /* NewsfeedViewController+Extension.swift in Sources */,
 				3A05E299297E8EA500987CFF /* NewsfeedBuilder.swift in Sources */,
 				3A1A096D2985400900846058 /* NewsDetailBuilder.swift in Sources */,
+				00AFC6D329A251FA0000B645 /* UserRatesModel.swift in Sources */,
+				009F06B529A78CFE00B87195 /* UserRatesContentProtocol.swift in Sources */,
 				3A19C07C29941B990073D472 /* OAuth2Request.swift in Sources */,
+				00AFC6CE29A24CA80000B645 /* UserRatesPresenter.swift in Sources */,
 				3A05E295297E696200987CFF /* NewsfeedPresenter.swift in Sources */,
 				00624103299B6B2200498D51 /* FilterListModel.swift in Sources */,
 				3A7E4DA82985496A00E7CA17 /* URLParameterEncoder.swift in Sources */,
 				006240EE29978B0600498D51 /* FiltersView.swift in Sources */,
+				006031B9297BCA7B00CD9A16 /* UserRatesViewController.swift in Sources */,
 				BA76AFA429A41F3C0002C982 /* SearchModelInfoService.swift in Sources */,
-				006031B9297BCA7B00CD9A16 /* MyListViewController.swift in Sources */,
 				16D49EA9298EF5660008CAA4 /* RanobeProvider.swift in Sources */,
 				169118DE29A3C13C000F23B6 /* FiltersEnums.swift in Sources */,
 				16B08241298A1FAB00EB9061 /* RanobeResponseDTO.swift in Sources */,
@@ -1500,6 +1571,8 @@
 				3AFAFEE6298055A900949FE2 /* String+heightText.swift in Sources */,
 				3A7E4D942985492C00E7CA17 /* TopicsRequestFactory.swift in Sources */,
 				3A7E4D932985492C00E7CA17 /* TopicsEnums.swift in Sources */,
+				00AFC6D929A2766F0000B645 /* MenuItemsListTableViewCell.swift in Sources */,
+				00AFC6D729A275FB0000B645 /* UserRatesView+Extension.swift in Sources */,
 				0010CABD297801E900F8705B /* AppLabel.swift in Sources */,
 				3A05E291297D606B00987CFF /* NewsfeedViewController.swift in Sources */,
 				0010CADB29783E7400F8705B /* AppImage.swift in Sources */,
@@ -1527,7 +1600,9 @@
 				006031B7297BCA6800CD9A16 /* SearchViewController.swift in Sources */,
 				16082BED29A26E1300450D43 /* GenresRequestsFactory.swift in Sources */,
 				006240F32997AF7C00498D51 /* UIApplication+Extensions.swift in Sources */,
+				00AFC6DD29A292580000B645 /* UserRatesTableViewCell.swift in Sources */,
 				3A7E4DA72985496A00E7CA17 /* Router.swift in Sources */,
+				00AFC6D029A24F470000B645 /* UserRatesView.swift in Sources */,
 				006240F02997A72E00498D51 /* MenuItemsTableViewCell.swift in Sources */,
 				BA27FB4D2995384E007C3BEC /* NewsDetailVideoContentView.swift in Sources */,
 				BA76AFA629A4207A0002C982 /* AddedToListData.swift in Sources */,
@@ -1567,6 +1642,7 @@
 				BA90AF7D29A006B400CCE141 /* SearchDetailBuilder.swift in Sources */,
 				3A7E4D8F2985492C00E7CA17 /* UserProfileDTO.swift in Sources */,
 				16130E5829873BEF00A4EC94 /* AnimeListFilters.swift in Sources */,
+				00AFC6CC29A24C590000B645 /* UserRatesBuilder.swift in Sources */,
 				006240EA29977E7200498D51 /* FiltersBuilder.swift in Sources */,
 				BA90AF7129A0062F00CCE141 /* SearchDetailViewController.swift in Sources */,
 				3A1A096E2985400900846058 /* NewsDetailPresenter.swift in Sources */,
