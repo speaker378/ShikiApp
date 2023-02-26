@@ -76,7 +76,7 @@ extension RanobeRequestFactoryProtocol {
         }
         return parameters
     }
-
+    
     private func validateListFilters(filters: RanobeListFilters) -> Parameters {
         var parameters = Parameters()
         if let status = filters.status {
@@ -105,7 +105,7 @@ final class RanobeRequestFactory: RanobeRequestFactoryProtocol {
 
     // MARK: - Construction
 
-    init(token: String? = nil, agent: String? = nil) {
-        delegate = AbstractRequestFactory<RanobeApi>(token: token, agent: agent)
+    init() {
+        delegate = AbstractRequestFactory<RanobeApi>()
     }
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum MangaContentKind: String {
+enum MangaContentKind: String, CaseIterable {
     case manga
     case manhwa
     case manhua
@@ -18,6 +18,6 @@ enum MangaContentKind: String {
     case oneShot = "one_shot"
 }
 
-enum MangaContentStatus: String {
+enum MangaContentStatus: String, CaseIterable {
     case anons, ongoing, released, paused, discontinued
 }

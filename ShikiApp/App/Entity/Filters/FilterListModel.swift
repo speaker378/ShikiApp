@@ -7,8 +7,9 @@
 
 import Foundation
 
+// MARK: - FilterListModel
+
 struct FilterListModel {
-    
     var ratingList: String
     var typeList: String
     var statusList: String
@@ -16,4 +17,16 @@ struct FilterListModel {
     var seasonList: String
     var releaseYearStart: String
     var releaseYearEnd: String
+
+    // MARK: - Functions
+
+    func isEmpty() -> Bool {
+        return ratingList.isEmpty &&
+            typeList.isEmpty &&
+            statusList.isEmpty &&
+            genreList.isEmpty &&
+            seasonList.isEmpty &&
+            releaseYearStart.isEmpty &&
+            releaseYearEnd.isEmpty
+    }
 }

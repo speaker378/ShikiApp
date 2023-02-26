@@ -11,57 +11,53 @@ import Foundation
 
 protocol ApiFactoryProtocol {
     
+    static func makeGenresApi() -> GenresRequestFactoryProtocol
     static func makeForumsApi() -> ForumsRequestFactoryProtocol
     static func makeTopicsApi() -> TopicsRequestFactoryProtocol
-    static func makeAnonymousTopicsApi() -> TopicsRequestFactoryProtocol
     static func makeAnimesApi() -> AnimesRequestFactoryProtocol
     static func makeMangasApi() -> MangasRequestFactoryProtocol
     static func makeRanobeApi() -> RanobeRequestFactoryProtocol
+    static func makeUserRatesApi() -> UserRatesRequestFactoryProtocol
 }
 
 // MARK: - ApiFactory
 
 final class ApiFactory: ApiFactoryProtocol {
 
-    // MARK: - Private properties
+    // MARK: - ApiFactoryProtocol implementation
 
-    private static var token: String? {
-        guard let token = ProcessInfo.processInfo.environment["TOKEN"] else { return nil }
-        return token
+    static func makeGenresApi() -> GenresRequestFactoryProtocol {
+        GenresRequestFactory()
     }
-
-    private static var agent: String? {
-        guard let agent = Bundle.main.infoDictionary?["CFBundleName"] as? String else { return nil }
-        return agent
+    
+    static func makeUserRatesApi() -> UserRatesRequestFactoryProtocol {
+        UserRatesRequestFactory()
     }
 
     // MARK: - ApiFactoryProtocol implementation
 
     static func makeMangasApi() -> MangasRequestFactoryProtocol {
-        MangasRequestFactory(token: token, agent: agent)
+        MangasRequestFactory()
     }
     
     static func makeRanobeApi() -> RanobeRequestFactoryProtocol {
-        RanobeRequestFactory(token: token, agent: agent)
+        RanobeRequestFactory()
     }
     
     static func makeAnimesApi() -> AnimesRequestFactoryProtocol {
-        AnimesRequestFactory(token: token, agent: agent)
+        AnimesRequestFactory()
     }
     
     static func makeForumsApi() -> ForumsRequestFactoryProtocol {
-        ForumsRequestFactory(agent: agent)
+        ForumsRequestFactory()
     }
 
     static func makeTopicsApi() -> TopicsRequestFactoryProtocol {
-        TopicsRequestFactory(token: token, agent: agent)
+        TopicsRequestFactory()
     }
 
-    static func makeAnonymousTopicsApi() -> TopicsRequestFactoryProtocol {
-        TopicsRequestFactory(agent: agent)
+    static func makeUsersApi() -> UsersRequestFactoryProtocol {
+        UsersRequestFactory()
     }
 
-    static func makeUsersApi() -> UsersRequestFactory {
-        UsersRequestFactory(token: token, agent: agent)
-    }
 }

@@ -69,6 +69,7 @@ enum APIRestrictions: Int {
     case limit10 = 10
     case limit50 = 50
     case limit100 = 100
+    case limit1000 = 1000
     case limit5000 = 5_000
 }
 
@@ -104,5 +105,11 @@ enum APIKeys: String {
     case myList
     case ids
     case excludeIds = "exclude_ids"
+    case text
+    case chapters
+    case episodes
+    case rewatches
+    case textHtml = "text_html"
+    case volumes
     
 }

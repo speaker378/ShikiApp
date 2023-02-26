@@ -225,7 +225,7 @@ final class TopicsRequestFactory: TopicsRequestFactoryProtocol {
 
     // MARK: - Construction
     
-    init(token: String? = nil, agent: String? = nil) {
-        self.delegate = AbstractRequestFactory<TopicsApi>(token: token, agent: agent)
+    init() {
+        delegate = AbstractRequestFactory<TopicsApi>()
     }
 }

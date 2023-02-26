@@ -29,4 +29,11 @@ extension String {
         }
         return htmlToAttributedString?.string ?? ""
     }
+    
+    func removeTags() -> String {
+        var result = ""
+        result = self.replacingOccurrences(of: #"\[.*?\]"#, with: "", options: .regularExpression)
+        result = result.replacingOccurrences(of: #"\<.*?\>"#, with: "", options: .regularExpression)
+        return result
+    }
 }
