@@ -25,6 +25,8 @@ enum Texts {
     enum ErrorMessage {
         static let general = "Что-то пошло не так.\nПопробуйте позже, должно получиться"
         static let noResults = "Ничего не найдено"
+        static let failLoading = "Данные не загрузились"
+        static let generalDescription = "Попробуйте позже, должно получиться"
     }
     
     enum LoadingMessage {
@@ -57,5 +59,13 @@ enum Texts {
     enum OtherMessage {
         static let open = "Открыть"
         static let openInYoutube = "Открыть в Youtube"
+        static let episodes = "эп."
+        static let minutes = "мин."
+        static let volumes = "т."
+    }
+    
+    enum ButtonTitles {
+        static let addToList = "Добавить в список"
+        static let close = "Закрыть"
     }
 }

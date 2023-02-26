@@ -91,8 +91,10 @@ final class SearchPresenter: SearchViewOutput {
         self.searchString = searchString
     }
 
-    func viewDidSelectEntity(entity _: SearchModel) {
-        print("Entity details screen build will be done here\n entity type see self.layer,\n entityId see entity.id")
+    func viewDidSelectEntity(entity: SearchModel) {
+        guard let provider = providers[layer] else { return }
+        let searchDetailViewController = SearchDetailBuilder.build(id: entity.id, provider: provider)
+        viewInput?.navigationController?.pushViewController(searchDetailViewController, animated: true)
     }
 
     func fetchData() {

@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - MangaDetailsDTO
 
-struct MangaDetailsDTO: Codable {
+struct MangaDetailsDTO: Codable, SearchDetailContentProtocol {
     
     let id: Int
     let name: String
@@ -29,11 +29,11 @@ struct MangaDetailsDTO: Codable {
     let descriptionSource, franchise: String?
     let favoured, anons, ongoing: Bool?
     let threadID, topicID, myanimelistID: Int?
-    let ratesScoresStats: [RatesScoresDTO]?
-    let ratesStatusesStats: [RatesStatusesDTO]?
-    let licensors: [String]?
-    let publishers: [PublisherDTO]?
-    let genres: [GenreDTO]?
+    let ratesScoresStats: [RatesScoresDTO]
+    let ratesStatusesStats: [RatesStatusesDTO]
+    let licensors: [String]
+    let publishers: [PublisherDTO]
+    let genres: [GenreDTO]
     let userRate: Int?
 
     enum CodingKeys: String, CodingKey {

@@ -121,4 +121,24 @@ struct Constants {
         "2": AppColor.red,
         "1": AppColor.red
     ]
+    static let mangaStatuses = [
+        "ongoing": "Выходит",
+        "released": "Издано",
+        "paused": "Приостановлено",
+        "discontinued": "Прекращено",
+        "anons": "Анонсировано"
+    ]
+    static let animeStatuses = [
+        "ongoing": "Онгоинг",
+        "released": "Вышло",
+        "anons": "Анонсировано"
+    ]
+    static let rating = [
+        "r": "R",
+        "pg": "PG",
+        "pg_13": "PG-13",
+        "r_plus": "R+",
+        "rx": "RX",
+        "none": ""
+    ]
 }

@@ -45,4 +45,11 @@ final class AnimeProvider: ContentProviderProtocol {
             completion: completion
         )
     }
+    
+    func fetchDetailData(
+        id: Int,
+        completion: @escaping (_ response: SearchDetailContentProtocol?, _ error: String?
+        ) -> Void) {
+        factory.getAnimeById(id: id, completion: completion)
+    }
 }

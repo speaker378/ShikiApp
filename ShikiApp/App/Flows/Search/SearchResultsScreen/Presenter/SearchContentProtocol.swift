@@ -19,4 +19,5 @@ protocol SearchContentProtocol {
     var score: String? { get }
     var airedOn: String? { get }
     var releasedOn: String? { get }
+    var status: String? { get }
 }
