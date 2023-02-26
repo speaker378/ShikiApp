@@ -16,11 +16,18 @@ protocol ApiFactoryProtocol {
     static func makeAnimesApi() -> AnimesRequestFactoryProtocol
     static func makeMangasApi() -> MangasRequestFactoryProtocol
     static func makeRanobeApi() -> RanobeRequestFactoryProtocol
+    static func makeUserRatesApi() -> UserRatesRequestFactoryProtocol
 }
 
 // MARK: - ApiFactory
 
 final class ApiFactory: ApiFactoryProtocol {
+
+    // MARK: - ApiFactoryProtocol implementation
+
+    static func makeUserRatesApi() -> UserRatesRequestFactoryProtocol {
+        UserRatesRequestFactory()
+    }
 
     // MARK: - ApiFactoryProtocol implementation
 
