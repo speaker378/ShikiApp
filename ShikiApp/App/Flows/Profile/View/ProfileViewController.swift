@@ -52,7 +52,7 @@ class ProfileViewController: (UIViewController & ProfileViewInputProtocol) {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
-        label.font = AppFont.openSansFont(ofSize: 20, weight: .semiBold)
+        label.font = AppFont.Style.title
         label.textColor = AppColor.textMain
         return label
     }()
@@ -61,7 +61,7 @@ class ProfileViewController: (UIViewController & ProfileViewInputProtocol) {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
-        label.font = AppFont.openSansFont(ofSize: 16, weight: .regular)
+        label.font = AppFont.Style.regularText
         label.textColor = AppColor.textMain
         return label
     }()
@@ -77,7 +77,7 @@ class ProfileViewController: (UIViewController & ProfileViewInputProtocol) {
     private let linkButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.titleLabel?.font = AppFont.openSansFont(ofSize: 16, weight: .regular)
+        button.titleLabel?.font = AppFont.Style.regularText
         button.titleLabel?.textColor = AppColor.accent
         return button
     }()
@@ -86,7 +86,7 @@ class ProfileViewController: (UIViewController & ProfileViewInputProtocol) {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.tintColor = AppColor.red
-        button.titleLabel?.font = AppFont.openSansFont(ofSize: 16, weight: .regular)
+        button.titleLabel?.font = AppFont.Style.regularText
         button.titleLabel?.textAlignment = .center
         return button
     }()
@@ -94,7 +94,7 @@ class ProfileViewController: (UIViewController & ProfileViewInputProtocol) {
     private let versionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = AppFont.openSansFont(ofSize: 12, weight: .regular)
+        label.font = AppFont.Style.subtitle
         label.textColor = AppColor.textMinor
         return label
     }()
