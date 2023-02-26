@@ -9,8 +9,9 @@
 import XCTest
 
 final class TopicsApiTests: XCTestCase {
-    private let factory = ApiFactory.makeTopicsApi()
+
     private let api2Test = "TopicsRequestFactory"
+    
     override func setUpWithError() throws {
         try? super.setUpWithError()
     }
@@ -20,10 +21,13 @@ final class TopicsApiTests: XCTestCase {
     }
     
     func testListTopics() throws {
+        
+        let factory = ApiFactory.makeTopicsApi()
         let request = "listTopics"
         var response: TopicsResponseDTO?
         var error: String?
         let expectation = self.expectation(description: "\(api2Test).\(request) expectation timeout")
+        
         factory.listTopics(
             page: 1,
             limit: 10,
@@ -34,35 +38,37 @@ final class TopicsApiTests: XCTestCase {
             error = errorMessage
             expectation.fulfill()
         }
-
         waitForExpectations(timeout: 15)
         XCTAssertNil(error, "Unexpected \(api2Test).\(request) error \(error ?? "")")
-
         XCTAssertFalse(response?.isEmpty ?? true, "Unexpected \(api2Test).\(request) empty or nil result")
     }
 
     func testHotTopics() throws {
+        
+        let factory = ApiFactory.makeTopicsApi()
         let request = "hotTopics"
         var response: TopicsResponseDTO?
         var error: String?
         let expectation = self.expectation(description: "\(api2Test).\(request) expectation timeout")
+        
         factory.hotTopics(limit: 10) { data, errorMessage in
             response = data
             error = errorMessage
             expectation.fulfill()
         }
-
         waitForExpectations(timeout: 15)
         XCTAssertNil(error, "Unexpected \(api2Test).\(request) error \(error ?? "")")
-
         XCTAssertFalse(response?.isEmpty ?? true, "Unexpected \(api2Test).\(request) empty or nil result")
     }
 
     func testNewTopics() throws {
+        
+        let factory = ApiFactory.makeTopicsApi()
         let request = "newTopics"
         var response: NewsTopicsResponseDTO?
         var error: String?
         let expectation = self.expectation(description: "\(api2Test).\(request) expectation timeout")
+        
         factory.newTopics(
             page: 1,
             limit: 10
@@ -71,21 +77,22 @@ final class TopicsApiTests: XCTestCase {
             error = errorMessage
             expectation.fulfill()
         }
-        
         waitForExpectations(timeout: 15)
         XCTAssertNil(error, "Unexpected \(api2Test).\(request) error \(error ?? "")")
-
         XCTAssertFalse(response?.isEmpty ?? true, "Unexpected \(api2Test).\(request) empty or nil result")
     }
 
     func testGetTopic() throws {
+        
+        let factory = ApiFactory.makeTopicsApi()
         let request = "getTopic"
         let expectation = expectation(description: "\(api2Test)\(request) expectation timeout")
         var topic: TopicDTO?
         var error: String?
+        
         factory.listTopics { data, errorMessage in
             if let id = data?.first?.id {
-                self.factory.getTopic(id: id) { data, errorMessage in
+                factory.getTopic(id: id) { data, errorMessage in
                     topic = data
                     error = errorMessage
                     expectation.fulfill()
@@ -98,13 +105,16 @@ final class TopicsApiTests: XCTestCase {
     }
 
     func testAddTopic() throws {
+        
         if !AuthManager.share.isAuth() { return }
+        let factory = ApiFactory.makeTopicsApi()
         let request = "addTopic"
         var topic: TopicDTO?
         var error: String?
         let userFactory = ApiFactory.makeUsersApi()
         let forumFactory = ApiFactory.makeForumsApi()
         let expectation = expectation(description: "\(api2Test)\(request) expectation timeout")
+        
         userFactory.whoAmI { data, errorMessage in
             guard let user = data else { return }
             forumFactory.listForums { data, errorMessage in
@@ -118,7 +128,7 @@ final class TopicsApiTests: XCTestCase {
                     linkedID: nil,
                     userID: user.id
                 )
-                self.factory.addTopic(topic: newTopic) { data, errorMessage in
+                factory.addTopic(topic: newTopic) { data, errorMessage in
                     topic = data
                     error = errorMessage
                     expectation.fulfill()
@@ -134,14 +144,18 @@ final class TopicsApiTests: XCTestCase {
             }
         }
     }
+    
     func testDeleteTopic() throws {
+        
         if !AuthManager.share.isAuth() { return }
+        let factory = ApiFactory.makeTopicsApi()
         let request = "deleteTopic"
         var topic: DeleteTopicResponseDTO?
         var error: String?
         let userFactory = ApiFactory.makeUsersApi()
         let forumFactory = ApiFactory.makeForumsApi()
         let expectation = expectation(description: "\(api2Test)\(request) expectation timeout")
+        
         userFactory.whoAmI { data, errorMessage in
             guard let user = data else { return }
             forumFactory.listForums { data, errorMessage in
@@ -155,9 +169,9 @@ final class TopicsApiTests: XCTestCase {
                     linkedID: nil,
                     userID: user.id
                 )
-                self.factory.addTopic(topic: newTopic) { data, errorMessage in
+                factory.addTopic(topic: newTopic) { data, errorMessage in
                     if let id = data?.id {
-                        self.factory.deleteTopic(id: id) { data, errorMessage in
+                        factory.deleteTopic(id: id) { data, errorMessage in
                             topic = data
                             error = errorMessage
                             expectation.fulfill()
@@ -172,13 +186,16 @@ final class TopicsApiTests: XCTestCase {
     }
     
     func testChangeTopic() throws {
+        
         if !AuthManager.share.isAuth() { return }
+        let factory = ApiFactory.makeTopicsApi()
         let request = "putTopic"
         var topic: TopicDTO?
         var error: String?
         let userFactory = ApiFactory.makeUsersApi()
         let forumFactory = ApiFactory.makeForumsApi()
         let expectation = expectation(description: "\(api2Test)\(request) expectation timeout")
+        
         userFactory.whoAmI { data, errorMessage in
             guard let user = data else { return }
             forumFactory.listForums { data, errorMessage in
@@ -192,9 +209,9 @@ final class TopicsApiTests: XCTestCase {
                     linkedID: nil,
                     userID: user.id
                 )
-                self.factory.addTopic(topic: newTopic) { data, errorMessage in
+                factory.addTopic(topic: newTopic) { data, errorMessage in
                     if let id = data?.id {
-                        self.factory.putTopic(
+                        factory.putTopic(
                             id: id,
                             title: "new Title",
                             body: "new Body",

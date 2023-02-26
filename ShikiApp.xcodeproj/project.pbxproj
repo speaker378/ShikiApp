@@ -94,6 +94,8 @@
 		167239932993AF2C008A934D /* BorderedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167239922993AF2C008A934D /* BorderedTextField.swift */; };
 		169118DE29A3C13C000F23B6 /* FiltersEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169118DD29A3C13C000F23B6 /* FiltersEnums.swift */; };
 		169118E129A51EAE000F23B6 /* GenreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169118E029A51EAE000F23B6 /* GenreModel.swift */; };
+		169735E129ABE20B00022102 /* Texts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0010CAC42978138500F8705B /* Texts.swift */; };
+		169735E229ABE20C00022102 /* Texts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0010CAC42978138500F8705B /* Texts.swift */; };
 		16B0823D298A133100EB9061 /* MangasApiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B0823C298A133100EB9061 /* MangasApiTests.swift */; };
 		16B08241298A1FAB00EB9061 /* RanobeResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B08240298A1FAB00EB9061 /* RanobeResponseDTO.swift */; };
 		16B08243298A21A400EB9061 /* RanobeEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B08242298A21A400EB9061 /* RanobeEnums.swift */; };
@@ -695,7 +697,7 @@
 				00AFC6DA29A290210000B645 /* RatesTypeItemEnum.swift */,
 			);
 			path = MenuItemsList;
-      		sourceTree = "<group>";
+			sourceTree = "<group>";
 		};
 		16082BE429A269AA00450D43 /* Genres */ = {
 			isa = PBXGroup;
@@ -1716,6 +1718,7 @@
 				0010CADC29783E7400F8705B /* AppImage.swift in Sources */,
 				16B0823D298A133100EB9061 /* MangasApiTests.swift in Sources */,
 				16130E5C29875FA700A4EC94 /* AnimesApiTests.swift in Sources */,
+				169735E129ABE20B00022102 /* Texts.swift in Sources */,
 				0010CAE029784E3C00F8705B /* Constants.swift in Sources */,
 				3A7E4DB02985498C00E7CA17 /* TopicsApiTests.swift in Sources */,
 				1634B67229A92208004A4B02 /* UserRatesApiTests.swift in Sources */,
@@ -1729,6 +1732,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				165DCDB8298FF50A0087CEDF /* HttpConstants.swift in Sources */,
+				169735E229ABE20C00022102 /* Texts.swift in Sources */,
 				3A8F31062974396000F24DF7 /* ShikiAppUITestsLaunchTests.swift in Sources */,
 				3A8F31042974396000F24DF7 /* ShikiAppUITests.swift in Sources */,
 				0010CADD29783E7400F8705B /* AppImage.swift in Sources */,

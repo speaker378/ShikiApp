@@ -17,4 +17,6 @@ struct NetworkLayerErrorMessages {
     static let noData = "Response returned with no data to decode."
     static let unableToDecode = "We could not decode the response"
     static let badResponse = "Bad response"
+    static let tooManyRequests = "Too many requests"
+    static let accessDenied = "Access forbidden"
 }
