@@ -61,7 +61,7 @@ final class ProfilePresenter: ProfileViewOutputProtocol {
                         webSite: "",
                         birthDate: "",
                         fullYears: 0,
-                        locale: ""
+                        locale: "ru"
                         )
                     )
             }
