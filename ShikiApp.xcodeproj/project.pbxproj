@@ -327,6 +327,7 @@
 		3A7E4DAC2985498C00E7CA17 /* ForumsApiTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForumsApiTests.swift; sourceTree = "<group>"; };
 		3A7E4DAD2985498C00E7CA17 /* TopicsApiTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicsApiTests.swift; sourceTree = "<group>"; };
 		3A7E4DB1298553B900E7CA17 /* AppSettings.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = AppSettings.xcconfig; sourceTree = "<group>"; };
+		3A7E6C1C29AA58FA0022FB2F /* ShikiApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShikiApp.entitlements; sourceTree = "<group>"; };
 		3A8F30DC2974395F00F24DF7 /* ShikiApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShikiApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A8F30DF2974395F00F24DF7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3A8F30E12974395F00F24DF7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -949,10 +950,10 @@
 		3A8F30DE2974395F00F24DF7 /* ShikiApp */ = {
 			isa = PBXGroup;
 			children = (
+				3A7E6C1C29AA58FA0022FB2F /* ShikiApp.entitlements */,
 				3A8F3112297441BD00F24DF7 /* App */,
 				3A8F31172974422100F24DF7 /* Core */,
 				3A8F31182974422900F24DF7 /* Resources */,
-				3A7E4DB1298553B900E7CA17 /* AppSettings.xcconfig */,
 				3A8F31192974423200F24DF7 /* Environments */,
 			);
 			path = ShikiApp;
@@ -1061,6 +1062,7 @@
 		3A8F31192974423200F24DF7 /* Environments */ = {
 			isa = PBXGroup;
 			children = (
+				3A7E4DB1298553B900E7CA17 /* AppSettings.xcconfig */,
 				3A8F30F02974396000F24DF7 /* Info.plist */,
 			);
 			path = Environments;
@@ -1618,6 +1620,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ShikiApp/ShikiApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
@@ -1648,6 +1651,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ShikiApp/ShikiApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
