@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - AnimeDetailsDTO
 
-struct AnimeDetailsDTO: Codable {
+struct AnimeDetailsDTO: Codable, SearchDetailContentProtocol {
     
     let id: Int
     let name: String

@@ -23,11 +23,12 @@ protocol SearchViewInput: AnyObject {
 protocol SearchViewOutput: AnyObject {
     
     func requestFilters()
-    func viewDidSelectNews(entity: SearchModel)
+    func viewDidSelectEntity(entity: SearchModel)
     func fetchData()
     func setFilter(filter: Any?)
     func setLayer(layer: SearchContentEnum)
     func setSearchString(searchString: String?)
+    func endOfTableReached()
 }
 
 // MARK: - SearchPresenter
@@ -40,10 +41,10 @@ final class SearchPresenter: SearchViewOutput {
 
     // MARK: - Private properties
 
-    private var page = 1
+    private var page = 0
     private let pageSize = APIRestrictions.limit50.rawValue
-    private var layer: SearchContentEnum = .anime { didSet { fetchData() } }
-    private var searchString: String? { didSet { fetchData() } }
+    private var layer: SearchContentEnum = .anime { didSet { fetchFirstPage() } }
+    private var searchString: String? { didSet { fetchFirstPage() } }
     private var errorString: String? { didSet {
         guard let errorString  else {
             viewInput?.hideError()
@@ -51,12 +52,9 @@ final class SearchPresenter: SearchViewOutput {
         }
         viewInput?.showError(errorString: errorString)
     } }
-    private var entityList = [SearchContentProtocol]() {
-        didSet {
-            viewInput?.models = SearchModelFactory().makeModels(from: entityList)
-            viewInput?.tableHeader = buildHeader()
-        }
-    }
+    private var entityList = [SearchContentProtocol]() { didSet { refreshView() } }
+    private var isLoading = false
+    private let filtersModelFactory = FiltersModelFactory()
     private var providers: [SearchContentEnum: any ContentProviderProtocol] = [
         .anime: AnimeProvider(),
         .manga: MangaProvider(),
@@ -65,51 +63,102 @@ final class SearchPresenter: SearchViewOutput {
 
     // MARK: - Functions
 
+    func endOfTableReached() {
+        fetchNextPage()
+    }
+
     func requestFilters() {
-        print("Select Filters screen will be displayed here")
+        let filtersViewController = FiltersBuilder.build(
+            consumer: self,
+            filters: filtersModelFactory.buildFiltersModel(layer: layer)
+        )
+        viewInput?.navigationController?.pushViewController(filtersViewController, animated: true)
     }
     
     func setFilter(filter: Any?) {
         guard let count = providers[layer]?.setFilters(filters: filter) else { return }
         viewInput?.setFiltersCounter(count: count)
+        fetchFirstPage()
     }
 
     func setLayer(layer: SearchContentEnum) {
         self.layer = layer
+        guard let count = providers[layer]?.getFiltersCounter() else { return }
+        viewInput?.setFiltersCounter(count: count)
     }
 
     func setSearchString(searchString: String?) {
         self.searchString = searchString
     }
 
-    func viewDidSelectNews(entity _: SearchModel) {
-        print("Entity details screen will be done here")
+    func viewDidSelectEntity(entity: SearchModel) {
+        guard let provider = providers[layer] else { return }
+        let searchDetailViewController = SearchDetailBuilder.build(id: entity.id, provider: provider)
+        viewInput?.navigationController?.pushViewController(searchDetailViewController, animated: true)
     }
 
     func fetchData() {
-        providers[layer]?.fetchData(searchString: searchString, page: page) {[weak self] data, error in
-            if let data {
-                self?.entityList = data
-                self?.errorString  = data.isEmpty ? Texts.ErrorMessage.noResults : nil
-                return
-            }
-            self?.entityList.removeAll()
-            self?.errorString = error
-        }
+        fetchFirstPage()
     }
 
     // MARK: - Private functions
 
+    private func refreshView() {
+        if !entityList.isEmpty {
+            if page > 1 {
+                viewInput?.models.append(contentsOf: SearchModelFactory().makeModels(from: entityList))
+            } else {
+                viewInput?.models = SearchModelFactory().makeModels(from: entityList)
+            }
+        } else {
+            if page == 0 { viewInput?.models.removeAll() }
+        }
+        viewInput?.tableHeader = buildHeader()
+    }
+    
     private func buildHeader() -> String {
-        if (searchString ?? "").isEmpty {
+        if (searchString ?? "").isEmpty && providers[layer]?.getFiltersCount() ?? 0 == 0 {
             return "\(Constants.SearchHeader.emptyStringResult) \(layer.rawValue.lowercased())"
         }
-        if page == 1 && entityList.isEmpty {
+        if page == 0 && entityList.isEmpty {
             return ""
         }
-        if (1 ..< pageSize).contains(entityList.count) {
-            return "\(Constants.SearchHeader.exactResult) \(entityList.count + pageSize * (page - 1))"
+        if (0 ..< pageSize).contains(entityList.count) {
+            return "\(Constants.SearchHeader.exactResult) \(viewInput?.models.count ?? 0)"
         }
         return "\(Constants.SearchHeader.approximateResult)"
     }
+    
+    private func fetchFirstPage() {
+        page = 0
+        fetchNextPage()
+    }
+    
+    private func fetchNextPage() {
+        if isLoading { return }
+        isLoading = true
+        providers[layer]?.fetchData(searchString: searchString, page: page + 1) { [weak self] data, error in
+            if let data, !data.isEmpty {
+                self?.page += 1
+                self?.entityList = data
+                self?.isLoading = false
+                return
+            }
+            if let error { self?.errorString = error }
+            self?.entityList.removeAll()
+            self?.isLoading = false
+        }
+    }
+}
+
+extension SearchPresenter: FilterConsumerProtocol {
+
+    // MARK: - Functions
+
+    func applyFilterList(filters: FilterListModel) {
+        let filter = filtersModelFactory.buildFilter(filters: filters, layer: layer)
+        setFilter(filter: filter)
+        viewInput?.navigationController?.popViewController(animated: true)
+    }
+    
 }

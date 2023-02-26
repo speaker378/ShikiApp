@@ -20,19 +20,20 @@ final class SearchModelFactory {
     // MARK: - Private functions
     
     private func viewModel(from source: SearchContentProtocol) -> SearchModel {
+        let service = SearchModelInfoService()
         let delimiter = "·"
         let id = source.id
-        let urlString = extractUrlString(image: source.image)
-        let airedReleasedDates = extractYears(
+        let urlString = service.extractUrlString(image: source.image)
+        let airedReleasedDates = service.extractYears(
             airedOn: source.airedOn,
             releasedOn: source.releasedOn,
             kind: source.kind
         )
         let title = source.russian ?? source.name
-        let kind = extractKind(kind: source.kind)
+        let kind = service.extractKind(source.kind)
         let score = Score(
-            value: extractScore(score: source.score),
-            color: extractScoreColor(score: source.score)
+            value: service.extractScore(source.score),
+            color: service.extractScoreColor(source.score)
         )
         let subtitle = "\(kind) \(delimiter) \(airedReleasedDates)"
 
@@ -43,58 +44,6 @@ final class SearchModelFactory {
             subtitle: subtitle,
             score: score
         )
-    }
-    private var dateYearFormatter: DateFormatter = {
-        
-        let formatter = DateFormatter()
-        formatter.dateFormat = Constants.DateFormatter.yearMonthDay
-        formatter.timeZone = TimeZone(identifier: "GMT")
-        return formatter
-    }()
-
-    private func extractYear(date: String?) -> String {
-
-        guard let date,
-              let date = dateYearFormatter.date(from: date) else { return "..." }
-        return "\(Calendar.current.component(.year, from: date))"
-    }
-    
-    private func extractYears(airedOn: String?, releasedOn: String?, kind: String?) -> String {
-        
-        let airedYear = extractYear(date: airedOn)
-        return isSingleDateKind(kind: kind) ? airedYear : "\(airedYear) - \(extractYear(date: releasedOn))"
-    }
-    
-    private func extractUrlString(image: ImageDTO?) -> String {
-        
-        guard let image else { return "" }
-        return "\(Constants.Url.baseUrl)\(image.preview)"
-    }
-
-    private func extractKind(kind: String?) -> String {
-        
-        guard let kind,
-              let kindDescription = Constants.kindsDictionary[kind]
-        else { return "" }
-        return kindDescription
-    }
-    
-    private func isSingleDateKind(kind: String?) -> Bool {
-        
-        guard let kind else { return true}
-        return Constants.singleDateKinds.contains(kind)
-    }
-    
-    private func extractScore(score: String?) -> String {
-        
-        guard let score,
-              let floatScore = Float(score) else { return "" }
-        return String(format: "%.1f", floatScore)
-    }
-    
-    private func extractScoreColor(score: String?) -> UIColor {
-        
-        Constants.scoreColors[score?.first ?? " "] ?? AppColor.line
     }
 }
 

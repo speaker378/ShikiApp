@@ -36,9 +36,8 @@ final class ForumsRequestFactory: ForumsRequestFactoryProtocol {
     let delegate: (AbstractRequestFactory<ForumsApi>)?
 
     // MARK: - Construction
-    
-    init(token: String? = nil, agent: String? = nil) {
-        self.delegate = AbstractRequestFactory<ForumsApi>(token: token, agent: agent)
+
+    init() {
+        delegate = AbstractRequestFactory<ForumsApi>()
     }
-    
 }
