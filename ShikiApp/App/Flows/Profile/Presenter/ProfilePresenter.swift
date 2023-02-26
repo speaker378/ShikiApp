@@ -48,7 +48,26 @@ final class ProfilePresenter: ProfileViewOutputProtocol {
         if AuthManager.share.isAuth() == true {
             fetchDataFromServer { [weak self] in
                 guard let self else { return }
-                self.userData = self.userData
+                self.viewInput?.model = self.modelFactory.convertModel(
+                    from: self.userData ?? UserDTO(
+                        id: 7,
+                        nickname: "",
+                        avatar: "",
+                        image: nil,
+                        lastOnlineAt: "",
+                        url: "",
+                        name: "",
+                        sex: "",
+                        webSite: "",
+                        birthDate: "",
+                        fullYears: 0,
+                        locale: ""
+                        )
+                    )
+                print("=====SELF VIEWINPUT MODEL======")
+                print(self.viewInput?.model as Any)
+                print(self.viewInput as Any)
+                print(self.viewInput?.model?.nickname as Any)
             }
         } else {
             print("User is not logged in")

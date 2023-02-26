@@ -116,8 +116,13 @@ class ProfileViewController: (UIViewController & ProfileViewInputProtocol) {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureUI()
         presenter.fetchData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        configureUI()
+
     }
 
     // MARK: - Functions
@@ -157,11 +162,12 @@ class ProfileViewController: (UIViewController & ProfileViewInputProtocol) {
         setupConstraints1()
         setupConstraints2()
         profileImageView.image = AppImage.ErrorsIcons.noUserpicIcon
-        nameLabel.text = Texts.DummyTextForProfileVC.nameLabelText
-        sexAndAgeLabel.text = Texts.DummyTextForProfileVC.sexAndAgeLabelText
-        linkButton.setTitle(Texts.DummyTextForProfileVC.webLinkText, for: .normal)
+        nameLabel.text = model?.nickname
+        sexAndAgeLabel.text = model?.sex
+        linkButton.setTitle(model?.website, for: .normal)
         logoutButton.setTitle(Texts.DummyTextForProfileVC.logoutButtonText, for: .normal)
-        versionLabel.text = Texts.DummyTextForProfileVC.versionLabelText
+        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+        versionLabel.text =  "Версия " + (version ?? "0.1")
     }
 
     private func setupConstraints1() {
