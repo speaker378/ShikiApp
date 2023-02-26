@@ -43,7 +43,6 @@ class ProfileViewController: (UIViewController & ProfileViewInputProtocol) {
     private let profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = AppImage.ErrorsIcons.noUserpicIcon
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 50
         return imageView
@@ -52,7 +51,6 @@ class ProfileViewController: (UIViewController & ProfileViewInputProtocol) {
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = model?.nickname
         label.textAlignment = .left
         label.font = AppFont.openSansFont(ofSize: 20, weight: .semiBold)
         label.textColor = AppColor.textMain
@@ -62,7 +60,6 @@ class ProfileViewController: (UIViewController & ProfileViewInputProtocol) {
     private let sexAndAgeLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = Texts.DummyTextForProfileVC.sexAndAgeLabelText
         label.textAlignment = .left
         label.font = AppFont.openSansFont(ofSize: 16, weight: .regular)
         label.textColor = AppColor.textMain
@@ -80,7 +77,6 @@ class ProfileViewController: (UIViewController & ProfileViewInputProtocol) {
     private let linkButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle(Texts.DummyTextForProfileVC.webLinkText, for: .normal)
         button.titleLabel?.font = AppFont.openSansFont(ofSize: 16, weight: .regular)
         button.titleLabel?.textColor = AppColor.accent
         return button
@@ -89,7 +85,6 @@ class ProfileViewController: (UIViewController & ProfileViewInputProtocol) {
     private let logoutButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle(Texts.DummyTextForProfileVC.logoutButtonText, for: .normal)
         button.tintColor = AppColor.red
         button.titleLabel?.font = AppFont.openSansFont(ofSize: 16, weight: .regular)
         button.titleLabel?.textAlignment = .center
@@ -99,7 +94,6 @@ class ProfileViewController: (UIViewController & ProfileViewInputProtocol) {
     private let versionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = Texts.DummyTextForProfileVC.versionLabelText
         label.font = AppFont.openSansFont(ofSize: 12, weight: .regular)
         label.textColor = AppColor.textMinor
         return label
@@ -162,6 +156,12 @@ class ProfileViewController: (UIViewController & ProfileViewInputProtocol) {
         setupViews()
         setupConstraints1()
         setupConstraints2()
+        profileImageView.image = AppImage.ErrorsIcons.noUserpicIcon
+        nameLabel.text = Texts.DummyTextForProfileVC.nameLabelText
+        sexAndAgeLabel.text = Texts.DummyTextForProfileVC.sexAndAgeLabelText
+        linkButton.setTitle(Texts.DummyTextForProfileVC.webLinkText, for: .normal)
+        logoutButton.setTitle(Texts.DummyTextForProfileVC.logoutButtonText, for: .normal)
+        versionLabel.text = Texts.DummyTextForProfileVC.versionLabelText
     }
 
     private func setupConstraints1() {

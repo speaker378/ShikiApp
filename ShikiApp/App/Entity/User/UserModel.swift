@@ -8,7 +8,8 @@ struct UserViewModel {
     
     let nickname: String
     let avatarURLString: String?
-    let sex, fullYears: String?
+    let sex: String?
+    let fullYears: Int?
     let website: String?
 }
 
@@ -20,12 +21,12 @@ final class UserModelFactory {
 
     // MARK: - Functions
     
-    func convertModel(from user: UserProfileDTO) -> UserViewModel {
+    func convertModel(from user: UserDTO) -> UserViewModel {
         let profileImageUrl = extractImageAddress(from: user.avatar)
         let userName = user.nickname
         let userSex = user.sex
         let userAge = user.fullYears
-        let userWebSite = user.website
+        let userWebSite = user.webSite
         
         return UserViewModel(
             nickname: userName,

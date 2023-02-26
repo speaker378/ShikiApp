@@ -6,12 +6,13 @@
 import UIKit
 
 protocol ProfileViewInputProtocol: AnyObject {
+    
     var model: UserViewModel? { get set }
     var isAuth: Bool { get set }
 }
 
 protocol ProfileViewOutputProtocol: AnyObject {
-    func viewDidSelectUser(user: UserProfileDTO)
+
     func fetchData()
     func didPressedLogoutButton()
     func isAuth() -> Bool
@@ -42,9 +43,6 @@ final class ProfilePresenter: ProfileViewOutputProtocol {
         }
 
     // MARK: - Functions
-
-    func viewDidSelectUser(user: UserProfileDTO) {
-    }
 
     func fetchData() {
         if AuthManager.share.isAuth() == true {
