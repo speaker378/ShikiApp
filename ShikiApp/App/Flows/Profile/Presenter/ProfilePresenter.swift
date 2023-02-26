@@ -64,10 +64,6 @@ final class ProfilePresenter: ProfileViewOutputProtocol {
                         locale: ""
                         )
                     )
-                print("=====SELF VIEWINPUT MODEL======")
-                print(self.viewInput?.model as Any)
-                print(self.viewInput as Any)
-                print(self.viewInput?.model?.nickname as Any)
             }
         } else {
             print("User is not logged in")
