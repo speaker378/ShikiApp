@@ -17,7 +17,9 @@ enum RanobeApi {
 // MARK: RanobesApi EndPointType extension
 
 extension RanobeApi: EndPointType {
-    
+
+    // MARK: Properties
+
     var path: String {
         switch self {
         case .list:
@@ -26,9 +28,9 @@ extension RanobeApi: EndPointType {
             return "ranobe/\(id)"
         }
     }
-
+    
     var httpMethod: HTTPMethod { .get }
-
+    
     var task: HTTPTask {
         switch self {
         case .list(let parameters):
@@ -37,6 +39,6 @@ extension RanobeApi: EndPointType {
             return .request
         }
     }
-
+    
     var headers: HTTPHeaders? { nil }
 }

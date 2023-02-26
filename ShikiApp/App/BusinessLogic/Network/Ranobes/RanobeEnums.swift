@@ -9,7 +9,7 @@ import Foundation
 
 typealias RanobeContentStatus = MangaContentStatus
 
-enum RanobeContentKind: String {
+enum RanobeContentKind: String, CaseIterable {
     case lightNovel = "light_novel"
-    case novel = "novel"
+    case novel
 }

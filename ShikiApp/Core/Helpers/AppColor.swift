@@ -28,4 +28,5 @@ enum AppColor {
     static let backgroundGreen = UIColor(named: "backgroundGreen") ?? missingColor
     static let backgroundBlue = UIColor(named: "backgroundBlue") ?? missingColor
     static let backgroundYellow = UIColor(named: "backgroundYellow") ?? missingColor
+    static let shadowColor = UIColor(named: "ShadowColor") ?? missingColor
 }

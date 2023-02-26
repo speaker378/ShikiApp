@@ -14,7 +14,7 @@ protocol AuthManagerProtocol {
     func auth(handler: @escaping (Bool) -> Void)
 }
 
-final class AuthManager {
+final class AuthManager: AuthManagerProtocol {
 
     // MARK: - Properties
     
