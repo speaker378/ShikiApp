@@ -129,7 +129,7 @@ final class FiltersModelFactory {
         }
         if !startYear.isEmpty || !endYear.isEmpty {
             let initialYear = startYear.isEmpty ? "\(Constants.Dates.startYearForFilter)" : startYear
-            let finalYear = endYear.isEmpty ? "\(Date().getRelativeYear(1))" : endYear
+            let finalYear = endYear.isEmpty ? "\(Date().getRelativeYear(10))" : endYear
             seasonValue.append("\(initialYear)_\(finalYear),")
         }
         seasonValue.removeLast()
