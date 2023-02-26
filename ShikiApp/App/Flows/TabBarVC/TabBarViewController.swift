@@ -30,7 +30,7 @@ final class TabBarViewController: UITabBarController, UITabBarControllerDelegate
                 let userChoiceListViewController = UserRatesBuilder.build()
                 return self.wrappedInNavigationController(with: userChoiceListViewController, title: $0.title)
             case .profile:
-                let profileViewController = ProfileViewController()
+                let profileViewController = ProfileBuilder.build()
                 return self.wrappedInNavigationController(with: profileViewController, title: $0.title)
             }
         }
