@@ -139,6 +139,7 @@ struct Constants {
         "on_hold": AppImage.UserListIcons.watching,
         "dropped": AppImage.UserListIcons.dropped,
         "rewatching": AppImage.UserListIcons.rewatching
+        ]
         
     static let mangaStatuses = [
         "ongoing": "Выходит",

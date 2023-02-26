@@ -687,7 +687,8 @@
 				00AFC6DA29A290210000B645 /* RatesTypeItemEnum.swift */,
 			);
 			path = MenuItemsList;
-      sourceTree = "<group>";
+      		sourceTree = "<group>";
+		};
 		16082BE429A269AA00450D43 /* Genres */ = {
 			isa = PBXGroup;
 			children = (
