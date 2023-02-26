@@ -27,8 +27,8 @@ final class TabBarViewController: UITabBarController, UITabBarControllerDelegate
                 let searchViewController = SearchBuilder.build()
                  return self.wrappedInNavigationController(with: searchViewController, title: $0.title)
             case .myList:
-                let myListViewController = MyListViewController()
-                return self.wrappedInNavigationController(with: myListViewController, title: $0.title)
+                let userChoiceListViewController = UserRatesBuilder.build()
+                return self.wrappedInNavigationController(with: userChoiceListViewController, title: $0.title)
             case .profile:
                 let profileViewController = ProfileBuilder.build()
                 return self.wrappedInNavigationController(with: profileViewController, title: $0.title)

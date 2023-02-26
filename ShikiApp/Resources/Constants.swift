@@ -32,6 +32,7 @@ struct Constants {
     }
 
     enum Spacing {
+        static let large: CGFloat = 24.0
         static let medium: CGFloat = 8.0
         static let small: CGFloat = 4.0
     }
@@ -109,7 +110,7 @@ struct Constants {
     ]
 
     static let singleDateKinds = ["movie", "music", "one_shot"]
-
+    
     static let scoreColors: [Character: UIColor] = [
         "9": AppColor.green,
         "8": AppColor.green,
@@ -121,6 +122,25 @@ struct Constants {
         "2": AppColor.red,
         "1": AppColor.red
     ]
+    
+    static let watchingStatuses = [
+        "completed": Texts.ListTypesSelectItems.completed,
+        "planned": Texts.ListTypesSelectItems.planned,
+        "watching": Texts.ListTypesSelectItems.watching,
+        "on_hold": Texts.ListTypesSelectItems.onHold,
+        "dropped": Texts.ListTypesSelectItems.dropped,
+        "rewatching": Texts.ListTypesSelectItems.rewatching
+    ]
+    
+    static let watchingImageStatuses = [
+        "completed": AppImage.UserListIcons.watched,
+        "planned": AppImage.UserListIcons.watching,
+        "watching": AppImage.UserListIcons.watching,
+        "on_hold": AppImage.UserListIcons.watching,
+        "dropped": AppImage.UserListIcons.dropped,
+        "rewatching": AppImage.UserListIcons.rewatching
+        ]
+        
     static let mangaStatuses = [
         "ongoing": "Выходит",
         "released": "Издано",
