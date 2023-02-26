@@ -46,3 +46,11 @@ extension NewsfeedViewController: UITableViewDataSourcePrefetching {
         }
     }
 }
+
+// MARK: - UIGestureRecognizerDelegate
+
+extension NewsfeedViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive event: UIEvent) -> Bool {
+        true
+    }
+}
