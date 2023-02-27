@@ -83,6 +83,8 @@
 		1634B67429A93E14004A4B02 /* UserRatesState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1634B67329A93E14004A4B02 /* UserRatesState.swift */; };
 		1640B98A299131480063AC8C /* CustomSegmentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1640B989299131480063AC8C /* CustomSegmentControl.swift */; };
 		1640B98C29914AAB0063AC8C /* CounterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1640B98B29914AAB0063AC8C /* CounterButton.swift */; };
+		1652DB5829AC8E8F002A2BD1 /* Texts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0010CAC42978138500F8705B /* Texts.swift */; };
+		1652DB5929AC8E90002A2BD1 /* Texts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0010CAC42978138500F8705B /* Texts.swift */; };
 		165DCDB8298FF50A0087CEDF /* HttpConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7E4D9B2985496A00E7CA17 /* HttpConstants.swift */; };
 		165DCDB9298FF5200087CEDF /* HttpConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7E4D9B2985496A00E7CA17 /* HttpConstants.swift */; };
 		166FA78D29894235009C2712 /* MangasApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166FA78C29894235009C2712 /* MangasApi.swift */; };

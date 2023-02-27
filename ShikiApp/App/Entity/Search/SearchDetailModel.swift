@@ -55,7 +55,7 @@ final class SearchDetailModelFactory {
             kindAndDate: kindAndDate,
             score: score,
             status: status,
-            description: source.description?.removeTags() ?? "",
+            description: source.description?.removeTags() ?? Texts.ErrorMessage.noDescription,
             rating: rating,
             studios: studios,
             genres: genres,

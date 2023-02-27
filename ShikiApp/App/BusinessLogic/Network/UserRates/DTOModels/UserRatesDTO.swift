@@ -15,13 +15,14 @@ typealias UserRatesResponseDTO = [UserRatesDTO]
 
 struct UserRatesDTO: Codable {
     
-    let id, userID, targetID: Int
-    let targetType: String
+    let id: Int
+    let userID, targetID: Int?
+    let targetType: String?
     let score: Int
     let status: String
     let rewatches, episodes, volumes, chapters: Int
-    let createdAt, textHTML, updatedAt: String
-    let text: String?
+    let createdAt, updatedAt: String
+    let textHTML, text: String?
 
     enum CodingKeys: String, CodingKey {
         case id
