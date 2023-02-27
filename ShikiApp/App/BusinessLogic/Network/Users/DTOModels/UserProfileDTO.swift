@@ -17,12 +17,13 @@ struct UserProfileDTO: Codable {
     let image: UserImageDTO?
     let lastOnlineAt: String?
     let url: String?
-    let name, sex, fullYears: String?
+    let name, sex: String?
+    let fullYears: Int?
     let lastOnline, website: String?
     let location: String?
     let banned: Bool?
     let about, aboutHTML: String?
-    let commonInfo: [String]?
+    let commonInfo: [String?]?
     let showComments: Bool?
     let inFriends: Bool?
     let isIgnored: Bool?
@@ -38,7 +39,8 @@ struct UserProfileDTO: Codable {
         case url, name, sex
         case fullYears = "full_years"
         case lastOnline = "last_online"
-        case website, location, banned, about
+        case website
+        case location, banned, about
         case aboutHTML = "about_html"
         case commonInfo = "common_info"
         case showComments = "show_comments"
@@ -53,27 +55,34 @@ struct UserProfileDTO: Codable {
 
 struct StatsDTO: Codable {
     
-    let statuses, fullStatuses, scores, types: FullStatusesDTO?
+    let statuses, fullStatuses: FullStatusesDTO?
+    let scores: RatingsDTO?
+    let types: RatingsDTO?
     let ratings: RatingsDTO?
     let hasAnime, hasManga: Bool?
     let genres: [GenreDTO]?
     let studios: [StudioDTO]
     let publishers: [PublisherDTO]?
-    let activity: ActivityDTO?
+    let activity: [ActivityDTO]?
 
     enum CodingKeys: String, CodingKey {
         case statuses
         case fullStatuses = "full_statuses"
-        case scores, types, ratings
+        case scores, types
+        case ratings
         case hasAnime = "has_anime?"
         case hasManga = "has_manga?"
-        case genres, studios, publishers, activity
+        case genres, studios, publishers
+        case activity
     }
 }
 
 // MARK: - ActivityDTO
 
-struct ActivityDTO: Codable {}
+struct ActivityDTO: Codable {
+    let name: [Int]?
+    let value: Int?
+}
 
 // MARK: - FullStatusesDTO
 
@@ -108,6 +117,7 @@ enum TypeEnumDTO: String, Codable {
 
 struct RatingsDTO: Codable {
     let anime: [RatingDTO]?
+    let manga: [RatingDTO]?
 }
 
 // MARK: - RatingDTO

@@ -9,7 +9,8 @@
 import XCTest
 
 final class MangasApiTests: XCTestCase {
-
+    
+    let delayRequests = 1.0
     private let api2Test = "MangasRequestFactory"
 
     override func setUpWithError() throws {
@@ -61,10 +62,12 @@ final class MangasApiTests: XCTestCase {
         
         factory.getMangas { data, errorMessage in
             guard let id = data?.first?.id else { return }
-            factory.getMangaById(id: id) { data, errorMessage in
-                response = data
-                error = errorMessage
-                expectation.fulfill()
+            Timer.scheduledTimer(withTimeInterval: self.delayRequests, repeats: false) { _ in
+                factory.getMangaById(id: id) { data, errorMessage in
+                    response = data
+                    error = errorMessage
+                    expectation.fulfill()
+                }
             }
         }
         waitForExpectations(timeout: 15)

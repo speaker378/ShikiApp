@@ -11,6 +11,7 @@ import XCTest
 
 final class UserRatesApiTests: XCTestCase {
     
+    let delayRequests = 1.0
     private let api2Test = "UserRatesRequestFactory"
 
     override func setUpWithError() throws {
@@ -28,13 +29,15 @@ final class UserRatesApiTests: XCTestCase {
         var response: UserRatesResponseDTO?
         var error: String?
         let expectation = self.expectation(description: "\(api2Test).\(request) expectation timeout")
-        
+
         ApiFactory.makeUsersApi().whoAmI { user, _ in
             if let userId = user?.id {
-                factory.getList(userId: userId) { data, errorString in
-                    response = data
-                    error = errorString
-                    expectation.fulfill()
+                Timer.scheduledTimer(withTimeInterval: self.delayRequests, repeats: false) { _ in
+                    factory.getList(userId: userId) { data, errorString in
+                        response = data
+                        error = errorString
+                        expectation.fulfill()
+                    }
                 }
             }
         }
@@ -50,16 +53,20 @@ final class UserRatesApiTests: XCTestCase {
         var response: UserRatesDTO?
         var error: String?
         let expectation = self.expectation(description: "\(api2Test).\(request) expectation timeout")
-        
+
         ApiFactory.makeUsersApi().whoAmI { user, _ in
             if let userId = user?.id {
-                factory.getList(userId: userId) { rates, _ in
-                    if let rateId = rates?.first?.id {
-                            factory.getById(id: rateId) { data, errorString in
-                                response = data
-                                error = errorString
-                                expectation.fulfill()
+                Timer.scheduledTimer(withTimeInterval: self.delayRequests, repeats: false) { _ in
+                    factory.getList(userId: userId) { rates, _ in
+                        if let rateId = rates?.first?.id {
+                            Timer.scheduledTimer(withTimeInterval: self.delayRequests, repeats: false) { _ in
+                                factory.getById(id: rateId) { data, errorString in
+                                    response = data
+                                    error = errorString
+                                    expectation.fulfill()
+                                }
                             }
+                        }
                     }
                 }
             }
@@ -77,29 +84,33 @@ final class UserRatesApiTests: XCTestCase {
         var response: UserRatesDTO?
         var error: String?
         let expectation = self.expectation(description: "\(api2Test).\(request) expectation timeout")
-        
+
         ApiFactory.makeUsersApi().whoAmI { user, _ in
             if let user {
-                ApiFactory.makeAnimesApi().getAnimes(page: 1, limit: 5, search: "Hero") { animes, _ in
-                    if let anime = animes?.first {
-                        let state = UserRatesState(
-                            status: .watching,
-                            score: 0,
-                            chapters: 0,
-                            episodes: 1,
-                            volumes: 1,
-                            rewatches: 0,
-                            text: "qwerty"
-                        )
-                        factory.postEntity(
-                            userId: user.id,
-                            targetId: anime.id,
-                            targetType: .anime,
-                            state: state
-                        ) { entity, errorString in
-                            response = entity
-                            error = errorString
-                            expectation.fulfill()
+                Timer.scheduledTimer(withTimeInterval: self.delayRequests, repeats: false) { _ in
+                    ApiFactory.makeAnimesApi().getAnimes(page: 1, limit: 5, search: "Hero") { animes, _ in
+                        if let anime = animes?.first {
+                            let state = UserRatesState(
+                                status: .watching,
+                                score: 0,
+                                chapters: 0,
+                                episodes: 1,
+                                volumes: 1,
+                                rewatches: 0,
+                                text: "qwerty"
+                            )
+                            Timer.scheduledTimer(withTimeInterval: self.delayRequests, repeats: false) { _ in
+                                factory.postEntity(
+                                    userId: user.id,
+                                    targetId: anime.id,
+                                    targetType: .anime,
+                                    state: state
+                                ) { entity, errorString in
+                                    response = entity
+                                    error = errorString
+                                    expectation.fulfill()
+                                }
+                            }
                         }
                     }
                 }
@@ -118,21 +129,30 @@ final class UserRatesApiTests: XCTestCase {
         var response: UserRatesDTO?
         var error: String?
         let expectation = self.expectation(description: "\(api2Test).\(request) expectation timeout")
-        
+
         ApiFactory.makeUsersApi().whoAmI { user, _ in
             if let user {
-                ApiFactory.makeAnimesApi().getAnimes(page: 1, limit: 5, search: "Hero") { animes, _ in
-                    if let anime = animes?.first {
-                        factory.postEntity(
-                            userId: user.id,
-                            targetId: anime.id,
-                            targetType: .anime
-                        ) { entity, errorString in
-                            if let entity {
-                                factory.postIncrement(id: entity.id) { entity, errorString in
-                                    response = entity
-                                    error = errorString
-                                    expectation.fulfill()
+                Timer.scheduledTimer(withTimeInterval: self.delayRequests, repeats: false) { _ in
+                    ApiFactory.makeAnimesApi().getAnimes(page: 1, limit: 5, search: "Hero") { animes, _ in
+                        if let anime = animes?.first {
+                            Timer.scheduledTimer(withTimeInterval: self.delayRequests, repeats: false) { _ in
+                                factory.postEntity(
+                                    userId: user.id,
+                                    targetId: anime.id,
+                                    targetType: .anime
+                                ) { entity, errorString in
+                                    if let entity {
+                                        Timer.scheduledTimer(
+                                            withTimeInterval: self.delayRequests,
+                                            repeats: false
+                                        ) { _ in
+                                            factory.postIncrement(id: entity.id) { entity, errorString in
+                                                response = entity
+                                                error = errorString
+                                                expectation.fulfill()
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -153,21 +173,30 @@ final class UserRatesApiTests: XCTestCase {
         var response: String?
         var error: String?
         let expectation = self.expectation(description: "\(api2Test).\(request) expectation timeout")
-        
+
         ApiFactory.makeUsersApi().whoAmI { user, _ in
             if let user {
-                ApiFactory.makeAnimesApi().getAnimes(page: 1, limit: 5, search: "Hero") { animes, _ in
-                    if let anime = animes?.first {
-                        factory.postEntity(
-                            userId: user.id,
-                            targetId: anime.id,
-                            targetType: .anime
-                        ) { entity, errorString in
-                            if let entity {
-                                factory.deleteEntity(id: entity.id) { entity, errorString in
-                                    response = entity
-                                    error = errorString
-                                    expectation.fulfill()
+                Timer.scheduledTimer(withTimeInterval: self.delayRequests, repeats: false) { _ in
+                    ApiFactory.makeAnimesApi().getAnimes(page: 1, limit: 5, search: "Hero") { animes, _ in
+                        if let anime = animes?.first {
+                            Timer.scheduledTimer(withTimeInterval: self.delayRequests, repeats: false) { _ in
+                                factory.postEntity(
+                                    userId: user.id,
+                                    targetId: anime.id,
+                                    targetType: .anime
+                                ) { entity, errorString in
+                                    if let entity {
+                                        Timer.scheduledTimer(
+                                            withTimeInterval: self.delayRequests,
+                                            repeats: false
+                                        ) { _ in
+                                            factory.deleteEntity(id: entity.id) { entity, errorString in
+                                                response = entity
+                                                error = errorString
+                                                expectation.fulfill()
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -188,30 +217,39 @@ final class UserRatesApiTests: XCTestCase {
         var response: UserRatesDTO?
         var error: String?
         let expectation = self.expectation(description: "\(api2Test).\(request) expectation timeout")
-        
+
         ApiFactory.makeUsersApi().whoAmI { user, _ in
             if let user {
-                ApiFactory.makeAnimesApi().getAnimes(page: 1, limit: 50) { animes, _ in
-                    if let anime = animes?.first {
-                        factory.postEntity(
-                            userId: user.id,
-                            targetId: anime.id,
-                            targetType: .anime
-                        ) { entity, errorString in
-                            if let entity {
-                                let state = UserRatesState(
-                                    status: .watching,
-                                    score: 0,
-                                    chapters: 0,
-                                    episodes: 1,
-                                    volumes: 1,
-                                    rewatches: 0,
-                                    text: "qqwerty"
-                                )
-                                factory.putEntity(id: entity.id, state: state) { entity, errorString in
-                                    response = entity
-                                    error = errorString
-                                    expectation.fulfill()
+                Timer.scheduledTimer(withTimeInterval: self.delayRequests, repeats: false) { _ in
+                    ApiFactory.makeAnimesApi().getAnimes(page: 1, limit: 50) { animes, _ in
+                        if let anime = animes?.first {
+                            Timer.scheduledTimer(withTimeInterval: self.delayRequests, repeats: false) { _ in
+                                factory.postEntity(
+                                    userId: user.id,
+                                    targetId: anime.id,
+                                    targetType: .anime
+                                ) { entity, errorString in
+                                    if let entity {
+                                        let state = UserRatesState(
+                                            status: .watching,
+                                            score: 0,
+                                            chapters: 0,
+                                            episodes: 1,
+                                            volumes: 1,
+                                            rewatches: 0,
+                                            text: "qqwerty"
+                                        )
+                                        Timer.scheduledTimer(
+                                            withTimeInterval: self.delayRequests,
+                                            repeats: false
+                                        ) { _ in
+                                            factory.putEntity(id: entity.id, state: state) { entity, errorString in
+                                                response = entity
+                                                error = errorString
+                                                expectation.fulfill()
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }

@@ -10,6 +10,7 @@ import XCTest
 
 final class UsersApiTests: XCTestCase {
     
+    private let delayRequests = 1.0
     private let api2Test = "UsersRequestFactory"
 
     override func setUpWithError() throws {
@@ -27,7 +28,7 @@ final class UsersApiTests: XCTestCase {
         var response: UsersResponseDTO?
         var error: String?
         let expectation = self.expectation(description: "\(api2Test).\(request) expectation timeout")
-        
+
         factory.getUsers(page: 1, limit: 10) { data, errorMessage in
             response = data
             error = errorMessage
@@ -45,13 +46,15 @@ final class UsersApiTests: XCTestCase {
         var response: UserProfileDTO?
         var error: String?
         let expectation = self.expectation(description: "\(api2Test).\(request) expectation timeout")
-        
+
         factory.whoAmI { data, errorMessage in
             if let id = data?.nickname {
-                factory.getUserByNickName(nick: id) { data, errorMessage in
-                    response = data
-                    error = errorMessage
-                    expectation.fulfill()
+                Timer.scheduledTimer(withTimeInterval: self.delayRequests, repeats: false) { _ in
+                    factory.getUserByNickName(nick: id) { data, errorMessage in
+                        response = data
+                        error = errorMessage
+                        expectation.fulfill()
+                    }
                 }
             }
         }
@@ -67,13 +70,15 @@ final class UsersApiTests: XCTestCase {
         var response: UserProfileDTO?
         var error: String?
         let expectation = self.expectation(description: "\(api2Test).\(request) expectation timeout")
-        
+
         factory.whoAmI { data, errorMessage in
             if let id = data?.id {
-                factory.getUserById(id: id) { data, errorMessage in
-                    response = data
-                    error = errorMessage
-                    expectation.fulfill()
+                Timer.scheduledTimer(withTimeInterval: self.delayRequests, repeats: false) { _ in
+                    factory.getUserById(id: id) { data, errorMessage in
+                        response = data
+                        error = errorMessage
+                        expectation.fulfill()
+                    }
                 }
             }
         }
@@ -89,13 +94,15 @@ final class UsersApiTests: XCTestCase {
         var response: UserDTO?
         var error: String?
         let expectation = self.expectation(description: "\(api2Test).\(request) expectation timeout")
-        
+
         factory.whoAmI { data, errorMessage in
             if let id = data?.id {
-                factory.getUserInfo(id: id) { data, errorMessage in
-                    response = data
-                    error = errorMessage
-                    expectation.fulfill()
+                Timer.scheduledTimer(withTimeInterval: self.delayRequests, repeats: false) {_ in
+                    factory.getUserInfo(id: id) { data, errorMessage in
+                        response = data
+                        error = errorMessage
+                        expectation.fulfill()
+                    }
                 }
             }
         }
@@ -112,7 +119,7 @@ final class UsersApiTests: XCTestCase {
         var response: UserDTO?
         var error: String?
         let expectation = self.expectation(description: "\(api2Test).\(request) expectation timeout")
-        
+
         factory.whoAmI { data, errorMessage in
             response = data
             error = errorMessage
@@ -122,7 +129,7 @@ final class UsersApiTests: XCTestCase {
         XCTAssertNil(error, "Unexpected \(api2Test).\(request) error \(error ?? "")")
         XCTAssertNotNil(response, "Unexpected \(api2Test).\(request) nil result")
     }
-    
+
     func testGetUserFriends() throws {
         
         if !AuthManager.share.isAuth() { return }
@@ -131,13 +138,15 @@ final class UsersApiTests: XCTestCase {
         var response: FriendsResponseDTO?
         var error: String?
         let expectation = self.expectation(description: "\(api2Test).\(request) expectation timeout")
-        
+
         factory.whoAmI { data, errorMessage in
             if let id = data?.id {
-                factory.getFriends(id: id) { data, errorMessage in
-                    response = data
-                    error = errorMessage
-                    expectation.fulfill()
+                Timer.scheduledTimer(withTimeInterval: self.delayRequests, repeats: false) { _ in
+                    factory.getFriends(id: id) { data, errorMessage in
+                        response = data
+                        error = errorMessage
+                        expectation.fulfill()
+                    }
                 }
             }
         }
@@ -145,23 +154,25 @@ final class UsersApiTests: XCTestCase {
         XCTAssertNil(error, "Unexpected \(api2Test).\(request) error \(error ?? "")")
         XCTAssertNotNil(response, "Unexpected \(api2Test).\(request) nil result")
     }
-    
+
     func testGetUserClubs() throws {
         
         if !AuthManager.share.isAuth() { return }
-        
+
         let factory = ApiFactory.makeUsersApi()
         let request = "getUserClubs"
         var response: ClubsResponseDTO?
         var error: String?
         let expectation = self.expectation(description: "\(api2Test).\(request) expectation timeout")
-        
+
         factory.whoAmI { data, errorMessage in
             if let id = data?.id {
-                factory.getClubs(id: id) { data, errorMessage in
-                    response = data
-                    error = errorMessage
-                    expectation.fulfill()
+                Timer.scheduledTimer(withTimeInterval: self.delayRequests, repeats: false) { _ in
+                    factory.getClubs(id: id) { data, errorMessage in
+                        response = data
+                        error = errorMessage
+                        expectation.fulfill()
+                    }
                 }
             }
         }
@@ -169,7 +180,7 @@ final class UsersApiTests: XCTestCase {
         XCTAssertNil(error, "Unexpected \(api2Test).\(request) error \(error ?? "")")
         XCTAssertNotNil(response, "Unexpected \(api2Test).\(request) nil result")
     }
-    
+
     func testGetUserAnimeRates() throws {
         
         if !AuthManager.share.isAuth() { return }
@@ -178,13 +189,15 @@ final class UsersApiTests: XCTestCase {
         var response: AnimeRatesResponseDTO?
         var error: String?
         let expectation = self.expectation(description: "\(api2Test).\(request) expectation timeout")
-        
+
         factory.whoAmI { data, errorMessage in
             if let id = data?.id {
-                factory.getAnimeRates(id: id, status: nil, isCensored: true) { data, errorMessage in
-                    response = data
-                    error = errorMessage
-                    expectation.fulfill()
+                Timer.scheduledTimer(withTimeInterval: self.delayRequests, repeats: false) { _ in
+                    factory.getAnimeRates(id: id, status: nil, isCensored: true) { data, errorMessage in
+                        response = data
+                        error = errorMessage
+                        expectation.fulfill()
+                    }
                 }
             }
         }
@@ -192,7 +205,7 @@ final class UsersApiTests: XCTestCase {
         XCTAssertNil(error, "Unexpected \(api2Test).\(request) error \(error ?? "")")
         XCTAssertNotNil(response, "Unexpected \(api2Test).\(request) nil result")
     }
-    
+
     func testGetUserFavorites() throws {
         
         if !AuthManager.share.isAuth() { return }
@@ -201,13 +214,15 @@ final class UsersApiTests: XCTestCase {
         var response: UserFavoritesResponseDTO?
         var error: String?
         let expectation = self.expectation(description: "\(api2Test).\(request) expectation timeout")
-        
+
         factory.whoAmI { data, errorMessage in
             if let id = data?.id {
-                factory.getFavorites(id: id) { data, errorMessage in
-                    response = data
-                    error = errorMessage
-                    expectation.fulfill()
+                Timer.scheduledTimer(withTimeInterval: self.delayRequests, repeats: false) { _ in
+                    factory.getFavorites(id: id) { data, errorMessage in
+                        response = data
+                        error = errorMessage
+                        expectation.fulfill()
+                    }
                 }
             }
         }
@@ -215,7 +230,7 @@ final class UsersApiTests: XCTestCase {
         XCTAssertNil(error, "Unexpected \(api2Test).\(request) error \(error ?? "")")
         XCTAssertNotNil(response, "Unexpected \(api2Test).\(request) nil result")
     }
-    
+
     func testGetUserMangaRates() throws {
         
         if !AuthManager.share.isAuth() { return }
@@ -224,13 +239,15 @@ final class UsersApiTests: XCTestCase {
         var response: MangaRatesResponseDTO?
         var error: String?
         let expectation = self.expectation(description: "\(api2Test).\(request) expectation timeout")
-        
+
         factory.whoAmI { data, errorMessage in
             if let id = data?.id {
-                factory.getMangaRates(id: id, isCensored: true) { data, errorMessage in
-                    response = data
-                    error = errorMessage
-                    expectation.fulfill()
+                Timer.scheduledTimer(withTimeInterval: self.delayRequests, repeats: false) { _ in
+                    factory.getMangaRates(id: id, isCensored: true) { data, errorMessage in
+                        response = data
+                        error = errorMessage
+                        expectation.fulfill()
+                    }
                 }
             }
         }
@@ -238,7 +255,7 @@ final class UsersApiTests: XCTestCase {
         XCTAssertNil(error, "Unexpected \(api2Test).\(request) error \(error ?? "")")
         XCTAssertNotNil(response, "Unexpected \(api2Test).\(request) nil result")
     }
-    
+
     func testGetUserMessages() throws {
         
         if !AuthManager.share.isAuth() { return }
@@ -247,13 +264,15 @@ final class UsersApiTests: XCTestCase {
         var response: MessagesResponseDTO?
         var error: String?
         let expectation = self.expectation(description: "\(api2Test).\(request) expectation timeout")
-        
+
         factory.whoAmI { data, errorMessage in
             if let id = data?.id {
-                factory.getMessages(id: id, type: .news) { data, errorMessage in
-                    response = data
-                    error = errorMessage
-                    expectation.fulfill()
+                Timer.scheduledTimer(withTimeInterval: self.delayRequests, repeats: false) { _ in
+                    factory.getMessages(id: id, type: .news) { data, errorMessage in
+                        response = data
+                        error = errorMessage
+                        expectation.fulfill()
+                    }
                 }
             }
         }
@@ -261,7 +280,7 @@ final class UsersApiTests: XCTestCase {
         XCTAssertNil(error, "Unexpected \(api2Test).\(request) error \(error ?? "")")
         XCTAssertNotNil(response, "Unexpected \(api2Test).\(request) nil result")
     }
-    
+
     func testGetUnreadMessages() throws {
         
         if !AuthManager.share.isAuth() { return }
@@ -270,13 +289,15 @@ final class UsersApiTests: XCTestCase {
         var response: UnreadMessagesResponseDTO?
         var error: String?
         let expectation = self.expectation(description: "\(api2Test).\(request) expectation timeout")
-        
+
         factory.whoAmI { data, errorMessage in
             if let id = data?.id {
-                factory.getUnreadMessages(id: id) { data, errorMessage in
-                    response = data
-                    error = errorMessage
-                    expectation.fulfill()
+                Timer.scheduledTimer(withTimeInterval: self.delayRequests, repeats: false) { _ in
+                    factory.getUnreadMessages(id: id) { data, errorMessage in
+                        response = data
+                        error = errorMessage
+                        expectation.fulfill()
+                    }
                 }
             }
         }
@@ -284,7 +305,7 @@ final class UsersApiTests: XCTestCase {
         XCTAssertNil(error, "Unexpected \(api2Test).\(request) error \(error ?? "")")
         XCTAssertNotNil(response, "Unexpected \(api2Test).\(request) nil result")
     }
-    
+
     func testGetHistory() throws {
         
         if !AuthManager.share.isAuth() { return }
@@ -293,13 +314,15 @@ final class UsersApiTests: XCTestCase {
         var response: UserHistoryResponseDTO?
         var error: String?
         let expectation = self.expectation(description: "\(api2Test).\(request) expectation timeout")
-        
+
         factory.whoAmI { data, errorMessage in
             if let id = data?.id {
-                factory.getHistory(id: id, type: .anime) { data, errorMessage in
-                    response = data
-                    error = errorMessage
-                    expectation.fulfill()
+                Timer.scheduledTimer(withTimeInterval: self.delayRequests, repeats: false) { _ in
+                    factory.getHistory(id: id, type: .anime) { data, errorMessage in
+                        response = data
+                        error = errorMessage
+                        expectation.fulfill()
+                    }
                 }
             }
         }
@@ -307,7 +330,7 @@ final class UsersApiTests: XCTestCase {
         XCTAssertNil(error, "Unexpected \(api2Test).\(request) error \(error ?? "")")
         XCTAssertNotNil(response, "Unexpected \(api2Test).\(request) nil result")
     }
-    
+
     func testGetBans() throws {
         
         if !AuthManager.share.isAuth() { return }
@@ -316,13 +339,15 @@ final class UsersApiTests: XCTestCase {
         var response: BansResponseDTO?
         var error: String?
         let expectation = self.expectation(description: "\(api2Test).\(request) expectation timeout")
-        
+
         factory.whoAmI { data, errorMessage in
             if let id = data?.id {
-                factory.getBans(id: id) { data, errorMessage in
-                    response = data
-                    error = errorMessage
-                    expectation.fulfill()
+                Timer.scheduledTimer(withTimeInterval: self.delayRequests, repeats: false) { _ in
+                    factory.getBans(id: id) { data, errorMessage in
+                        response = data
+                        error = errorMessage
+                        expectation.fulfill()
+                    }
                 }
             }
         }

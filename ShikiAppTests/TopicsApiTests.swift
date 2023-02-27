@@ -9,9 +9,10 @@
 import XCTest
 
 final class TopicsApiTests: XCTestCase {
-
-    private let api2Test = "TopicsRequestFactory"
     
+    let delayRequests = 1.0
+    private let api2Test = "TopicsRequestFactory"
+
     override func setUpWithError() throws {
         try? super.setUpWithError()
     }
@@ -19,7 +20,7 @@ final class TopicsApiTests: XCTestCase {
     override func tearDownWithError() throws {
         try? super.tearDownWithError()
     }
-    
+
     func testListTopics() throws {
         
         let factory = ApiFactory.makeTopicsApi()
@@ -27,7 +28,7 @@ final class TopicsApiTests: XCTestCase {
         var response: TopicsResponseDTO?
         var error: String?
         let expectation = self.expectation(description: "\(api2Test).\(request) expectation timeout")
-        
+
         factory.listTopics(
             page: 1,
             limit: 10,
@@ -50,7 +51,7 @@ final class TopicsApiTests: XCTestCase {
         var response: TopicsResponseDTO?
         var error: String?
         let expectation = self.expectation(description: "\(api2Test).\(request) expectation timeout")
-        
+
         factory.hotTopics(limit: 10) { data, errorMessage in
             response = data
             error = errorMessage
@@ -68,7 +69,7 @@ final class TopicsApiTests: XCTestCase {
         var response: NewsTopicsResponseDTO?
         var error: String?
         let expectation = self.expectation(description: "\(api2Test).\(request) expectation timeout")
-        
+
         factory.newTopics(
             page: 1,
             limit: 10
@@ -89,13 +90,15 @@ final class TopicsApiTests: XCTestCase {
         let expectation = expectation(description: "\(api2Test)\(request) expectation timeout")
         var topic: TopicDTO?
         var error: String?
-        
+
         factory.listTopics { data, errorMessage in
             if let id = data?.first?.id {
-                factory.getTopic(id: id) { data, errorMessage in
-                    topic = data
-                    error = errorMessage
-                    expectation.fulfill()
+                Timer.scheduledTimer(withTimeInterval: self.delayRequests, repeats: false) { _ in
+                    factory.getTopic(id: id) { data, errorMessage in
+                        topic = data
+                        error = errorMessage
+                        expectation.fulfill()
+                    }
                 }
             }
         }
@@ -114,28 +117,32 @@ final class TopicsApiTests: XCTestCase {
         let userFactory = ApiFactory.makeUsersApi()
         let forumFactory = ApiFactory.makeForumsApi()
         let expectation = expectation(description: "\(api2Test)\(request) expectation timeout")
-        
+
         userFactory.whoAmI { data, errorMessage in
             guard let user = data else { return }
-            forumFactory.listForums { data, errorMessage in
-                guard let forum = data?.first else { return }
-                let newTopic = NewTopicDTO(
-                    body: "test body",
-                    linkedType: nil,
-                    title: "Test title",
-                    type: "Topic",
-                    forumID: forum.id,
-                    linkedID: nil,
-                    userID: user.id
-                )
-                factory.addTopic(topic: newTopic) { data, errorMessage in
-                    topic = data
-                    error = errorMessage
-                    expectation.fulfill()
+            Timer.scheduledTimer(withTimeInterval: self.delayRequests, repeats: false) { _ in
+                forumFactory.listForums { data, errorMessage in
+                    guard let forum = data?.first else { return }
+                    let newTopic = NewTopicDTO(
+                        body: "test body",
+                        linkedType: nil,
+                        title: "Test title",
+                        type: "Topic",
+                        forumID: forum.id,
+                        linkedID: nil,
+                        userID: user.id
+                    )
+                    Timer.scheduledTimer(withTimeInterval: self.delayRequests, repeats: false) { _ in
+                        factory.addTopic(topic: newTopic) { data, errorMessage in
+                            topic = data
+                            error = errorMessage
+                            expectation.fulfill()
+                        }
+                    }
                 }
             }
         }
-        waitForExpectations(timeout: 15)
+        waitForExpectations(timeout: 25)
         XCTAssertNil(error, "Unexpected \(api2Test).\(request) error \(error ?? "")")
         XCTAssertNotNil(topic, "Unexpected \(api2Test).\(request) nil result")
         if let id = topic?.id {
@@ -144,7 +151,7 @@ final class TopicsApiTests: XCTestCase {
             }
         }
     }
-    
+
     func testDeleteTopic() throws {
         
         if !AuthManager.share.isAuth() { return }
@@ -155,26 +162,32 @@ final class TopicsApiTests: XCTestCase {
         let userFactory = ApiFactory.makeUsersApi()
         let forumFactory = ApiFactory.makeForumsApi()
         let expectation = expectation(description: "\(api2Test)\(request) expectation timeout")
-        
+
         userFactory.whoAmI { data, errorMessage in
             guard let user = data else { return }
-            forumFactory.listForums { data, errorMessage in
-                guard let forum = data?.first else { return }
-                let newTopic = NewTopicDTO(
-                    body: "test body",
-                    linkedType: nil,
-                    title: "Test title",
-                    type: "Topic",
-                    forumID: forum.id,
-                    linkedID: nil,
-                    userID: user.id
-                )
-                factory.addTopic(topic: newTopic) { data, errorMessage in
-                    if let id = data?.id {
-                        factory.deleteTopic(id: id) { data, errorMessage in
-                            topic = data
-                            error = errorMessage
-                            expectation.fulfill()
+            Timer.scheduledTimer(withTimeInterval: self.delayRequests, repeats: false) { _ in
+                forumFactory.listForums { data, errorMessage in
+                    guard let forum = data?.first else { return }
+                    let newTopic = NewTopicDTO(
+                        body: "test body",
+                        linkedType: nil,
+                        title: "Test title",
+                        type: "Topic",
+                        forumID: forum.id,
+                        linkedID: nil,
+                        userID: user.id
+                    )
+                    Timer.scheduledTimer(withTimeInterval: self.delayRequests, repeats: false) { _ in
+                        factory.addTopic(topic: newTopic) { data, errorMessage in
+                            if let id = data?.id {
+                                Timer.scheduledTimer(withTimeInterval: self.delayRequests, repeats: false) { _ in
+                                    factory.deleteTopic(id: id) { data, errorMessage in
+                                        topic = data
+                                        error = errorMessage
+                                        expectation.fulfill()
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -184,7 +197,7 @@ final class TopicsApiTests: XCTestCase {
         XCTAssertNil(error, "Unexpected \(api2Test).\(request) error \(error ?? "")")
         XCTAssertNotNil(topic, "Unexpected \(api2Test).\(request) nil result")
     }
-    
+
     func testChangeTopic() throws {
         
         if !AuthManager.share.isAuth() { return }
@@ -195,32 +208,37 @@ final class TopicsApiTests: XCTestCase {
         let userFactory = ApiFactory.makeUsersApi()
         let forumFactory = ApiFactory.makeForumsApi()
         let expectation = expectation(description: "\(api2Test)\(request) expectation timeout")
-        
         userFactory.whoAmI { data, errorMessage in
             guard let user = data else { return }
-            forumFactory.listForums { data, errorMessage in
-                guard let forum = data?.first else { return }
-                let newTopic = NewTopicDTO(
-                    body: "test body",
-                    linkedType: nil,
-                    title: "Test title",
-                    type: "Topic",
-                    forumID: forum.id,
-                    linkedID: nil,
-                    userID: user.id
-                )
-                factory.addTopic(topic: newTopic) { data, errorMessage in
-                    if let id = data?.id {
-                        factory.putTopic(
-                            id: id,
-                            title: "new Title",
-                            body: "new Body",
-                            linkedId: nil,
-                            linkedType: nil
-                        ) { data, errorMessage in
-                            topic = data
-                            error = errorMessage
-                            expectation.fulfill()
+            Timer.scheduledTimer(withTimeInterval: self.delayRequests, repeats: false) { _ in
+                forumFactory.listForums { data, errorMessage in
+                    guard let forum = data?.first else { return }
+                    let newTopic = NewTopicDTO(
+                        body: "test body",
+                        linkedType: nil,
+                        title: "Test title",
+                        type: "Topic",
+                        forumID: forum.id,
+                        linkedID: nil,
+                        userID: user.id
+                    )
+                    Timer.scheduledTimer(withTimeInterval: self.delayRequests, repeats: false) { _ in
+                        factory.addTopic(topic: newTopic) { data, errorMessage in
+                            if let id = data?.id {
+                                Timer.scheduledTimer(withTimeInterval: self.delayRequests, repeats: false) { _ in
+                                    factory.putTopic(
+                                        id: id,
+                                        title: "new Title",
+                                        body: "new Body",
+                                        linkedId: nil,
+                                        linkedType: nil
+                                    ) { data, errorMessage in
+                                        topic = data
+                                        error = errorMessage
+                                        expectation.fulfill()
+                                    }
+                                }
+                            }
                         }
                     }
                 }
