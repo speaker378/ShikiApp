@@ -85,7 +85,7 @@ class NewsfeedTableViewCell: UITableViewCell {
     
     private func configureUI() {
         self.selectedBackgroundView = accentBackgroundView
-        self.contentView.backgroundColor = AppColor.backgroundMain
+        self.backgroundColor = AppColor.backgroundMain
         self.addSubviews([newsImageView, dateLabel, titleLabel, subtitleLabel, strokeView])
         setupConstraints()
     }

@@ -49,6 +49,7 @@ final class AppCollectionView: UICollectionView {
     }
     
     private func configureUI() {
+        self.backgroundColor = AppColor.backgroundMain
         showsHorizontalScrollIndicator = false
         translatesAutoresizingMaskIntoConstraints = false
         heightAnchor.constraint(equalToConstant: Layout.itemHeight).isActive = true

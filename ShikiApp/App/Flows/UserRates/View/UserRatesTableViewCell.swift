@@ -172,6 +172,7 @@ class UserRatesTableViewCell: UITableViewCell {
 
     private func configureUI() {
         self.selectedBackgroundView = accentBackgroundView
+        self.backgroundColor = AppColor.backgroundMain
         self.addSubviews(
             [
                 contentImageView,
