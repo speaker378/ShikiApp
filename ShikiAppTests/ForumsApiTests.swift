@@ -9,7 +9,7 @@
 import XCTest
 
 final class ForumsApiTests: XCTestCase {
-
+    
     override func setUpWithError() throws {
         try? super.setUpWithError()
     }
@@ -17,12 +17,14 @@ final class ForumsApiTests: XCTestCase {
     override func tearDownWithError() throws {
         try? super.tearDownWithError()
     }
-    
+
     func testListForums() throws {
+        
         let factory = ApiFactory.makeForumsApi()
         var forums: ForumsResponseDTO?
         var error: String?
         let expectation = self.expectation(description: "ForumsRequestFactory.getForums expectation timeout")
+
         factory.listForums { forumsResponse, errorMessage in
             forums = forumsResponse
             error = errorMessage
@@ -30,8 +32,6 @@ final class ForumsApiTests: XCTestCase {
         }
         waitForExpectations(timeout: 15)
         XCTAssertNil(error, "Unexpected ForumsRequestFactory.getForums error \(error ?? "")")
-
         XCTAssertFalse(forums?.isEmpty ?? true, "Unexpected ForumsRequestFactory.getForums empty or nil result")
     }
-
 }

@@ -75,12 +75,15 @@ class AbstractRequestFactory<API: EndPointType>: AbstractRequestFactoryProtocol 
     // MARK: - Private functions
     
     private func handleNetworkResponse(_ response: HTTPURLResponse) -> Result<String> {
+        let responseCode = "\(response.statusCode) "
         switch response.statusCode {
         case 200 ... 299: return .success(NetworkLayerErrorMessages.success)
-        case 401 ... 500: return .failure(NetworkLayerErrorMessages.authenticationError)
-        case 501 ... 599: return .failure(NetworkLayerErrorMessages.badRequest)
-        case 600: return .failure(NetworkLayerErrorMessages.outdated)
-        default: return .failure(NetworkLayerErrorMessages.requestFailed)
+        case 403: return .failure(responseCode + NetworkLayerErrorMessages.accessDenied)
+        case 429: return .failure(responseCode + NetworkLayerErrorMessages.tooManyRequests)
+        case 401 ... 500: return .failure(responseCode + NetworkLayerErrorMessages.authenticationError)
+        case 501 ... 599: return .failure(responseCode + NetworkLayerErrorMessages.badRequest)
+        case 600: return .failure(responseCode + NetworkLayerErrorMessages.outdated)
+        default: return .failure(responseCode + NetworkLayerErrorMessages.requestFailed)
         }
     }
 

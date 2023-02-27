@@ -17,7 +17,7 @@ struct MangaRateDTO: Codable {
     let id, score: Int
     let status: String
     let text: String?
-    let episodes: Int
+    let episodes: Int?
     let chapters, volumes: Int?
     let textHTML: String?
     let rewatches: Int?
@@ -32,7 +32,9 @@ struct MangaRateDTO: Codable {
         case rewatches
         case createdAt = "created_at"
         case updatedAt = "updated_at"
-        case user, anime, manga
+        case user
+        case anime
+        case manga
     }
 }
 
