@@ -58,7 +58,7 @@ class NewsfeedTableViewCell: UITableViewCell {
     
     private var accentBackgroundView: UIView = {
         let view = UIView()
-        view.backgroundColor = AppColor.accent
+        view.backgroundColor = AppColor.backgroundMinor
         return view
     }()
 
