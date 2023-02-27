@@ -111,7 +111,7 @@ class SearchView: UIView {
     private var topBackgroundView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = AppColor.backgroundMain
         return view
     }()
 

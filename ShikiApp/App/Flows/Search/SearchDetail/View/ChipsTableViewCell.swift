@@ -25,6 +25,7 @@ final class ChipsTableViewCell: UITableViewCell {
     
     func configure(content: [String]) {
         addSubview(stackView)
+        self.backgroundColor = AppColor.backgroundMain
         configureConstraints()
         content.forEach { value in
             let chipsView = ChipsView(title: value, style: .gray)
