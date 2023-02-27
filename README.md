@@ -34,21 +34,26 @@
 
 :white_check_mark: управлять списками просмотров \
 :white_check_mark: читать новости из мира аниме \
-:o: просматривать календарь выхода новых серий \
 :white_check_mark: находить информацию об аниме, манге и ранобэ \
 :white_check_mark: смотреть трейлеры, опенинги, эндинги
 
+## В планах
+- добавить календарь выхода новых серий
+- добавить хранение настроек пользователя в `UserDefaults`
+- добавить хранение данных в `CoreData` для просмотра без сети интернет
+- добавить дополнительную информацию на экран детальной информации о тайтле
+- добавить оценку тайтлов
+
 ## Наш Style-guide
-Для ознакомления с нашим style guide посмотрите файл
+Для ознакомления со style guide посмотрите файл
  :page_facing_up:[**`Style-guide`**](style-guides.md)
 
 ## Стек и архитектура
 - В качестве архитектуры была выбрана `MVP`.
 - Верстка - `UIKit`, кодом с использованием `Autolayouts` без сторонних библиотек.
-- Хранение `OAuth2` токена - `KeyChain`, в планах также добавить хранение настроек пользователя в `UserDefaults`.
-- Все данные приложения хранятся в `CoreData` для отображения части данных без подключения к сети Интернет. Также у нас в планах расширение функционала, с использованием данных, которые хранятся в `CoreData`.
-- Просмотр видео реализован с помощью `WebKit`, также мы добавили deeplink для просмотра видео в приложении Youtube или просмотр в Safari, если у пользователя не установлен Youtube.
-- Работу с сетью осуществляем с помощью `URLSession`, описание запросов можно найти ниже, в подразделе API.
+- В `KeyChain` хранится `OAuth2` токен.
+- Просмотр видео реализован с помощью `WebKit`, также можно смотреть видео в приложении Youtube по deeplink. Если у пользователя нет приложения Youtube - просмотр будет в Safari.
+- Работа с сетью осуществляется с помощью `URLSession`, описание запросов можно найти ниже, в подразделе API.
 
 ### API 
 <a href="https://shikimori.one/api/doc">Для логина и данных</a>\
@@ -69,7 +74,7 @@
 share_link_id=257799186588"> <img src="https://img.shields.io/badge/miro-%23050038.svg?&style=for-the-badge&logo=miro&logoColor=white" /> </a>
 
 ### Дизайн 
-Вы можете посмотреть отрисованный дизайн нашего приложения в Figma :point_down:
+Вы можете посмотреть отрисованный дизайн приложения в Figma :point_down:
 
 <a href="https://www.figma.com/file/vXzSZ5p7Iy1GNKIRzG2GsZ/Shiki-App?node-id=0%3A1&t=2EEIXo6nGcozY
 BnY-1"> <img src="https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white"/> </a>
@@ -82,4 +87,4 @@ BnY-1"> <img src="https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the
 <a href="https://github.com/December11">Алла</a>\
 <a href="https://github.com/mpopsicle235111">Антон</a>
 
-Мы будем рады, если вы сделаете вклад в **ShikiApp**, проверьте файл :page_facing_up:[**`LICENSE`**](resources/LICENSE.md) для получения дополнительной информации.
+Не стесняйтесь делать свой вклад в **ShikiApp**, проверьте файл :page_facing_up:[**`LICENSE`**](resources/LICENSE.md) для получения дополнительной информации.
