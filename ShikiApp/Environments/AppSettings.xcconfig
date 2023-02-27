@@ -1,0 +1,12 @@
+//
+//  AppSettings.xcconfig
+//  ShikiApp
+//
+//  Created by Алексей Шинкарев on 21.01.2023.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+API_URL = https:/$()/shikimori.one/api/
+BASE_URL = https:/$()/shikimori.one

@@ -1,0 +1,60 @@
+
+warning_threshold: 15
+
+disabled_rules:
+  - trailing_whitespace
+  
+opt_in_rules:
+  - force_unwrapping
+  # Закрывающие скобки на новой строке ) ] }
+  # https://realm.github.io/SwiftLint/multiline_arguments_brackets.html
+  - multiline_arguments_brackets
+  # проверяем вызов суперкласса при override
+  # https://realm.github.io/SwiftLint/overridden_super_call.html
+  - overridden_super_call
+  # аргументы функции должны быть или в одну строку, или каждый на своей строке
+  # https://realm.github.io/SwiftLint/multiline_arguments.html
+  - multiline_arguments
+  # предупреждение, когда используем fileprivate
+  # https://realm.github.io/SwiftLint/strict_fileprivate.html
+  - strict_fileprivate
+ 
+
+line_length:
+  warning: 120
+  ignores_function_declarations: true
+  ignores_comments: true
+  ignores_interpolated_strings: true
+  ignores_urls: true
+
+function_parameter_count:
+  warning: 10
+  error: 15
+
+file_length:
+  warning: 500
+
+type_body_length:
+  warning: 400
+  error: 450
+
+control_statement:
+  error
+
+# Будет ошибка при лишнем указании getter-a
+# https://realm.github.io/SwiftLint/implicit_getter.html
+implicit_getter:
+  error
+
+vertical_whitespace:
+  max_empty_lines: 2
+
+
+custom_rules:
+  # MARK выделяем отступами сверху и снизу
+  mark_newlines: 
+    included: ".*.swift"
+    name: "MARK newlines surrounding"
+    regex: '(([}{)\w \t]+\n{1}[ \t]*)(\/\/ MARK: - [\w ]*))|((\/\/ MARK: - [\w ]*)(\n{1}[ \t]*\w+))'
+    message: "Every MARK should be surrounded with 1 newline before and 1 after it"
+    severity: warning
