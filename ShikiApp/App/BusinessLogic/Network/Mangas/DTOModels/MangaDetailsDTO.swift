@@ -34,7 +34,7 @@ struct MangaDetailsDTO: Codable, SearchDetailContentProtocol {
     let licensors: [String]
     let publishers: [PublisherDTO]
     let genres: [GenreDTO]
-    let userRate: Int?
+    let userRate: UserRatesDTO?
 
     enum CodingKeys: String, CodingKey {
         case id, name, russian, image, url, kind, score, status, volumes, chapters

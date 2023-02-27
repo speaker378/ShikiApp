@@ -38,7 +38,7 @@ struct AnimeDetailsDTO: Codable, SearchDetailContentProtocol {
     let studios: [StudioDTO]
     let videos: [VideoDTO]
     let screenshots: [ScreenshotDTO]
-    let userRate: Int?
+    let userRate: UserRatesDTO?
 
     enum CodingKeys: String, CodingKey {
         case id, name, russian, image, url, kind, score, status, episodes
