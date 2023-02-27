@@ -27,6 +27,7 @@ enum Texts {
         static let noResults = "Ничего не найдено"
         static let failLoading = "Данные не загрузились"
         static let generalDescription = "Попробуйте позже, должно получиться"
+        static let noDescription = "Нет описания"
     }
     
     enum LoadingMessage {

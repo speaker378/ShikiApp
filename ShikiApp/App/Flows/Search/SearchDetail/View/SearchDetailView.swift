@@ -57,6 +57,9 @@ final class SearchDetailView: UIView {
         [itemInfoView, genreTableView].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
         titleLabel.text = content.title
         descriptionLabel.text = content.description
+        if descriptionLabel.text == Texts.ErrorMessage.noDescription {
+            descriptionLabel.textColor = AppColor.textMinor
+        }
         genreTableView.reloadData()
         
         configureConstraints()
@@ -87,7 +90,7 @@ final class SearchDetailView: UIView {
             
             genreTableView.topAnchor.constraint(
                 equalTo: titleLabel.bottomAnchor,
-                constant: Constants.Insets.sideInset
+                constant: tableViewHeight == 0 ? 0 : Constants.Insets.sideInset
             ),
             genreTableView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             genreTableView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),

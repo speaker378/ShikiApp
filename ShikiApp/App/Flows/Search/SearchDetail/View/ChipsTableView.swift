@@ -87,13 +87,14 @@ final class ChipsBuilder {
         for index in 0 ..< values.count {
             let currentWord = NSAttributedString(string: values[index], attributes: [.font: AppFont.Style.subtitle])
             let chipsWidth = currentWord.size().width + chipsHorizontalInset + spacing
+            
+            line.append(values[index])
+            lineWidth += chipsWidth
             if lineWidth + chipsWidth >= maxWidth || index == values.count-1 {
                 results.append(line)
                 line = [String]()
                 lineWidth = 0.0
             }
-            line.append(values[index])
-            lineWidth += chipsWidth
         }
         return results
     }
