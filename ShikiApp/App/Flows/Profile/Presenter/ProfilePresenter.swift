@@ -46,7 +46,6 @@ final class ProfilePresenter: ProfileViewOutputProtocol {
     
     func fetchData() {
         if AuthManager.share.isAuth() {
-            print("User is logged in")
             fetchDataFromServer { [weak self] in
                 guard let self else { return }
                 self.viewInput?.model = self.modelFactory.convertModel(
