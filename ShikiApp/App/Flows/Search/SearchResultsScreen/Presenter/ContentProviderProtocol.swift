@@ -29,19 +29,3 @@ protocol ContentProviderProtocol {
         _ error: String?
     ) -> Void)
 }
-
-extension ContentProviderProtocol {
-
-    // MARK: - Functions
-
-    func getFiltersCount() -> Int {
-        guard var filters else { return 0 }
-        if let genres = filters.genre, genres.isEmpty { filters.genre = nil }
-        if (filters.season ?? "").isEmpty { filters.season = nil }
-        return Mirror(reflecting: filters)
-            .children
-            .filter({ $0.label != nil })
-            .filter({Mirror(reflecting: $0.value).children.count > 0})
-            .count
-    }
-}

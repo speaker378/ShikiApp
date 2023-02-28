@@ -64,7 +64,11 @@ struct Constants {
     enum Dates {
         static let startYearForFilter = 1917
     }
-
+    
+    enum FilterParameters {
+        static let delimiter: Character = ","
+    }
+    
     enum SearchHeader {
         static let emptyStringResult = "Лучшие"
         static let exactResult = "Найдено:"
