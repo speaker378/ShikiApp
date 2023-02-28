@@ -12,7 +12,7 @@ protocol ProfileViewInputProtocol: AnyObject {
 }
 
 protocol ProfileViewOutputProtocol: AnyObject {
-
+    
     func fetchData()
     func didPressedLogoutButton()
     func isAuth() -> Bool
@@ -21,11 +21,11 @@ protocol ProfileViewOutputProtocol: AnyObject {
 final class ProfilePresenter: ProfileViewOutputProtocol {
 
     // MARK: - Properties
-
+    
     weak var viewInput: (UIViewController & ProfileViewInputProtocol)?
 
     // MARK: - Private properties
-
+    
     private let apiFactory = ApiFactory.makeUsersApi()
     private let modelFactory = UserModelFactory()
     private var userData: UserDTO?
@@ -33,22 +33,38 @@ final class ProfilePresenter: ProfileViewOutputProtocol {
     // MARK: - Private functions
     
     private func fetchDataFromServer(completion: @escaping () -> Void) {
-            apiFactory.whoAmI { [weak self] data, _ in
-                guard let data else {
-                    return
-                }
-                self?.userData = data
-                completion()
+        apiFactory.whoAmI { [weak self] data, _ in
+            guard let data else {
+                return
             }
+            self?.userData = data
+            completion()
         }
+    }
 
     // MARK: - Functions
-
+    
     func fetchData() {
-        if AuthManager.share.isAuth() == true {
+        if AuthManager.share.isAuth() {
+            print("User is logged in")
             fetchDataFromServer { [weak self] in
                 guard let self else { return }
-                self.userData = self.userData
+                self.viewInput?.model = self.modelFactory.convertModel(
+                    from: self.userData ?? UserDTO(
+                        id: 7,
+                        nickname: "",
+                        avatar: "",
+                        image: nil,
+                        lastOnlineAt: "",
+                        url: "",
+                        name: "",
+                        sex: "",
+                        webSite: "",
+                        birthDate: "",
+                        fullYears: 0,
+                        locale: "ru"
+                    )
+                )
             }
         } else {
             print("User is not logged in")
@@ -56,21 +72,21 @@ final class ProfilePresenter: ProfileViewOutputProtocol {
     }
     
     func didPressedLogoutButton() {
-            if isAuth() {
-                AuthManager.share.logOut()
-                viewInput?.isAuth = false
-            } else {
-                AuthManager.share.auth { [weak self] result in
-                    DispatchQueue.main.async {
-                        self?.viewInput?.isAuth = result
-                    }
+        if isAuth() {
+            AuthManager.share.logOut()
+            viewInput?.isAuth = false
+        } else {
+            AuthManager.share.auth { [weak self] result in
+                DispatchQueue.main.async {
+                    self?.viewInput?.isAuth = result
                 }
             }
         }
-        
-        func isAuth() -> Bool {
-            AuthManager.share.isAuth()
-        }
+    }
+    
+    func isAuth() -> Bool {
+        AuthManager.share.isAuth()
+    }
 }
 
   
