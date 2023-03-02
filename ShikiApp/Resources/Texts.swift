@@ -27,7 +27,12 @@ enum Texts {
         static let noResults = "Ничего не найдено"
         static let failLoading = "Данные не загрузились"
         static let generalDescription = "Попробуйте позже, должно получиться"
+    }
+    
+    enum Empty {
         static let noDescription = "Нет описания"
+        static let noTitle = "Без названия"
+        static let noScore = "Не оценено"
     }
     
     enum LoadingMessage {
@@ -65,6 +70,7 @@ enum Texts {
         static let episodes = "эп."
         static let minutes = "мин."
         static let volumes = "т."
+        static let chapters = "гл."
     }
     
     enum ButtonTitles {

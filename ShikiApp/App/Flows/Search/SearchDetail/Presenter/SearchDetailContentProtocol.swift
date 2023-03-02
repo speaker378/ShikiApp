@@ -25,17 +25,19 @@ protocol SearchDetailContentProtocol {
     var episodes: Int? { get }
     var episodesAired: Int? { get }
     var volumes: Int? { get }
+    var chapters: Int? { get }
     var duration: Int? { get }
  }
 
 extension SearchDetailContentProtocol {
     
-    var volumes: Int? { return nil }
     var genres: [GenreDTO] { return [] }
     var studios: [StudioDTO] { return [] }
     var publishers: [PublisherDTO] { return [] }
     var rating: String? { return nil }
     var episodes: Int? { return nil }
     var episodesAired: Int? { return nil }
+    var volumes: Int? { return nil }
+    var chapters: Int? { return nil }
     var duration: Int? { return nil }
 }

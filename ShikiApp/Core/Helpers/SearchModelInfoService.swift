@@ -7,6 +7,7 @@
 
 import UIKit
 
+// TODO: - Придумать название
 /// подготовка отображения информации на экранах Поиска и детальной инфы о тайтле
 final class SearchModelInfoService {
 
@@ -20,6 +21,15 @@ final class SearchModelInfoService {
     }
 
     // MARK: - Functions
+    
+    func extractTitle(name: String, russian: String?) -> String {
+        if let russian, !russian.isEmpty {
+            return russian
+        } else if name.isEmpty {
+            return Texts.ErrorMessage.noTitle
+        }
+        return name
+    }
     
     func extractYear(_ date: String?) -> String {
         guard let date, let date = dateYearFormatter.date(from: date) else { return "..." }
@@ -72,7 +82,7 @@ final class SearchModelInfoService {
         guard let genres, !genres.isEmpty else { return [] }
         return genres.compactMap { $0.russian }
     }
-    
+    // TODO: - выводить тут или картинку, или имя
     func extractStudios(studios: [StudioDTO], publishers: [PublisherDTO]) -> [String] {
         if !studios.isEmpty {
             return studios.compactMap { $0.name }
@@ -83,12 +93,27 @@ final class SearchModelInfoService {
         }
     }
     
-    func extractDuration(duration: Int?, volumes: Int?) -> String {
+    func extractDuration(duration: Int?, volumes: Int?, chapters: Int?) -> String {
         if let duration {
             return "\(duration) \(Texts.OtherMessage.minutes)"
-        } else if let volumes {
+        } else if let volumes, volumes > 1 {
             return "\(volumes) \(Texts.OtherMessage.volumes)"
-        }
+        } else if let chapters, chapters > 0 {
+            return "\(chapters) \(Texts.OtherMessage.chapters)"
+        } 
         return ""
+    }
+    
+    func makeEpisodesText(episodes: Int?, episodesAired: Int?, kind: String?, status: String?) -> String {
+        guard let episodesCount = episodes, extractKind(kind) != "Фильм" else { return "" }
+        let episodes = episodesCount == 0 ? " ?" : String(episodesCount)
+        var string = ""
+        let status = extractStatus(status: status, kind: kind)
+        if status == "Выходит" || status == "Онгоинг", let aired = episodesAired {
+            string = "\(aired)/\(episodes) \(Texts.OtherMessage.episodes)"
+        } else {
+            string = "\(episodes) \(Texts.OtherMessage.episodes)"
+        }
+        return string
     }
 }

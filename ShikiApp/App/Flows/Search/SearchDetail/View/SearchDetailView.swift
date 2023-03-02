@@ -57,7 +57,7 @@ final class SearchDetailView: UIView {
         [itemInfoView, genreTableView].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
         titleLabel.text = content.title
         descriptionLabel.text = content.description
-        if descriptionLabel.text == Texts.ErrorMessage.noDescription {
+        if descriptionLabel.text == Texts.Empty.noDescription {
             descriptionLabel.textColor = AppColor.textMinor
         }
         genreTableView.reloadData()
