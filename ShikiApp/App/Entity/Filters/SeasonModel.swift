@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - SeasonModel
 
-struct SeasonModel {
+struct SeasonModel: Equatable {
 
     // MARK: - Private properties
 
@@ -33,39 +33,40 @@ struct SeasonModel {
 
 final class SeasonModelFactory {
 
-    // MARK: - Private properties
-
-    private let removeSeasonsByMonth = [
-        [0, 5],
-        [0, 5],
-        [1, 4],
-        [1, 4],
-        [1, 4],
-        [2, 3],
-        [2, 3],
-        [2, 3],
-        [3, 2],
-        [3, 2],
-        [3, 2],
-        [4, 1]
-    ]
-
     // MARK: - Functions
-
+    
     func build() -> [SeasonModel] {
         var result: [SeasonModel] = []
         guard
-            let currentYear = Calendar.current.dateComponents([.year], from: Date()).year,
-            let currentMonth = Calendar.current.dateComponents([.month], from: Date()).month
+            var startDate = Calendar.current.date(byAdding: .month, value: -12, to: .now),
+            let stopDate = Calendar.current.date(byAdding: .month, value: 6, to: .now)
         else { return result }
-        let seasons = Seasons.descriptions
-        for year in currentYear - 1 ... currentYear + 1 {
-            for season in seasons {
-                result.append(SeasonModel(season: season, year: year))
-            }
+        
+        while startDate < stopDate {
+            guard
+                let month = Calendar.current.dateComponents([.month], from: startDate).month,
+                let year = Calendar.current.dateComponents([.year], from: startDate).year
+            else { return result }
+            result.append(SeasonModel(season: seasonByMonth(month).rawValue, year: year))
+            startDate = Calendar.current.date(byAdding: .month, value: 1, to: startDate) ?? stopDate
         }
-        result.removeFirst(removeSeasonsByMonth[currentMonth - 1][0])
-        result.removeLast(removeSeasonsByMonth[currentMonth - 1][1])
-        return result.reversed()
+        result.reverse()
+        result.removeDuplicates()
+        return result
+    }
+
+    // MARK: - Private functions
+    
+    private func seasonByMonth(_ month: Int) -> Seasons {
+        switch month {
+        case 3...5:
+            return Seasons.spring
+        case 6...8:
+            return Seasons.summer
+        case 9...11:
+            return Seasons.fall
+        default:
+            return Seasons.winter
+        }
     }
 }
