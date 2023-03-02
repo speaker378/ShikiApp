@@ -40,7 +40,6 @@ final class FilterListModelFactory {
 
     // MARK: - Private properties
 
-    private var processors: [SearchContentEnum: (_: Any?) -> FilterListModel?] = [:]
     private var genresDictionary: [SearchContentEnum: [GenreModel]] = [:]
 
     // MARK: - Constructions
@@ -54,29 +53,61 @@ final class FilterListModelFactory {
                 self.genresDictionary[.ranobe] = factory.build(genres: data, layer: .ranobe)
             }
         }
-        processors = [
-            .anime: animeProcessor,
-            .manga: mangaProcessor,
-            .ranobe: ranobeProcessor
-        ]
     }
 
     // MARK: - Functions
 
     func build(layer: SearchContentEnum, filters: Any?) -> FilterListModel? {
-        return processors[layer]?(filters)
+        switch layer {
+        case .anime:
+            guard let filters = filters as? AnimeListFilters else { return nil }
+            return valuesProcessor(
+                layer: layer,
+                score: filters.score,
+                kind: filters.kind?.rawValue,
+                status: filters.status?.rawValue,
+                genres: filters.genre,
+                season: filters.season
+            )
+        case .manga:
+            guard let filters = filters as? MangaListFilters else { return nil }
+            return valuesProcessor(
+                layer: layer,
+                score: filters.score,
+                kind: filters.kind?.rawValue,
+                status: filters.status?.rawValue,
+                genres: filters.genre,
+                season: filters.season
+            )
+        case .ranobe:
+            guard let filters = filters as? RanobeListFilters else { return nil }
+            return valuesProcessor(
+                layer: layer,
+                score: filters.score,
+                kind: filters.kind?.rawValue,
+                status: filters.status?.rawValue,
+                genres: filters.genre,
+                season: filters.season
+            )
+        }
     }
 
     // MARK: - Private functions
 
-    private func animeProcessor(_ filters: Any?) -> FilterListModel? {
-        guard let filters = filters as? AnimeListFilters else { return nil }
-        let ratingList = processScore(score: filters.score)
-        let typeList = processKind(kind: filters.kind?.rawValue)
-        let statusList = processStatus(layer: .anime, status: filters.status?.rawValue)
-        let genreList = processGenres(layer: .anime, genres: filters.genre)
-        let seasonList = processSeasons(season: filters.season)
-        let years = processYears(season: filters.season)
+    private func valuesProcessor(
+        layer: SearchContentEnum,
+        score: Int?,
+        kind: String?,
+        status: String?,
+        genres: [Int]?,
+        season: String?
+    ) -> FilterListModel {
+        let ratingList = processScore(score: score)
+        let typeList = processKind(kind: kind)
+        let statusList = processStatus(layer: layer, status: status)
+        let genreList = processGenres(layer: layer, genres: genres)
+        let seasonList = processSeasons(season: season)
+        let years = processYears(season: season)
         let releaseYearStart = years.0
         let releaseYearEnd = years.1
         return FilterListModel(
@@ -90,63 +121,22 @@ final class FilterListModelFactory {
         )
     }
 
-    private func mangaProcessor(_ filters: Any?) -> FilterListModel? {
-        guard let filters = filters as? MangaListFilters else { return nil }
-        let ratingList = processScore(score: filters.score)
-        let typeList = processKind(kind: filters.kind?.rawValue)
-        let statusList = processStatus(layer: .manga, status: filters.status?.rawValue)
-        let genreList = processGenres(layer: .manga, genres: filters.genre)
-        let seasonList = processSeasons(season: filters.season)
-        let years = processYears(season: filters.season)
-        let releaseYearStart = years.0
-        let releaseYearEnd = years.1
-        return FilterListModel(
-            ratingList: ratingList,
-            typeList: typeList,
-            statusList: statusList,
-            genreList: genreList,
-            seasonList: seasonList,
-            releaseYearStart: releaseYearStart,
-            releaseYearEnd: releaseYearEnd
-        )
-    }
-
-    private func ranobeProcessor(_ filters: Any?) -> FilterListModel? {
-        guard let filters = filters as? RanobeListFilters else { return nil }
-        let ratingList = processScore(score: filters.score)
-        let typeList = processKind(kind: filters.kind?.rawValue)
-        let statusList = processStatus(layer: .ranobe, status: filters.status?.rawValue)
-        let genreList = processGenres(layer: .ranobe, genres: filters.genre)
-        let seasonList = processSeasons(season: filters.season)
-        let years = processYears(season: filters.season)
-        let releaseYearStart = years.0
-        let releaseYearEnd = years.1
-        return FilterListModel(
-            ratingList: ratingList,
-            typeList: typeList,
-            statusList: statusList,
-            genreList: genreList,
-            seasonList: seasonList,
-            releaseYearStart: releaseYearStart,
-            releaseYearEnd: releaseYearEnd
-        )
-    }
     private func processKind(kind: String?) -> String {
-        guard let kind else { return ""}
+        guard let kind else { return "" }
         return Constants.kindsDictionary[kind] ?? ""
     }
-    
+
     private func processStatus(layer: SearchContentEnum, status: String?) -> String {
         guard let status else { return "" }
         let dictionary = layer == .anime ? Constants.animeStatusDictionary : Constants.mangaStatusDictionary
         return dictionary[status] ?? ""
     }
-    
+
     private func processGenres(layer: SearchContentEnum, genres: [Int]?) -> String {
         var genresString = ""
-        guard let genres, let genresList = self.genresDictionary[layer] else { return genresString }
+        guard let genres, let genresList = genresDictionary[layer] else { return genresString }
         for genre in genres {
-            if let name = genresList.first(where: { $0.id == genre})?.name {
+            if let name = genresList.first(where: { $0.id == genre })?.name {
                 genresString += "\(name),"
             }
         }
@@ -174,9 +164,9 @@ final class FilterListModelFactory {
         }
         return (startYearString, endYearString)
     }
-    
+
     private func processSeasons(season: String?) -> String {
-        guard let season else { return ""}
+        guard let season else { return "" }
         let seasons = season.split(separator: ",")
         var seasonString = ""
         for item in seasons {
@@ -187,7 +177,7 @@ final class FilterListModelFactory {
         }
         return String(seasonString.dropLast())
     }
-    
+
     private func checkSeasonType(items: [String]) -> SeasonType {
         if items.count == 2, Int(items.last ?? "") != nil {
             if Seasons.allCases.map({ $0.value }).contains(items.first) { return .season }
@@ -197,7 +187,7 @@ final class FilterListModelFactory {
     }
 
     private func processSeason(items: [String]) -> String {
-        let season = Seasons.allCases.first(where: {$0.value == items.first})?.rawValue ?? ""
+        let season = Seasons.allCases.first(where: { $0.value == items.first })?.rawValue ?? ""
         let year = items.last ?? ""
         return "\(season) \(year)"
     }
@@ -212,6 +202,8 @@ final class FilterListModelFactory {
         return (startYearString, endYearString)
     }
 }
+
+// MARK: - SeasonType
 
 enum SeasonType {
     case unknown
