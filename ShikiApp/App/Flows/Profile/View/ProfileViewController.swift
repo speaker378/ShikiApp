@@ -30,6 +30,8 @@ class ProfileViewController: (UIViewController & ProfileViewInputProtocol) {
     private let topInset = 24.0
     private let bottom = -48.0
     private let versionLabelTopInset = 8
+    private var ageLabelText = ""
+    private var sexLabelText = ""
     
     
     private let topDivider: UIView = {
@@ -166,7 +168,31 @@ class ProfileViewController: (UIViewController & ProfileViewInputProtocol) {
             profileImageView.image = AppImage.ErrorsIcons.noUserpicIcon
         }
         nameLabel.text = model?.nickname
-        sexAndAgeLabel.text = model?.sex
+        
+        if let ageString = model?.fullYears {
+                ageLabelText = String(ageString)
+            }
+        
+        if let modelSexSelector = model?.sex {
+            print(modelSexSelector)
+            
+            if modelSexSelector == "male" || modelSexSelector == "female" {
+                if ageLabelText != "" {
+                    let sexValueInRussian = model?.sex != "male" ? "женщина, " : "мужчина, "
+                    let sexLabelText = sexValueInRussian
+                    print(sexLabelText)
+                    sexAndAgeLabel.text = sexLabelText + ageLabelText
+                } else {
+                    let sexValueInRussian = model?.sex != "male" ? "женщина" : "мужчина"
+                    let sexLabelText = sexValueInRussian
+                    print(sexLabelText)
+                    sexAndAgeLabel.text = sexLabelText + ageLabelText
+                }
+            } else {
+                return
+            }
+        }
+            
         linkButton.setTitle(model?.website, for: .normal)
         logoutButton.setTitle(Texts.DummyTextForProfileVC.logoutButtonText, for: .normal)
         if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
