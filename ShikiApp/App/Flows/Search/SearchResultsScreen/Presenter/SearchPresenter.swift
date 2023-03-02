@@ -55,6 +55,7 @@ final class SearchPresenter: SearchViewOutput {
     private var entityList = [SearchContentProtocol]() { didSet { refreshView() } }
     private var isLoading = false
     private let filtersModelFactory = FiltersModelFactory()
+    private let filterListModelFactory = FilterListModelFactory()
     private var providers: [SearchContentEnum: any ContentProviderProtocol] = [
         .anime: AnimeProvider(),
         .manga: MangaProvider(),
@@ -68,9 +69,11 @@ final class SearchPresenter: SearchViewOutput {
     }
 
     func requestFilters() {
+        let filters = providers[layer]?.getFilters()
         let filtersViewController = FiltersBuilder.build(
             consumer: self,
-            filters: filtersModelFactory.buildFiltersModel(layer: layer)
+            filters: filtersModelFactory.buildFiltersModel(layer: layer),
+            defaults: filterListModelFactory.build(layer: layer, filters: filters)
         )
         viewInput?.navigationController?.pushViewController(filtersViewController, animated: true)
     }
