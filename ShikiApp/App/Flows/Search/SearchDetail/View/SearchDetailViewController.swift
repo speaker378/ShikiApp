@@ -34,6 +34,8 @@ final class SearchDetailViewController: UIViewController, SearchDetailViewInput 
 
     override func viewDidLoad() {
         super.viewDidLoad()
+//        selectTableView.delegate = self
+//        selectTableView.dataSource = self
         configureUI()
     }
     

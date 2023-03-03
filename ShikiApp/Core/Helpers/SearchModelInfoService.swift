@@ -26,7 +26,7 @@ final class SearchModelInfoService {
         if let russian, !russian.isEmpty {
             return russian
         } else if name.isEmpty {
-            return Texts.ErrorMessage.noTitle
+            return Texts.Empty.noTitle
         }
         return name
     }
@@ -105,15 +105,26 @@ final class SearchModelInfoService {
     }
     
     func makeEpisodesText(episodes: Int?, episodesAired: Int?, kind: String?, status: String?) -> String {
-        guard let episodesCount = episodes, extractKind(kind) != "Фильм" else { return "" }
+        guard let episodesCount = episodes, extractKind(kind) != Constants.kindsDictionary["movie"] else { return "" }
         let episodes = episodesCount == 0 ? " ?" : String(episodesCount)
         var string = ""
         let status = extractStatus(status: status, kind: kind)
-        if status == "Выходит" || status == "Онгоинг", let aired = episodesAired {
+        if status == Constants.mangaStatusDictionary["ongoing"] || status == Constants.animeStatusDictionary["ongoing"],
+           let aired = episodesAired {
             string = "\(aired)/\(episodes) \(Texts.OtherMessage.episodes)"
         } else {
             string = "\(episodes) \(Texts.OtherMessage.episodes)"
         }
         return string
+    }
+    
+    func makeRatesList(kind: String?, status: String?) -> [String] {
+        let status = extractStatus(status: status, kind: kind)
+        if status == Constants.mangaStatusDictionary["anons"] || status == Constants.animeStatusDictionary["anons"] {
+            return [Texts.ListTypesSelectItems.planned, Texts.ButtonTitles.removeFromList]
+        }
+        var array = RatesTypeItemEnum.allCases.map { $0.getString() }
+        array.append(Texts.ButtonTitles.removeFromList)
+        return array
     }
 }

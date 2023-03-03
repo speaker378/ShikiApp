@@ -21,11 +21,18 @@ final class SearchDetailView: UIView {
         scrollView.showsVerticalScrollIndicator = false
         return scrollView
     }()
-    private let button: ButtonWithIconView = {
-        let button = ButtonWithIconView(title: Texts.ButtonTitles.addToList, icon: AppImage.OtherIcons.addToList)
+    private let button: SelectedButton = {
+        let button = SelectedButton()
+        button.backgroundColor = AppColor.accent
+        button.titleLabel.font = AppFont.Style.blockTitle
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+//    private let button: ButtonWithIconView = {
+//        let button = ButtonWithIconView(title: Texts.ButtonTitles.addToList, icon: AppImage.OtherIcons.addToList)
+//        button.translatesAutoresizingMaskIntoConstraints = false
+//        return button
+//    }()
     private let titleLabel: AppLabel = {
         let label = AppLabel(alignment: .left, fontSize: AppFont.Style.title, numberLines: 0)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -36,14 +43,18 @@ final class SearchDetailView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    private let transparentView = UIView()
+    private let listTableView: ListTableView
 
     // MARK: - Construction
     
     init(content: SearchDetailModel, tapHandler: @escaping () -> Void) {
         itemInfoView = ItemInfoView(content: content)
         genreTableView = ChipsTableView(values: content.genres)
-        button.tapHandler = tapHandler
+        listTableView = ListTableView(values: content.rateList)
         super.init(frame: .zero)
+//        button.tapHandler = tapHandler
+        button.configurate(text: Texts.ButtonTitles.addToList, image: AppImage.OtherIcons.addToList)
         configure(with: content)
     }
     
@@ -55,13 +66,18 @@ final class SearchDetailView: UIView {
         addSubview(scrollView)
         scrollView.addSubviews([itemInfoView, button, titleLabel, genreTableView, descriptionLabel])
         [itemInfoView, genreTableView].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+        button.addTarget(self, action: #selector(listTypesSelectTapped), for: .touchUpInside)
+        genreTableView.reloadData()
+        configureUI(with: content)
+    }
+    
+    private func configureUI(with content: SearchDetailModel) {
+        button.titleLabel.textColor = AppColor.textInvert
         titleLabel.text = content.title
         descriptionLabel.text = content.description
         if descriptionLabel.text == Texts.Empty.noDescription {
             descriptionLabel.textColor = AppColor.textMinor
         }
-        genreTableView.reloadData()
-        
         configureConstraints()
     }
     
@@ -104,5 +120,76 @@ final class SearchDetailView: UIView {
             descriptionLabel.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             descriptionLabel.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -inset)
         ])
+    }
+    
+    private func addTransparentView(frame: CGRect) {
+        let window = UIApplication.firstKeyWindowForConnectedScenes
+        transparentView.frame = window?.frame ?? self.frame
+        self.addSubview(transparentView)
+        
+        listTableView.frame = CGRect(
+            x: frame.origin.x,
+            y: frame.origin.y + frame.height,
+            width: frame.width,
+            height: 0
+        )
+       
+        self.addSubview(listTableView)
+        
+        transparentView.backgroundColor = AppColor.backgroundMinor
+        listTableView.reloadData()
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(removeTransparentView))
+        transparentView.addGestureRecognizer(tapGesture)
+        transparentView.alpha = 0
+        let height: CGFloat = CGFloat(listTableView.values.count) * Constants.Insets.controlHeight
+        UIView.animate(
+            withDuration: 0.4,
+            delay: 0.0,
+            usingSpringWithDamping: 1.0,
+            initialSpringVelocity: 1.0,
+            options: .curveEaseInOut,
+            animations: {
+                self.transparentView.alpha = 0.5
+                self.listTableView.frame = CGRect(
+                    x: frame.origin.x,
+                    y: frame.origin.y + frame.height + 5,
+                    width: frame.width,
+                    height: height
+                )
+            }, completion: nil
+        )
+    }
+    
+    @objc private func listTypesSelectTapped(sender: UIControl) {
+        addTransparentView(frame: sender.frame)
+    }
+    
+    @objc private func removeTransparentView() {
+        let frames = button.frame
+        layoutIfNeeded()
+        UIView.animate(
+            withDuration: 0.4,
+            delay: 0.0,
+            usingSpringWithDamping: 1.0,
+            initialSpringVelocity: 1.0,
+            options: .curveEaseInOut,
+            animations: {
+                self.transparentView.alpha = 0
+                self.listTableView.frame = CGRect(
+                    x: frames.origin.x,
+                    y: frames.origin.y + frames.height,
+                    width: frames.width,
+                    height: 0
+                )
+                self.layoutIfNeeded()
+                self.frame = CGRect(
+                    x: .zero,
+                    y: .zero,
+                    width: frames.width,
+                    height: self.bounds.height
+                )
+                
+            }, completion: nil
+        )
     }
 }

@@ -83,8 +83,6 @@
 		1634B67429A93E14004A4B02 /* UserRatesState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1634B67329A93E14004A4B02 /* UserRatesState.swift */; };
 		1640B98A299131480063AC8C /* CustomSegmentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1640B989299131480063AC8C /* CustomSegmentControl.swift */; };
 		1640B98C29914AAB0063AC8C /* CounterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1640B98B29914AAB0063AC8C /* CounterButton.swift */; };
-		1652DB5829AC8E8F002A2BD1 /* Texts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0010CAC42978138500F8705B /* Texts.swift */; };
-		1652DB5929AC8E90002A2BD1 /* Texts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0010CAC42978138500F8705B /* Texts.swift */; };
 		165DCDB8298FF50A0087CEDF /* HttpConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7E4D9B2985496A00E7CA17 /* HttpConstants.swift */; };
 		165DCDB9298FF5200087CEDF /* HttpConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7E4D9B2985496A00E7CA17 /* HttpConstants.swift */; };
 		166FA78D29894235009C2712 /* MangasApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166FA78C29894235009C2712 /* MangasApi.swift */; };
@@ -188,6 +186,8 @@
 		3A8F31062974396000F24DF7 /* ShikiAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8F31052974396000F24DF7 /* ShikiAppUITestsLaunchTests.swift */; };
 		3AFAFEE3298028BA00949FE2 /* NewsfeedViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFAFEE2298028BA00949FE2 /* NewsfeedViewController+Extension.swift */; };
 		3AFAFEE6298055A900949FE2 /* String+heightText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFAFEE5298055A900949FE2 /* String+heightText.swift */; };
+		BA01BBE429B117A000EA3EEB /* ListTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA01BBE329B117A000EA3EEB /* ListTableView.swift */; };
+		BA01BBE629B118BA00EA3EEB /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA01BBE529B118BA00EA3EEB /* ListTableViewCell.swift */; };
 		BA27FB492993E431007C3BEC /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA27FB482993E431007C3BEC /* WebKit.framework */; };
 		BA27FB4B29953660007C3BEC /* NewsDetailImageContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA27FB4A29953660007C3BEC /* NewsDetailImageContentView.swift */; };
 		BA27FB4D2995384E007C3BEC /* NewsDetailVideoContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA27FB4C2995384E007C3BEC /* NewsDetailVideoContentView.swift */; };
@@ -199,7 +199,6 @@
 		BA76AFA629A4207A0002C982 /* AddedToListData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA76AFA529A4207A0002C982 /* AddedToListData.swift */; };
 		BA90AF7129A0062F00CCE141 /* SearchDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA90AF7029A0062F00CCE141 /* SearchDetailViewController.swift */; };
 		BA90AF7329A0064400CCE141 /* SearchDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA90AF7229A0064400CCE141 /* SearchDetailView.swift */; };
-		BA90AF7529A0065600CCE141 /* ButtonWithIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA90AF7429A0065600CCE141 /* ButtonWithIconView.swift */; };
 		BA90AF7729A0067100CCE141 /* ChipsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA90AF7629A0067100CCE141 /* ChipsTableView.swift */; };
 		BA90AF7929A0068300CCE141 /* ChipsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA90AF7829A0068300CCE141 /* ChipsTableViewCell.swift */; };
 		BA90AF7B29A0069E00CCE141 /* SearchDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA90AF7A29A0069E00CCE141 /* SearchDetailPresenter.swift */; };
@@ -398,6 +397,8 @@
 		3A8F31052974396000F24DF7 /* ShikiAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShikiAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		3AFAFEE2298028BA00949FE2 /* NewsfeedViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewsfeedViewController+Extension.swift"; sourceTree = "<group>"; };
 		3AFAFEE5298055A900949FE2 /* String+heightText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+heightText.swift"; sourceTree = "<group>"; };
+		BA01BBE329B117A000EA3EEB /* ListTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableView.swift; sourceTree = "<group>"; };
+		BA01BBE529B118BA00EA3EEB /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
 		BA27FB482993E431007C3BEC /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		BA27FB4A29953660007C3BEC /* NewsDetailImageContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailImageContentView.swift; sourceTree = "<group>"; };
 		BA27FB4C2995384E007C3BEC /* NewsDetailVideoContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailVideoContentView.swift; sourceTree = "<group>"; };
@@ -409,7 +410,6 @@
 		BA76AFA529A4207A0002C982 /* AddedToListData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddedToListData.swift; sourceTree = "<group>"; };
 		BA90AF7029A0062F00CCE141 /* SearchDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailViewController.swift; sourceTree = "<group>"; };
 		BA90AF7229A0064400CCE141 /* SearchDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailView.swift; sourceTree = "<group>"; };
-		BA90AF7429A0065600CCE141 /* ButtonWithIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonWithIconView.swift; sourceTree = "<group>"; };
 		BA90AF7629A0067100CCE141 /* ChipsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChipsTableView.swift; sourceTree = "<group>"; };
 		BA90AF7829A0068300CCE141 /* ChipsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChipsTableViewCell.swift; sourceTree = "<group>"; };
 		BA90AF7A29A0069E00CCE141 /* SearchDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailPresenter.swift; sourceTree = "<group>"; };
@@ -1272,9 +1272,10 @@
 			children = (
 				BA90AF7029A0062F00CCE141 /* SearchDetailViewController.swift */,
 				BA90AF7229A0064400CCE141 /* SearchDetailView.swift */,
-				BA90AF7429A0065600CCE141 /* ButtonWithIconView.swift */,
 				BA90AF7629A0067100CCE141 /* ChipsTableView.swift */,
 				BA90AF7829A0068300CCE141 /* ChipsTableViewCell.swift */,
+				BA01BBE329B117A000EA3EEB /* ListTableView.swift */,
+				BA01BBE529B118BA00EA3EEB /* ListTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1576,6 +1577,7 @@
 				0010CAB82977FFDD00F8705B /* AppFont.swift in Sources */,
 				166FA78F29894406009C2712 /* MangaEnums.swift in Sources */,
 				006031AF2979B79400CD9A16 /* TabBarViewController.swift in Sources */,
+				BA01BBE629B118BA00EA3EEB /* ListTableViewCell.swift in Sources */,
 				16B08263298C49F900EB9061 /* SearchContentEnum.swift in Sources */,
 				3A7E4D902985492C00E7CA17 /* BansResponseDTO.swift in Sources */,
 				3A19C084299A38E50073D472 /* KeychainManager.swift in Sources */,
@@ -1639,7 +1641,6 @@
 				3A7E4D812985492C00E7CA17 /* ForumsApi.swift in Sources */,
 				006240FA299A75E600498D51 /* UIView+roundCorners.swift in Sources */,
 				0010CAC82978161600F8705B /* UITableView+RegisterCell.swift in Sources */,
-				BA90AF7529A0065600CCE141 /* ButtonWithIconView.swift in Sources */,
 				16130E562987371500A4EC94 /* AnimeDetailsDTO.swift in Sources */,
 				1634B67429A93E14004A4B02 /* UserRatesState.swift in Sources */,
 				0010CADF29784E3C00F8705B /* Constants.swift in Sources */,
@@ -1671,6 +1672,7 @@
 				16B08243298A21A400EB9061 /* RanobeEnums.swift in Sources */,
 				3A7E4D802985492C00E7CA17 /* ForumsRequestFactory.swift in Sources */,
 				3A7E4D852985492C00E7CA17 /* UsersEnums.swift in Sources */,
+				BA01BBE429B117A000EA3EEB /* ListTableView.swift in Sources */,
 				16092D07299B929A00CEE770 /* ContentProviderProtocol.swift in Sources */,
 				3A7E4D822985492C00E7CA17 /* AbstractRequestFactory.swift in Sources */,
 				166FA79729894A16009C2712 /* MangaDetailsDTO.swift in Sources */,

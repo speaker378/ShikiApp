@@ -19,7 +19,7 @@ class SelectedButton: UIControl {
 
     // MARK: - Private properties
 
-    private let image: UIImageView = {
+    private let imageView: UIImageView = {
         let image = UIImageView(
             frame:
                 CGRect(
@@ -39,6 +39,7 @@ class SelectedButton: UIControl {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        backgroundColor = AppColor.backgroundMinor
         addSubviewsContent()
     }
     
@@ -57,11 +58,16 @@ class SelectedButton: UIControl {
         titleLabel.text = text
         titleLabel.textColor = isSelect  ? AppColor.textMain : AppColor.textMinor
     }
+    
+    func configurate(text: String, image: UIImage) {
+        titleLabel.text = text
+        titleLabel.textColor = AppColor.textMain
+        imageView.image = image
+    }
 
     // MARK: - Private functions
 
     private func configureUI() {
-        self.backgroundColor = AppColor.backgroundMinor
         self.layer.cornerRadius = Constants.CornerRadius.medium
         self.clipsToBounds = true
         configureConstraints()
@@ -70,7 +76,7 @@ class SelectedButton: UIControl {
     private func addSubviewsContent() {
         [
             titleLabel,
-            image
+            imageView
         ].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -84,8 +90,8 @@ class SelectedButton: UIControl {
                                               - Constants.Insets.iconMediumHeight),
             titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             
-            image.centerYAnchor.constraint(equalTo: centerYAnchor),
-            image.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.Spacing.medium)
+            imageView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.Spacing.medium)
         ])
     }
 }

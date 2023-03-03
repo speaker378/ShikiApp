@@ -27,6 +27,7 @@ struct SearchDetailModel: Equatable {
     let chapters: Int?
     let duration: Int?
     let durationOrVolumes: String
+    let rateList: [String]
 }
 
 final class SearchDetailModelFactory {
@@ -59,6 +60,7 @@ final class SearchDetailModelFactory {
             volumes: source.volumes,
             chapters: source.chapters
         )
+        let rateList = service.makeRatesList(kind: source.kind, status: source.status)
         
         return SearchDetailModel(
             id: source.id,
@@ -78,7 +80,8 @@ final class SearchDetailModelFactory {
             volumes: source.volumes,
             chapters: source.chapters,
             duration: source.duration,
-            durationOrVolumes: duration
+            durationOrVolumes: duration,
+            rateList: rateList
         )
     }
 }
