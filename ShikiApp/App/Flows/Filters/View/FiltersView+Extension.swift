@@ -44,6 +44,9 @@ extension FiltersView: UITableViewDelegate, UITableViewDataSource {
             height: 0
         )
         self.addSubview(tableView)
+        print("2. @@ ratingSelectButton frame = ", ratingSelectButton.frame)
+        print("2.1. @@ tableView frame = ", tableView.frame)
+        print()
         
         transparentView.backgroundColor = AppColor.backgroundMinor
         tableView.reloadData()

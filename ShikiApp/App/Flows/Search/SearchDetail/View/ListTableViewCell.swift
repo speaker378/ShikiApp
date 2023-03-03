@@ -12,7 +12,7 @@ final class ListTableViewCell: UITableViewCell {
     // MARK: - Private properties
     
     private let label: AppLabel = {
-        let label = AppLabel(alignment: .left, fontSize: AppFont.Style.regularText, fontСolor: AppColor.textMain)
+        let label = AppLabel(alignment: .left, fontSize: AppFont.Style.regularText)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -23,9 +23,7 @@ final class ListTableViewCell: UITableViewCell {
         addSubview(label)
         backgroundColor = AppColor.backgroundMain
         label.text = content
-        if content == Texts.ButtonTitles.removeFromList {
-            label.textColor = AppColor.red
-        }
+        label.textColor = content == Texts.ButtonTitles.removeFromList ? AppColor.red : AppColor.textMain
         configureConstraints()
     }
 
@@ -35,8 +33,7 @@ final class ListTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate([
             label.centerYAnchor.constraint(equalTo: centerYAnchor),
             label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.Insets.sideInset),
-            label.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -Constants.Insets.sideInset),
-            heightAnchor.constraint(equalToConstant: Constants.Insets.controlHeight)
+            label.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -Constants.Insets.sideInset)
         ])
     }
 }
