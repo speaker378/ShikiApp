@@ -172,11 +172,7 @@ final class FiltersView: UIView {
     }
 
     private func getCurrentShortDate() -> String {
-        let todaysDate = NSDate()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = Constants.DateFormatter.year
-        let dateInFormat = dateFormatter.string(from: todaysDate as Date)
-        return dateInFormat
+        return Date().convertToString(with: Constants.DateFormatter.year, relative: false)
     }
 
     private func yearsTillNow(startYear: Int, endYear: Int) -> [String] {
