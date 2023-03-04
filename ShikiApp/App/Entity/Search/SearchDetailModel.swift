@@ -28,6 +28,19 @@ struct SearchDetailModel: Equatable {
     let duration: Int?
     let durationOrVolumes: String
     let rateList: [String]
+    let userRate: UserRateModel?
+}
+
+struct UserRateModel: Equatable {
+    let id: Int
+    let targetID: Int
+    let kind: String?
+    let episodes: Int
+    let rewatched: Int
+    let chapters: Int
+    let volumes: Int
+    let score: Int
+    let status: String
 }
 
 final class SearchDetailModelFactory {
@@ -35,8 +48,6 @@ final class SearchDetailModelFactory {
     func makeDetailModel(from source: SearchDetailContentProtocol) -> SearchDetailModel {
         let service = SearchModelInfoService()
         let delimiter = "·"
-        let title = service.extractTitle(name: source.name, russian: source.russian)
-        let urlString = service.extractUrlString(image: source.image)
         let airedReleasedDates = service.extractYears(
             airedOn: source.airedOn,
             releasedOn: source.releasedOn,
@@ -48,32 +59,25 @@ final class SearchDetailModelFactory {
             kind: source.kind,
             status: source.status
         )
-        let genres = service.extractGenres(source.genres)
         let kind = service.extractKind(source.kind)
-        let kindAndDate = "\(kind) \(delimiter) \(airedReleasedDates)"
-        let status = service.extractStatus(status: source.status, kind: source.kind)
-        let rating = service.extractRating(source.rating)
-        let score = service.extractScore(source.score)
-        let studios = service.extractStudios(studios: source.studios, publishers: source.publishers)
         let duration = service.extractDuration(
             duration: source.duration,
             volumes: source.volumes,
             chapters: source.chapters
         )
-        let rateList = service.makeRatesList(kind: source.kind, status: source.status)
         
         return SearchDetailModel(
             id: source.id,
-            imageUrlString: urlString,
-            title: title,
+            imageUrlString: service.extractUrlString(image: source.image),
+            title: service.extractTitle(name: source.name, russian: source.russian),
             kind: kind,
-            kindAndDate: kindAndDate,
-            score: score,
-            status: status,
+            kindAndDate: "\(kind) \(delimiter) \(airedReleasedDates)",
+            score: service.extractScore(source.score),
+            status: service.extractStatus(status: source.status, kind: source.kind),
             description: source.description?.removeTags() ?? Texts.Empty.noDescription,
-            rating: rating,
-            studios: studios,
-            genres: genres,
+            rating: service.extractRating(source.rating),
+            studios: service.extractStudios(studios: source.studios, publishers: source.publishers),
+            genres: service.extractGenres(source.genres),
             episodes: source.episodes,
             episodesAired: source.episodesAired,
             episodesText: episodesText,
@@ -81,7 +85,8 @@ final class SearchDetailModelFactory {
             chapters: source.chapters,
             duration: source.duration,
             durationOrVolumes: duration,
-            rateList: rateList
+            rateList: service.makeRatesList(kind: source.kind, status: source.status),
+            userRate: service.extractUserRate(source.userRate, targetID: source.id, kind: source.kind)
         )
     }
 }

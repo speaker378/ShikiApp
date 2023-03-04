@@ -9,10 +9,18 @@ import UIKit
 
 final class ListTableView: UITableView {
 
+    // MARK: - Properties
+    
+    var valuesCount: Int {
+        return values.count
+    }
+    
+    var didSelectRowHandler: ((String) -> Void)?
+
     // MARK: - Private properties
     
     private let cellHeight = Constants.Insets.controlHeight
-    private(set) var values = [String]()
+    private var values = [String]()
 
     // MARK: - Construction
     
@@ -64,4 +72,8 @@ extension ListTableView: UITableViewDataSource {
 
 extension ListTableView: UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        didSelectRowHandler?(values[indexPath.row])
+    }
 }

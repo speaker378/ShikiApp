@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SelectedButton: UIControl {
+final class SelectedButton: UIControl {
 
     // MARK: - Properties
 
@@ -61,7 +61,6 @@ class SelectedButton: UIControl {
     
     func configurate(text: String, image: UIImage) {
         titleLabel.text = text
-        titleLabel.textColor = AppColor.textMain
         imageView.image = image
     }
 

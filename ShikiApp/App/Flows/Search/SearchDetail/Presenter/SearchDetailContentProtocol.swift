@@ -27,6 +27,7 @@ protocol SearchDetailContentProtocol {
     var volumes: Int? { get }
     var chapters: Int? { get }
     var duration: Int? { get }
+    var userRate: UserRatesDTO? { get }
  }
 
 extension SearchDetailContentProtocol {

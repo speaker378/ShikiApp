@@ -104,6 +104,21 @@ final class SearchModelInfoService {
         return ""
     }
     
+    func extractUserRate(_ userRate: UserRatesDTO?, targetID: Int, kind: String?) -> UserRateModel? {
+        guard let userRate else { return nil }
+        return UserRateModel(
+            id: userRate.id,
+            targetID: targetID,
+            kind: userRate.targetType ?? extractKind(kind),
+            episodes: userRate.episodes,
+            rewatched: userRate.rewatches,
+            chapters: userRate.chapters,
+            volumes: userRate.volumes,
+            score: userRate.score,
+            status: userRate.status
+        )
+    }
+    
     func makeEpisodesText(episodes: Int?, episodesAired: Int?, kind: String?, status: String?) -> String {
         guard let episodesCount = episodes, extractKind(kind) != Constants.kindsDictionary["movie"] else { return "" }
         let episodes = episodesCount == 0 ? " ?" : String(episodesCount)
