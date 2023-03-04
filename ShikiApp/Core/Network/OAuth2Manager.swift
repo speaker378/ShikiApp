@@ -75,7 +75,7 @@ final class OAuth2Manager: NSObject {
                 completion(.failure("tokenNotFound"))
             }
         }
-        session.prefersEphemeralWebBrowserSession = true
+        session.prefersEphemeralWebBrowserSession = false
         session.presentationContextProvider = self
         session.start()
     }

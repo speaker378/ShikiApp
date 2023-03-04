@@ -139,6 +139,9 @@
 		3A1A096C2985400900846058 /* AppCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1A09642985400900846058 /* AppCollectionViewCell.swift */; };
 		3A1A096D2985400900846058 /* NewsDetailBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1A09662985400900846058 /* NewsDetailBuilder.swift */; };
 		3A1A096E2985400900846058 /* NewsDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1A09682985400900846058 /* NewsDetailPresenter.swift */; };
+		3A200A6A29B28061001719A4 /* Secret.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3A200A6929B28061001719A4 /* Secret.xcconfig */; };
+		3A200A6B29B28061001719A4 /* Secret.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3A200A6929B28061001719A4 /* Secret.xcconfig */; };
+		3A200A6C29B28061001719A4 /* Secret.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3A200A6929B28061001719A4 /* Secret.xcconfig */; };
 		3A275770297EFDD900EFD543 /* NewsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A27576F297EFDD900EFD543 /* NewsModel.swift */; };
 		3A7E4D7F2985492C00E7CA17 /* ForumsResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7E4D602985492C00E7CA17 /* ForumsResponseDTO.swift */; };
 		3A7E4D802985492C00E7CA17 /* ForumsRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7E4D612985492C00E7CA17 /* ForumsRequestFactory.swift */; };
@@ -177,7 +180,7 @@
 		3A7E4DAE2985498C00E7CA17 /* UsersApiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7E4DAB2985498C00E7CA17 /* UsersApiTests.swift */; };
 		3A7E4DAF2985498C00E7CA17 /* ForumsApiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7E4DAC2985498C00E7CA17 /* ForumsApiTests.swift */; };
 		3A7E4DB02985498C00E7CA17 /* TopicsApiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7E4DAD2985498C00E7CA17 /* TopicsApiTests.swift */; };
-		3A7E4DB2298553B900E7CA17 /* AppSettings.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3A7E4DB1298553B900E7CA17 /* AppSettings.xcconfig */; };
+		3A7E4DB2298553B900E7CA17 /* Base.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3A7E4DB1298553B900E7CA17 /* Base.xcconfig */; };
 		3A8F30E02974395F00F24DF7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8F30DF2974395F00F24DF7 /* AppDelegate.swift */; };
 		3A8F30E22974395F00F24DF7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8F30E12974395F00F24DF7 /* SceneDelegate.swift */; };
 		3A8F30EA2974395F00F24DF7 /* ShikiApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3A8F30E82974395F00F24DF7 /* ShikiApp.xcdatamodeld */; };
@@ -343,6 +346,7 @@
 		3A1A09642985400900846058 /* AppCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCollectionViewCell.swift; sourceTree = "<group>"; };
 		3A1A09662985400900846058 /* NewsDetailBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsDetailBuilder.swift; sourceTree = "<group>"; };
 		3A1A09682985400900846058 /* NewsDetailPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsDetailPresenter.swift; sourceTree = "<group>"; };
+		3A200A6929B28061001719A4 /* Secret.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secret.xcconfig; sourceTree = "<group>"; };
 		3A27576F297EFDD900EFD543 /* NewsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsModel.swift; sourceTree = "<group>"; };
 		3A7E4D602985492C00E7CA17 /* ForumsResponseDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForumsResponseDTO.swift; sourceTree = "<group>"; };
 		3A7E4D612985492C00E7CA17 /* ForumsRequestFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForumsRequestFactory.swift; sourceTree = "<group>"; };
@@ -381,7 +385,7 @@
 		3A7E4DAB2985498C00E7CA17 /* UsersApiTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersApiTests.swift; sourceTree = "<group>"; };
 		3A7E4DAC2985498C00E7CA17 /* ForumsApiTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForumsApiTests.swift; sourceTree = "<group>"; };
 		3A7E4DAD2985498C00E7CA17 /* TopicsApiTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicsApiTests.swift; sourceTree = "<group>"; };
-		3A7E4DB1298553B900E7CA17 /* AppSettings.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = AppSettings.xcconfig; sourceTree = "<group>"; };
+		3A7E4DB1298553B900E7CA17 /* Base.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Base.xcconfig; sourceTree = "<group>"; };
 		3A7E6C1C29AA58FA0022FB2F /* ShikiApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShikiApp.entitlements; sourceTree = "<group>"; };
 		3A8F30DC2974395F00F24DF7 /* ShikiApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShikiApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A8F30DF2974395F00F24DF7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -1211,7 +1215,8 @@
 		3A8F31192974423200F24DF7 /* Environments */ = {
 			isa = PBXGroup;
 			children = (
-				3A7E4DB1298553B900E7CA17 /* AppSettings.xcconfig */,
+				3A7E4DB1298553B900E7CA17 /* Base.xcconfig */,
+				3A200A6929B28061001719A4 /* Secret.xcconfig */,
 				3A8F30F02974396000F24DF7 /* Info.plist */,
 			);
 			path = Environments;
@@ -1468,9 +1473,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A8F30EF2974396000F24DF7 /* LaunchScreen.storyboard in Resources */,
-				3A7E4DB2298553B900E7CA17 /* AppSettings.xcconfig in Resources */,
+				3A7E4DB2298553B900E7CA17 /* Base.xcconfig in Resources */,
 				3A8F30EC2974396000F24DF7 /* Assets.xcassets in Resources */,
 				0010CAD129782E4800F8705B /* OpenSans-Regular.ttf in Resources */,
+				3A200A6A29B28061001719A4 /* Secret.xcconfig in Resources */,
 				0010CACB29782E1500F8705B /* OpenSans-Bold.ttf in Resources */,
 				0010CAD729782E4800F8705B /* OpenSans-SemiBold.ttf in Resources */,
 				0010CAD429782E4800F8705B /* OpenSans-ExtraBold.ttf in Resources */,
@@ -1484,6 +1490,7 @@
 				0010CAD829782E4800F8705B /* OpenSans-SemiBold.ttf in Resources */,
 				0010CAD229782E4800F8705B /* OpenSans-Regular.ttf in Resources */,
 				0010CACC29782E1500F8705B /* OpenSans-Bold.ttf in Resources */,
+				3A200A6B29B28061001719A4 /* Secret.xcconfig in Resources */,
 				0010CAD529782E4800F8705B /* OpenSans-ExtraBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1495,6 +1502,7 @@
 				0010CAD929782E4800F8705B /* OpenSans-SemiBold.ttf in Resources */,
 				0010CAD329782E4800F8705B /* OpenSans-Regular.ttf in Resources */,
 				0010CACD29782E1500F8705B /* OpenSans-Bold.ttf in Resources */,
+				3A200A6C29B28061001719A4 /* Secret.xcconfig in Resources */,
 				0010CAD629782E4800F8705B /* OpenSans-ExtraBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1760,6 +1768,7 @@
 /* Begin XCBuildConfiguration section */
 		3A8F31072974396000F24DF7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3A7E4DB1298553B900E7CA17 /* Base.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1820,6 +1829,7 @@
 		};
 		3A8F31082974396000F24DF7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3A7E4DB1298553B900E7CA17 /* Base.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1874,7 +1884,6 @@
 		};
 		3A8F310A2974396000F24DF7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3A7E4DB1298553B900E7CA17 /* AppSettings.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
