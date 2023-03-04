@@ -117,7 +117,7 @@ final class SearchPresenter: SearchViewOutput {
     }
     
     private func buildHeader() -> String {
-        if (searchString ?? "").isEmpty && providers[layer]?.getFiltersCount() ?? 0 == 0 {
+        if (searchString ?? "").isEmpty && providers[layer]?.getFiltersCounter() ?? 0 == 0 {
             return "\(Constants.SearchHeader.emptyStringResult) \(layer.rawValue.lowercased())"
         }
         if page == 0 && entityList.isEmpty {

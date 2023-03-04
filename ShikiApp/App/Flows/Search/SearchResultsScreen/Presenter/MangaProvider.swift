@@ -26,11 +26,11 @@ final class MangaProvider: ContentProviderProtocol {
 
     func setFilters(filters: Any?) -> Int {
         self.filters = filters as? MangaListFilters
-        return getFiltersCount()
+        return self.filters?.filtersCount ?? 0
     }
     
     func getFiltersCounter() -> Int {
-        return getFiltersCount()
+        return self.filters?.filtersCount ?? 0
     }
     
     func getFilters() -> ListFilters<ContentKind, ContentStatus>? { filters }
