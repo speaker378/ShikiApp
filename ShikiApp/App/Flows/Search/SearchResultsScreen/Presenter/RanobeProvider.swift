@@ -33,7 +33,7 @@ final class RanobeProvider: ContentProviderProtocol {
         return self.filters?.filtersCount ?? 0
     }
     
-    func getFilters() -> ListFilters<RanobeContentKind, RanobeContentStatus>? { filters }
+    func getFilters() -> Any? { filters }
     
     func fetchData(searchString: String?, page: Int = 1, completion: @escaping ([SearchContentProtocol]?, String?) -> Void) {
         factory.getRanobes(

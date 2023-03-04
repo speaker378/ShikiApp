@@ -13,9 +13,9 @@ final class FiltersBuilder {
 
     // MARK: - Functions
 
-    static func build(consumer: FilterConsumerProtocol, filters: FiltersModel) -> (UIViewController & FiltersViewInput) {
+    static func build(consumer: FilterConsumerProtocol, filters: FiltersModel, defaults: FilterListModel?) -> (UIViewController & FiltersViewInput) {
         let presenter = FiltersPresenter()
-        let viewController = FiltersViewController(presenter: presenter, filters: filters)
+        let viewController = FiltersViewController(presenter: presenter, filters: filters, defaults: defaults)
         presenter.consumer = consumer
         presenter.viewInput = viewController
         return viewController

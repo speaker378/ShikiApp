@@ -24,10 +24,10 @@ class FiltersViewController: UIViewController, FiltersViewInput {
 
     // MARK: - Constructions
 
-    init(presenter: FiltersViewOutput, filters: FiltersModel) {
+    init(presenter: FiltersViewOutput, filters: FiltersModel, defaults: FilterListModel?) {
         self.filters = filters
         viewOutput = presenter
-        contentView = FiltersView(filtersList: filters)
+        contentView = FiltersView(filtersList: filters, defaults: defaults)
         footerView = FooterFilterView()
         super.init(nibName: nil, bundle: nil)
     }
