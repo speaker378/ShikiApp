@@ -15,21 +15,21 @@ class ProfileViewController: (UIViewController & ProfileViewInputProtocol) {
     var model: UserViewModel?
     var isAuth: Bool {
         didSet {
-            configureLogoutButton()
+            configureUI()
         }
     }
 
     // MARK: - Private Properties
     
-    private let lineHeight: CGFloat = 1
-    private let imageWidth: CGFloat = 100
-    private let linkImgWidth: CGFloat = 16
+    private let lineHeight = 1.0
+    private let imageWidth = 100.0
+    private let linkImgWidth = 16.0
     private let trailing = -16.0
     private let leading = 12.0
     private let leadingForLinkButton = 5.84
     private let topInset = 24.0
     private let bottom = -48.0
-    private let versionLabelTopInset = 8
+    private let versionLabelTopInset = 8.0
     private var ageLabelText = ""
     private var sexLabelText = ""
     
@@ -72,7 +72,7 @@ class ProfileViewController: (UIViewController & ProfileViewInputProtocol) {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.tintColor = AppColor.textMinor
-        imageView.image = AppImage.OtherIcons.link
+        imageView.image = nil
         return imageView
     }()
     
@@ -126,23 +126,16 @@ class ProfileViewController: (UIViewController & ProfileViewInputProtocol) {
         configureUI()
     }
 
-    // MARK: - Functions
-    
-    @objc func didPressedLogoutButton() {
-        presenter.didPressedLogoutButton()
-    }
-
     // MARK: - Private functions
     
+    @objc private func didPressedLogoutButton() {
+        presenter.didPressedLogoutButton()
+    }
+    
     private func configureLogoutButton() {
-        let loginItem = UIBarButtonItem(
-            image: isAuth ? AppImage.NavigationsBarIcons.logout : AppImage.NavigationsBarIcons.login,
-            style: .plain,
-            target: self,
-            action: #selector(didPressedLogoutButton)
-        )
-        loginItem.tintColor = AppColor.textMain
-        navigationItem.rightBarButtonItem = loginItem
+        let title = isAuth ? Texts.ButtonTitles.logout : Texts.ButtonTitles.login
+        logoutButton.setTitle(title, for: .normal)
+        logoutButton.addTarget(self, action: #selector(didPressedLogoutButton), for: .touchUpInside)
     }
     
     private func setupViews() {
@@ -160,112 +153,74 @@ class ProfileViewController: (UIViewController & ProfileViewInputProtocol) {
     
     private func configureUI() {
         setupViews()
-        setupConstraints1()
-        setupConstraints2()
-        if let imageURLString = model?.avatarURLString {
-            profileImageView.downloadedImage(from: imageURLString)
-        } else {
-            profileImageView.image = AppImage.ErrorsIcons.noUserpicIcon
-        }
-        nameLabel.text = model?.nickname
+        setupConstraints()
+        configureLogoutButton()
+        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+        versionLabel.text =  "Версия \(version ?? "?")"
         
-        if let ageString = model?.fullYears {
-                ageLabelText = String(ageString)
-            }
-        
-        if let modelSexSelector = model?.sex {
-            print(modelSexSelector)
-            
-            if modelSexSelector == "male" || modelSexSelector == "female" {
-                if ageLabelText != "" {
-                    let sexValueInRussian = model?.sex != "male" ? "женщина, " : "мужчина, "
-                    let sexLabelText = sexValueInRussian
-                    print(sexLabelText)
-                    sexAndAgeLabel.text = sexLabelText + ageLabelText
-                } else {
-                    let sexValueInRussian = model?.sex != "male" ? "женщина" : "мужчина"
-                    let sexLabelText = sexValueInRussian
-                    print(sexLabelText)
-                    sexAndAgeLabel.text = sexLabelText + ageLabelText
-                }
+        if let model {
+            linkImageView.image = AppImage.OtherIcons.link
+            linkButton.setTitle(model.website, for: .normal)
+            nameLabel.text = model.nickname
+            if let age = model.fullYears { ageLabelText = String(age) }
+            if let imageURLString = model.avatarURLString {
+                profileImageView.downloadedImage(from: imageURLString)
             } else {
-                return
+                profileImageView.image = AppImage.ErrorsIcons.noUserpicIcon
             }
-        }
-            
-        linkButton.setTitle(model?.website, for: .normal)
-        logoutButton.setTitle(Texts.DummyTextForProfileVC.logoutButtonText, for: .normal)
-        if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
-            versionLabel.text =  "Версия " + (version)
+            if let sex = model.sex {
+                let sexValueInRussian = sex != "male" ? "женщина, " : "мужчина, "
+                sexAndAgeLabel.text = sexValueInRussian + ageLabelText
+            }
+        } else {
+            linkImageView.image = nil
+            linkButton.setTitle("", for: .normal)
+            nameLabel.text = ""
+            ageLabelText = ""
+            profileImageView.image = nil
+            sexAndAgeLabel.text = ""
         }
     }
     
-    private func setupConstraints1() {
+    private func setupConstraints() {
         NSLayoutConstraint.activate([
             topDivider.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             topDivider.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             topDivider.heightAnchor.constraint(equalToConstant: lineHeight),
-            topDivider.topAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.topAnchor, constant: topInset
-            ),
+            topDivider.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: topInset),
             
             profileImageView.leadingAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: leading
+                equalTo: view.safeAreaLayoutGuide.leadingAnchor,
+                constant: leading
             ),
-            profileImageView.topAnchor.constraint(
-                equalTo: topDivider.bottomAnchor, constant: topInset
-            ),
+            profileImageView.topAnchor.constraint(equalTo: topDivider.bottomAnchor, constant: topInset),
             profileImageView.widthAnchor.constraint(equalToConstant: imageWidth),
             profileImageView.heightAnchor.constraint(equalToConstant: imageWidth),
             
-            nameLabel.leadingAnchor.constraint(
-                equalTo: profileImageView.trailingAnchor, constant: leading
-            ),
-            nameLabel.topAnchor.constraint(
-                equalTo: profileImageView.topAnchor, constant: topInset
-            ),
-            nameLabel.trailingAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: trailing
-            )
-        ])
-    }
-    
-    private func setupConstraints2() {
-        NSLayoutConstraint.activate([
-            sexAndAgeLabel.leadingAnchor.constraint(
-                equalTo: profileImageView.trailingAnchor, constant: leading
-            ),
+            nameLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: leading),
+            nameLabel.topAnchor.constraint(equalTo: profileImageView.topAnchor, constant: topInset),
+            nameLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: trailing),
+            
+            sexAndAgeLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: leading),
             sexAndAgeLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor),
             sexAndAgeLabel.trailingAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: trailing
+                equalTo: view.safeAreaLayoutGuide.trailingAnchor,
+                constant: trailing
             ),
             
-            linkImageView.leadingAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: leading
-            ),
-            linkImageView.topAnchor.constraint(
-                equalTo: profileImageView.bottomAnchor, constant: -trailing
-            ),
+            linkImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: leading),
+            linkImageView.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: -trailing),
             linkImageView.widthAnchor.constraint(equalToConstant: linkImgWidth),
             linkImageView.heightAnchor.constraint(equalToConstant: linkImgWidth),
             
-            linkButton.leadingAnchor.constraint(
-                equalTo: linkImageView.trailingAnchor, constant: leadingForLinkButton
-            ),
-            linkButton.topAnchor.constraint(
-                equalTo: profileImageView.bottomAnchor, constant: 5
-            ),
+            linkButton.leadingAnchor.constraint(equalTo: linkImageView.trailingAnchor, constant: leadingForLinkButton),
+            linkButton.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 5),
             
             logoutButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            logoutButton.bottomAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: bottom
-            ),
+            logoutButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: bottom),
             
             versionLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            versionLabel.topAnchor.constraint(
-                equalTo: logoutButton.bottomAnchor,
-                constant: CGFloat(versionLabelTopInset)
-            )
+            versionLabel.topAnchor.constraint(equalTo: logoutButton.bottomAnchor, constant: versionLabelTopInset)
         ])
     }
 }

@@ -13,16 +13,12 @@ struct UserViewModel {
     let website: String?
 }
 
-enum UserImageSize {
-    case x160, x148, x80, x64, x48, x32, x16
-}
-
 final class UserModelFactory {
 
     // MARK: - Functions
     
-    func convertModel(from user: UserDTO) -> UserViewModel {
-        let profileImageUrl = extractImageAddress(from: user.avatar)
+    func makeModel(from user: UserDTO) -> UserViewModel {
+        let profileImageUrl = extractImageAddress(from: user.image?.x160)
         let userName = user.nickname
         let userSex = user.sex
         let userAge = user.fullYears

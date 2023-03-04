@@ -30,55 +30,28 @@ final class ProfilePresenter: ProfileViewOutputProtocol {
     private let modelFactory = UserModelFactory()
     private var userData: UserDTO?
 
-    // MARK: - Private functions
-    
-    private func fetchDataFromServer(completion: @escaping () -> Void) {
-        apiFactory.whoAmI { [weak self] data, _ in
-            guard let data else {
-                return
-            }
-            self?.userData = data
-            completion()
-        }
-    }
-
     // MARK: - Functions
     
     func fetchData() {
-        if AuthManager.share.isAuth() {
-            fetchDataFromServer { [weak self] in
-                guard let self else { return }
-                self.viewInput?.model = self.modelFactory.convertModel(
-                    from: self.userData ?? UserDTO(
-                        id: 7,
-                        nickname: "",
-                        avatar: "",
-                        image: nil,
-                        lastOnlineAt: "",
-                        url: "",
-                        name: "",
-                        sex: "",
-                        webSite: "",
-                        birthDate: "",
-                        fullYears: 0,
-                        locale: "ru"
-                    )
-                )
+        if isAuth() {
+            apiFactory.whoAmI { [weak self] data, _ in
+                guard let data else { return }
+                self?.userData = data
+                self?.viewInput?.model = self?.modelFactory.makeModel(from: data)
+                self?.viewInput?.isAuth = true
             }
-        } else {
-            print("User is not logged in")
         }
     }
     
     func didPressedLogoutButton() {
         if isAuth() {
             AuthManager.share.logOut()
+            userData = nil
+            viewInput?.model = nil
             viewInput?.isAuth = false
         } else {
-            AuthManager.share.auth { [weak self] result in
-                DispatchQueue.main.async {
-                    self?.viewInput?.isAuth = result
-                }
+            AuthManager.share.auth { [weak self] _ in
+                self?.fetchData()
             }
         }
     }
