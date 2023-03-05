@@ -36,11 +36,12 @@ class UserRatesViewController: UIViewController, UserRatesViewInput {
     }
 
     // MARK: - Lifecycle
-
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
         contentView.delegate = self
         configureUI()
+        viewOutput.getRatesList(targetType: .anime,  status: nil)
     }
 
     // MARK: - Private functions
@@ -72,7 +73,24 @@ class UserRatesViewController: UIViewController, UserRatesViewInput {
 
 extension UserRatesViewController: UserRatesViewDelegate {
     func statusValueChanged(status: String) {
-        self.viewOutput.statusValueChanged(status: status)
+        let statusEnum = RatesTypeItemEnum.self
+        if status == statusEnum.all.getString() {
+            viewOutput.status = nil
+        } else if status == statusEnum.completed.getString() {
+            viewOutput.status = .completed
+        } else if status == statusEnum.dropped.getString() {
+            viewOutput.status = .dropped
+        } else if status == statusEnum.onHold.getString() {
+            viewOutput.status = .onHold
+        } else if status == statusEnum.planned.getString() {
+            viewOutput.status = .planned
+        } else if status == statusEnum.rewatching.getString() {
+            viewOutput.status = .reWatching
+        } else if status == statusEnum.watching.getString() {
+            viewOutput.status = .watching
+        }
+        
+        self.viewOutput.statusValueChanged()
     }
     
     func viewDidSelectEntity(entity: UserRatesModel) {
@@ -80,6 +98,12 @@ extension UserRatesViewController: UserRatesViewDelegate {
     }
     
     func changeSegmentedValueChanged(index: Int) {
-        self.viewOutput.changeSegmentedValueChanged(index: index)
+        if index == 0 {
+            viewOutput.targetType = .anime
+        } else if index == 1 {
+            viewOutput.targetType = .manga
+        }
+        
+        self.viewOutput.changeSegmentedValueChanged()
     }
 }

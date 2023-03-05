@@ -13,8 +13,13 @@ protocol UserRatesViewInput: AnyObject {
 
 protocol UserRatesViewOutput: AnyObject {
     func viewDidSelectEntity(entity: UserRatesModel)
-    func changeSegmentedValueChanged(index: Int)
-    func statusValueChanged(status: String)
+    func changeSegmentedValueChanged()
+    func statusValueChanged()
+    func getRatesList(targetType: UserRatesTargetType, status: UserRatesStatus?)
+   
+    var targetType: UserRatesTargetType { get set }
+    var status: UserRatesStatus? { get set }
+    var error: String { get set }
 }
 
 final class UserRatesPresenter: UserRatesViewOutput {
@@ -22,6 +27,11 @@ final class UserRatesPresenter: UserRatesViewOutput {
     // MARK: - Properties
 
     weak var viewInput: (UIViewController & UserRatesViewInput)?
+    private var ratesList: UserRatesResponseDTO = []
+    
+    var targetType: UserRatesTargetType = .anime
+    var status: UserRatesStatus?
+    var error: String = ""
 
     // MARK: - Functions
 
@@ -29,12 +39,32 @@ final class UserRatesPresenter: UserRatesViewOutput {
         print("Entity details screen build will be done here\n \(entity)")
     }
     
-    func changeSegmentedValueChanged(index: Int) {
-        print("selector \(index)")
-     
+    func changeSegmentedValueChanged() {
+        getRatesList(targetType: targetType, status: status)
     }
     
-    func statusValueChanged(status: String) {
-        print("status \(status)")
+    func statusValueChanged() {
+        getRatesList(targetType: targetType, status: status)
     }
+    
+    func getRatesList(targetType: UserRatesTargetType, status: UserRatesStatus?) {
+        
+        let factory = ApiFactory.makeUserRatesApi()
+        ApiFactory.makeUsersApi().whoAmI { user, _ in
+            if let userId = user?.id { // заменить ID пока для теста
+                factory.getList(
+                    userId: 295732,
+                    targetType: targetType,
+                    status: status
+                ) { data, errorString in
+                    if let data, let errorString {
+                        self.ratesList = data
+                        self.error = errorString
+                        print(self.ratesList)
+                    }
+                }
+            }
+        }
+    }
+    
 }

@@ -164,8 +164,8 @@ class UserRatesView: UIView {
     
     @objc private func segmentedValueChanged(_ sender: UISegmentedControl) {
         index = sender.selectedSegmentIndex
-        filterModelBySegmentControl(index: index)
-        filterModelByTypesSelect(status: selectedButton.titleLabel.text ?? Texts.ListTypesSelectItems.all)
+//        filterModelBySegmentControl(index: index)
+//        filterModelByTypesSelect(status: selectedButton.titleLabel.text ?? Texts.ListTypesSelectItems.all)
         delegate?.changeSegmentedValueChanged(index: index)
     }
     
