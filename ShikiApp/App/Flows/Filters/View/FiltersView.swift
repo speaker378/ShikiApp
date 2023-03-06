@@ -406,8 +406,6 @@ final class FiltersView: UIView {
     @objc private func ratingSelectTapped() {
         dataSource = filtersList.ratingList
         selectedButton = ratingSelectButton
-        print("1. @@ ratingSelectButton frame = ", ratingSelectButton.frame)
-        print("0. @@ selectedButton frame = ", selectedButton.frame)
         addTransparentView(frames: ratingSelectButton.frame)
     }
     

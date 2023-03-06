@@ -12,7 +12,6 @@ final class SearchDetailView: UIView {
     // MARK: - Private properties
     
     private let inset: CGFloat = 24.0
-    private let listMaxHeight: CGFloat = 268.0
     private let infoViewWidth: CGFloat = UIScreen.main.bounds.width - Constants.Insets.sideInset * 2
     private let itemInfoView: ItemInfoView
     private let genreTableView: ChipsTableView
@@ -128,27 +127,26 @@ final class SearchDetailView: UIView {
     }
     
     private func configureListTableView() {
+        let frame = convert(button.frame, toView: scrollView)
         listTableView.didSelectRowHandler = { [weak self] value in
             guard let self else { return }
             if value == Texts.ButtonTitles.removeFromList {
-                // TODO: - прокинуть куда-нибудь действие по нажатию на кнопку
                 self.button.configurate(text: Texts.ButtonTitles.addToList, image: AppImage.OtherIcons.addToList)
                 self.button.backgroundColor = AppColor.accent
                 self.button.titleLabel.textColor = AppColor.textInvert
-                self.removeTransparentView()
+                self.removeTransparentView(frame: frame)
             } else {
                 self.button.configurate(text: value, image: AppImage.NavigationsBarIcons.chevronDown)
                 self.button.backgroundColor = AppColor.backgroundMinor
                 self.button.titleLabel.textColor = AppColor.textMain
-                // TODO: - добавить сюда добавление в список, показ рейтингов и прочее.
-                self.removeTransparentView()
+                self.removeTransparentView(frame: frame)
             }
         }
     }
     
     private func configureTransparentView() {
         let window = UIApplication.firstKeyWindowForConnectedScenes
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(removeTransparentView))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(transparentViewTapped))
         
         transparentView.frame = window?.frame ?? self.frame
         transparentView.backgroundColor = AppColor.backgroundMinor
@@ -158,6 +156,8 @@ final class SearchDetailView: UIView {
     }
     
     private func addTransparentView(frame: CGRect) {
+        let listMaxHeight: CGFloat = 268.0
+        
         configureTransparentView()
         
         listTableView.frame = CGRect(
@@ -182,26 +182,13 @@ final class SearchDetailView: UIView {
                     x: frame.origin.x,
                     y: frame.origin.y + frame.height + Constants.Spacing.small,
                     width: frame.width,
-                    height: height < self.listMaxHeight ? height : self.listMaxHeight
+                    height: height < listMaxHeight ? height : listMaxHeight
                 )
             }
         )
     }
     
-    private func convert(_ frame: CGRect, toView: UIView) -> CGRect {
-        let convertedOrigin = convert(frame.origin, from: scrollView)
-        return CGRect(origin: convertedOrigin, size: frame.size)
-    }
-    
-    @objc private func listTypesSelectTapped() {
-        configureListTableView()
-        buttonTapHandler?()
-        let frame = convert(button.frame, toView: scrollView)
-        addTransparentView(frame: frame)
-    }
-    
-    @objc private func removeTransparentView() {
-        let frame = convert(button.frame, toView: scrollView)
+    private func removeTransparentView(frame: CGRect) {
         UIView.animate(
             withDuration: 0.4,
             delay: 0.0,
@@ -225,5 +212,22 @@ final class SearchDetailView: UIView {
                 )
             }
         )
+    }
+    
+    private func convert(_ frame: CGRect, toView: UIView) -> CGRect {
+        let convertedOrigin = convert(frame.origin, from: scrollView)
+        return CGRect(origin: convertedOrigin, size: frame.size)
+    }
+    
+    @objc private func listTypesSelectTapped() {
+        configureListTableView()
+        buttonTapHandler?()
+        let frame = convert(button.frame, toView: scrollView)
+        addTransparentView(frame: frame)
+    }
+    
+    @objc private func transparentViewTapped() {
+        let frame = convert(button.frame, toView: scrollView)
+        removeTransparentView(frame: frame)
     }
 }
