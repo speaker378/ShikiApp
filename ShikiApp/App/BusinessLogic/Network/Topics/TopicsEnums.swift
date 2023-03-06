@@ -102,7 +102,7 @@ enum APIKeys: String {
     case genre
     case studio
     case franchise
-    case myList
+    case myList = "mylist"
     case ids
     case excludeIds = "exclude_ids"
     case text

@@ -137,6 +137,10 @@
 		3A1A096C2985400900846058 /* AppCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1A09642985400900846058 /* AppCollectionViewCell.swift */; };
 		3A1A096D2985400900846058 /* NewsDetailBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1A09662985400900846058 /* NewsDetailBuilder.swift */; };
 		3A1A096E2985400900846058 /* NewsDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1A09682985400900846058 /* NewsDetailPresenter.swift */; };
+		3A200A6A29B28061001719A4 /* Secret.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3A200A6929B28061001719A4 /* Secret.xcconfig */; };
+		3A200A6B29B28061001719A4 /* Secret.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3A200A6929B28061001719A4 /* Secret.xcconfig */; };
+		3A200A6C29B28061001719A4 /* Secret.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3A200A6929B28061001719A4 /* Secret.xcconfig */; };
+		3A200A6729B11FA8001719A4 /* Array+removeDuplicates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A200A6629B11FA8001719A4 /* Array+removeDuplicates.swift */; };
 		3A275770297EFDD900EFD543 /* NewsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A27576F297EFDD900EFD543 /* NewsModel.swift */; };
 		3A7E4D7F2985492C00E7CA17 /* ForumsResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7E4D602985492C00E7CA17 /* ForumsResponseDTO.swift */; };
 		3A7E4D802985492C00E7CA17 /* ForumsRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7E4D612985492C00E7CA17 /* ForumsRequestFactory.swift */; };
@@ -175,7 +179,7 @@
 		3A7E4DAE2985498C00E7CA17 /* UsersApiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7E4DAB2985498C00E7CA17 /* UsersApiTests.swift */; };
 		3A7E4DAF2985498C00E7CA17 /* ForumsApiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7E4DAC2985498C00E7CA17 /* ForumsApiTests.swift */; };
 		3A7E4DB02985498C00E7CA17 /* TopicsApiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7E4DAD2985498C00E7CA17 /* TopicsApiTests.swift */; };
-		3A7E4DB2298553B900E7CA17 /* AppSettings.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3A7E4DB1298553B900E7CA17 /* AppSettings.xcconfig */; };
+		3A7E4DB2298553B900E7CA17 /* Base.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3A7E4DB1298553B900E7CA17 /* Base.xcconfig */; };
 		3A8F30E02974395F00F24DF7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8F30DF2974395F00F24DF7 /* AppDelegate.swift */; };
 		3A8F30E22974395F00F24DF7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8F30E12974395F00F24DF7 /* SceneDelegate.swift */; };
 		3A8F30EA2974395F00F24DF7 /* ShikiApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3A8F30E82974395F00F24DF7 /* ShikiApp.xcdatamodeld */; };
@@ -188,7 +192,6 @@
 		3AFAFEE6298055A900949FE2 /* String+heightText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFAFEE5298055A900949FE2 /* String+heightText.swift */; };
 		BA01BBE429B117A000EA3EEB /* ListTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA01BBE329B117A000EA3EEB /* ListTableView.swift */; };
 		BA01BBE629B118BA00EA3EEB /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA01BBE529B118BA00EA3EEB /* ListTableViewCell.swift */; };
-		BA27FB492993E431007C3BEC /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA27FB482993E431007C3BEC /* WebKit.framework */; };
 		BA27FB4B29953660007C3BEC /* NewsDetailImageContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA27FB4A29953660007C3BEC /* NewsDetailImageContentView.swift */; };
 		BA27FB4D2995384E007C3BEC /* NewsDetailVideoContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA27FB4C2995384E007C3BEC /* NewsDetailVideoContentView.swift */; };
 		BA27FB5529964EF5007C3BEC /* CGSize+scaling.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA27FB5429964EF5007C3BEC /* CGSize+scaling.swift */; };
@@ -342,6 +345,8 @@
 		3A1A09642985400900846058 /* AppCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCollectionViewCell.swift; sourceTree = "<group>"; };
 		3A1A09662985400900846058 /* NewsDetailBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsDetailBuilder.swift; sourceTree = "<group>"; };
 		3A1A09682985400900846058 /* NewsDetailPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsDetailPresenter.swift; sourceTree = "<group>"; };
+		3A200A6929B28061001719A4 /* Secret.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secret.xcconfig; sourceTree = "<group>"; };
+		3A200A6629B11FA8001719A4 /* Array+removeDuplicates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+removeDuplicates.swift"; sourceTree = "<group>"; };
 		3A27576F297EFDD900EFD543 /* NewsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsModel.swift; sourceTree = "<group>"; };
 		3A7E4D602985492C00E7CA17 /* ForumsResponseDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForumsResponseDTO.swift; sourceTree = "<group>"; };
 		3A7E4D612985492C00E7CA17 /* ForumsRequestFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForumsRequestFactory.swift; sourceTree = "<group>"; };
@@ -380,7 +385,7 @@
 		3A7E4DAB2985498C00E7CA17 /* UsersApiTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersApiTests.swift; sourceTree = "<group>"; };
 		3A7E4DAC2985498C00E7CA17 /* ForumsApiTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForumsApiTests.swift; sourceTree = "<group>"; };
 		3A7E4DAD2985498C00E7CA17 /* TopicsApiTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicsApiTests.swift; sourceTree = "<group>"; };
-		3A7E4DB1298553B900E7CA17 /* AppSettings.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = AppSettings.xcconfig; sourceTree = "<group>"; };
+		3A7E4DB1298553B900E7CA17 /* Base.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Base.xcconfig; sourceTree = "<group>"; };
 		3A7E6C1C29AA58FA0022FB2F /* ShikiApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShikiApp.entitlements; sourceTree = "<group>"; };
 		3A8F30DC2974395F00F24DF7 /* ShikiApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShikiApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A8F30DF2974395F00F24DF7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -398,7 +403,6 @@
 		3AFAFEE5298055A900949FE2 /* String+heightText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+heightText.swift"; sourceTree = "<group>"; };
 		BA01BBE329B117A000EA3EEB /* ListTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableView.swift; sourceTree = "<group>"; };
 		BA01BBE529B118BA00EA3EEB /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
-		BA27FB482993E431007C3BEC /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		BA27FB4A29953660007C3BEC /* NewsDetailImageContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailImageContentView.swift; sourceTree = "<group>"; };
 		BA27FB4C2995384E007C3BEC /* NewsDetailVideoContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailVideoContentView.swift; sourceTree = "<group>"; };
 		BA27FB5429964EF5007C3BEC /* CGSize+scaling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+scaling.swift"; sourceTree = "<group>"; };
@@ -427,7 +431,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BA27FB492993E431007C3BEC /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -462,6 +465,7 @@
 		0010CAB92978018C00F8705B /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				3A200A6829B11FDB001719A4 /* Array */,
 				006240F12997AF6400498D51 /* UIApplication */,
 				BA27FB5629964EFC007C3BEC /* CGSize */,
 				3A19C064298B757D0073D472 /* Date */,
@@ -960,6 +964,14 @@
 			path = Presenter;
 			sourceTree = "<group>";
 		};
+		3A200A6829B11FDB001719A4 /* Array */ = {
+			isa = PBXGroup;
+			children = (
+				3A200A6629B11FA8001719A4 /* Array+removeDuplicates.swift */,
+			);
+			path = Array;
+			sourceTree = "<group>";
+		};
 		3A275771297EFE2500EFD543 /* News */ = {
 			isa = PBXGroup;
 			children = (
@@ -1080,7 +1092,6 @@
 				3A8F30F82974396000F24DF7 /* ShikiAppTests */,
 				3A8F31022974396000F24DF7 /* ShikiAppUITests */,
 				3A8F30DD2974395F00F24DF7 /* Products */,
-				BA27FB472993E431007C3BEC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1212,7 +1223,8 @@
 		3A8F31192974423200F24DF7 /* Environments */ = {
 			isa = PBXGroup;
 			children = (
-				3A7E4DB1298553B900E7CA17 /* AppSettings.xcconfig */,
+				3A7E4DB1298553B900E7CA17 /* Base.xcconfig */,
+				3A200A6929B28061001719A4 /* Secret.xcconfig */,
 				3A8F30F02974396000F24DF7 /* Info.plist */,
 			);
 			path = Environments;
@@ -1227,14 +1239,6 @@
 				3A19C075298FECC70073D472 /* String+extractURLs.swift */,
 			);
 			path = String;
-			sourceTree = "<group>";
-		};
-		BA27FB472993E431007C3BEC /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				BA27FB482993E431007C3BEC /* WebKit.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		BA27FB5629964EFC007C3BEC /* CGSize */ = {
@@ -1478,9 +1482,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A8F30EF2974396000F24DF7 /* LaunchScreen.storyboard in Resources */,
-				3A7E4DB2298553B900E7CA17 /* AppSettings.xcconfig in Resources */,
+				3A7E4DB2298553B900E7CA17 /* Base.xcconfig in Resources */,
 				3A8F30EC2974396000F24DF7 /* Assets.xcassets in Resources */,
 				0010CAD129782E4800F8705B /* OpenSans-Regular.ttf in Resources */,
+				3A200A6A29B28061001719A4 /* Secret.xcconfig in Resources */,
 				0010CACB29782E1500F8705B /* OpenSans-Bold.ttf in Resources */,
 				0010CAD729782E4800F8705B /* OpenSans-SemiBold.ttf in Resources */,
 				0010CAD429782E4800F8705B /* OpenSans-ExtraBold.ttf in Resources */,
@@ -1494,6 +1499,7 @@
 				0010CAD829782E4800F8705B /* OpenSans-SemiBold.ttf in Resources */,
 				0010CAD229782E4800F8705B /* OpenSans-Regular.ttf in Resources */,
 				0010CACC29782E1500F8705B /* OpenSans-Bold.ttf in Resources */,
+				3A200A6B29B28061001719A4 /* Secret.xcconfig in Resources */,
 				0010CAD529782E4800F8705B /* OpenSans-ExtraBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1505,6 +1511,7 @@
 				0010CAD929782E4800F8705B /* OpenSans-SemiBold.ttf in Resources */,
 				0010CAD329782E4800F8705B /* OpenSans-Regular.ttf in Resources */,
 				0010CACD29782E1500F8705B /* OpenSans-Bold.ttf in Resources */,
+				3A200A6C29B28061001719A4 /* Secret.xcconfig in Resources */,
 				0010CAD629782E4800F8705B /* OpenSans-ExtraBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1557,6 +1564,7 @@
 				006240EE29978B0600498D51 /* FiltersView.swift in Sources */,
 				006031B9297BCA7B00CD9A16 /* UserRatesViewController.swift in Sources */,
 				16D49EA9298EF5660008CAA4 /* RanobeProvider.swift in Sources */,
+				3A200A6729B11FA8001719A4 /* Array+removeDuplicates.swift in Sources */,
 				169118DE29A3C13C000F23B6 /* FiltersEnums.swift in Sources */,
 				16B08241298A1FAB00EB9061 /* RanobeResponseDTO.swift in Sources */,
 				00624101299AB39B00498D51 /* FiltersModel.swift in Sources */,
@@ -1770,6 +1778,7 @@
 /* Begin XCBuildConfiguration section */
 		3A8F31072974396000F24DF7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3A7E4DB1298553B900E7CA17 /* Base.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1818,7 +1827,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1830,6 +1839,7 @@
 		};
 		3A8F31082974396000F24DF7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3A7E4DB1298553B900E7CA17 /* Base.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1872,7 +1882,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -1884,7 +1894,6 @@
 		};
 		3A8F310A2974396000F24DF7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3A7E4DB1298553B900E7CA17 /* AppSettings.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1905,12 +1914,15 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.ShikiApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1936,12 +1948,15 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.ShikiApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -1957,9 +1972,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.ShikiAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ShikiApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ShikiApp";
 			};
 			name = Debug;
@@ -1976,9 +1994,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.ShikiAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ShikiApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ShikiApp";
 			};
 			name = Release;
@@ -1996,9 +2017,12 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.ShikiAppUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_TARGET_NAME = ShikiApp;
 			};
 			name = Debug;
@@ -2014,9 +2038,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.ShikiAppUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_TARGET_NAME = ShikiApp;
 			};
 			name = Release;

@@ -26,14 +26,14 @@ final class AnimeProvider: ContentProviderProtocol {
 
     func setFilters(filters: Any?) -> Int {
         self.filters = filters as? AnimeListFilters
-        return getFiltersCount()
+        return self.filters?.filtersCount ?? 0
     }
 
     func getFiltersCounter() -> Int {
-        return getFiltersCount()
+        return self.filters?.filtersCount ?? 0
     }
     
-    func getFilters() -> ListFilters<ContentKind, ContentStatus>? { filters }
+    func getFilters() -> Any? { filters }
 
     func fetchData(searchString: String? = nil, page: Int = 1, completion: @escaping (_ response: [SearchContentProtocol]?, _ error: String?) -> Void) {
         factory.getAnimes(
