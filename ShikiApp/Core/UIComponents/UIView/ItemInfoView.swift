@@ -87,12 +87,10 @@ final class ItemInfoView: UIView {
     }
     
     private func configureScoreLabel(_ score: String) {
-        if score == "0.0" {
-            scoreLabel.text = Texts.Empty.noScore
+        scoreLabel.text = score
+        if score == Texts.Empty.noScore {
             scoreLabel.font = AppFont.Style.title
             scoreLabel.textColor = AppColor.textMinor
-        } else {
-            scoreLabel.text = score
         }
     }
     
