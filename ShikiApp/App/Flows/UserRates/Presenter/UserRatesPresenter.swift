@@ -51,15 +51,15 @@ final class UserRatesPresenter: UserRatesViewOutput {
         
         let factory = ApiFactory.makeUserRatesApi()
         ApiFactory.makeUsersApi().whoAmI { user, _ in
-            if let userId = user?.id { // заменить ID пока для теста
+            if let userId = user?.id {
                 factory.getList(
-                    userId: 295732,
+                    userId: userId,
                     targetType: targetType,
                     status: status
                 ) { data, errorString in
-                    if let data, let errorString {
+                    if let data {
                         self.ratesList = data
-                        self.error = errorString
+                        self.error = errorString ?? ""
                         print(self.ratesList)
                     }
                 }
