@@ -33,12 +33,13 @@ struct SearchDetailModel: Equatable {
 
 struct UserRateModel: Equatable {
     let id: Int
+    let userID: Int?
     let targetID: Int
     let targetType: String?
-    let episodes: Int
-    let rewatched: Int
-    let chapters: Int
-    let volumes: Int
+    let episodes: Int?
+    let rewatched: Int?
+    let chapters: Int?
+    let volumes: Int?
     let score: Int
     let status: String
 }
@@ -140,6 +141,7 @@ extension SearchDetailModelFactory: PrepareInfoProtocol {
         guard let userRate else { return nil }
         return UserRateModel(
             id: userRate.id,
+            userID: userRate.userID,
             targetID: targetID,
             targetType: userRate.targetType,
             episodes: userRate.episodes,
