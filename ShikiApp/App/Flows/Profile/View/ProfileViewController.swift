@@ -170,10 +170,6 @@ final class ProfileViewController: (UIViewController & ProfileViewInputProtocol)
             } else {
                 profileImageView.image = AppImage.ErrorsIcons.noUserpicIcon
             }
-            print("=======MODEl.SEX=====")
-            print(model.sex)
-            print("=======MODEl.fullyears=====")
-            print(model.fullYears)
             if model.sex != "" {
                 if model.fullYears != nil {
                     let sexValueInRussian = model.sex != "male" ? "женщина, " : "мужчина, "
