@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProfileViewController: (UIViewController & ProfileViewInputProtocol) {
+final class ProfileViewController: (UIViewController & ProfileViewInputProtocol) {
 
     // MARK: - Properties
     
@@ -21,18 +21,17 @@ class ProfileViewController: (UIViewController & ProfileViewInputProtocol) {
 
     // MARK: - Private Properties
     
-    private let lineHeight = 1.0
-    private let imageWidth = 100.0
-    private let linkImgWidth = 16.0
-    private let trailing = -16.0
-    private let leading = 12.0
-    private let leadingForLinkButton = 5.84
-    private let topInset = 24.0
-    private let bottom = -48.0
-    private let versionLabelTopInset = 8.0
+    private let lineHeight: CGFloat = 1.0
+    private let imageWidth: CGFloat = 100.0
+    private let linkImgWidth: CGFloat = 16.0
+    private let trailing: CGFloat = -16.0
+    private let leading: CGFloat = 12.0
+    private let leadingForLinkButton: CGFloat = 5.84
+    private let topInset: CGFloat = 24.0
+    private let bottom: CGFloat = -48.0
+    private let versionLabelTopInset: CGFloat = 8.0
     private var ageLabelText = ""
     private var sexLabelText = ""
-    
     
     private let topDivider: UIView = {
         let dividerView = UIView()
@@ -72,7 +71,6 @@ class ProfileViewController: (UIViewController & ProfileViewInputProtocol) {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.tintColor = AppColor.textMinor
-        imageView.image = nil
         return imageView
     }()
     
@@ -153,13 +151,17 @@ class ProfileViewController: (UIViewController & ProfileViewInputProtocol) {
     
     private func configureUI() {
         setupViews()
-        setupConstraints()
+        configureConstraints()
         configureLogoutButton()
         let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
         versionLabel.text =  "Версия \(version ?? "?")"
         
         if let model {
-            linkImageView.image = AppImage.OtherIcons.link
+            if model.website == "" {
+                linkImageView.image = nil
+            } else {
+                linkImageView.image = AppImage.OtherIcons.link
+            }
             linkButton.setTitle(model.website, for: .normal)
             nameLabel.text = model.nickname
             if let age = model.fullYears { ageLabelText = String(age) }
@@ -168,9 +170,20 @@ class ProfileViewController: (UIViewController & ProfileViewInputProtocol) {
             } else {
                 profileImageView.image = AppImage.ErrorsIcons.noUserpicIcon
             }
-            if let sex = model.sex {
-                let sexValueInRussian = sex != "male" ? "женщина, " : "мужчина, "
-                sexAndAgeLabel.text = sexValueInRussian + ageLabelText
+            print("=======MODEl.SEX=====")
+            print(model.sex)
+            print("=======MODEl.fullyears=====")
+            print(model.fullYears)
+            if model.sex != "" {
+                if model.fullYears != nil {
+                    let sexValueInRussian = model.sex != "male" ? "женщина, " : "мужчина, "
+                    sexAndAgeLabel.text = sexValueInRussian + ageLabelText
+                } else {
+                    let sexValueInRussian = model.sex != "male" ? "женщина" : "мужчина"
+                    sexAndAgeLabel.text = sexValueInRussian + ageLabelText
+                }
+            } else {
+                sexAndAgeLabel.text = ageLabelText
             }
         } else {
             linkImageView.image = nil
@@ -182,7 +195,7 @@ class ProfileViewController: (UIViewController & ProfileViewInputProtocol) {
         }
     }
     
-    private func setupConstraints() {
+    private func configureConstraints() {
         NSLayoutConstraint.activate([
             topDivider.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             topDivider.trailingAnchor.constraint(equalTo: view.trailingAnchor),
