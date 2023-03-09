@@ -27,8 +27,7 @@ struct ControlConstants {
         static let segmentTop: CGFloat = 71
         static let segmentHeight: CGFloat = 28
         static let segmentRadius: CGFloat = 8.91
-        static let backgroundImageSize: CGFloat  = 110
-        static let backgroundLabelInset: CGFloat  = 21
-        static let backgroundImageTop: CGFloat = 117
+        static let backgroundImageSize: CGFloat  = 120
+        static let backgroundLabelInset: CGFloat  = 16
     }
 }

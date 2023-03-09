@@ -17,7 +17,7 @@ protocol SearchViewDelegate: AnyObject {
 
 // MARK: - SearchView
 
-class SearchView: UIView {
+final class SearchView: UIView {
 
     // MARK: - Properties
 
@@ -225,18 +225,12 @@ class SearchView: UIView {
             tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            mainBackgroundView.topAnchor.constraint(
-                equalTo: topAnchor,
-                constant: ControlConstants.Properties.tableTop
-            ),
+            mainBackgroundView.topAnchor.constraint(equalTo: searchTextField.bottomAnchor),
             mainBackgroundView.leadingAnchor.constraint(equalTo: leadingAnchor),
             mainBackgroundView.trailingAnchor.constraint(equalTo: trailingAnchor),
             mainBackgroundView.bottomAnchor.constraint(equalTo: bottomAnchor),
             backgroundImageView.centerXAnchor.constraint(equalTo: mainBackgroundView.centerXAnchor),
-            backgroundImageView.centerYAnchor.constraint(
-                equalTo: mainBackgroundView.topAnchor,
-                constant: ControlConstants.Properties.backgroundImageTop
-            ),
+            backgroundImageView.centerYAnchor.constraint(equalTo: mainBackgroundView.centerYAnchor),
             backgroundImageView.widthAnchor.constraint(
                 equalToConstant: ControlConstants.Properties.backgroundImageSize
             ),

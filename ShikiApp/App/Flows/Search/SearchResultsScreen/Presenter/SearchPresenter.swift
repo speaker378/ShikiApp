@@ -172,8 +172,8 @@ final class SearchPresenter: SearchViewOutput {
     private func processFetchData(data: [SearchContentProtocol]?) {
         if let data, !data.isEmpty {
             page += 1
-            entityList = data
             errorString = nil
+            entityList = data
         } else {
             entityList.removeAll()
             if page == 0 { errorString = Texts.ErrorMessage.noResults }
