@@ -53,7 +53,7 @@ final class SearchViewController: UIViewController, SearchViewInput {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureOnViewDidLoad()
-        presenter.fetchData()
+        presenter.loadFilters()
     }
 
     override func viewWillAppear(_ animated: Bool) {
