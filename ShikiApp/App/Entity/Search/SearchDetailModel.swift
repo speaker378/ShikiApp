@@ -5,9 +5,9 @@
 //  Created by 👩🏻‍🎨 📱 december11 on 17.02.2023.
 //
 
-import Foundation
+import UIKit
 
-struct SearchDetailModel: Equatable {
+struct SearchDetailModel {
     
     let id: Int
     let imageUrlString: String
@@ -28,20 +28,17 @@ struct SearchDetailModel: Equatable {
     let duration: Int?
     let durationOrVolumes: String
     let rateList: [String]
-    let userRate: UserRateModel?
+    let userRate: UserRatesModel?
 }
 
-struct UserRateModel: Equatable {
-    let id: Int
-    let userID: Int?
-    let targetID: Int
-    let targetType: String?
-    let episodes: Int?
-    let rewatched: Int?
-    let chapters: Int?
-    let volumes: Int?
-    let score: Int
-    let status: String
+extension SearchDetailModel: Equatable {
+    static func == (lhs: SearchDetailModel, rhs: SearchDetailModel) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
+    static func > (lhs: SearchDetailModel, rhs: SearchDetailModel) -> Bool {
+        return lhs.id > rhs.id
+    }
 }
 
 final class SearchDetailModelFactory {
@@ -50,7 +47,16 @@ final class SearchDetailModelFactory {
         let delimiter = "·"
         let kind = extractKind(source.kind)
         let status = extractStatus(status: source.status, kind: kind)
-        let userRate = extractUserRate(source.userRate, targetID: source.id)
+        let title = extractTitle(name: source.name, russian: source.russian)
+        let userRate = extractUserRate(
+            source.userRate,
+            targetID: source.id,
+            targetImageString: extractUrlString(image: source.image),
+            targetTitle: title,
+            kind: kind,
+            status: source.status,
+            episodes: source.episodes ?? 0
+        )
         
         let airedReleasedDates = extractYears(
             airedOn: source.airedOn,
@@ -71,7 +77,7 @@ final class SearchDetailModelFactory {
         return SearchDetailModel(
             id: source.id,
             imageUrlString: extractUrlString(image: source.image),
-            title: extractTitle(name: source.name, russian: source.russian),
+            title: title,
             kind: kind,
             kindAndDate: "\(kind) \(delimiter) \(airedReleasedDates)",
             score: extractScore(source.score),
@@ -137,19 +143,34 @@ extension SearchDetailModelFactory: PrepareInfoProtocol {
         return ""
     }
     
-    func extractUserRate(_ userRate: UserRatesDTO?, targetID: Int) -> UserRateModel? {
+    /// подготовка значений для списка просмотра"
+    func extractUserRate(
+        _ userRate: UserRatesDTO?,
+        targetID: Int,
+        targetImageString: String,
+        targetTitle: String,
+        kind: String,
+        status: String?,
+        episodes: Int
+    ) -> UserRatesModel? {
         guard let userRate else { return nil }
-        return UserRateModel(
+        let score = Score(
+            value: extractScore(String(userRate.score)),
+            color: extractScoreColor(String(userRate.score))
+        )
+        let status = Constants.animeStatusDictionary[status ?? ""] ?? ""
+        return UserRatesModel(
             id: userRate.id,
-            userID: userRate.userID,
-            targetID: targetID,
-            targetType: userRate.targetType,
-            episodes: userRate.episodes,
-            rewatched: userRate.rewatches,
-            chapters: userRate.chapters,
-            volumes: userRate.volumes,
-            score: userRate.score,
-            status: userRate.status
+            target: "\(targetID)",
+            imageUrlString: targetImageString,
+            title: targetTitle,
+            kind: kind,
+            ongoingStatus: status,
+            watchingEpisodes: "\(userRate.episodes)",
+            totalEpisodes: "\(episodes)",
+            score: score,
+            status: status,
+            statusImage: Constants.watchingImageStatuses[status] ?? UIImage()
         )
     }
     
@@ -167,7 +188,7 @@ extension SearchDetailModelFactory: PrepareInfoProtocol {
     }
     
     /// подготовка значений для выпадающего списка к кнопке "Добавить в список"
-    func makeRatesList(status: String, userRates: UserRateModel?) -> [String] {
+    func makeRatesList(status: String, userRates: UserRatesModel?) -> [String] {
         if status == Constants.mangaStatusDictionary["anons"] || status == Constants.animeStatusDictionary["anons"] {
             return [Texts.ListTypesSelectItems.planned, Texts.ButtonTitles.removeFromList]
         }
