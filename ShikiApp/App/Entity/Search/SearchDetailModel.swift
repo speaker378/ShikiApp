@@ -47,21 +47,16 @@ final class SearchDetailModelFactory {
         let delimiter = "·"
         let kind = extractKind(source.kind)
         let status = extractStatus(status: source.status, kind: kind)
-        let title = extractTitle(name: source.name, russian: source.russian)
+        let years = extractYears(airedOn: source.airedOn, releasedOn: source.releasedOn, kind: source.kind)
+        let duration = extractDuration(duration: source.duration, volumes: source.volumes, chapters: source.chapters)
         let userRate = extractUserRate(
             source.userRate,
             targetID: source.id,
-            targetImageString: extractUrlString(image: source.image),
-            targetTitle: title,
+            imageString: extractUrlString(image: source.image),
+            title: extractTitle(name: source.name, russian: source.russian),
             kind: kind,
             status: source.status,
             episodes: source.episodes ?? 0
-        )
-        
-        let airedReleasedDates = extractYears(
-            airedOn: source.airedOn,
-            releasedOn: source.releasedOn,
-            kind: source.kind
         )
         let episodesText = makeEpisodesText(
             episodes: source.episodes,
@@ -69,17 +64,13 @@ final class SearchDetailModelFactory {
             kind: kind,
             status: status
         )
-        let duration = extractDuration(
-            duration: source.duration,
-            volumes: source.volumes,
-            chapters: source.chapters
-        )
+        
         return SearchDetailModel(
             id: source.id,
             imageUrlString: extractUrlString(image: source.image),
-            title: title,
+            title: extractTitle(name: source.name, russian: source.russian),
             kind: kind,
-            kindAndDate: "\(kind) \(delimiter) \(airedReleasedDates)",
+            kindAndDate: "\(kind) \(delimiter) \(years)",
             score: extractScore(source.score),
             status: status,
             description: source.description?.removeTags() ?? Texts.Empty.noDescription,
@@ -147,8 +138,8 @@ extension SearchDetailModelFactory: PrepareInfoProtocol {
     func extractUserRate(
         _ userRate: UserRatesDTO?,
         targetID: Int,
-        targetImageString: String,
-        targetTitle: String,
+        imageString: String,
+        title: String,
         kind: String,
         status: String?,
         episodes: Int
@@ -162,8 +153,8 @@ extension SearchDetailModelFactory: PrepareInfoProtocol {
         return UserRatesModel(
             id: userRate.id,
             target: "\(targetID)",
-            imageUrlString: targetImageString,
-            title: targetTitle,
+            imageUrlString: imageString,
+            title: title,
             kind: kind,
             ongoingStatus: status,
             watchingEpisodes: "\(userRate.episodes)",
