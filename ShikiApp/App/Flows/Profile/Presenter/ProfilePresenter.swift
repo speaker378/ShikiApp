@@ -12,7 +12,7 @@ protocol ProfileViewInputProtocol: AnyObject {
 }
 
 protocol ProfileViewOutputProtocol: AnyObject {
-
+    
     func fetchData()
     func didPressedLogoutButton()
     func isAuth() -> Bool
@@ -21,56 +21,44 @@ protocol ProfileViewOutputProtocol: AnyObject {
 final class ProfilePresenter: ProfileViewOutputProtocol {
 
     // MARK: - Properties
-
+    
     weak var viewInput: (UIViewController & ProfileViewInputProtocol)?
 
     // MARK: - Private properties
-
+    
     private let apiFactory = ApiFactory.makeUsersApi()
     private let modelFactory = UserModelFactory()
     private var userData: UserDTO?
 
-    // MARK: - Private functions
-    
-    private func fetchDataFromServer(completion: @escaping () -> Void) {
-            apiFactory.whoAmI { [weak self] data, _ in
-                guard let data else {
-                    return
-                }
-                self?.userData = data
-                completion()
-            }
-        }
-
     // MARK: - Functions
-
+    
     func fetchData() {
-        if AuthManager.share.isAuth() == true {
-            fetchDataFromServer { [weak self] in
-                guard let self else { return }
-                self.userData = self.userData
+        if isAuth() {
+            apiFactory.whoAmI { [weak self] data, _ in
+                guard let data else { return }
+                self?.userData = data
+                self?.viewInput?.model = self?.modelFactory.makeModel(from: data)
+                self?.viewInput?.isAuth = true
             }
-        } else {
-            print("User is not logged in")
         }
     }
     
     func didPressedLogoutButton() {
-            if isAuth() {
-                AuthManager.share.logOut()
-                viewInput?.isAuth = false
-            } else {
-                AuthManager.share.auth { [weak self] result in
-                    DispatchQueue.main.async {
-                        self?.viewInput?.isAuth = result
-                    }
-                }
+        if isAuth() {
+            AuthManager.share.logOut()
+            userData = nil
+            viewInput?.model = nil
+            viewInput?.isAuth = false
+        } else {
+            AuthManager.share.auth { [weak self] _ in
+                self?.fetchData()
             }
         }
-        
-        func isAuth() -> Bool {
-            AuthManager.share.isAuth()
-        }
+    }
+    
+    func isAuth() -> Bool {
+        AuthManager.share.isAuth()
+    }
 }
 
   

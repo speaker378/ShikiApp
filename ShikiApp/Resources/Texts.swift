@@ -70,16 +70,9 @@ enum Texts {
     enum ButtonTitles {
         static let addToList = "Добавить в список"
         static let close = "Закрыть"
+        static let logout = "Выйти из аккаунта"
+        static let login = "Войти в аккаунт"
     }
-    
-
-    enum DummyTextForProfileVC {
-            static let nameLabelText = "Вел1чайший"
-            static let sexAndAgeLabelText = "мужчина, 24"
-            static let webLinkText = "myanimelist.com/firefly784"
-            static let logoutButtonText = "Выйти из аккаунта"
-            static let versionLabelText = "Версия 1.0.0(1)"
-        }
 
     enum ListTypesSelectItems {
         static let all = "Вce"
