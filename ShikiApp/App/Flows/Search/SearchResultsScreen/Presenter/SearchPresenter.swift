@@ -10,8 +10,14 @@ import UIKit
 // MARK: - SearchViewInput
 
 protocol SearchViewInput: AnyObject {
+
+    // MARK: - Properties
+
     var models: [SearchModel] { get set }
     var tableHeader: String { get set }
+
+    // MARK: - Functions
+
     func showError(errorString: String?, errorImage: UIImage)
     func hideError()
     func setFiltersCounter(count: Int)
@@ -20,6 +26,9 @@ protocol SearchViewInput: AnyObject {
 // MARK: - SearchViewOutput
 
 protocol SearchViewOutput: AnyObject {
+
+    // MARK: - Functions
+
     func requestFilters()
     func viewDidSelectEntity(entity: SearchModel)
     func fetchData()

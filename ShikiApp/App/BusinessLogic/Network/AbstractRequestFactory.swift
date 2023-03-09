@@ -90,7 +90,7 @@ class AbstractRequestFactory<API: EndPointType>: AbstractRequestFactoryProtocol 
     }
 
     private func decodeData<Response: Codable>(type: Response.Type, data: Data?) -> (Response?, String?) {
-        guard let data = data else { return (nil, Texts.NetworkLayerErrorMessages.noData) }
+        guard let data else { return (nil, Texts.NetworkLayerErrorMessages.noData) }
         switch type.self {
         case is String.Type:
             guard let data = String(data: data, encoding: .utf8) as? Response else {
