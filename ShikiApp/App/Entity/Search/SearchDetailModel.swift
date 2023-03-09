@@ -145,6 +145,7 @@ extension SearchDetailModelFactory: PrepareInfoProtocol {
         episodes: Int
     ) -> UserRatesModel? {
         guard let userRate else { return nil }
+        let delimiter = "·"
         let score = Score(
             value: extractScore(String(userRate.score)),
             color: extractScoreColor(String(userRate.score))
@@ -157,11 +158,15 @@ extension SearchDetailModelFactory: PrepareInfoProtocol {
             title: title,
             kind: kind,
             ongoingStatus: status,
-            watchingEpisodes: "\(userRate.episodes)",
+            watchingEpisodes: "\(userRate.episodes)/\(episodes) \(delimiter) ",
             totalEpisodes: "\(episodes)",
             score: score,
             status: status,
-            statusImage: Constants.watchingImageStatuses[status] ?? UIImage()
+            statusImage: Constants.watchingImageStatuses[status] ?? UIImage(),
+            episodes: userRate.episodes,
+            rewatches: userRate.rewatches,
+            chapters: userRate.chapters,
+            volumes: userRate.volumes
         )
     }
     
