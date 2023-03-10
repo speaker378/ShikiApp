@@ -1180,7 +1180,6 @@
 		3A8F3114297441EB00F24DF7 /* BusinessLogic */ = {
 			isa = PBXGroup;
 			children = (
-				16DBE56E29B9F6E3001AEFBB /* UserDefaultsService */,
 				006031BE297C086400CD9A16 /* AppStartManager */,
 				3A7E4D5D2985492C00E7CA17 /* Network */,
 			);
@@ -1210,6 +1209,7 @@
 		3A8F31172974422100F24DF7 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				16DBE56E29B9F6E3001AEFBB /* UserDefaultsService */,
 				3A7E4D9A2985496A00E7CA17 /* Network */,
 				0010CAB42977FF9A00F8705B /* Helpers */,
 				0010CABA297801A900F8705B /* UIComponents */,
