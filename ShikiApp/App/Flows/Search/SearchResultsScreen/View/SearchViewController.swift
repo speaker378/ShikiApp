@@ -53,7 +53,6 @@ final class SearchViewController: UIViewController, SearchViewInput {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureOnViewDidLoad()
-        presenter.fetchData()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -99,7 +98,7 @@ final class SearchViewController: UIViewController, SearchViewInput {
         searchView.tableView.dataSource = self
         searchView.tableView.prefetchDataSource = self
         searchView.delegate = self
-        applySearch()
+        presenter.loadFilters()
         addTapGestureToHideKeyboard()
         searchView.searchTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
     }

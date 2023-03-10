@@ -12,7 +12,7 @@ import Foundation
 
 typealias MangaListFilters = ListFilters<MangaContentKind, MangaContentStatus>
 
-struct ListFilters<K, S> {
+struct ListFilters<K: Codable, S: Codable>: Codable {
     
     var kind: K?
     var status: S?
