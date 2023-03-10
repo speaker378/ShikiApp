@@ -68,20 +68,30 @@ final class ItemInfoView: UIView {
     
     private func configure(with content: SearchDetailModel) {
         coverImageView.downloadedImage(from: content.imageUrlString)
-        scoreLabel.text = content.score
         typeAndDateLabel.text = "\(content.kindAndDate)"
-        episodesLabel.text = makeEpisodesText(with: content)
+        episodesLabel.text = content.episodesText
         durationLabel.text = content.durationOrVolumes
-        
+        configureScoreLabel(content.score)
         configureUI()
     }
     
     private func configureUI() {
         addSubviews([coverImageView, scoreLabel, typeAndDateLabel, episodesLabel, durationLabel, statusChipsView])
-        
+        if let ratingChipsView {
+            addSubview(ratingChipsView)
+        }
+        if let studioView {
+            addSubview(studioView)
+        }
         configureConstraints()
-        configureRatingView()
-        configureStudioView()
+    }
+    
+    private func configureScoreLabel(_ score: String) {
+        scoreLabel.text = score
+        if score == Texts.Empty.noScore {
+            scoreLabel.font = AppFont.Style.title
+            scoreLabel.textColor = AppColor.textMinor
+        }
     }
     
     private func makeRatingView(with content: SearchDetailModel) -> ChipsView? {
@@ -106,31 +116,6 @@ final class ItemInfoView: UIView {
         return stackView
     }
     
-    private func configureRatingView() {
-        guard let ratingView = ratingChipsView else { return }
-        addSubview(ratingView)
-        ratingView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            ratingView.topAnchor.constraint(equalTo: durationLabel.bottomAnchor, constant: Constants.Spacing.medium),
-            ratingView.trailingAnchor.constraint(equalTo: trailingAnchor)
-        ])
-    }
-    
-    private func configureStudioView() {
-        guard let studioView = studioView else { return }
-        addSubview(studioView)
-        let bottomAnchorView = ratingChipsView ?? durationLabel
-        
-        NSLayoutConstraint.activate([
-            studioView.topAnchor.constraint(
-                equalTo: bottomAnchorView.bottomAnchor,
-                constant: Constants.Spacing.medium
-            ),
-            studioView.trailingAnchor.constraint(equalTo: trailingAnchor)
-        ])
-    }
-    
     private func configureConstraints() {
         statusChipsView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -151,30 +136,42 @@ final class ItemInfoView: UIView {
             episodesLabel.centerYAnchor.constraint(equalTo: statusChipsView.centerYAnchor),
             episodesLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
             episodesLabel.heightAnchor.constraint(equalToConstant: infoLabelHeight),
-            episodesLabel.leadingAnchor.constraint(equalTo: statusChipsView.trailingAnchor, constant: spacing),
+            episodesLabel.leadingAnchor.constraint(
+                equalTo: statusChipsView.trailingAnchor,
+                constant: (episodesLabel.text ?? "").isEmpty ? 0 : spacing
+            ),
             
             statusChipsView.topAnchor.constraint(
                 equalTo: typeAndDateLabel.bottomAnchor,
                 constant: Constants.Spacing.medium
             ),
             
-            durationLabel.topAnchor.constraint(equalTo: episodesLabel.bottomAnchor, constant: Constants.Spacing.medium),
+            durationLabel.topAnchor.constraint(
+                equalTo: episodesLabel.bottomAnchor,
+                constant: Constants.Spacing.medium
+            ),
             durationLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-            durationLabel.heightAnchor.constraint(equalToConstant: infoLabelHeight),
-            
             heightAnchor.constraint(equalToConstant: coverHeight)
         ])
-    }
-    
-    private func makeEpisodesText(with content: SearchDetailModel) -> String {
-        guard let episodesCount = content.episodes, content.kind != "Фильм" else { return "" }
-        let episodes = episodesCount == 0 ? " ?" : String(episodesCount)
-        var string = ""
-        if content.status == "Выходит" || content.status == "Онгоинг", let aired = content.episodesAired {
-            string = "\(aired)/\(episodes) \(Texts.OtherMessage.episodes)"
-        } else {
-            string = "\(episodes) \(Texts.OtherMessage.episodes)"
+        
+        if let ratingChipsView {
+            ratingChipsView.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                ratingChipsView.topAnchor.constraint(
+                    equalTo: durationLabel.bottomAnchor,
+                    constant: Constants.Spacing.medium
+                ),
+                ratingChipsView.trailingAnchor.constraint(equalTo: trailingAnchor)
+            ])
         }
-        return string
+        if let studioView {
+            let bottomAnchorView = ratingChipsView ?? durationLabel
+            let spacing = (durationLabel.text ?? "").isEmpty ? 0 : Constants.Spacing.medium
+            
+            NSLayoutConstraint.activate([
+                studioView.topAnchor.constraint(equalTo: bottomAnchorView.bottomAnchor, constant: spacing),
+                studioView.trailingAnchor.constraint(equalTo: trailingAnchor)
+            ])
+        }
     }
 }

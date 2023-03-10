@@ -22,6 +22,12 @@ struct UserRatesModel {
     let score: Score
     let status: String
     let statusImage: UIImage
+    
+    let episodes: Int?
+    let rewatches: Int?
+    let chapters: Int?
+    let volumes: Int?
+    
 }
 
 // MARK: - UserRatesModelFactory
@@ -65,7 +71,11 @@ final class UserRatesModelFactory {
             totalEpisodes: totalEpisodes,
             score: score,
             status: status,
-            statusImage: statusImage
+            statusImage: statusImage,
+            episodes: nil,
+            rewatches: nil,
+            chapters: nil,
+            volumes: nil
         )
     }
     
@@ -120,6 +130,10 @@ final class UserRatesMock: UserRatesContentProtocol {
     var status: String?
     var totalEpisodes: Int?
     var watchingEpisodes: Int?
+    var episodes: Int?
+    var rewatches: Int?
+    var chapters: Int?
+    var volumes: Int?
     
     init(
         id: Int,
@@ -132,7 +146,12 @@ final class UserRatesMock: UserRatesContentProtocol {
         ongoingStatus: String? = nil,
         status: String? = nil,
         totalEpisodes: Int? = nil,
-        watchingEpisodes: Int? = nil) {
+        watchingEpisodes: Int? = nil,
+        episodes: Int? = nil,
+        rewatches: Int? = nil,
+        chapters: Int? = nil,
+        volumes: Int? = nil
+    ) {
         self.id = id
         self.name = name
         self.target = target
@@ -144,6 +163,10 @@ final class UserRatesMock: UserRatesContentProtocol {
         self.status = status
         self.totalEpisodes = totalEpisodes
         self.watchingEpisodes = watchingEpisodes
+        self.episodes = episodes
+        self.rewatches = rewatches
+        self.chapters = chapters
+        self.volumes = volumes
     }
 
 }

@@ -24,6 +24,7 @@ final class SearchViewController: UIViewController, SearchViewInput {
             }
         }
     }
+
     var models: [SearchModel] = [] {
         didSet {
             DispatchQueue.main.async {
@@ -37,7 +38,6 @@ final class SearchViewController: UIViewController, SearchViewInput {
     init(presenter: SearchViewOutput) {
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
-
     }
 
     required init?(coder _: NSCoder) {
@@ -59,29 +59,33 @@ final class SearchViewController: UIViewController, SearchViewInput {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: false)
     }
-    
+
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
     }
 
     // MARK: - Functions
-    
-    func showError(errorString: String?) {
+
+    func showError(errorString: String?, errorImage: UIImage) {
+        guard let errorString else { return }
+        searchView.resultsTitle.isHidden = true
+        searchView.backgroundImageView.image = errorImage
+        searchView.backgroundLabel.text = errorString
         searchView.backgroundImageView.isHidden = false
         searchView.backgroundLabel.isHidden = false
-        searchView.backgroundLabel.text = errorString ?? Texts.ErrorMessage.noResults
     }
-    
+
     func hideError() {
+        searchView.resultsTitle.isHidden = false
         searchView.backgroundImageView.isHidden = true
         searchView.backgroundLabel.isHidden = true
     }
-    
+
     func setFiltersCounter(count: Int) {
         _ = searchView.button.setCounter(counter: count)
     }
@@ -104,7 +108,7 @@ final class SearchViewController: UIViewController, SearchViewInput {
         tapGesture.cancelsTouchesInView = false
         searchView.addGestureRecognizer(tapGesture)
     }
-    
+
     private func applySearch(_ text: String? = nil) {
         DispatchQueue.global(qos: .userInteractive).async { [weak self] in
             self?.presenter.setSearchString(searchString: text)

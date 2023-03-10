@@ -248,9 +248,7 @@ final class TopicsApiTests: XCTestCase {
         XCTAssertNil(error, "Unexpected \(api2Test).\(request) error \(error ?? "")")
         XCTAssertNotNil(topic, "Unexpected \(api2Test).\(request) nil result")
         if let id = topic?.id {
-            factory.deleteTopic(id: id) { _, errorMessage in
-                XCTAssertNil(error, "Unexpected \(self.api2Test).\(request) error \(errorMessage ?? "") on delete topic \(id)")
-            }
+            factory.deleteTopic(id: id) { _, _ in }
         }
     }
 }
