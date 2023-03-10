@@ -48,6 +48,7 @@ enum AppImage {
         static let nonConnectionIcon = UIImage(named: "noConnectionIcon") ?? missingImage
         static let noUserpicIcon = UIImage(named: "noUserpic") ?? missingImage
         static let noResults = UIImage(named: "noResults") ?? missingImage
+        static let otherError = UIImage(named: "otherError") ?? missingImage
     }
 
     // MARK: - TabBarIcons

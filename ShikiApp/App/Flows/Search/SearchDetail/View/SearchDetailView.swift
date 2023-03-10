@@ -21,8 +21,12 @@ final class SearchDetailView: UIView {
         scrollView.showsVerticalScrollIndicator = false
         return scrollView
     }()
-    private let button: ButtonWithIconView = {
-        let button = ButtonWithIconView(title: Texts.ButtonTitles.addToList, icon: AppImage.OtherIcons.addToList)
+    private let button: SelectedButton = {
+        let button = SelectedButton()
+        button.configurate(text: Texts.ButtonTitles.addToList, image: AppImage.OtherIcons.addToList)
+        button.backgroundColor = AppColor.accent
+        button.titleLabel.textColor = AppColor.textInvert
+        button.titleLabel.font = AppFont.Style.blockTitle
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -36,13 +40,17 @@ final class SearchDetailView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    private let transparentView = UIView()
+    private let listTableView: ListTableView
+    private var buttonTapHandler: (() -> Void)?
 
     // MARK: - Construction
     
     init(content: SearchDetailModel, tapHandler: @escaping () -> Void) {
         itemInfoView = ItemInfoView(content: content)
         genreTableView = ChipsTableView(values: content.genres)
-        button.tapHandler = tapHandler
+        listTableView = ListTableView(values: content.rateList)
+        buttonTapHandler = tapHandler
         super.init(frame: .zero)
         configure(with: content)
     }
@@ -53,15 +61,27 @@ final class SearchDetailView: UIView {
     
     private func configure(with content: SearchDetailModel) {
         addSubview(scrollView)
+        configureButton(with: content)
         scrollView.addSubviews([itemInfoView, button, titleLabel, genreTableView, descriptionLabel])
         [itemInfoView, genreTableView].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+        genreTableView.reloadData()
+        configureUI(with: content)
+    }
+    
+    private func configureButton(with content: SearchDetailModel) {
+        button.addTarget(nil, action: #selector(listTypesSelectTapped), for: .touchUpInside)
+        guard let userRate = content.userRate, let status = Constants.watchingStatuses[userRate.status] else { return }
+        button.configurate(text: status, image: AppImage.NavigationsBarIcons.chevronDown)
+        button.backgroundColor = AppColor.backgroundMinor
+        button.titleLabel.textColor = AppColor.textMain
+    }
+    
+    private func configureUI(with content: SearchDetailModel) {
         titleLabel.text = content.title
         descriptionLabel.text = content.description
-        if descriptionLabel.text == Texts.ErrorMessage.noDescription {
+        if descriptionLabel.text == Texts.Empty.noDescription {
             descriptionLabel.textColor = AppColor.textMinor
         }
-        genreTableView.reloadData()
-        
         configureConstraints()
     }
     
@@ -104,5 +124,110 @@ final class SearchDetailView: UIView {
             descriptionLabel.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             descriptionLabel.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -inset)
         ])
+    }
+    
+    private func configureListTableView() {
+        let frame = convert(button.frame, toView: scrollView)
+        listTableView.didSelectRowHandler = { [weak self] value in
+            guard let self else { return }
+            if value == Texts.ButtonTitles.removeFromList {
+                self.button.configurate(text: Texts.ButtonTitles.addToList, image: AppImage.OtherIcons.addToList)
+                self.button.backgroundColor = AppColor.accent
+                self.button.titleLabel.textColor = AppColor.textInvert
+                self.removeTransparentView(frame: frame)
+            } else {
+                self.button.configurate(text: value, image: AppImage.NavigationsBarIcons.chevronDown)
+                self.button.backgroundColor = AppColor.backgroundMinor
+                self.button.titleLabel.textColor = AppColor.textMain
+                self.removeTransparentView(frame: frame)
+            }
+        }
+    }
+    
+    private func configureTransparentView() {
+        let window = UIApplication.firstKeyWindowForConnectedScenes
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(transparentViewTapped))
+        
+        transparentView.frame = window?.frame ?? self.frame
+        transparentView.backgroundColor = AppColor.backgroundMinor
+        transparentView.alpha = 0
+        transparentView.addGestureRecognizer(tapGesture)
+        addSubview(transparentView)
+    }
+    
+    private func addTransparentView(frame: CGRect) {
+        let listMaxHeight: CGFloat = 268.0
+        
+        configureTransparentView()
+        
+        listTableView.frame = CGRect(
+            x: frame.origin.x,
+            y: frame.origin.y + frame.height,
+            width: frame.width,
+            height: 0
+        )
+        addSubview(listTableView)
+        listTableView.reloadData()
+        
+        let height: CGFloat = CGFloat(listTableView.valuesCount) * Constants.Insets.controlHeight
+        UIView.animate(
+            withDuration: 0.4,
+            delay: 0.0,
+            usingSpringWithDamping: 1.0,
+            initialSpringVelocity: 1.0,
+            options: .curveEaseInOut,
+            animations: {
+                self.transparentView.alpha = 0.5
+                self.listTableView.frame = CGRect(
+                    x: frame.origin.x,
+                    y: frame.origin.y + frame.height + Constants.Spacing.small,
+                    width: frame.width,
+                    height: height < listMaxHeight ? height : listMaxHeight
+                )
+            }
+        )
+    }
+    
+    private func removeTransparentView(frame: CGRect) {
+        UIView.animate(
+            withDuration: 0.4,
+            delay: 0.0,
+            usingSpringWithDamping: 1.0,
+            initialSpringVelocity: 1.0,
+            options: .curveEaseInOut,
+            animations: {
+                self.transparentView.alpha = 0
+                self.listTableView.frame = CGRect(
+                    x: frame.origin.x,
+                    y: frame.origin.y + frame.height + Constants.Spacing.small,
+                    width: frame.width,
+                    height: 0
+                )
+                self.layoutIfNeeded()
+                self.frame = CGRect(
+                    x: .zero,
+                    y: .zero,
+                    width: frame.width,
+                    height: self.bounds.height
+                )
+            }
+        )
+    }
+    
+    private func convert(_ frame: CGRect, toView: UIView) -> CGRect {
+        let convertedOrigin = convert(frame.origin, from: scrollView)
+        return CGRect(origin: convertedOrigin, size: frame.size)
+    }
+    
+    @objc private func listTypesSelectTapped() {
+        configureListTableView()
+        buttonTapHandler?()
+        let frame = convert(button.frame, toView: scrollView)
+        addTransparentView(frame: frame)
+    }
+    
+    @objc private func transparentViewTapped() {
+        let frame = convert(button.frame, toView: scrollView)
+        removeTransparentView(frame: frame)
     }
 }
