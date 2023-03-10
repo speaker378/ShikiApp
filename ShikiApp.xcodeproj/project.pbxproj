@@ -83,8 +83,6 @@
 		1634B67429A93E14004A4B02 /* UserRatesState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1634B67329A93E14004A4B02 /* UserRatesState.swift */; };
 		1640B98A299131480063AC8C /* CustomSegmentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1640B989299131480063AC8C /* CustomSegmentControl.swift */; };
 		1640B98C29914AAB0063AC8C /* CounterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1640B98B29914AAB0063AC8C /* CounterButton.swift */; };
-		1652DB5829AC8E8F002A2BD1 /* Texts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0010CAC42978138500F8705B /* Texts.swift */; };
-		1652DB5929AC8E90002A2BD1 /* Texts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0010CAC42978138500F8705B /* Texts.swift */; };
 		165DCDB8298FF50A0087CEDF /* HttpConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7E4D9B2985496A00E7CA17 /* HttpConstants.swift */; };
 		165DCDB9298FF5200087CEDF /* HttpConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7E4D9B2985496A00E7CA17 /* HttpConstants.swift */; };
 		166FA78D29894235009C2712 /* MangasApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166FA78C29894235009C2712 /* MangasApi.swift */; };
@@ -162,7 +160,6 @@
 		3A7E4D8F2985492C00E7CA17 /* UserProfileDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7E4D722985492C00E7CA17 /* UserProfileDTO.swift */; };
 		3A7E4D902985492C00E7CA17 /* BansResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7E4D732985492C00E7CA17 /* BansResponseDTO.swift */; };
 		3A7E4D912985492C00E7CA17 /* UsersRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7E4D742985492C00E7CA17 /* UsersRequestFactory.swift */; };
-		3A7E4D922985492C00E7CA17 /* NetworkLayerErrorMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7E4D752985492C00E7CA17 /* NetworkLayerErrorMessages.swift */; };
 		3A7E4D932985492C00E7CA17 /* TopicsEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7E4D772985492C00E7CA17 /* TopicsEnums.swift */; };
 		3A7E4D942985492C00E7CA17 /* TopicsRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7E4D782985492C00E7CA17 /* TopicsRequestFactory.swift */; };
 		3A7E4D952985492C00E7CA17 /* NewTopicDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7E4D7A2985492C00E7CA17 /* NewTopicDTO.swift */; };
@@ -289,6 +286,7 @@
 		16130E5729873BEF00A4EC94 /* AnimeListFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeListFilters.swift; sourceTree = "<group>"; };
 		16130E5929873C7600A4EC94 /* AnimeEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeEnums.swift; sourceTree = "<group>"; };
 		16130E5B29875FA700A4EC94 /* AnimesApiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimesApiTests.swift; sourceTree = "<group>"; };
+		161A7D6C29B4ADA100ECEA61 /* Secret.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secret.xcconfig; sourceTree = "<group>"; };
 		1634B66929A8E579004A4B02 /* UserRatesApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRatesApi.swift; sourceTree = "<group>"; };
 		1634B66B29A8F248004A4B02 /* UserRatesDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRatesDTO.swift; sourceTree = "<group>"; };
 		1634B66D29A8F3E0004A4B02 /* UserRatesEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRatesEnums.swift; sourceTree = "<group>"; };
@@ -304,6 +302,7 @@
 		166FA79429894842009C2712 /* MangaResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaResponseDTO.swift; sourceTree = "<group>"; };
 		166FA79629894A16009C2712 /* MangaDetailsDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaDetailsDTO.swift; sourceTree = "<group>"; };
 		167239922993AF2C008A934D /* BorderedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderedTextField.swift; sourceTree = "<group>"; };
+		1689CA4429B25FA00015D822 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		169118DD29A3C13C000F23B6 /* FiltersEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersEnums.swift; sourceTree = "<group>"; };
 		169118E029A51EAE000F23B6 /* GenreModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreModel.swift; sourceTree = "<group>"; };
 		16B0823C298A133100EB9061 /* MangasApiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangasApiTests.swift; sourceTree = "<group>"; };
@@ -368,7 +367,6 @@
 		3A7E4D722985492C00E7CA17 /* UserProfileDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileDTO.swift; sourceTree = "<group>"; };
 		3A7E4D732985492C00E7CA17 /* BansResponseDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BansResponseDTO.swift; sourceTree = "<group>"; };
 		3A7E4D742985492C00E7CA17 /* UsersRequestFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersRequestFactory.swift; sourceTree = "<group>"; };
-		3A7E4D752985492C00E7CA17 /* NetworkLayerErrorMessages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkLayerErrorMessages.swift; sourceTree = "<group>"; };
 		3A7E4D772985492C00E7CA17 /* TopicsEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicsEnums.swift; sourceTree = "<group>"; };
 		3A7E4D782985492C00E7CA17 /* TopicsRequestFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicsRequestFactory.swift; sourceTree = "<group>"; };
 		3A7E4D7A2985492C00E7CA17 /* NewTopicDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewTopicDTO.swift; sourceTree = "<group>"; };
@@ -991,7 +989,6 @@
 				16B0823E298A1F7600EB9061 /* Ranobes */,
 				3A7E4D632985492C00E7CA17 /* AbstractRequestFactory.swift */,
 				3A7E4D652985492C00E7CA17 /* ApiFactory.swift */,
-				3A7E4D752985492C00E7CA17 /* NetworkLayerErrorMessages.swift */,
 				16130E5D2988183400A4EC94 /* Mangas */,
 				16130E4D29872D5200A4EC94 /* Animes */,
 				3A7E4D5E2985492C00E7CA17 /* Forums */,
@@ -1229,6 +1226,7 @@
 				3A7E4DB1298553B900E7CA17 /* Base.xcconfig */,
 				3A200A6929B28061001719A4 /* Secret.xcconfig */,
 				3A8F30F02974396000F24DF7 /* Info.plist */,
+				161A7D6C29B4ADA100ECEA61 /* Secret.xcconfig */,
 			);
 			path = Environments;
 			sourceTree = "<group>";
@@ -1465,6 +1463,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = 3A8F30D32974395F00F24DF7;
 			productRefGroup = 3A8F30DD2974395F00F24DF7 /* Products */;
@@ -1606,7 +1605,6 @@
 				006240F62997C03F00498D51 /* SelectedButton.swift in Sources */,
 				16082BE929A26A1E00450D43 /* GenreInfoDTO.swift in Sources */,
 				006240EC29977E8C00498D51 /* FiltersPresenter.swift in Sources */,
-				3A7E4D922985492C00E7CA17 /* NetworkLayerErrorMessages.swift in Sources */,
 				BA76AF9D29A011BA0002C982 /* SearchDetailContentProtocol.swift in Sources */,
 				006240FC299A76F200498D51 /* FooterFilterView.swift in Sources */,
 				3A1A096A2985400900846058 /* NewsDetailView.swift in Sources */,
@@ -1771,6 +1769,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				3A8F30EE2974396000F24DF7 /* Base */,
+				1689CA4429B25FA00015D822 /* ru */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -1783,6 +1782,7 @@
 			baseConfigurationReference = 3A7E4DB1298553B900E7CA17 /* Base.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -1844,6 +1844,7 @@
 			baseConfigurationReference = 3A7E4DB1298553B900E7CA17 /* Base.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
