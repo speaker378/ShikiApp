@@ -10,10 +10,15 @@ import UIKit
 // MARK: - SearchViewInput
 
 protocol SearchViewInput: AnyObject {
-    
+
+    // MARK: - Properties
+
     var models: [SearchModel] { get set }
-    var tableHeader: String {get set }
-    func showError(errorString: String?)
+    var tableHeader: String { get set }
+
+    // MARK: - Functions
+
+    func showError(errorString: String?, errorImage: UIImage)
     func hideError()
     func setFiltersCounter(count: Int)
 }
@@ -21,7 +26,9 @@ protocol SearchViewInput: AnyObject {
 // MARK: - SearchViewOutput
 
 protocol SearchViewOutput: AnyObject {
-    
+
+    // MARK: - Functions
+
     func requestFilters()
     func viewDidSelectEntity(entity: SearchModel)
     func fetchData()
@@ -46,13 +53,19 @@ final class SearchPresenter: SearchViewOutput {
     private var layer: SearchContentEnum = .anime { didSet { fetchFirstPage() } }
     private var searchString: String? { didSet { fetchFirstPage() } }
     private var errorString: String? { didSet {
-        guard let errorString  else {
+        guard errorString != nil else {
             viewInput?.hideError()
             return
         }
-        viewInput?.showError(errorString: errorString)
-    } }
-    private var entityList = [SearchContentProtocol]() { didSet { refreshView() } }
+        viewInput?.showError(errorString: errorString, errorImage: getErrorImage())
+    }
+    }
+
+    private var entityList = [SearchContentProtocol]() {
+        didSet {
+            refreshView()
+            
+        } }
     private var isLoading = false
     private let filtersModelFactory = FiltersModelFactory()
     private let filterListModelFactory = FilterListModelFactory()
@@ -77,7 +90,7 @@ final class SearchPresenter: SearchViewOutput {
         )
         viewInput?.navigationController?.pushViewController(filtersViewController, animated: true)
     }
-    
+
     func setFilter(filter: Any?) {
         guard let count = providers[layer]?.setFilters(filters: filter) else { return }
         viewInput?.setFiltersCounter(count: count)
@@ -106,6 +119,15 @@ final class SearchPresenter: SearchViewOutput {
 
     // MARK: - Private functions
 
+    private func getErrorImage() -> UIImage {
+        switch errorString {
+        case Texts.ErrorMessage.noResults:
+            return AppImage.ErrorsIcons.noResults
+        default:
+            return AppImage.ErrorsIcons.otherError
+        }
+    }
+    
     private func refreshView() {
         if !entityList.isEmpty {
             if page > 1 {
@@ -116,14 +138,17 @@ final class SearchPresenter: SearchViewOutput {
         } else {
             if page == 0 { viewInput?.models.removeAll() }
         }
-        viewInput?.tableHeader = buildHeader()
+        guard let errorString, !errorString.isEmpty else {
+            viewInput?.tableHeader = buildHeader()
+            return
+        }
     }
-    
+
     private func buildHeader() -> String {
-        if (searchString ?? "").isEmpty && providers[layer]?.getFiltersCounter() ?? 0 == 0 {
+        if (searchString ?? "").isEmpty, providers[layer]?.getFiltersCounter() ?? 0 == 0 {
             return "\(Constants.SearchHeader.emptyStringResult) \(layer.rawValue.lowercased())"
         }
-        if page == 0 && entityList.isEmpty {
+        if page == 0, entityList.isEmpty {
             return ""
         }
         if (0 ..< pageSize).contains(entityList.count) {
@@ -131,28 +156,45 @@ final class SearchPresenter: SearchViewOutput {
         }
         return "\(Constants.SearchHeader.approximateResult)"
     }
-    
+
     private func fetchFirstPage() {
         page = 0
         fetchNextPage()
+    }
+    
+    private func processFetchError(error: String) {
+        self.page = 0
+        self.errorString = error
+        self.viewInput?.models.removeAll()
+        self.entityList.removeAll()
+    }
+    
+    private func processFetchData(data: [SearchContentProtocol]?) {
+        if let data, !data.isEmpty {
+            page += 1
+            errorString = nil
+            entityList = data
+        } else {
+            entityList.removeAll()
+            if page == 0 { errorString = Texts.ErrorMessage.noResults }
+        }
     }
     
     private func fetchNextPage() {
         if isLoading { return }
         isLoading = true
         providers[layer]?.fetchData(searchString: searchString, page: page + 1) { [weak self] data, error in
-            if let data, !data.isEmpty {
-                self?.page += 1
-                self?.entityList = data
-                self?.isLoading = false
-                return
+            if let error {
+                self?.processFetchError(error: error)
+            } else {
+                self?.processFetchData(data: data)
             }
-            if let error { self?.errorString = error }
-            self?.entityList.removeAll()
             self?.isLoading = false
         }
     }
 }
+
+// MARK: FilterConsumerProtocol
 
 extension SearchPresenter: FilterConsumerProtocol {
 
@@ -163,5 +205,4 @@ extension SearchPresenter: FilterConsumerProtocol {
         setFilter(filter: filter)
         viewInput?.navigationController?.popViewController(animated: true)
     }
-    
 }
