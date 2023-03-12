@@ -32,6 +32,13 @@ final class ListTableView: UITableView {
     
     required init?(coder: NSCoder) { nil }
 
+    // MARK: - Functions
+    
+    func configureValues(_ values: [String]) {
+        self.values = values
+        reloadData()
+    }
+
     // MARK: - Private functions
     
     private func configure() {
@@ -62,7 +69,6 @@ extension ListTableView: UITableViewDataSource {
             values.indices.contains(indexPath.row),
             let cell: ListTableViewCell = tableView.cell(forRowAt: indexPath)
         else { return UITableViewCell() }
-//        cell.selectionStyle = .none
         cell.configure(content: values[indexPath.row])
         return cell
     }

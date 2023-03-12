@@ -42,33 +42,86 @@ final class SearchDetailView: UIView {
     }()
     private let transparentView = UIView()
     private let listTableView: ListTableView
+    private let stepperView: StepperView
+    private let userRateStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = Constants.Spacing.medium
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.distribution = .fill
+        stackView.alignment = .fill
+        return stackView
+    }()
+    private var content: SearchDetailModel
     private var buttonTapHandler: (() -> Void)?
 
     // MARK: - Construction
     
     init(content: SearchDetailModel, tapHandler: @escaping () -> Void) {
+        self.content = content
         itemInfoView = ItemInfoView(content: content)
         genreTableView = ChipsTableView(values: content.genres)
         listTableView = ListTableView(values: content.rateList)
         buttonTapHandler = tapHandler
+        stepperView = StepperView(value: 0, maxValue: content.episodes ?? 0)
         super.init(frame: .zero)
-        configure(with: content)
+        configure()
     }
     
     required init?(coder: NSCoder) { nil }
 
     // MARK: - Private functions
     
-    private func configure(with content: SearchDetailModel) {
+    private func configure() {
         addSubview(scrollView)
-        configureButton(with: content)
-        scrollView.addSubviews([itemInfoView, button, titleLabel, genreTableView, descriptionLabel])
+        configureButton()
+        configureStepper()
+        userRateStackView.addArrangedSubview(button)
+        userRateStackView.addArrangedSubview(stepperView)
+        scrollView.addSubviews([itemInfoView, userRateStackView, titleLabel, genreTableView, descriptionLabel])
         [itemInfoView, genreTableView].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
         genreTableView.reloadData()
-        configureUI(with: content)
+        configureUI()
     }
     
-    private func configureButton(with content: SearchDetailModel) {
+    private func configureStepper() {
+        guard let userRate = content.userRate else {
+            stepperView.isHidden = true
+            return
+        }
+        
+        stepperView.isHidden = false
+        
+        var max = 0
+        if let episodes = content.episodes {
+            max = episodes
+        }
+        if let aired = content.episodesAired, aired < max {
+            max = aired
+        }
+        
+        configureStepperValues(
+            status: userRate.status,
+            currentValue: userRate.episodes ?? 0,
+            maxValue: max,
+            rewatchesValue: userRate.rewatches ?? 0
+        )
+    }
+    
+    private func configureStepperValues(status: String, currentValue: Int, maxValue: Int, rewatchesValue: Int) {
+        switch status {
+        case RatesTypeItemEnum.completed.rawValue:
+            stepperView.configure(value: maxValue)
+        case RatesTypeItemEnum.planned.rawValue:
+            stepperView.configure(value: 0)
+        case RatesTypeItemEnum.rewatching.rawValue:
+            stepperView.configure(value: rewatchesValue)
+        default:
+            stepperView.configure(value: currentValue)
+        }
+    }
+    
+    private func configureButton() {
         button.addTarget(nil, action: #selector(listTypesSelectTapped), for: .touchUpInside)
         guard let userRate = content.userRate, let status = Constants.watchingStatuses[userRate.status] else { return }
         button.configurate(text: status, image: AppImage.NavigationsBarIcons.chevronDown)
@@ -76,7 +129,7 @@ final class SearchDetailView: UIView {
         button.titleLabel.textColor = AppColor.textMain
     }
     
-    private func configureUI(with content: SearchDetailModel) {
+    private func configureUI() {
         titleLabel.text = content.title
         descriptionLabel.text = content.description
         if descriptionLabel.text == Texts.Empty.noDescription {
@@ -99,12 +152,19 @@ final class SearchDetailView: UIView {
             itemInfoView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             itemInfoView.widthAnchor.constraint(equalToConstant: infoViewWidth),
             
-            button.topAnchor.constraint(equalTo: itemInfoView.bottomAnchor, constant: Constants.Insets.sideInset),
-            button.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            button.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             button.heightAnchor.constraint(equalToConstant: Constants.Insets.controlHeight),
             
-            titleLabel.topAnchor.constraint(equalTo: button.bottomAnchor, constant: Constants.Insets.sideInset),
+            userRateStackView.topAnchor.constraint(
+                equalTo: itemInfoView.bottomAnchor,
+                constant: Constants.Insets.sideInset
+            ),
+            userRateStackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            userRateStackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            
+            titleLabel.topAnchor.constraint(
+                equalTo: userRateStackView.bottomAnchor,
+                constant: Constants.Insets.sideInset
+            ),
             titleLabel.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             titleLabel.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             
@@ -127,20 +187,30 @@ final class SearchDetailView: UIView {
     }
     
     private func configureListTableView() {
-        let frame = convert(button.frame, toView: scrollView)
         listTableView.didSelectRowHandler = { [weak self] value in
             guard let self else { return }
             if value == Texts.ButtonTitles.removeFromList {
                 self.button.configurate(text: Texts.ButtonTitles.addToList, image: AppImage.OtherIcons.addToList)
                 self.button.backgroundColor = AppColor.accent
                 self.button.titleLabel.textColor = AppColor.textInvert
-                self.removeTransparentView(frame: frame)
+                self.content.userRate = nil
+                self.stepperView.isHidden = true
             } else {
+                var newValues = RatesTypeItemEnum.allCases.map { $0.getString() }
+                newValues.removeFirst()
+                if let status = Constants.watchingStatuses.first(where: { $1 == value })?.key {
+                    self.content.configureUserRate(content: self.content, status: status)
+                    self.configureStepper()
+                }
+                newValues.append(Texts.ButtonTitles.removeFromList)
+                self.listTableView.configureValues(newValues)
+                
                 self.button.configurate(text: value, image: AppImage.NavigationsBarIcons.chevronDown)
                 self.button.backgroundColor = AppColor.backgroundMinor
                 self.button.titleLabel.textColor = AppColor.textMain
-                self.removeTransparentView(frame: frame)
             }
+            let frame = self.convert(self.button.frame, toView: self.userRateStackView)
+            self.removeTransparentView(frame: frame)
         }
     }
     
@@ -157,7 +227,6 @@ final class SearchDetailView: UIView {
     
     private func addTransparentView(frame: CGRect) {
         let listMaxHeight: CGFloat = 268.0
-        
         configureTransparentView()
         
         listTableView.frame = CGRect(
@@ -214,20 +283,20 @@ final class SearchDetailView: UIView {
         )
     }
     
-    private func convert(_ frame: CGRect, toView: UIView) -> CGRect {
-        let convertedOrigin = convert(frame.origin, from: scrollView)
+    private func convert(_ frame: CGRect, toView view: UIView) -> CGRect {
+        let convertedOrigin = convert(frame.origin, from: view)
         return CGRect(origin: convertedOrigin, size: frame.size)
     }
     
     @objc private func listTypesSelectTapped() {
         configureListTableView()
         buttonTapHandler?()
-        let frame = convert(button.frame, toView: scrollView)
+        let frame = convert(button.frame, toView: userRateStackView)
         addTransparentView(frame: frame)
     }
     
     @objc private func transparentViewTapped() {
-        let frame = convert(button.frame, toView: scrollView)
+        let frame = convert(button.frame, toView: userRateStackView)
         removeTransparentView(frame: frame)
     }
 }

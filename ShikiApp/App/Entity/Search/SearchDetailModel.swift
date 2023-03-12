@@ -8,8 +8,11 @@
 import UIKit
 
 struct SearchDetailModel {
+
+    // MARK: - Properties
     
     let id: Int
+    let type: String
     let imageUrlString: String
     let title: String
     let kind: String
@@ -28,7 +31,37 @@ struct SearchDetailModel {
     let duration: Int?
     let durationOrVolumes: String
     let rateList: [String]
-    let userRate: UserRatesModel?
+    var userRate: UserRatesModel?
+
+    // MARK: - Functions
+    
+    mutating func configureUserRate(
+        content: SearchDetailModel,
+        status: String,
+        score: Score? = nil,
+        episodes: Int? = nil,
+        rewatches: Int? = nil,
+        chapters: Int? = nil,
+        volumes: Int? = nil
+    ) {
+        self.userRate = UserRatesModel(
+            id: content.id,
+            target: content.type,
+            imageUrlString: content.imageUrlString,
+            title: content.title,
+            kind: content.kind,
+            ongoingStatus: content.status,
+            watchingEpisodes: content.episodesText,
+            totalEpisodes: "\(content.episodes ?? 0)",
+            score: score ?? Score(value: "0.0", color: AppColor.textMinor),
+            status: status,
+            statusImage: Constants.watchingImageStatuses[status] ?? UIImage(),
+            episodes: episodes ?? content.userRate?.episodes,
+            rewatches: rewatches ?? content.userRate?.rewatches,
+            chapters: chapters ?? content.userRate?.chapters,
+            volumes: volumes ?? content.userRate?.volumes
+        )
+    }
 }
 
 extension SearchDetailModel: Equatable {
@@ -51,11 +84,11 @@ final class SearchDetailModelFactory {
         let duration = extractDuration(duration: source.duration, volumes: source.volumes, chapters: source.chapters)
         let userRate = extractUserRate(
             source.userRate,
-            targetID: source.id,
+            type: extractType(kind: source.kind),
             imageString: extractUrlString(image: source.image),
             title: extractTitle(name: source.name, russian: source.russian),
             kind: kind,
-            status: source.status,
+            status: status,
             episodes: source.episodes ?? 0
         )
         let episodesText = makeEpisodesText(
@@ -67,6 +100,7 @@ final class SearchDetailModelFactory {
         
         return SearchDetailModel(
             id: source.id,
+            type: extractType(kind: source.kind),
             imageUrlString: extractUrlString(image: source.image),
             title: extractTitle(name: source.name, russian: source.russian),
             kind: kind,
@@ -93,6 +127,11 @@ final class SearchDetailModelFactory {
 extension SearchDetailModelFactory: PrepareInfoProtocol {
 
     // MARK: - Functions
+    
+    func extractType(kind: String?) -> String {
+        guard let kind else { return "" }
+        return AnimeContentKind(rawValue: kind) != nil ? "Anime" : "Manga"
+    }
     
     func extractScore(_ score: String?) -> String {
         guard let score, let floatScore = Float(score) else { return "" }
@@ -134,14 +173,14 @@ extension SearchDetailModelFactory: PrepareInfoProtocol {
         return ""
     }
     
-    /// подготовка значений для списка просмотра"
+    /// подготовка значений для списка просмотра
     func extractUserRate(
         _ userRate: UserRatesDTO?,
-        targetID: Int,
+        type: String,
         imageString: String,
         title: String,
         kind: String,
-        status: String?,
+        status: String,
         episodes: Int
     ) -> UserRatesModel? {
         guard let userRate else { return nil }
@@ -150,18 +189,17 @@ extension SearchDetailModelFactory: PrepareInfoProtocol {
             value: extractScore(String(userRate.score)),
             color: extractScoreColor(String(userRate.score))
         )
-        let status = Constants.animeStatusDictionary[status ?? ""] ?? ""
         return UserRatesModel(
             id: userRate.id,
-            target: "\(targetID)",
+            target: type,
             imageUrlString: imageString,
             title: title,
             kind: kind,
             ongoingStatus: status,
-            watchingEpisodes: "\(userRate.episodes)/\(episodes) \(delimiter) ",
+            watchingEpisodes: "\(userRate.episodes ?? 0)/\(episodes) \(delimiter) ",
             totalEpisodes: "\(episodes)",
             score: score,
-            status: status,
+            status: userRate.status,
             statusImage: Constants.watchingImageStatuses[status] ?? UIImage(),
             episodes: userRate.episodes,
             rewatches: userRate.rewatches,

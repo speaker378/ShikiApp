@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum RatesTypeItemEnum: CaseIterable {
+enum RatesTypeItemEnum: String, CaseIterable {
    
     case all
     case completed
