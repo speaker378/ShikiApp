@@ -32,6 +32,9 @@
 		0010CADF29784E3C00F8705B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0010CADE29784E3C00F8705B /* Constants.swift */; };
 		0010CAE029784E3C00F8705B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0010CADE29784E3C00F8705B /* Constants.swift */; };
 		0010CAE129784E3C00F8705B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0010CADE29784E3C00F8705B /* Constants.swift */; };
+		00470AF029BE05030082B57E /* Secret.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 00470AEF29BE05030082B57E /* Secret.xcconfig */; };
+		00470AF129BE05030082B57E /* Secret.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 00470AEF29BE05030082B57E /* Secret.xcconfig */; };
+		00470AF229BE05030082B57E /* Secret.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 00470AEF29BE05030082B57E /* Secret.xcconfig */; };
 		006031AF2979B79400CD9A16 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006031AE2979B79400CD9A16 /* TabBarViewController.swift */; };
 		006031B7297BCA6800CD9A16 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006031B6297BCA6800CD9A16 /* SearchViewController.swift */; };
 		006031B9297BCA7B00CD9A16 /* UserRatesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006031B8297BCA7B00CD9A16 /* UserRatesViewController.swift */; };
@@ -137,9 +140,6 @@
 		3A1A096C2985400900846058 /* AppCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1A09642985400900846058 /* AppCollectionViewCell.swift */; };
 		3A1A096D2985400900846058 /* NewsDetailBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1A09662985400900846058 /* NewsDetailBuilder.swift */; };
 		3A1A096E2985400900846058 /* NewsDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1A09682985400900846058 /* NewsDetailPresenter.swift */; };
-		3A200A6A29B28061001719A4 /* Secret.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3A200A6929B28061001719A4 /* Secret.xcconfig */; };
-		3A200A6B29B28061001719A4 /* Secret.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3A200A6929B28061001719A4 /* Secret.xcconfig */; };
-		3A200A6C29B28061001719A4 /* Secret.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3A200A6929B28061001719A4 /* Secret.xcconfig */; };
 		3A200A6729B11FA8001719A4 /* Array+removeDuplicates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A200A6629B11FA8001719A4 /* Array+removeDuplicates.swift */; };
 		3A275770297EFDD900EFD543 /* NewsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A27576F297EFDD900EFD543 /* NewsModel.swift */; };
 		3A7E4D7F2985492C00E7CA17 /* ForumsResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7E4D602985492C00E7CA17 /* ForumsResponseDTO.swift */; };
@@ -245,6 +245,7 @@
 		0010CAD029782E4800F8705B /* OpenSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-SemiBold.ttf"; sourceTree = "<group>"; };
 		0010CADA29783E7400F8705B /* AppImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppImage.swift; sourceTree = "<group>"; };
 		0010CADE29784E3C00F8705B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		00470AEF29BE05030082B57E /* Secret.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secret.xcconfig; sourceTree = "<group>"; };
 		006031AE2979B79400CD9A16 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		006031B6297BCA6800CD9A16 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		006031B8297BCA7B00CD9A16 /* UserRatesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRatesViewController.swift; sourceTree = "<group>"; };
@@ -286,7 +287,6 @@
 		16130E5729873BEF00A4EC94 /* AnimeListFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeListFilters.swift; sourceTree = "<group>"; };
 		16130E5929873C7600A4EC94 /* AnimeEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeEnums.swift; sourceTree = "<group>"; };
 		16130E5B29875FA700A4EC94 /* AnimesApiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimesApiTests.swift; sourceTree = "<group>"; };
-		161A7D6C29B4ADA100ECEA61 /* Secret.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secret.xcconfig; sourceTree = "<group>"; };
 		1634B66929A8E579004A4B02 /* UserRatesApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRatesApi.swift; sourceTree = "<group>"; };
 		1634B66B29A8F248004A4B02 /* UserRatesDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRatesDTO.swift; sourceTree = "<group>"; };
 		1634B66D29A8F3E0004A4B02 /* UserRatesEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRatesEnums.swift; sourceTree = "<group>"; };
@@ -346,7 +346,6 @@
 		3A1A09642985400900846058 /* AppCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCollectionViewCell.swift; sourceTree = "<group>"; };
 		3A1A09662985400900846058 /* NewsDetailBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsDetailBuilder.swift; sourceTree = "<group>"; };
 		3A1A09682985400900846058 /* NewsDetailPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsDetailPresenter.swift; sourceTree = "<group>"; };
-		3A200A6929B28061001719A4 /* Secret.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secret.xcconfig; sourceTree = "<group>"; };
 		3A200A6629B11FA8001719A4 /* Array+removeDuplicates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+removeDuplicates.swift"; sourceTree = "<group>"; };
 		3A27576F297EFDD900EFD543 /* NewsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsModel.swift; sourceTree = "<group>"; };
 		3A7E4D602985492C00E7CA17 /* ForumsResponseDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForumsResponseDTO.swift; sourceTree = "<group>"; };
@@ -1223,9 +1222,8 @@
 			isa = PBXGroup;
 			children = (
 				3A7E4DB1298553B900E7CA17 /* Base.xcconfig */,
-				3A200A6929B28061001719A4 /* Secret.xcconfig */,
+				00470AEF29BE05030082B57E /* Secret.xcconfig */,
 				3A8F30F02974396000F24DF7 /* Info.plist */,
-				161A7D6C29B4ADA100ECEA61 /* Secret.xcconfig */,
 			);
 			path = Environments;
 			sourceTree = "<group>";
@@ -1486,7 +1484,7 @@
 				3A7E4DB2298553B900E7CA17 /* Base.xcconfig in Resources */,
 				3A8F30EC2974396000F24DF7 /* Assets.xcassets in Resources */,
 				0010CAD129782E4800F8705B /* OpenSans-Regular.ttf in Resources */,
-				3A200A6A29B28061001719A4 /* Secret.xcconfig in Resources */,
+				00470AF029BE05030082B57E /* Secret.xcconfig in Resources */,
 				0010CACB29782E1500F8705B /* OpenSans-Bold.ttf in Resources */,
 				0010CAD729782E4800F8705B /* OpenSans-SemiBold.ttf in Resources */,
 				0010CAD429782E4800F8705B /* OpenSans-ExtraBold.ttf in Resources */,
@@ -1498,9 +1496,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				0010CAD829782E4800F8705B /* OpenSans-SemiBold.ttf in Resources */,
+				00470AF129BE05030082B57E /* Secret.xcconfig in Resources */,
 				0010CAD229782E4800F8705B /* OpenSans-Regular.ttf in Resources */,
 				0010CACC29782E1500F8705B /* OpenSans-Bold.ttf in Resources */,
-				3A200A6B29B28061001719A4 /* Secret.xcconfig in Resources */,
 				0010CAD529782E4800F8705B /* OpenSans-ExtraBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1510,9 +1508,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				0010CAD929782E4800F8705B /* OpenSans-SemiBold.ttf in Resources */,
+				00470AF229BE05030082B57E /* Secret.xcconfig in Resources */,
 				0010CAD329782E4800F8705B /* OpenSans-Regular.ttf in Resources */,
 				0010CACD29782E1500F8705B /* OpenSans-Bold.ttf in Resources */,
-				3A200A6C29B28061001719A4 /* Secret.xcconfig in Resources */,
 				0010CAD629782E4800F8705B /* OpenSans-ExtraBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

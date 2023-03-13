@@ -36,12 +36,17 @@ class UserRatesViewController: UIViewController, UserRatesViewInput {
     }
 
     // MARK: - Lifecycle
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewOutput.getRatesList(targetType: viewOutput.targetType, status: viewOutput.status)
+    }
  
     override func viewDidLoad() {
         super.viewDidLoad()
         contentView.delegate = self
         configureUI()
-        viewOutput.getRatesList(targetType: .anime,  status: nil)
+        viewOutput.getRatesList(targetType: .anime, status: nil)
     }
 
     // MARK: - Private functions
