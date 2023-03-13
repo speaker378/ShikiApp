@@ -170,17 +170,7 @@ final class ProfileViewController: (UIViewController & ProfileViewInputProtocol)
             } else {
                 profileImageView.image = AppImage.ErrorsIcons.noUserpicIcon
             }
-            if model.sex != "" {
-                if model.fullYears != nil {
-                    let sexValueInRussian = model.sex != "male" ? "женщина, " : "мужчина, "
-                    sexAndAgeLabel.text = sexValueInRussian + ageLabelText
-                } else {
-                    let sexValueInRussian = model.sex != "male" ? "женщина" : "мужчина"
-                    sexAndAgeLabel.text = sexValueInRussian + ageLabelText
-                }
-            } else {
-                sexAndAgeLabel.text = ageLabelText
-            }
+            sexAndAgeLabel.text = (model.sex ?? "") + ageLabelText
         } else {
             linkImageView.image = nil
             linkButton.setTitle("", for: .normal)

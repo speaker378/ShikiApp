@@ -83,4 +83,11 @@ enum Texts {
         static let dropped = "Брошено"
         static let rewatching = "Пересматриваю"
     }
+    
+    enum SexInRussian {
+        static let femaleCommaAndSpace = "женщина, "
+        static let female = "женщина"
+        static let maleCommaAndSpace = "мужчина, "
+        static let male = "мужчина"
+    }
 }

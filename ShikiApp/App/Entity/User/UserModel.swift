@@ -20,7 +20,7 @@ final class UserModelFactory {
     func makeModel(from user: UserDTO) -> UserViewModel {
         let profileImageUrl = extractImageAddress(from: user.image?.x160)
         let userName = user.nickname
-        let userSex = user.sex
+        let userSex = convertUserSexFromEnglish(from: user.sex, fullYears: user.fullYears)
         let userAge = user.fullYears
         let userWebSite = user.webSite
         
@@ -38,5 +38,16 @@ final class UserModelFactory {
         guard let avatar else { return result }
         let imageUrl = avatar
         return imageUrl
+    }
+    
+    private func convertUserSexFromEnglish(from sex: String?, fullYears: Int?) -> String {
+        var result = ""
+        if sex == "" { return result }
+        if fullYears != nil {
+            result = sex != "male" ? Texts.SexInRussian.femaleCommaAndSpace : Texts.SexInRussian.maleCommaAndSpace
+        } else {
+            result = sex != "male" ? Texts.SexInRussian.female : Texts.SexInRussian.male
+        }
+        return result
     }
 }
