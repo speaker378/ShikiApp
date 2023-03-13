@@ -15,6 +15,7 @@ protocol ProfileViewOutputProtocol: AnyObject {
     
     func fetchData()
     func didPressedLogoutButton()
+    func didPressedLinkButton()
     func isAuth() -> Bool
 }
 
@@ -58,6 +59,12 @@ final class ProfilePresenter: ProfileViewOutputProtocol {
     
     func isAuth() -> Bool {
         AuthManager.share.isAuth()
+    }
+    
+    func didPressedLinkButton() {
+        if let url = URL(string: viewInput?.model?.website ?? "") {
+                UIApplication.shared.open(url)
+            }
     }
 }
 

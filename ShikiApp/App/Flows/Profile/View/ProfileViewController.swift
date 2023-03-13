@@ -130,10 +130,18 @@ final class ProfileViewController: (UIViewController & ProfileViewInputProtocol)
         presenter.didPressedLogoutButton()
     }
     
+    @objc private func didPressedLinkButton() {
+        presenter.didPressedLinkButton()
+    }
+    
     private func configureLogoutButton() {
         let title = isAuth ? Texts.ButtonTitles.logout : Texts.ButtonTitles.login
         logoutButton.setTitle(title, for: .normal)
         logoutButton.addTarget(self, action: #selector(didPressedLogoutButton), for: .touchUpInside)
+    }
+    
+    private func configureLinkButton() {
+        linkButton.addTarget(self, action: #selector(didPressedLinkButton), for: .touchUpInside)
     }
     
     private func setupViews() {
@@ -153,6 +161,7 @@ final class ProfileViewController: (UIViewController & ProfileViewInputProtocol)
         setupViews()
         configureConstraints()
         configureLogoutButton()
+        configureLinkButton()
         let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
         versionLabel.text =  "Версия \(version ?? "?")"
         
