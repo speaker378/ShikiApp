@@ -76,6 +76,7 @@ final class ProfileViewController: (UIViewController & ProfileViewInputProtocol)
     
     private let linkButton: UIButton = {
         let button = UIButton(type: .system)
+        button.contentHorizontalAlignment = UIControl.ContentHorizontalAlignment.left
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = AppFont.Style.regularText
         button.titleLabel?.textColor = AppColor.accent
@@ -223,6 +224,7 @@ final class ProfileViewController: (UIViewController & ProfileViewInputProtocol)
             
             linkButton.leadingAnchor.constraint(equalTo: linkImageView.trailingAnchor, constant: leadingForLinkButton),
             linkButton.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 5),
+            linkButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: trailing),
             
             logoutButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             logoutButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: bottom),

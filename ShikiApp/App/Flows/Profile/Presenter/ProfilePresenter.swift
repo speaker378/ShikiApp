@@ -62,9 +62,15 @@ final class ProfilePresenter: ProfileViewOutputProtocol {
     }
     
     func didPressedLinkButton() {
-        if let url = URL(string: viewInput?.model?.website ?? "") {
-                UIApplication.shared.open(url)
-            }
+        guard let url = URL(string: viewInput?.model?.website ?? "") else {
+               return
+        }
+        if url.absoluteString.contains("http") || url.absoluteString.contains("https") {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            guard let httpUrl = URL(string: "https://"+(viewInput?.model?.website ?? "")) else { return }
+            UIApplication.shared.open(httpUrl, options: [:], completionHandler: nil)
+        }
     }
 }
 
