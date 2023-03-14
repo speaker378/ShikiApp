@@ -75,6 +75,8 @@ enum Texts {
     
     enum DetailLabels {
         static let episodes = "Эпизодов"
+        static let chapters = "Глав"
+        static let volumes = "Томов"
     }
     
     enum ButtonTitles {

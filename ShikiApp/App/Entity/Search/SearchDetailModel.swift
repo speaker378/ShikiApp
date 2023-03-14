@@ -30,7 +30,6 @@ struct SearchDetailModel {
     let chapters: Int?
     let duration: Int?
     let durationOrVolumes: String
-    let rateList: [String]
     var userRate: UserRatesModel?
 
     // MARK: - Functions
@@ -118,7 +117,6 @@ final class SearchDetailModelFactory {
             chapters: source.chapters,
             duration: source.duration,
             durationOrVolumes: duration,
-            rateList: makeRatesList(status: status, userRates: userRate),
             userRate: userRate
         )
     }
@@ -130,7 +128,13 @@ extension SearchDetailModelFactory: PrepareInfoProtocol {
     
     func extractType(kind: String?) -> String {
         guard let kind else { return "" }
-        return AnimeContentKind(rawValue: kind) != nil ? "Anime" : "Manga"
+        if AnimeContentKind(rawValue: kind) != nil {
+            return UserRatesTargetType.anime.rawValue
+        } else if MangaContentKind(rawValue: kind) != nil {
+            return UserRatesTargetType.manga.rawValue
+        } else {
+            return ""
+        }
     }
     
     func extractScore(_ score: String?) -> String {
@@ -219,18 +223,5 @@ extension SearchDetailModelFactory: PrepareInfoProtocol {
             string = "\(episodes) \(Texts.OtherMessage.episodes)"
         }
         return string
-    }
-    
-    /// подготовка значений для выпадающего списка к кнопке "Добавить в список"
-    func makeRatesList(status: String, userRates: UserRatesModel?) -> [String] {
-        if status == Constants.mangaStatusDictionary["anons"] || status == Constants.animeStatusDictionary["anons"] {
-            return [Texts.ListTypesSelectItems.planned, Texts.ButtonTitles.removeFromList]
-        }
-        var array = RatesTypeItemEnum.allCases.map { $0.getString() }
-        array.removeFirst()
-        if userRates != nil {
-            array.append(Texts.ButtonTitles.removeFromList)
-        }
-        return array
     }
 }

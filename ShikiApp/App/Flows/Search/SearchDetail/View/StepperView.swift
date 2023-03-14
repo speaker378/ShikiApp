@@ -7,9 +7,36 @@
 
 import UIKit
 
+protocol StepperViewDataSource: AnyObject {
+    
+    func stepperViewMaximumValue(_ stepperView: StepperView) -> Int?
+    func stepperViewCurrentValue(_ stepperView: StepperView) -> Int
+    func stepperViewTitle(_ stepperView: StepperView) -> String
+}
+
+protocol StepperViewDelegate: AnyObject {
+    
+    /// Значение степпера было изменено
+    func stepperViewValueWasChanged(_ stepperView: StepperView, value: Int, maxValue: Int?)
+    /// Закончили изменение значений степпера
+    func stepperViewDidFinishValueChanges(_ stepperView: StepperView, value: Int)
+}
+
 final class StepperView: UIView {
 
     // MARK: - Properties
+    
+    weak var delegate: StepperViewDelegate?
+    weak var dataSource: StepperViewDataSource? {
+        didSet {
+            configure()
+        }
+    }
+    private(set) var value = 0 {
+        didSet {
+            changeButtonState()
+        }
+    }
 
     // MARK: - Private properties
     
@@ -37,31 +64,36 @@ final class StepperView: UIView {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(AppImage.UserListIcons.minus, for: .normal)
-        button.addTarget(nil, action: #selector(decrementValue), for: .touchUpInside)
+        button.addTarget(nil, action: #selector(touchEnded), for: .touchUpInside)
+        button.addTarget(nil, action: #selector(decrementValue), for: .touchDown)
         return button
     }()
     private let incrementButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(AppImage.UserListIcons.plus, for: .normal)
-        button.addTarget(nil, action: #selector(incrementValue), for: .touchUpInside)
+        button.addTarget(nil, action: #selector(touchEnded), for: .touchUpInside)
+        button.addTarget(nil, action: #selector(incrementValue), for: .touchDown)
         return button
     }()
-    private var value: Int
-    private var maximumValue: Int
+    private var maximumValue: Int?
+    private var touchFinishedTimer: Timer?
+    private var touchStartedTimer: Timer?
+    private var touchDurationTimer: Timer?
+    private var hasLongPress = false
+    private var longPressCount = 0
 
     // MARK: - Construction
     
-    init(value: Int, maxValue: Int) {
+    init(title: String, value: Int = 0, maxValue: Int? = nil) {
         self.value = value
         maximumValue = maxValue
+        titleLabel.text = title
         super.init(frame: .zero)
         configureUI()
     }
     
     required init?(coder: NSCoder) { nil }
-
-    // MARK: - Lifecycle
 
     // MARK: - Functions
     
@@ -71,6 +103,20 @@ final class StepperView: UIView {
     }
 
     // MARK: - Private functions
+    
+    private func configure() {
+        if let newMaxValue = dataSource?.stepperViewMaximumValue(self) {
+            maximumValue = newMaxValue
+        }
+        
+        if let newTitle = dataSource?.stepperViewTitle(self) {
+            titleLabel.text = newTitle
+        }
+        
+        if let newValue = dataSource?.stepperViewCurrentValue(self) {
+            value = newValue
+        }
+    }
     
     private func configureUI() {
         addSubviews([titleLabel, stepperView])
@@ -109,25 +155,117 @@ final class StepperView: UIView {
         ])
     }
     
-    @objc private func decrementValue() {
-        if value > minimumValue {
-            value -= 1
-        } else {
-            value = minimumValue
-        }
-        
-        valueLabel.text = "\(value)"
+    private func disableButton(_ sender: UIButton) {
+        sender.isEnabled = false
+        sender.layer.opacity = 0.5
     }
     
-    @objc private func incrementValue() {
-        if value < maximumValue {
-            value += 1
-        } else {
-            value = maximumValue
-        }
-        
-        valueLabel.text = "\(value)"
+    private func enableButton(_ sender: UIButton) {
+        sender.isEnabled = true
+        sender.layer.opacity = 1.0
     }
-
-    // MARK: - UITableViewDelegate // пример расширения
+    
+    /// Смена состояний кнопок
+    private func changeButtonState() {
+        if let maximumValue = self.maximumValue, value < maximumValue {
+            enableButton(incrementButton)
+        } else if value == maximumValue {
+            disableButton(incrementButton)
+        }
+        if value > minimumValue {
+            enableButton(decrementButton)
+        } else if value == minimumValue {
+            disableButton(decrementButton)
+        }
+    }
+    
+    /// Для изменения значения по нажатию на кнопку. 
+    private func changeValue(with sender: UIButton) {
+        if !hasLongPress {
+            switch sender {
+            case decrementButton:
+                if value > minimumValue {
+                    value -= 1
+                } else {
+                    value = minimumValue
+                }
+            case incrementButton:
+                if let maximumValue = self.maximumValue, value == maximumValue {
+                    value = maximumValue
+                } else {
+                    value += 1
+                }
+            default: break
+            }
+            delegate?.stepperViewValueWasChanged(self, value: value, maxValue: maximumValue)
+        }
+        valueLabel.text = "\(value)"
+        hasLongPress = false
+    }
+    
+    /// Для плавного уменьшения значения. Чем дольше юзер зажимает кнопку, тем сильнее меняем значение
+    private func longPressDecrementValue() {
+        self.longPressCount = 0
+        self.touchDurationTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { [weak self] _ in
+            guard let self else { return }
+            self.longPressCount += 1
+            if self.value > self.minimumValue {
+                self.value -= max(self.longPressCount * self.longPressCount / 20, 1)
+            } else {
+                self.value = self.minimumValue
+            }
+            self.valueLabel.text = "\(self.value)"
+        })
+    }
+    
+    /// Для плавного увеличения значения. Чем дольше юзер зажимает кнопку, тем сильнее меняем значение
+    private func longPressIncrementValue() {
+        longPressCount = 0
+        touchDurationTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { [weak self] _ in
+            guard let self else { return }
+            self.longPressCount += 1
+            if let maximumValue = self.maximumValue, self.value == maximumValue {
+                self.value = maximumValue
+            } else {
+                self.value += max(self.longPressCount * self.longPressCount / 20, 1)
+            }
+            self.valueLabel.text = "\(self.value)"
+        })
+    }
+    
+    @objc private func decrementValue(_ sender: UIButton) {
+        touchStartedTimer?.invalidate()
+        touchStartedTimer = Timer.scheduledTimer(withTimeInterval: 0.6, repeats: false, block: { [weak self] _ in
+            guard let self else { return }
+            self.hasLongPress = true
+            self.longPressDecrementValue()
+        })
+        
+        delegate?.stepperViewValueWasChanged(self, value: value, maxValue: maximumValue)
+    }
+    
+    @objc private func incrementValue(_ sender: UIButton) {
+        touchStartedTimer?.invalidate()
+        touchStartedTimer = Timer.scheduledTimer(withTimeInterval: 0.6, repeats: false, block: { [weak self] _ in
+            guard let self else { return }
+            self.hasLongPress = true
+            self.longPressIncrementValue()
+        })
+        
+        delegate?.stepperViewValueWasChanged(self, value: value, maxValue: maximumValue)
+    }
+    
+    @objc private func touchEnded(_ sender: UIButton) {
+        touchFinishedTimer?.invalidate()
+        touchDurationTimer?.invalidate()
+        touchStartedTimer?.invalidate()
+        
+        changeValue(with: sender)
+        
+        // Ждём некоторое время, затем отдаем последнее значение степпера для дальнейшей обработки
+        touchFinishedTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: { [weak self] _ in
+            guard let self else { return }
+            self.delegate?.stepperViewDidFinishValueChanges(self, value: self.value)
+        })
+    }
 }

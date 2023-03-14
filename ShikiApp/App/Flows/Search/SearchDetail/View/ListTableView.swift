@@ -14,7 +14,7 @@ final class ListTableView: UITableView {
     var valuesCount: Int {
         return values.count
     }
-    
+    ///  Замыкание для определения поведения, когда было выбрано значение в таблице
     var didSelectRowHandler: ((String) -> Void)?
 
     // MARK: - Private properties
@@ -80,6 +80,7 @@ extension ListTableView: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        guard values.indices.contains(indexPath.row) else { return }
         didSelectRowHandler?(values[indexPath.row])
     }
 }
