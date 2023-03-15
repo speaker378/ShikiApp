@@ -16,11 +16,17 @@ final class RanobeProvider: ContentProviderProtocol {
 
     // MARK: - Private properties
     
-    private let factory = ApiFactory.makeRanobeApi()
+    private let factory: RanobeRequestFactoryProtocol
 
     // MARK: - Properties
 
     var filters: RanobeListFilters?
+
+    // MARK: - Constructions
+
+    init() {
+        factory = ApiFactory.makeRanobeApi()
+    }
 
     // MARK: - Functions
 
@@ -41,6 +47,7 @@ final class RanobeProvider: ContentProviderProtocol {
             limit: APIRestrictions.limit50.rawValue,
             filters: filters,
             search: searchString,
+            censored: RestrictionsProvider.restrictions.isCensored(),
             order: .byRank,
             completion: completion
         )

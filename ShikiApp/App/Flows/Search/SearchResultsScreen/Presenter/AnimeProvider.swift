@@ -16,11 +16,17 @@ final class AnimeProvider: ContentProviderProtocol {
 
     // MARK: - Private properties
     
-    private let factory = ApiFactory.makeAnimesApi()
+    private let factory: AnimesRequestFactoryProtocol
 
     // MARK: - Properties
 
     var filters: AnimeListFilters?
+
+    // MARK: - Constructions
+
+    init() {
+        factory = ApiFactory.makeAnimesApi()
+    }
 
     // MARK: - Functions
 
@@ -41,6 +47,7 @@ final class AnimeProvider: ContentProviderProtocol {
             limit: APIRestrictions.limit50.rawValue,
             filters: filters,
             search: searchString,
+            censored: RestrictionsProvider.restrictions.isCensored(),
             order: .byRank,
             completion: completion
         )

@@ -15,12 +15,18 @@ final class MangaProvider: ContentProviderProtocol {
     typealias ContentStatus = MangaContentStatus
 
     // MARK: - Private properties
-    
-    private let factory = ApiFactory.makeMangasApi()
+
+    private let factory: MangasRequestFactoryProtocol
 
     // MARK: - Properties
     
     var filters: MangaListFilters?
+
+    // MARK: - Constructions
+
+    init() {
+        factory = ApiFactory.makeMangasApi()
+    }
 
     // MARK: - Functions
 
@@ -41,6 +47,7 @@ final class MangaProvider: ContentProviderProtocol {
             limit: APIRestrictions.limit50.rawValue,
             filters: filters,
             search: searchString,
+            censored: RestrictionsProvider.restrictions.isCensored(),
             order: .byRank,
             completion: completion
         )

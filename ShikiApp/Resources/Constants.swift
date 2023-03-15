@@ -65,8 +65,15 @@ struct Constants {
         static let startYearForFilter = 1917
     }
     
+    enum Timeouts {
+        static let networkRequest = 15.0
+    }
     enum FilterParameters {
         static let delimiter: Character = ","
+    }
+    
+    enum CensoredParameters {
+        static let uncensoredAge = 18
     }
     
     enum SearchHeader {
@@ -152,11 +159,13 @@ struct Constants {
         "discontinued": "Прекращено",
         "anons": "Анонсировано"
     ]
+    
     static let animeStatuses = [
         "ongoing": "Онгоинг",
         "released": "Вышло",
         "anons": "Анонсировано"
     ]
+    
     static let rating = [
         "r": "R",
         "pg": "PG",
@@ -165,4 +174,8 @@ struct Constants {
         "rx": "RX",
         "none": ""
     ]
+    
+    enum NotificationKeys: String {
+        case authState
+    }
 }
