@@ -78,7 +78,7 @@ final class SearchDetailModelFactory {
     func makeDetailModel(from source: SearchDetailContentProtocol) -> SearchDetailModel {
         let delimiter = "·"
         let kind = extractKind(source.kind)
-        let status = extractStatus(status: source.status, kind: kind)
+        let status = extractStatus(status: source.status, kind: source.kind)
         let years = extractYears(airedOn: source.airedOn, releasedOn: source.releasedOn, kind: source.kind)
         let duration = extractDuration(duration: source.duration, volumes: source.volumes, chapters: source.chapters)
         let userRate = extractUserRate(
@@ -96,6 +96,7 @@ final class SearchDetailModelFactory {
             kind: kind,
             status: status
         )
+        
         
         return SearchDetailModel(
             id: source.id,

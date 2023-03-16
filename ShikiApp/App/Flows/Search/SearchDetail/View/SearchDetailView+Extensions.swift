@@ -15,9 +15,7 @@ extension SearchDetailView: StepperViewDataSource {
         var max: Int?
         switch content.type {
         case UserRatesTargetType.manga.rawValue:
-            if let volumes = content.volumes, volumes > 1 {
-                max = volumes
-            } else if let chapters = content.chapters, chapters > 0 {
+            if let chapters = content.chapters, chapters > 0 {
                 max = chapters
             }
         case UserRatesTargetType.anime.rawValue:
@@ -37,38 +35,18 @@ extension SearchDetailView: StepperViewDataSource {
     
     func stepperViewCurrentValue(_ stepperView: StepperView) -> Int {
         guard let rateType = RatesTypeItemEnum(rawValue: content.userRate?.status ?? "") else { return 0 }
-        
         if rateType == .rewatching, let rewatches = content.userRate?.rewatches {
             return rewatches
         }
         
-        switch content.type {
-        case UserRatesTargetType.manga.rawValue:
-            if let volumes = content.userRate?.volumes, volumes > 1 {
-                return volumes
-            } else if let chapters = content.userRate?.chapters {
-                return chapters
-            }
-        case UserRatesTargetType.anime.rawValue:
-            if let episodes = content.userRate?.episodes {
-                return episodes
-            }
-        default: break
-        }
+        let episodes = content.userRate?.episodes ?? 0
+        let chapters = content.userRate?.chapters ?? 0
         
-        return 0
+        return content.type == UserRatesTargetType.anime.rawValue ? episodes : chapters
     }
     
     func stepperViewTitle(_ stepperView: StepperView) -> String {
-        guard content.type == UserRatesTargetType.manga.rawValue else { return Texts.DetailLabels.episodes }
-        
-        if let volumes = content.volumes, volumes > 1 {
-            return Texts.DetailLabels.volumes
-        } else if let chapters = content.chapters, chapters > 0 {
-            return Texts.DetailLabels.chapters
-        }
-        
-        return Texts.DetailLabels.chapters
+        content.type == UserRatesTargetType.manga.rawValue ? Texts.DetailLabels.chapters : Texts.DetailLabels.episodes
     }
 }
 
@@ -94,11 +72,7 @@ extension SearchDetailView: StepperViewDelegate {
         case UserRatesTargetType.anime.rawValue:
             configureUserList(listType: listType, episodes: value)
         case UserRatesTargetType.manga.rawValue:
-            if content.volumes != nil {
-                configureUserList(listType: listType, volumes: value)
-            } else {
-                configureUserList(listType: listType, chapters: value)
-            }
+            configureUserList(listType: listType, chapters: value)
         default: break
         }
     }

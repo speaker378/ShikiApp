@@ -48,7 +48,7 @@ final class StepperView: UIView {
     }()
     
     private let valueLabel: AppLabel = {
-        let label = AppLabel(alignment: .left, fontSize: AppFont.Style.title)
+        let label = AppLabel(alignment: .left, fontSize: AppFont.Style.pageTitle)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

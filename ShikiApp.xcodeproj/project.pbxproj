@@ -1285,7 +1285,6 @@
 				BA90AF7829A0068300CCE141 /* ChipsTableViewCell.swift */,
 				BA01BBE329B117A000EA3EEB /* ListTableView.swift */,
 				BA01BBE529B118BA00EA3EEB /* ListTableViewCell.swift */,
-				BA01BBF629BDE40B00EA3EEB /* StepperView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1311,6 +1310,7 @@
 		BA90AF7E29A006D300CCE141 /* UIView */ = {
 			isa = PBXGroup;
 			children = (
+				BA01BBF629BDE40B00EA3EEB /* StepperView.swift */,
 				BA90AF7F29A006EF00CCE141 /* ItemInfoView.swift */,
 				BA90AF8129A006FE00CCE141 /* ChipsView.swift */,
 			);
