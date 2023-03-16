@@ -131,10 +131,11 @@ enum RanobeFilterStatus: String, FilterDescriptableProtocol {
 // MARK: - Seasons
 
 enum Seasons: String, FilterProtocol {
+    case winter = "Зима"
     case spring = "Весна"
     case summer = "Лето"
     case fall = "Осень"
-    case winter = "Зима"
+
 
     // MARK: - Properties
 

@@ -27,8 +27,8 @@ final class AuthManager: AuthManagerProtocol {
     private let bundleName = Bundle.main.infoDictionary?["CFBundleName"] as? String
     private let account = "user"
     private let request: OAuth2Request? = {
-        guard let clientId = ProcessInfo.processInfo.environment["clientId"],
-              let clientSecret = ProcessInfo.processInfo.environment["clientSecret"]
+        guard let clientId = Bundle.main.object(forInfoDictionaryKey: HttpConstants.clientId) as? String,
+              let clientSecret = Bundle.main.object(forInfoDictionaryKey: HttpConstants.clientSecret) as? String
         else { return nil }
         return OAuth2Request(
             authUrl: "\(Constants.Url.baseUrl)/oauth/authorize",

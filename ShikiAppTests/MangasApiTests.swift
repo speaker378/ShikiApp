@@ -52,6 +52,29 @@ final class MangasApiTests: XCTestCase {
         XCTAssertNotNil(response, "Unexpected \(api2Test).\(request) nil result")
     }
     
+    func testListMangasFromMyList() throws {
+        
+        let factory = ApiFactory.makeMangasApi()
+        let request = "listMangasFromMyList"
+        var response: MangaResponseDTO?
+        var error: String?
+        let expectation = self.expectation(description: "\(api2Test).\(request) expectation timeout")
+        
+        factory.getMangas(
+            page: 1,
+            limit: 50,
+            myList: [.planned, .watching, .reWatching, .completed, .onHold, .dropped],
+            order: .byPopularity
+        ) { data, errorMessage in
+            response = data
+            error = errorMessage
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 15)
+        XCTAssertNil(error, "Unexpected \(api2Test).\(request) error \(error ?? "")")
+        XCTAssertNotNil(response, "Unexpected \(api2Test).\(request) nil result")
+    }
+    
     func testGetManga() throws {
         
         let request = "getManga"

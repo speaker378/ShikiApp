@@ -20,7 +20,7 @@ struct UserRatesDTO: Codable {
     let targetType: String?
     let score: Int
     let status: String
-    let rewatches, episodes, volumes, chapters: Int
+    let rewatches, episodes, volumes, chapters: Int?
     let createdAt, updatedAt: String
     let textHTML, text: String?
 
@@ -29,7 +29,9 @@ struct UserRatesDTO: Codable {
         case userID = "user_id"
         case targetID = "target_id"
         case targetType = "target_type"
-        case score, status, rewatches, episodes, volumes, chapters, text
+        case score, status
+        case rewatches, episodes, volumes, chapters
+        case text
         case textHTML = "text_html"
         case createdAt = "created_at"
         case updatedAt = "updated_at"

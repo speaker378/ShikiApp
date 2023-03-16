@@ -53,7 +53,7 @@ class AbstractRequestFactory<API: EndPointType>: AbstractRequestFactoryProtocol 
             }
             guard let response = response as? HTTPURLResponse else {
                 DispatchQueue.main.async {
-                    completion(nil, NetworkLayerErrorMessages.badResponse)
+                    completion(nil, Texts.NetworkLayerErrorMessages.badResponse)
                 }
                 return
             }
@@ -77,22 +77,24 @@ class AbstractRequestFactory<API: EndPointType>: AbstractRequestFactoryProtocol 
     private func handleNetworkResponse(_ response: HTTPURLResponse) -> Result<String> {
         let responseCode = "\(response.statusCode) "
         switch response.statusCode {
-        case 200 ... 299: return .success(NetworkLayerErrorMessages.success)
-        case 403: return .failure(responseCode + NetworkLayerErrorMessages.accessDenied)
-        case 429: return .failure(responseCode + NetworkLayerErrorMessages.tooManyRequests)
-        case 401 ... 500: return .failure(responseCode + NetworkLayerErrorMessages.authenticationError)
-        case 501 ... 599: return .failure(responseCode + NetworkLayerErrorMessages.badRequest)
-        case 600: return .failure(responseCode + NetworkLayerErrorMessages.outdated)
-        default: return .failure(responseCode + NetworkLayerErrorMessages.requestFailed)
+        case 200 ... 299: return .success(Texts.NetworkLayerErrorMessages.success)
+        case 300 ... 399: return .failure(responseCode +  Texts.NetworkLayerErrorMessages.redirect)
+        case 401: return .failure(responseCode + Texts.NetworkLayerErrorMessages.authenticationError)
+        case 403: return .failure(responseCode + Texts.NetworkLayerErrorMessages.accessDenied)
+        case 429: return .failure(responseCode + Texts.NetworkLayerErrorMessages.tooManyRequests)
+        case 400 ... 499: return .failure(responseCode + Texts.NetworkLayerErrorMessages.clientError)
+        case 500 ... 599: return .failure(responseCode + Texts.NetworkLayerErrorMessages.serverError)
+        case 600: return .failure(responseCode + Texts.NetworkLayerErrorMessages.outdated)
+        default: return .failure(responseCode + Texts.NetworkLayerErrorMessages.requestFailed)
         }
     }
 
     private func decodeData<Response: Codable>(type: Response.Type, data: Data?) -> (Response?, String?) {
-        guard let data = data else { return (nil, NetworkLayerErrorMessages.noData) }
+        guard let data else { return (nil, Texts.NetworkLayerErrorMessages.noData) }
         switch type.self {
         case is String.Type:
             guard let data = String(data: data, encoding: .utf8) as? Response else {
-                return (nil, NetworkLayerErrorMessages.unableToDecode)
+                return (nil, Texts.NetworkLayerErrorMessages.unableToDecode)
             }
             return (data, nil)
         default:

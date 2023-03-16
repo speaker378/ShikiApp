@@ -17,7 +17,7 @@ protocol AnimesRequestFactoryProtocol {
 
     // MARK: - Functions
 
-    func getAnimes(page: Int?, limit: Int?, filters: AnimeListFilters?, search: String?, order: OrderBy?, completion: @escaping (_ response: AnimesResponseDTO?, _ error: String?) -> Void)
+    func getAnimes(page: Int?, limit: Int?, filters: AnimeListFilters?, myList: [UserRatesStatus]?, search: String?, order: OrderBy?, completion: @escaping (_ response: AnimesResponseDTO?, _ error: String?) -> Void)
 
     func getAnimeById(id: Int, completion: @escaping (_ response: AnimeDetailsDTO?, _ error: String?) -> Void)
 }
@@ -31,6 +31,7 @@ extension AnimesRequestFactoryProtocol {
     func getAnimes(page: Int? = nil,
                    limit: Int? = nil,
                    filters: AnimeListFilters? = nil,
+                   myList: [UserRatesStatus]? = nil,
                    search: String? = nil,
                    order: OrderBy? = nil,
                    completion: @escaping (_ response: AnimesResponseDTO?, _ error: String?) -> Void) {
@@ -38,6 +39,7 @@ extension AnimesRequestFactoryProtocol {
             page: page,
             limit: limit,
             filters: filters,
+            myList: myList,
             search: search,
             order: order
         )
@@ -54,22 +56,25 @@ extension AnimesRequestFactoryProtocol {
 
     // MARK: - Private functions
 
-    private func validateAnimeListParameters(page: Int?, limit: Int?, filters: AnimeListFilters?, search: String?, order: OrderBy?) -> Parameters {
+    private func validateAnimeListParameters(page: Int?, limit: Int?, filters: AnimeListFilters?, myList: [UserRatesStatus]?, search: String?, order: OrderBy?) -> Parameters {
         var parameters = Parameters()
-        if let page = page,
+        if let page,
            (1 ... APIRestrictions.maxPages.rawValue).contains(page) {
             parameters[APIKeys.page.rawValue] = page
         }
-        if let limit = limit,
+        if let limit,
            (1 ... APIRestrictions.limit50.rawValue).contains(limit) { parameters[APIKeys.limit.rawValue] = limit
         }
-        if let search = search {
+        if let myList {
+            parameters[APIKeys.myList.rawValue] = myList.map {$0.rawValue}.joined(separator: ",")
+        }
+        if let search {
             parameters[APIKeys.search.rawValue] = search
         }
-        if let order = order {
+        if let order {
             parameters[APIKeys.order.rawValue] = order.rawValue
         }
-        if let filters = filters {
+        if let filters {
             parameters.merge(validateAnimeListFilters(filters: filters)) { _, new in new }
         }
         return parameters

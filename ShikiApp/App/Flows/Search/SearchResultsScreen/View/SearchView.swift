@@ -17,7 +17,7 @@ protocol SearchViewDelegate: AnyObject {
 
 // MARK: - SearchView
 
-class SearchView: UIView {
+final class SearchView: UIView {
 
     // MARK: - Properties
 
@@ -75,6 +75,8 @@ class SearchView: UIView {
         )
         label.isHidden = true
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        label.lineBreakMode = .byWordWrapping
         label.text = Texts.ErrorMessage.noResults
         return label
     }()
@@ -211,10 +213,7 @@ class SearchView: UIView {
                 constant: ControlConstants.Properties.resultsLabelVerticalOffset
             ),
             resultsTitle.heightAnchor.constraint(equalToConstant: ControlConstants.Properties.tableHeaderHeight),
-            resultsTitle.leadingAnchor.constraint(
-                equalTo: leadingAnchor,
-                constant: Constants.Insets.sideInset
-            ),
+            resultsTitle.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.Insets.sideInset),
             resultsTitle.trailingAnchor.constraint(
                 equalTo: trailingAnchor,
                 constant: -Constants.Insets.sideInset
@@ -226,10 +225,7 @@ class SearchView: UIView {
             tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            mainBackgroundView.topAnchor.constraint(
-                equalTo: topAnchor,
-                constant: ControlConstants.Properties.tableTop
-            ),
+            mainBackgroundView.topAnchor.constraint(equalTo: searchTextField.bottomAnchor),
             mainBackgroundView.leadingAnchor.constraint(equalTo: leadingAnchor),
             mainBackgroundView.trailingAnchor.constraint(equalTo: trailingAnchor),
             mainBackgroundView.bottomAnchor.constraint(equalTo: bottomAnchor),
@@ -243,7 +239,16 @@ class SearchView: UIView {
             ),
             backgroundLabel.centerXAnchor.constraint(equalTo: mainBackgroundView.centerXAnchor),
             backgroundLabel.topAnchor.constraint(
-                equalTo: backgroundImageView.bottomAnchor, constant: ControlConstants.Properties.backgroundLabelInset
+                equalTo: backgroundImageView.bottomAnchor,
+                constant: ControlConstants.Properties.backgroundLabelInset
+            ),
+            backgroundLabel.leadingAnchor.constraint(
+                equalTo: mainBackgroundView.leadingAnchor,
+                constant: Constants.Insets.sideInset
+            ),
+            backgroundLabel.trailingAnchor.constraint(
+                equalTo: mainBackgroundView.trailingAnchor,
+                constant: -Constants.Insets.sideInset
             )
         ])
     }
