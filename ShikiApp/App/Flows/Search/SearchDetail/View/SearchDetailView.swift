@@ -55,12 +55,12 @@ final class SearchDetailView: UIView {
         stackView.alignment = .fill
         return stackView
     }()
-    
     private let listTableView: ListTableView = {
         let tableView = ListTableView(values: [])
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
+    private let ratingView: ScoringView
     private(set) var content: SearchDetailModel
     private var buttonTapHandler: (() -> Void)?
 
@@ -70,6 +70,9 @@ final class SearchDetailView: UIView {
         self.content = content
         itemInfoView = ItemInfoView(content: content)
         genreTableView = ChipsTableView(values: content.genres)
+        let score = Int(Double(content.userRate?.score.value ?? "") ?? 0.0)
+        print( "@@@@ rating = \(score)")
+        ratingView = ScoringView(score: score)
         super.init(frame: .zero)
         configure()
     }
@@ -107,8 +110,7 @@ final class SearchDetailView: UIView {
         configureStepper()
         let rateList = makeRatesList(status: content.status, userRates: content.userRate)
         listTableView.configureValues(rateList)
-        userRateStackView.addArrangedSubview(button)
-        userRateStackView.addArrangedSubview(stepperView)
+        [button, stepperView, ratingView].forEach { userRateStackView.addArrangedSubview($0) }
         scrollView.addSubviews([itemInfoView, userRateStackView, titleLabel, genreTableView, descriptionLabel])
         [itemInfoView, genreTableView].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
         genreTableView.reloadData()
