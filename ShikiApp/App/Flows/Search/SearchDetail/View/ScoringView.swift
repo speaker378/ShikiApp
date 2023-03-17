@@ -7,29 +7,22 @@
 
 import UIKit
 
+protocol ScoringViewDelegate: AnyObject {
+    
+    func scoringViewDidTouched(_ scoringView: ScoringView, score: Int)
+    func scoringViewDidFinishTouching(_ scoringView: ScoringView, score: Int)
+}
+
 final class ScoringView: UIView {
 
     // MARK: - Properties
     
-    /// Set to `false` if you don't want to pass touches to superview (can be useful in a table view).
-    var hasLetPassTouchesToSuperview = false
-    /// The lowest rating that user can set by touching the stars.
-    var minTouchRating = 1
-    var previousRatingForDidTouchCallback: Int
-    
-    //    /// Set to `true` if you want to ignore pan gestures (can be useful when presented modally with a `presentationStyle` of `pageSheet` to avoid competing with the dismiss gesture)
-    //    public var disablePanGestures = false
-    
-    // TODO: - заменить на делегат
-    /// Closure will be called when user touches the cosmos view. The touch rating argument is passed to the closure.
-    var didTouchCosmos: ((Int) -> Void)?
-    
-    /// Closure will be called when the user lifts finger from the cosmos view. The touch rating argument is passed to the closure.
-    var didFinishTouchingCosmos: ((Int) -> Void)?
+    var minTouchScore = 1
+    weak var delegate: ScoringViewDelegate?
 
     // MARK: - Private properties
     
-//    private let isLabelDisplayed = UIScreen.main.bounds.width > 320.0
+    private let isLabelDisplayed = UIScreen.main.bounds.width > 320.0
     private let viewHeight: CGFloat = 40.0
     private let spacing: CGFloat = 0.0
     private let starSize = CGSize(width: 28.0, height: 28.0)
@@ -46,6 +39,7 @@ final class ScoringView: UIView {
         return label
     }()
     private var score: Int
+    private var previousScore: Int
     private var starImageViews = [UIImageView]()
 
     // MARK: - Construction
@@ -53,7 +47,7 @@ final class ScoringView: UIView {
     init(score: Int = 0, totalNumberOfStars: Int = 10) {
         self.score = score < totalNumberOfStars ? score : totalNumberOfStars
         self.totalNumberOfStars = totalNumberOfStars
-        self.previousRatingForDidTouchCallback = score
+        self.previousScore = score
         super.init(frame: .zero)
         configureUI()
     }
@@ -64,29 +58,23 @@ final class ScoringView: UIView {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let location = touchLocationFromBeginningOfRating(touches) else { return }
-        print("@@ touchesBegan: location = \(location)")
         onDidTouch(location)
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let location = touchLocationFromBeginningOfRating(touches) else { return }
-        print("@@ touchesMoved: location = \(location)")
         onDidTouch(location)
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let location = touchLocationFromBeginningOfRating(touches) else { return }
-        print("@@ touchesEnded: last location = \(location)")
-        didFinishTouchingCosmos?(score)
+        guard touchLocationFromBeginningOfRating(touches) != nil else { return }
+        delegate?.scoringViewDidFinishTouching(self, score: score)
     }
     
-     /// Detecting event when the touches are cancelled (can happen in a scroll view).
-     /// Behave as if user has lifted their finger.
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesCancelled(touches, with: event)
-        guard let location = touchLocationFromBeginningOfRating(touches) else { return }
-        print("@@ touchesCancelled: last location = \(location)")
-        didFinishTouchingCosmos?(score)
+        guard touchLocationFromBeginningOfRating(touches) != nil else { return }
+        delegate?.scoringViewDidFinishTouching(self, score: score)
     }
 
     // MARK: - Private functions
@@ -95,32 +83,36 @@ final class ScoringView: UIView {
         starStackView.spacing = spacing
         
         for index in 0...totalNumberOfStars - 1 {
-            let starImage = index > 0 && index < score
-            ? AppImage.UserListIcons.starFilled
-            : AppImage.UserListIcons.star
+            let starImage = index < score
+                ? AppImage.UserListIcons.starFilled
+                : AppImage.UserListIcons.star
             let imageView = UIImageView(image: starImage)
             
             starImageViews.append(imageView)
         }
         
         starImageViews.forEach { starStackView.addArrangedSubview($0) }
-        
-        updateStarImages(score: score)
+        updateLabelText(score: score)
         addSubviews([starStackView, scoreValueLabel])
-        
         configureConstraints()
     }
     
     private func configureConstraints() {
         NSLayoutConstraint.activate([
-            heightAnchor.constraint(equalToConstant: 40.0),
+            heightAnchor.constraint(equalToConstant: viewHeight),
 
             starStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
             starStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            starStackView.trailingAnchor.constraint(equalTo: scoreValueLabel.leadingAnchor, constant: 16.0),
+            starStackView.trailingAnchor.constraint(
+                equalTo: scoreValueLabel.leadingAnchor,
+                constant: Constants.Insets.sideInset
+            ),
 
             scoreValueLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            scoreValueLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.0)
+            scoreValueLabel.trailingAnchor.constraint(
+                equalTo: trailingAnchor,
+                constant: -Constants.Insets.sideInset
+            )
         ])
     }
     
@@ -133,29 +125,25 @@ final class ScoringView: UIView {
     }
     
     private func updateLabelText(score: Int) {
-//        guard isLabelDisplayed else { return }
-        
+        guard isLabelDisplayed else { return }
         scoreValueLabel.text = score > 0 ? String(score) : "–"
         scoreValueLabel.textColor = score > 0 ? AppColor.textMain : AppColor.textMinor
     }
 
-    /// Returns the distance of the touch relative to the left edge of the first star
     private func touchLocationFromBeginningOfRating(_ touches: Set<UITouch>) -> CGFloat? {
         guard let touch = touches.first else { return nil }
-        let location = touch.location(in: self).x
-        print("@@ touchLocationFromBeginningOfRating: location = \(location)")
-        return location
+        return touch.location(in: self).x
     }
     
     private func onDidTouch(_ locationX: CGFloat) {
         let calculatedTouchRating = touchRating(locationX)
-        guard calculatedTouchRating != previousRatingForDidTouchCallback else { return }
+        guard calculatedTouchRating != previousScore else { return }
         self.score = calculatedTouchRating
-        previousRatingForDidTouchCallback = calculatedTouchRating
-        print("@@ User choose score \(self.score)?")
+        previousScore = calculatedTouchRating
         updateStarImages(score: calculatedTouchRating)
     }
     
+    // TODO: - вынести куда-нибудь логику
     private func touchRating(_ positionX: CGFloat) -> Int {
         let correction = starSize.width / 3
         var scoresWidth = 0.0
@@ -165,9 +153,8 @@ final class ScoringView: UIView {
             let currentScoreWidth = score == totalNumberOfStars ? starSize.width : starSize.width + spacing
             scoresWidth += currentScoreWidth
             score += 1
-            print("@@ user: scoresWidth \(scoresWidth) >= positionХ\(positionX)? score = \(score)")
         }
         
-        return max(minTouchRating, score)
+        return max(minTouchScore, score)
     }
 }
