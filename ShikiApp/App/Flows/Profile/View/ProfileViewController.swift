@@ -26,7 +26,7 @@ final class ProfileViewController: (UIViewController & ProfileViewInputProtocol)
     private let linkImgWidth: CGFloat = 16.0
     private let trailing: CGFloat = -16.0
     private let leading: CGFloat = 12.0
-    private let leadingForLinkButton: CGFloat = 5.84
+    private let leadingForLinkButton: CGFloat = 4.0
     private let topInset: CGFloat = 24.0
     private let bottom: CGFloat = -48.0
     private let versionLabelTopInset: CGFloat = 8.0
@@ -167,7 +167,7 @@ final class ProfileViewController: (UIViewController & ProfileViewInputProtocol)
         versionLabel.text =  "Версия \(version ?? "?")"
         
         if let model {
-            if model.website == "" {
+            if model.website == "" || model.website == nil {
                 linkImageView.image = nil
             } else {
                 linkImageView.image = AppImage.OtherIcons.link
