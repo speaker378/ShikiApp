@@ -52,6 +52,7 @@ final class ProfilePresenter: ProfileViewOutputProtocol {
             viewInput?.isAuth = false
         } else {
             AuthManager.share.auth { [weak self] _ in
+                guard AuthManager.share.isAuth() == true else { return }
                 self?.fetchData()
             }
         }
