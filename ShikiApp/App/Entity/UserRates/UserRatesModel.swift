@@ -114,7 +114,7 @@ final class UserRatesModelFactory {
     
     private func extractScoreColor(score: String?) -> UIColor {
         
-        Constants.scoreColors[score?.first ?? " "] ?? AppColor.line
+        Constants.scoreColors[String(score?.first ?? " ")] ?? AppColor.line
     }
 }
 // TODO: - Для примера. Удалить, когда будет сетевой слой или база данных

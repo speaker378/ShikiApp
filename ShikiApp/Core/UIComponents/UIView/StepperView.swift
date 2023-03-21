@@ -37,10 +37,13 @@ final class StepperView: UIView {
             changeButtonState()
         }
     }
+    private(set) var maximumValue: Int?
 
     // MARK: - Private properties
     
     private let stepperWidth: CGFloat = 160.0
+    private let changingValueDuration = 0.1
+    private let longTouchDuration = 0.6
     private let titleLabel: AppLabel = {
         let label = AppLabel(title: Texts.DetailLabels.episodes, alignment: .left, fontSize: AppFont.Style.regularText)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -64,7 +67,7 @@ final class StepperView: UIView {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(AppImage.UserListIcons.minus, for: .normal)
-        button.addTarget(nil, action: #selector(touchEnded), for: .touchUpInside)
+        button.addTarget(nil, action: #selector(touchEnded), for: [.touchUpInside, .touchUpOutside])
         button.addTarget(nil, action: #selector(decrementValue), for: .touchDown)
         return button
     }()
@@ -72,11 +75,10 @@ final class StepperView: UIView {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(AppImage.UserListIcons.plus, for: .normal)
-        button.addTarget(nil, action: #selector(touchEnded), for: .touchUpInside)
+        button.addTarget(nil, action: #selector(touchEnded), for: [.touchUpInside, .touchUpOutside])
         button.addTarget(nil, action: #selector(incrementValue), for: .touchDown)
         return button
     }()
-    private var maximumValue: Int?
     private var touchFinishedTimer: Timer?
     private var touchStartedTimer: Timer?
     private var touchDurationTimer: Timer?
@@ -190,7 +192,7 @@ final class StepperView: UIView {
                     value = minimumValue
                 }
             case incrementButton:
-                if let maximumValue = self.maximumValue, value == maximumValue {
+                if let maximumValue = self.maximumValue, value >= maximumValue {
                     value = maximumValue
                 } else {
                     value += 1
@@ -206,7 +208,10 @@ final class StepperView: UIView {
     /// Для плавного уменьшения значения. Чем дольше юзер зажимает кнопку, тем сильнее меняем значение
     private func longPressDecrementValue() {
         self.longPressCount = 0
-        self.touchDurationTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { [weak self] _ in
+        self.touchDurationTimer = Timer.scheduledTimer(
+            withTimeInterval: changingValueDuration,
+            repeats: true,
+            block: { [weak self] _ in
             guard let self else { return }
             self.longPressCount += 1
             if self.value > self.minimumValue {
@@ -215,42 +220,55 @@ final class StepperView: UIView {
                 self.value = self.minimumValue
             }
             self.valueLabel.text = "\(self.value)"
-        })
+        }
+        )
     }
     
     /// Для плавного увеличения значения. Чем дольше юзер зажимает кнопку, тем сильнее меняем значение
     private func longPressIncrementValue() {
         longPressCount = 0
-        touchDurationTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { [weak self] _ in
-            guard let self else { return }
-            self.longPressCount += 1
-            if let maximumValue = self.maximumValue, self.value == maximumValue {
-                self.value = maximumValue
-            } else {
-                self.value += max(self.longPressCount * self.longPressCount / 20, 1)
+        touchDurationTimer = Timer.scheduledTimer(
+            withTimeInterval: changingValueDuration,
+            repeats: true,
+            block: { [weak self] _ in
+                guard let self else { return }
+                self.longPressCount += 1
+                if let maximumValue = self.maximumValue, self.value >= maximumValue {
+                    self.value = maximumValue
+                } else {
+                    self.value += max(self.longPressCount * self.longPressCount / 20, 1)
+                }
+                self.valueLabel.text = "\(self.value)"
             }
-            self.valueLabel.text = "\(self.value)"
-        })
+        )
     }
     
     @objc private func decrementValue(_ sender: UIButton) {
         touchStartedTimer?.invalidate()
-        touchStartedTimer = Timer.scheduledTimer(withTimeInterval: 0.6, repeats: false, block: { [weak self] _ in
-            guard let self else { return }
-            self.hasLongPress = true
-            self.longPressDecrementValue()
-        })
+        touchStartedTimer = Timer.scheduledTimer(
+            withTimeInterval: longTouchDuration,
+            repeats: false,
+            block: { [weak self] _ in
+                guard let self else { return }
+                self.hasLongPress = true
+                self.longPressDecrementValue()
+            }
+        )
         
         delegate?.stepperViewValueWasChanged(self, value: value, maxValue: maximumValue)
     }
     
     @objc private func incrementValue(_ sender: UIButton) {
         touchStartedTimer?.invalidate()
-        touchStartedTimer = Timer.scheduledTimer(withTimeInterval: 0.6, repeats: false, block: { [weak self] _ in
-            guard let self else { return }
-            self.hasLongPress = true
-            self.longPressIncrementValue()
-        })
+        touchStartedTimer = Timer.scheduledTimer(
+            withTimeInterval: longTouchDuration,
+            repeats: false,
+            block: { [weak self] _ in
+                guard let self else { return }
+                self.hasLongPress = true
+                self.longPressIncrementValue()
+            }
+        )
         
         delegate?.stepperViewValueWasChanged(self, value: value, maxValue: maximumValue)
     }
@@ -263,7 +281,7 @@ final class StepperView: UIView {
         changeValue(with: sender)
         
         // Ждём некоторое время, затем отдаем последнее значение степпера для дальнейшей обработки
-        touchFinishedTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: { [weak self] _ in
+        touchFinishedTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false, block: { [weak self] _ in
             guard let self else { return }
             self.delegate?.stepperViewDidFinishValueChanges(self, value: self.value)
         })

@@ -7,30 +7,21 @@
 
 import UIKit
 
-protocol ScoringViewDelegate: AnyObject {
-    
-    func scoringViewDidTouched(_ scoringView: ScoringView, score: Int)
-    func scoringViewDidFinishTouching(_ scoringView: ScoringView, score: Int)
-}
-
 final class ScoringView: UIView {
 
     // MARK: - Properties
     
     var minTouchScore = 1
-    weak var delegate: ScoringViewDelegate?
+    var didChangedValueCompletion: ((Int) -> Void)?
 
     // MARK: - Private properties
     
-    private let isLabelDisplayed = UIScreen.main.bounds.width > 320.0
-    private let viewHeight: CGFloat = 40.0
-    private let spacing: CGFloat = 0.0
-    private let starSize = CGSize(width: 28.0, height: 28.0)
     private let totalNumberOfStars: Int
     private let starStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.alignment = .leading
+        stackView.distribution = .fillEqually
         return stackView
     }()
     private let scoreValueLabel: AppLabel = {
@@ -41,6 +32,7 @@ final class ScoringView: UIView {
     private var score: Int
     private var previousScore: Int
     private var starImageViews = [UIImageView]()
+    private var starSize = CGSize(width: 28.0, height: 28.0)
 
     // MARK: - Construction
     
@@ -56,6 +48,11 @@ final class ScoringView: UIView {
 
     // MARK: - Functions
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        calculateStarSize()
+    }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let location = touchLocationFromBeginningOfRating(touches) else { return }
         onDidTouch(location)
@@ -68,29 +65,30 @@ final class ScoringView: UIView {
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard touchLocationFromBeginningOfRating(touches) != nil else { return }
-        delegate?.scoringViewDidFinishTouching(self, score: score)
+        didChangedValueCompletion?(score)
     }
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesCancelled(touches, with: event)
         guard touchLocationFromBeginningOfRating(touches) != nil else { return }
-        delegate?.scoringViewDidFinishTouching(self, score: score)
+        didChangedValueCompletion?(score)
     }
 
     // MARK: - Private functions
     
     private func configureUI() {
-        starStackView.spacing = spacing
+        starStackView.spacing = Constants.Spacing.small
         
         for index in 0...totalNumberOfStars - 1 {
             let starImage = index < score
                 ? AppImage.UserListIcons.starFilled
                 : AppImage.UserListIcons.star
+            
             let imageView = UIImageView(image: starImage)
+            imageView.contentMode = .scaleAspectFit
             
             starImageViews.append(imageView)
         }
-        
         starImageViews.forEach { starStackView.addArrangedSubview($0) }
         updateLabelText(score: score)
         addSubviews([starStackView, scoreValueLabel])
@@ -99,14 +97,15 @@ final class ScoringView: UIView {
     
     private func configureConstraints() {
         NSLayoutConstraint.activate([
-            heightAnchor.constraint(equalToConstant: viewHeight),
+            heightAnchor.constraint(equalToConstant: Constants.Insets.controlHeight),
 
             starStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
             starStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            starStackView.trailingAnchor.constraint(
-                equalTo: scoreValueLabel.leadingAnchor,
-                constant: Constants.Insets.sideInset
-            ),
+            starStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+//            starStackView.trailingAnchor.constraint(
+//                equalTo: scoreValueLabel.leadingAnchor,
+//                constant: Constants.Insets.sideInset
+//            ),
 
             scoreValueLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             scoreValueLabel.trailingAnchor.constraint(
@@ -125,9 +124,9 @@ final class ScoringView: UIView {
     }
     
     private func updateLabelText(score: Int) {
-        guard isLabelDisplayed else { return }
-        scoreValueLabel.text = score > 0 ? String(score) : "–"
-        scoreValueLabel.textColor = score > 0 ? AppColor.textMain : AppColor.textMinor
+//        guard isNarrowDevice else { return }
+//        scoreValueLabel.text = score > 0 ? String(score) : "–"
+//        scoreValueLabel.textColor = score > 0 ? AppColor.textMain : AppColor.textMinor
     }
 
     private func touchLocationFromBeginningOfRating(_ touches: Set<UITouch>) -> CGFloat? {
@@ -138,23 +137,32 @@ final class ScoringView: UIView {
     private func onDidTouch(_ locationX: CGFloat) {
         let calculatedTouchRating = touchRating(locationX)
         guard calculatedTouchRating != previousScore else { return }
-        self.score = calculatedTouchRating
+        score = calculatedTouchRating
         previousScore = calculatedTouchRating
         updateStarImages(score: calculatedTouchRating)
     }
     
     // TODO: - вынести куда-нибудь логику
     private func touchRating(_ positionX: CGFloat) -> Int {
-        let correction = starSize.width / 3
+        // для компенсации отступов внутри картинки со звездочкой
+        let correction = starSize.width / 8
         var scoresWidth = 0.0
         var score = 0
         
         while positionX > scoresWidth + correction {
-            let currentScoreWidth = score == totalNumberOfStars ? starSize.width : starSize.width + spacing
-            scoresWidth += currentScoreWidth
+            let currentWidth = score == totalNumberOfStars ? starSize.width : starSize.width + starStackView.spacing
+            scoresWidth += currentWidth
             score += 1
         }
         
         return max(minTouchScore, score)
+    }
+    
+    private func calculateStarSize() {
+        let paddingWidth = starStackView.spacing * CGFloat(totalNumberOfStars - 1)
+        let screenWidth = UIScreen.main.bounds.width - Constants.Insets.sideInset * 2 - paddingWidth
+        let width = screenWidth / CGFloat(totalNumberOfStars)
+        starSize = CGSize(width: width, height: width)
+        print("@@ new starSize = \(starSize)")
     }
 }
