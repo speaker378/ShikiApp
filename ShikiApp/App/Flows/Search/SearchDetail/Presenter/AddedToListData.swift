@@ -35,7 +35,7 @@ final class AddedToListData {
             return
         }
         addedModels[index] = content
-        print("@@ updated:  \(content.title), userListType is \(content.userRate?.status)" )
+        print("@@ updated:  \(content.title), userListType is \(content.userRate?.status), score: \(content.userRate?.score.value)" )
     }
     
     func remove(_ content: SearchDetailModel) {

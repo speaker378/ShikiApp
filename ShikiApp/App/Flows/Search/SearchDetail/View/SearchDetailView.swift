@@ -83,40 +83,16 @@ final class SearchDetailView: UIView {
 
     // MARK: - Functions
     
-    // TODO: - убрать логику формирования списка
-    func configureUserList(
-        listType: RatesTypeItemEnum,
-        score: Score? = nil,
-        episodes: Int? = nil,
-        rewatches: Int? = nil,
-        chapters: Int? = nil
-    ) {
-        
-        var rewatchesValue: Int?
-        var episodesValue: Int?
-        var chaptersValue: Int?
-        
-        if listType == .rewatching {
-            rewatchesValue = rewatches ?? stepperView.value
-            return
-        }
-        if content.type == UserRatesTargetType.anime.rawValue {
-            episodesValue = episodes ?? stepperView.value
-        }
-        if content.type == UserRatesTargetType.manga.rawValue {
-            chaptersValue = chapters ?? stepperView.value
+    func updateUserRate(status: RatesTypeItemEnum, score: Score? = nil) {
+        if status == .rewatching {
+            content.configureUserRate(status: status.rawValue, score: score, rewatches: stepperView.value)
+        } else if content.type == UserRatesTargetType.anime.rawValue {
+            content.configureUserRate(status: status.rawValue, score: score, episodes: stepperView.value)
+        } else if content.type == UserRatesTargetType.manga.rawValue {
+            content.configureUserRate(status: status.rawValue, score: score, chapters: stepperView.value)
         }
         
-        button.configurate(text: listType.getString(), image: AppImage.NavigationsBarIcons.chevronDown)
-        content.configureUserRate(
-            content: content,
-            status: listType.rawValue,
-            score: score,
-            episodes: episodesValue,
-            rewatches: rewatchesValue,
-            chapters: chaptersValue
-        )
-        
+        button.configurate(text: status.getString(), image: AppImage.NavigationsBarIcons.chevronDown)
         userRatesDidChangedCompletion?(content)
     }
 
@@ -133,71 +109,13 @@ final class SearchDetailView: UIView {
         configureUI()
         
         scoringView.didChangedValueCompletion = { [weak self] score in
-            guard let self, let rateType = RatesTypeItemEnum(rawValue: self.content.userRate?.status ?? "") else {
-                return
-            }
-            self.updateScoringLogic(score: score, rateType: rateType)
-        }
-    }
-    
-    private func configureScoring() {
-        guard let userRate = content.userRate else {
-            scoringView.isHidden = true
-            return
-        }
-        if let episodes = content.userRate?.episodes, episodes > 0 {
-            scoringView.isHidden = false
-        } else if let chapters = content.userRate?.chapters, chapters > 0 {
-            scoringView.isHidden = false
-        } else {
-            scoringView.isHidden = true
-        }
-    }
-    
-    // TODO: - убрать эту логику.
-    private func updateScoringLogic(score: Int, rateType: RatesTypeItemEnum) {
-        let score = Score(value: String(score), color: Constants.scoreColors[String(score)] ?? AppColor.green)
-        self.configureUserList(listType: rateType, score: score)
-        self.configureScoring()
-        self.userRatesDidChangedCompletion?(self.content)
-    }
-    
-    private func configureStepper() {
-        guard let userRate = content.userRate else {
-            stepperView.isHidden = true
-            return
-        }
-        stepperView.isHidden = false
-    
-        let value = updateStepperValue(status: userRate.status, rewatchesValue: userRate.rewatches ?? 0)
-        stepperView.configure(value: value)
-    }
-    
-    // TODO: - убрать логику коррекции значений степпера
-    private func updateStepperValue(status: String, rewatchesValue: Int) -> Int {
-        var value = stepperView.value
-        switch status {
-        case RatesTypeItemEnum.completed.rawValue:
-            value = stepperView.maximumValue ?? stepperView.value
-        case RatesTypeItemEnum.planned.rawValue:
-            value = 0
-        case RatesTypeItemEnum.rewatching.rawValue:
-            value = rewatchesValue
-        default:
-            value = stepperView.value
-        }
-        return value
-    }
-    
-    private func configureButton() {
-        if let userRate = content.userRate, let status = Constants.watchingStatuses[userRate.status] {
-            button.configurate(text: status, image: AppImage.NavigationsBarIcons.chevronDown)
-            button.backgroundColor = AppColor.backgroundMinor
-            button.titleLabel.textColor = AppColor.textMain
-        } else {
-            button.configurate(text: Texts.ButtonTitles.addToList, image: AppImage.OtherIcons.addToList)
-            button.backgroundColor = AppColor.accent
-            button.titleLabel.textColor = AppColor.textInvert
+            guard
+                let self,
+                let color = Constants.scoreColors[String(score)],
+                let status = RatesTypeItemEnum(rawValue: self.content.userRate?.status ?? "")
+                else { return }
+            let score = Score(value: String(score), color: color)
+            self.updateUserRate(status: status, score: score)
         }
     }
     
@@ -267,25 +185,74 @@ final class SearchDetailView: UIView {
         ])
     }
     
+    private func configureScoring() {
+        guard content.userRate != nil else {
+            scoringView.isHidden = true
+            return
+        }
+        if let episodes = content.userRate?.episodes, episodes > 0 {
+            scoringView.isHidden = false
+        } else if let chapters = content.userRate?.chapters, chapters > 0 {
+            scoringView.isHidden = false
+        } else {
+            scoringView.isHidden = true
+        }
+    }
+    
+    private func configureStepper() {
+        guard let userRate = content.userRate else {
+            stepperView.isHidden = true
+            return
+        }
+        stepperView.isHidden = false
+        updateStepperValue(status: userRate.status)
+    }
+    
+    private func updateStepperValue(status: String) {
+        var value = stepperView.value
+        switch status {
+        case RatesTypeItemEnum.completed.rawValue:
+            value = stepperView.maximumValue ?? stepperView.value
+        case RatesTypeItemEnum.planned.rawValue:
+            value = 0
+        case RatesTypeItemEnum.rewatching.rawValue:
+            value = stepperView.value
+        default:
+            value = stepperView.value
+        }
+        
+        stepperView.configure(value: value)
+    }
+    
+    private func configureButton() {
+        if let userRate = content.userRate, let status = RatesTypeItemEnum(rawValue: userRate.status)?.getString() {
+            button.configurate(text: status, image: AppImage.NavigationsBarIcons.chevronDown)
+            button.backgroundColor = AppColor.backgroundMinor
+            button.titleLabel.textColor = AppColor.textMain
+        } else {
+            button.configurate(text: Texts.ButtonTitles.addToList, image: AppImage.OtherIcons.addToList)
+            button.backgroundColor = AppColor.accent
+            button.titleLabel.textColor = AppColor.textInvert
+        }
+    }
+    
     private func configureListTableView() {
         listTableView.didSelectRowHandler = { [weak self] value in
             guard let self else { return }
             if value == Texts.ButtonTitles.removeFromList {
                 self.content.userRate = nil
-                self.stepperView.isHidden = true
                 self.userRatesDidRemovedCompletion?(self.content)
             } else {
                 if let status = RatesTypeItemEnum(status: value) {
-                    self.content.configureUserRate(content: self.content, status: status.rawValue)
-                    self.configureStepper()
-                    self.configureUserList(listType: status)
+                    self.updateStepperValue(status: status.rawValue)
+                    self.updateUserRate(status: status)
                 }
                 let newValues = self.makeRatesList(status: self.content.status, userRates: self.content.userRate)
                 self.listTableView.configureValues(newValues)
             }
-            self.configureScoring()
+            self.configureStepper()
             self.configureButton()
-            
+            self.configureScoring()
             let frame = self.convert(self.button.frame, toView: self.userRateStackView)
             self.removeTransparentView(frame: frame)
         }

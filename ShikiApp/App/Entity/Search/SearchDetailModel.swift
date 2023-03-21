@@ -35,7 +35,6 @@ struct SearchDetailModel {
     // MARK: - Functions
     
     mutating func configureUserRate(
-        content: SearchDetailModel,
         status: String,
         score: Score? = nil,
         episodes: Int? = nil,
@@ -44,21 +43,21 @@ struct SearchDetailModel {
         volumes: Int? = nil
     ) {
         self.userRate = UserRatesModel(
-            id: content.id,
-            target: content.type,
-            imageUrlString: content.imageUrlString,
-            title: content.title,
-            kind: content.kind,
-            ongoingStatus: content.status,
-            watchingEpisodes: content.episodesText,
-            totalEpisodes: "\(content.episodes ?? 0)",
-            score: score ?? Score(value: "0.0", color: AppColor.textMinor),
+            id: self.id,
+            target: type,
+            imageUrlString: self.imageUrlString,
+            title: self.title,
+            kind: self.kind,
+            ongoingStatus: self.status,
+            watchingEpisodes: episodesText,
+            totalEpisodes: "\(episodes ?? 0)",
+            score: score ?? (userRate?.score ?? Score(value: "0.0", color: AppColor.line)),
             status: status,
             statusImage: Constants.watchingImageStatuses[status] ?? UIImage(),
-            episodes: episodes ?? content.userRate?.episodes,
-            rewatches: rewatches ?? content.userRate?.rewatches,
-            chapters: chapters ?? content.userRate?.chapters,
-            volumes: volumes ?? content.userRate?.volumes
+            episodes: episodes ?? userRate?.episodes,
+            rewatches: rewatches ?? userRate?.rewatches,
+            chapters: chapters ?? userRate?.chapters,
+            volumes: volumes ?? userRate?.volumes
         )
     }
 }
