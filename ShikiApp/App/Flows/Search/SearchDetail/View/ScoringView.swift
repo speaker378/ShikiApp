@@ -24,11 +24,6 @@ final class ScoringView: UIView {
         stackView.distribution = .fillEqually
         return stackView
     }()
-    private let scoreValueLabel: AppLabel = {
-        let label = AppLabel(title: "", alignment: .right, fontSize: AppFont.Style.pageTitle)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
     private var score: Int
     private var previousScore: Int
     private var starImageViews = [UIImageView]()
@@ -90,8 +85,7 @@ final class ScoringView: UIView {
             starImageViews.append(imageView)
         }
         starImageViews.forEach { starStackView.addArrangedSubview($0) }
-        updateLabelText(score: score)
-        addSubviews([starStackView, scoreValueLabel])
+        addSubview(starStackView)
         configureConstraints()
     }
     
@@ -101,17 +95,7 @@ final class ScoringView: UIView {
 
             starStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
             starStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            starStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-//            starStackView.trailingAnchor.constraint(
-//                equalTo: scoreValueLabel.leadingAnchor,
-//                constant: Constants.Insets.sideInset
-//            ),
-
-            scoreValueLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            scoreValueLabel.trailingAnchor.constraint(
-                equalTo: trailingAnchor,
-                constant: -Constants.Insets.sideInset
-            )
+            starStackView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
     }
     
@@ -120,13 +104,6 @@ final class ScoringView: UIView {
             let starImage = index < score ? AppImage.UserListIcons.starFilled : AppImage.UserListIcons.star
             starImageViews[index].image = starImage
         }
-        updateLabelText(score: score)
-    }
-    
-    private func updateLabelText(score: Int) {
-//        guard isNarrowDevice else { return }
-//        scoreValueLabel.text = score > 0 ? String(score) : "–"
-//        scoreValueLabel.textColor = score > 0 ? AppColor.textMain : AppColor.textMinor
     }
 
     private func touchLocationFromBeginningOfRating(_ touches: Set<UITouch>) -> CGFloat? {
@@ -142,7 +119,6 @@ final class ScoringView: UIView {
         updateStarImages(score: calculatedTouchRating)
     }
     
-    // TODO: - вынести куда-нибудь логику
     private func touchRating(_ positionX: CGFloat) -> Int {
         // для компенсации отступов внутри картинки со звездочкой
         let correction = starSize.width / 8
@@ -163,6 +139,5 @@ final class ScoringView: UIView {
         let screenWidth = UIScreen.main.bounds.width - Constants.Insets.sideInset * 2 - paddingWidth
         let width = screenWidth / CGFloat(totalNumberOfStars)
         starSize = CGSize(width: width, height: width)
-        print("@@ new starSize = \(starSize)")
     }
 }

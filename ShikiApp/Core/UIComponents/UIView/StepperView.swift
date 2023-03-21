@@ -212,15 +212,15 @@ final class StepperView: UIView {
             withTimeInterval: changingValueDuration,
             repeats: true,
             block: { [weak self] _ in
-            guard let self else { return }
-            self.longPressCount += 1
-            if self.value > self.minimumValue {
-                self.value -= max(self.longPressCount * self.longPressCount / 20, 1)
-            } else {
-                self.value = self.minimumValue
+                guard let self else { return }
+                self.longPressCount += 1
+                if self.value > self.minimumValue {
+                    self.value -= max(self.longPressCount * self.longPressCount / 20, 1)
+                } else {
+                    self.value = self.minimumValue
+                }
+                self.valueLabel.text = "\(self.value < self.minimumValue ? self.minimumValue : self.value)"
             }
-            self.valueLabel.text = "\(self.value)"
-        }
         )
     }
     
@@ -238,7 +238,12 @@ final class StepperView: UIView {
                 } else {
                     self.value += max(self.longPressCount * self.longPressCount / 20, 1)
                 }
-                self.valueLabel.text = "\(self.value)"
+                
+                if let maxValue = self.maximumValue {
+                    self.valueLabel.text = "\(self.value > maxValue ? maxValue : self.value)"
+                } else {
+                    self.valueLabel.text = "\(self.value)"
+                }
             }
         )
     }
@@ -281,7 +286,7 @@ final class StepperView: UIView {
         changeValue(with: sender)
         
         // Ждём некоторое время, затем отдаем последнее значение степпера для дальнейшей обработки
-        touchFinishedTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false, block: { [weak self] _ in
+        touchFinishedTimer = Timer.scheduledTimer(withTimeInterval: 0.8, repeats: false, block: { [weak self] _ in
             guard let self else { return }
             self.delegate?.stepperViewDidFinishValueChanges(self, value: self.value)
         })

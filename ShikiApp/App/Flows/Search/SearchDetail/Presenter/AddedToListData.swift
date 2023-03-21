@@ -30,12 +30,10 @@ final class AddedToListData {
     
     func update(_ content: SearchDetailModel) {
         guard let index = addedModels.firstIndex(of: content) else {
-            print("@@ added: \(content.title), userListType is \(content.userRate?.status)" )
             add(content)
             return
         }
         addedModels[index] = content
-        print("@@ updated:  \(content.title), userListType is \(content.userRate?.status), score: \(content.userRate?.score.value)" )
     }
     
     func remove(_ content: SearchDetailModel) {
