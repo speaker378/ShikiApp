@@ -64,8 +64,9 @@ final class SearchPresenter: SearchViewOutput {
     private var entityList = [SearchContentProtocol]() {
         didSet {
             refreshView()
-            
+
         } }
+
     private var isLoading = false
     private let filtersModelFactory = FiltersModelFactory()
     private let filterListModelFactory = FilterListModelFactory()
@@ -74,6 +75,12 @@ final class SearchPresenter: SearchViewOutput {
         .manga: MangaProvider(),
         .ranobe: RanobeProvider()
     ]
+
+    // MARK: - Constructions
+
+    init() {
+        RestrictionsProvider.addObserver(observer: onChangeCensored)
+    }
 
     // MARK: - Functions
 
@@ -119,6 +126,17 @@ final class SearchPresenter: SearchViewOutput {
 
     // MARK: - Private functions
 
+    private func onChangeCensored(censored: Bool) {
+        if censored {
+            let filteredGenres: [Int]? = RestrictionsProvider().filterGenres(
+                layer: layer,
+                genres: providers[layer]?.getGenres() ?? []
+            )
+            providers[layer]?.setGenres(genres: filteredGenres)
+            viewInput?.setFiltersCounter(count: providers[layer]?.getFiltersCounter() ?? 0)
+        }
+    }
+
     private func getErrorImage() -> UIImage {
         switch errorString {
         case Texts.ErrorMessage.noResults:
@@ -127,7 +145,7 @@ final class SearchPresenter: SearchViewOutput {
             return AppImage.ErrorsIcons.otherError
         }
     }
-    
+
     private func refreshView() {
         if !entityList.isEmpty {
             if page > 1 {
@@ -161,14 +179,14 @@ final class SearchPresenter: SearchViewOutput {
         page = 0
         fetchNextPage()
     }
-    
+
     private func processFetchError(error: String) {
-        self.page = 0
-        self.errorString = error
-        self.viewInput?.models.removeAll()
-        self.entityList.removeAll()
+        page = 0
+        errorString = error
+        viewInput?.models.removeAll()
+        entityList.removeAll()
     }
-    
+
     private func processFetchData(data: [SearchContentProtocol]?) {
         if let data, !data.isEmpty {
             page += 1
@@ -179,7 +197,7 @@ final class SearchPresenter: SearchViewOutput {
             if page == 0 { errorString = Texts.ErrorMessage.noResults }
         }
     }
-    
+
     private func fetchNextPage() {
         if isLoading { return }
         isLoading = true

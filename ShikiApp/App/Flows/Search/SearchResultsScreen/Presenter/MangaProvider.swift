@@ -30,13 +30,20 @@ final class MangaProvider: ContentProviderProtocol {
 
     // MARK: - Functions
 
+    func getGenres() -> [Int]? { filters?.genre }
+    
+    func setGenres(genres: [Int]?) {
+        if filters == nil { filters = MangaListFilters() }
+        filters?.genre = genres
+    }
+
     func setFilters(filters: Any?) -> Int {
         self.filters = filters as? MangaListFilters
-        return self.filters?.filtersCount ?? 0
+        return self.filters?.filtersCount() ?? 0
     }
     
     func getFiltersCounter() -> Int {
-        return self.filters?.filtersCount ?? 0
+        return self.filters?.filtersCount() ?? 0
     }
     
     func getFilters() -> Any? { filters }

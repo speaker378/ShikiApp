@@ -10,8 +10,8 @@ import UIKit
 // MARK: - ContentRestrictionsProviderProtocol
 
 protocol ContentRestrictionsProviderProtocol {
-    
     func isCensored() -> Bool
+    func addObserver(observer: @escaping (Bool) -> Void)
 }
 
 // MARK: - ContentRestrictionsProvider
@@ -21,9 +21,18 @@ final class ContentRestrictionsProvider: ContentRestrictionsProviderProtocol {
     // MARK: - Private properties
 
     private var notificationCenter = NotificationCenter.default
-    private var censored = true
+    private var censored = true {
+        didSet {
+            if censored != oldValue {
+                for observer in observers {
+                    observer(censored)
+                }
+            }
+        }
+    }
     private var isActual = false
     private let userFactory: UsersRequestFactoryProtocol
+    private var observers: [(Bool) -> Void] = []
 
     // MARK: - Constructions
 
@@ -53,13 +62,17 @@ final class ContentRestrictionsProvider: ContentRestrictionsProviderProtocol {
         } while Date() < date
         return true
     }
+    
+    func addObserver(observer: @escaping (Bool) -> Void) {
+        observers.append(observer)
+    }
 
     // MARK: - Private functions
 
-    @objc private func onChangeCredentials(_ notification: Notification) {
+    @objc private func onChangeCredentials(_: Notification) {
         setCensoredValue()
     }
-    
+
     private func setCensoredValue() {
         isActual = false
         userFactory.whoAmI { [weak self] user, _ in

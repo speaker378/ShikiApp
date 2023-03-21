@@ -178,4 +178,6 @@ struct Constants {
     enum NotificationKeys: String {
         case authState
     }
+    
+    static let censoredGenres = ["hentai", "yaoi", "yuri"]
 }

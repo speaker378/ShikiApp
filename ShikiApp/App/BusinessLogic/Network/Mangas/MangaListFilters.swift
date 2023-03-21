@@ -19,13 +19,14 @@ struct ListFilters<K, S> {
     var season: String?
     var score: Int?
     var genre: [Int]?
-    lazy var filtersCount: Int = {
+    
+    func filtersCount() -> Int {
         var counter = 0
-        if let kind { counter += 1 }
-        if let status { counter += 1 }
-        if let score { counter += 1 }
+        if kind != nil { counter += 1 }
+        if status != nil { counter += 1 }
+        if score != nil { counter += 1 }
         if let genre { counter += genre.count }
         if let season { counter += 1 + season.filter {$0 == Constants.FilterParameters.delimiter}.count }
         return counter
-    }()
+    }
 }
