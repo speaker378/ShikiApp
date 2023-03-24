@@ -13,13 +13,17 @@ import Foundation
 typealias MangaListFilters = ListFilters<MangaContentKind, MangaContentStatus>
 
 struct ListFilters<K, S> {
-    
+
+    // MARK: - Properties
+
     var kind: K?
     var status: S?
     var season: String?
     var score: Int?
     var genre: [Int]?
-    
+
+    // MARK: - Functions
+
     func filtersCount() -> Int {
         var counter = 0
         if kind != nil { counter += 1 }
