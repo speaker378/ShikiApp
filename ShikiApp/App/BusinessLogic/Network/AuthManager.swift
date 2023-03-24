@@ -40,6 +40,7 @@ final class AuthManager: AuthManagerProtocol {
         )
     }()
     private var credential: OAuth2Credential?
+    private var updateTokenStatus = false
 
     // MARK: - Construction
     
@@ -89,6 +90,8 @@ final class AuthManager: AuthManagerProtocol {
     // MARK: - Private functions
     
     private func updateToken() {
+        guard !updateTokenStatus else { return }
+        updateTokenStatus = true
         guard let refreshToken = credential?.refreshToken,
             let request = request?.makeRefreshTokenURL(refreshToken: refreshToken)
         else { return }
@@ -99,6 +102,7 @@ final class AuthManager: AuthManagerProtocol {
             self.credential = result
             self.keychain.delete(service: bundleName, account: self.account)
             self.keychain.save(result, service: bundleName, account: self.account)
+            self.updateTokenStatus = false
         }
     }
     
