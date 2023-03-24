@@ -79,7 +79,7 @@ final class ProfileViewController: (UIViewController & ProfileViewInputProtocol)
         button.contentHorizontalAlignment = UIControl.ContentHorizontalAlignment.left
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = AppFont.Style.regularText
-        button.titleLabel?.textColor = AppColor.accent
+        button.titleLabel?.tintColor = AppColor.accent
         return button
     }()
     

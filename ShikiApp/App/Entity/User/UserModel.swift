@@ -42,7 +42,7 @@ final class UserModelFactory {
     
     private func convertUserSexFromEnglish(from sex: String?, fullYears: Int?) -> String {
         var result = ""
-        if sex == "" { return result }
+        if sex == "" || sex == nil { return result }
         if fullYears != nil {
             result = sex != "male" ? Texts.SexInRussian.femaleCommaAndSpace : Texts.SexInRussian.maleCommaAndSpace
         } else {
