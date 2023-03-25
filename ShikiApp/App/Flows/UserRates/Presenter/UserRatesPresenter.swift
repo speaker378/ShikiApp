@@ -16,6 +16,7 @@ protocol UserRatesViewOutput: AnyObject {
     func changeSegmentedValueChanged()
     func statusValueChanged()
     func getRatesList(targetType: UserRatesTargetType, status: UserRatesStatus?)
+    func updateData(completion: @escaping () -> Void)
     
     var targetType: UserRatesTargetType { get set }
     var status: UserRatesStatus? { get set }
@@ -27,20 +28,22 @@ final class UserRatesPresenter: UserRatesViewOutput {
     // MARK: - Properties
 
     weak var viewInput: (UIViewController & UserRatesViewInput)?
-   
+    
     private var ratesList: UserRatesResponseDTO = []
     private var animesResponse: AnimesResponseDTO = []
     private var mangaResponse: MangaResponseDTO = []
     private var animesDetailList: AnimesResponseDTO = []
     private var mangaDetailList: MangaResponseDTO = []
     
+    private var requestCount: Int = 0
     private let itemsLimit: Int = 50
+    private let limitRequestsPerSecond: Int = 5
     
     private let makeUserRatesApiFactory = ApiFactory.makeUserRatesApi()
     private let makeUsersApiFactory = ApiFactory.makeUsersApi()
     private let makeAnimesApiFactory = ApiFactory.makeAnimesApi()
     private let makeMangasApiFactory = ApiFactory.makeMangasApi()
-
+    
     var targetType: UserRatesTargetType = .anime
     var status: UserRatesStatus?
     var error: String = ""
@@ -58,7 +61,7 @@ final class UserRatesPresenter: UserRatesViewOutput {
     func statusValueChanged() {
         getRatesList(targetType: targetType, status: status)
     }
-
+    
     func getRatesList(targetType: UserRatesTargetType, status: UserRatesStatus?) {
         makeUsersApiFactory.whoAmI { [weak self] user, _ in
             guard let self else { return }
@@ -75,6 +78,7 @@ final class UserRatesPresenter: UserRatesViewOutput {
                         print("ERROR: \(self.error)")
                         print("ratesList\(self.ratesList)")
                         
+                        self.requestCount += 2
                         self.getDetails(
                             targetType: targetType,
                             status: status,
@@ -84,6 +88,11 @@ final class UserRatesPresenter: UserRatesViewOutput {
                 }
             }
         }
+    }
+    
+    func updateData(completion: @escaping () -> Void) {
+        getRatesList(targetType: targetType, status: status)
+        completion()
     }
 
     // MARK: - Private functions
@@ -109,6 +118,7 @@ final class UserRatesPresenter: UserRatesViewOutput {
             self.animesDetailList.append(contentsOf: self.animesResponse)
             print("animesDetailList\(self.animesDetailList)")
         }
+        self.requestCount += 1
     }
     
     private func getListMangasFromMyList(
@@ -131,14 +141,16 @@ final class UserRatesPresenter: UserRatesViewOutput {
             print("mangaResponse\(self.mangaResponse)")
             self.mangaDetailList.append(contentsOf: self.mangaResponse)
             print("mangaDetailList\(self.mangaDetailList)")
+            
         }
+        self.requestCount += 1
     }
     
     private func getDetails(targetType: UserRatesTargetType, status: UserRatesStatus?, pageCount: Int) {
         var statusForDetail: [UserRatesStatus] = []
         animesDetailList.removeAll()
         mangaDetailList.removeAll()
-       
+        
         guard pageCount != 0 else { return }
         
         if status == nil {
@@ -146,17 +158,19 @@ final class UserRatesPresenter: UserRatesViewOutput {
         } else {
             statusForDetail = [status ?? .watching]
         }
-
- 
-            (1...pageCount).forEach {
-                sleep(1)
-                switch targetType {
-                case .anime:
-                    self.getListAnimesFromMyList(status: statusForDetail, page: $0, limit: self.itemsLimit)
-                case .manga:
-                    self.getListMangasFromMyList(status: statusForDetail, page: $0, limit: self.itemsLimit)
-                }
+        
+        for page in 1...pageCount {
+            let timeIntervalPerSecond = ((requestCount % limitRequestsPerSecond) == 0) ? 1 : 0
+            
+            sleep(UInt32(timeIntervalPerSecond))
+            switch targetType {
+            case .anime:
+                self.getListAnimesFromMyList(status: statusForDetail, page: page, limit: itemsLimit)
+            case .manga:
+                self.getListMangasFromMyList(status: statusForDetail, page: page, limit: itemsLimit)
             }
+        }
+        self.requestCount = 0
     }
     
     private func getPageCount(ratesList: UserRatesResponseDTO) -> Int {
