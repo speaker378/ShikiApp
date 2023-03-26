@@ -158,7 +158,7 @@ extension SearchDetailModelFactory: PrepareInfoProtocol {
             title: title,
             kind: kind,
             ongoingStatus: status,
-            watchingEpisodes: "\(userRate.episodes)/\(episodes) \(delimiter) ",
+            watchingEpisodes: "\(String(describing: userRate.episodes))/\(episodes) \(delimiter) ",
             totalEpisodes: "\(episodes)",
             score: score,
             status: status,

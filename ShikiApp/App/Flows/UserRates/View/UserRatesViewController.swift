@@ -9,12 +9,10 @@ import UIKit
 
 class UserRatesViewController: UIViewController, UserRatesViewInput {
 
-    var model: [UserRatesModel] = UserRatesModelFactoryMoсk().userRatesModelFactoryMoсk {
+    var model: [UserRatesModel] = [] {
         didSet {
             activityIndicator.stopAnimating()
-            DispatchQueue.main.async {
-                self.contentView.ratesTableView.reloadData()
-            }
+            self.contentView.model = self.model
         }
     }
 
@@ -26,7 +24,7 @@ class UserRatesViewController: UIViewController, UserRatesViewInput {
     private let scrollView = UIScrollView()
     private var contentView: UserRatesView
    
-    private var activityIndicator: UIActivityIndicatorView = {
+  var activityIndicator: UIActivityIndicatorView = {
         let view = UIActivityIndicatorView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.style = .large
@@ -52,7 +50,6 @@ class UserRatesViewController: UIViewController, UserRatesViewInput {
         if isFirstOpening {
             activityIndicator.startAnimating()
             viewOutput.getRatesList(targetType: .anime, status: nil)
-//            activityIndicator.stopAnimating()
             isFirstOpening = false
         }
     }

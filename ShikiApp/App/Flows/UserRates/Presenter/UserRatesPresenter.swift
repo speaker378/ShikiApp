@@ -30,19 +30,18 @@ final class UserRatesPresenter: UserRatesViewOutput {
     weak var viewInput: (UIViewController & UserRatesViewInput)?
     
     private var ratesList: UserRatesResponseDTO = []
-    private var animesResponse: AnimesResponseDTO = []
-    private var mangaResponse: MangaResponseDTO = []
-    private var animesDetailList: AnimesResponseDTO = []
-    private var mangaDetailList: MangaResponseDTO = []
+    private var contentResponse: [UserRatesContentProtocol] = []
+    private var contentDetailList: [UserRatesContentProtocol] = []
     
     private var requestCount: Int = 0
-    private let itemsLimit: Int = 50
-    private let limitRequestsPerSecond: Int = 5
+    private let itemsLimit: Int = Constants.LimitsForRequest.itemsLimit
+    private let limitRequestsPerSecond: Int = Constants.LimitsForRequest.limitRequestsPerSecond
     
     private let makeUserRatesApiFactory = ApiFactory.makeUserRatesApi()
     private let makeUsersApiFactory = ApiFactory.makeUsersApi()
     private let makeAnimesApiFactory = ApiFactory.makeAnimesApi()
     private let makeMangasApiFactory = ApiFactory.makeMangasApi()
+    private let modelFactory = UserRatesModelFactory()
     
     var targetType: UserRatesTargetType = .anime
     var status: UserRatesStatus?
@@ -76,7 +75,6 @@ final class UserRatesPresenter: UserRatesViewOutput {
                         self.ratesList = data
                         self.error = errorMessage ?? ""
                         print("ERROR: \(self.error)")
-                        print("ratesList\(self.ratesList)")
                         
                         self.requestCount += 2
                         self.getDetails(
@@ -111,12 +109,11 @@ final class UserRatesPresenter: UserRatesViewOutput {
             guard let self,
                   let data else { return }
             
-            self.animesResponse = data
+            self.contentResponse = data
             self.error = errorMessage ?? ""
             print("ERROR: \(self.error), PAGE: \(page)")
-            print("animesResponse\(self.animesResponse)")
-            self.animesDetailList.append(contentsOf: self.animesResponse)
-            print("animesDetailList\(self.animesDetailList)")
+            self.contentDetailList.append(contentsOf: self.contentResponse)
+            self.getContentDetailList(contentDetailList: self.contentDetailList, ratesList: self.ratesList)
         }
         self.requestCount += 1
     }
@@ -135,23 +132,22 @@ final class UserRatesPresenter: UserRatesViewOutput {
             guard let self,
                   let data else { return }
             
-            self.mangaResponse = data
+            self.contentResponse = data
             self.error = errorMessage ?? ""
-            print("ERROR: \(self.error), PAGE: \(page)")
-            print("mangaResponse\(self.mangaResponse)")
-            self.mangaDetailList.append(contentsOf: self.mangaResponse)
-            print("mangaDetailList\(self.mangaDetailList)")
-            
+            print("ERROR: \(self.error), PAGE: \(page)") 
+            self.contentDetailList.append(contentsOf: self.contentResponse)
+            self.getContentDetailList(contentDetailList: self.contentDetailList, ratesList: self.ratesList)
         }
         self.requestCount += 1
     }
     
     private func getDetails(targetType: UserRatesTargetType, status: UserRatesStatus?, pageCount: Int) {
         var statusForDetail: [UserRatesStatus] = []
-        animesDetailList.removeAll()
-        mangaDetailList.removeAll()
+        contentDetailList.removeAll()
         
-        guard pageCount != 0 else { return }
+        guard pageCount != 0 else {
+            return getContentDetailList(contentDetailList: contentDetailList, ratesList: ratesList)
+        }
         
         if status == nil {
             statusForDetail = [.watching, .reWatching, .planned, .onHold, .dropped, .completed]
@@ -176,5 +172,11 @@ final class UserRatesPresenter: UserRatesViewOutput {
     private func getPageCount(ratesList: UserRatesResponseDTO) -> Int {
         let index: Int = ratesList.count % itemsLimit == 0 ? 0 : 1
         return Int((Double(ratesList.count/itemsLimit).rounded(.towardZero))) + index
+    }
+    
+    private func getContentDetailList(contentDetailList: [UserRatesContentProtocol], ratesList: UserRatesResponseDTO) {
+        if contentDetailList.count == ratesList.count {
+            viewInput?.model = modelFactory.makeModels(from: contentDetailList, ratesList: ratesList)
+        }
     }
 }

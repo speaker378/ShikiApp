@@ -81,8 +81,15 @@ final class ChipsView: UIView {
     
     required init?(coder: NSCoder) { nil }
 
+    // MARK: - Functions
+
+    func configurate(title: String, style: ChipsStyle) {
+        titleLabel.text = title
+        configureUI(with: style)
+    }
+
     // MARK: - Private functions
-    
+
     private func configureUI(with style: ChipsStyle) {
         addSubview(contentView)
         contentView.addSubview(titleLabel)

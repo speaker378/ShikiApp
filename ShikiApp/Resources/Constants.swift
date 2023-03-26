@@ -74,6 +74,12 @@ struct Constants {
         static let exactResult = "Найдено:"
         static let approximateResult = "Результаты поиска"
     }
+    
+    enum LimitsForRequest {
+        
+        static let itemsLimit: Int = 50
+        static let limitRequestsPerSecond: Int = 5
+    }
 
     static let kindsDictionary = [
         "all": "Все",

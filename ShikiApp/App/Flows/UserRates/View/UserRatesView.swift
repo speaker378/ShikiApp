@@ -17,14 +17,14 @@ class UserRatesView: UIView {
 
     // MARK: - Properties
 
-    var model: [UserRatesModel]
-    var filteredModel: [UserRatesModel] = [] {
+    var model: [UserRatesModel] = [] {
         didSet {
             DispatchQueue.main.async {
                 self.ratesTableView.reloadData()
             }
         }
     }
+    
     var index: Int = 0
 
     weak var delegate: UserRatesViewDelegate?
@@ -90,7 +90,6 @@ class UserRatesView: UIView {
         selectTableView.registerCell(MenuItemsListTableViewCell.self)
         ratesTableView.registerCell(UserRatesTableViewCell.self)
         selectedButton.titleLabel.text = Texts.ListTypesSelectItems.all
-        filterModelBySegmentControl(index: index)
         configureUI()
     }
     
@@ -98,23 +97,6 @@ class UserRatesView: UIView {
 
     // MARK: - Functions
 
-    func filterModelByTypesSelect(status: String) {
-       filterModelBySegmentControl(index: index)
-       if status != Texts.ListTypesSelectItems.all {
-           filteredModel = filteredModel.filter {$0.status == status}
-       }
-   }
-
-    // MARK: - Private functions
-
-    private func filterModelBySegmentControl(index: Int) {
-        if index == 0 {
-           filteredModel = model.filter {$0.target == "Anime"}
-        } else {
-            filteredModel = model.filter {$0.target == "Manga"}
-        }
-    }
-    
     private func configureUI() {
         [ segmentControl,
           listTypesSelectButton,
@@ -164,8 +146,6 @@ class UserRatesView: UIView {
     
     @objc private func segmentedValueChanged(_ sender: UISegmentedControl) {
         index = sender.selectedSegmentIndex
-//        filterModelBySegmentControl(index: index)
-//        filterModelByTypesSelect(status: selectedButton.titleLabel.text ?? Texts.ListTypesSelectItems.all)
         delegate?.changeSegmentedValueChanged(index: index)
     }
     
