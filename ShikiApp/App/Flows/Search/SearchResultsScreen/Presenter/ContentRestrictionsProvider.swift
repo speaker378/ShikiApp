@@ -81,7 +81,7 @@ final class ContentRestrictionsProvider: ContentRestrictionsProviderProtocol {
             } else {
                 self?.censored = true
             }
-            self?.isActual.toggle()
+            self?.isActual = true
         }
     }
 }
