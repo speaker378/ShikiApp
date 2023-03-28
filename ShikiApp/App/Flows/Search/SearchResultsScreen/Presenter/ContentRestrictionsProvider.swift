@@ -74,14 +74,18 @@ final class ContentRestrictionsProvider: ContentRestrictionsProviderProtocol {
     }
 
     private func setCensoredValue() {
-        isActual = false
-        userFactory.whoAmI { [weak self] user, _ in
-            if let user {
-                self?.censored = user.fullYears ?? 0 < Constants.CensoredParameters.uncensoredAge
-            } else {
-                self?.censored = true
+        if AuthManager.share.isAuth() {
+            isActual = false
+            userFactory.whoAmI { [weak self] user, _ in
+                if let user {
+                    self?.censored = user.fullYears ?? 0 < Constants.CensoredParameters.uncensoredAge
+                } else {
+                    self?.censored = true
+                }
+                self?.isActual = true
             }
-            self?.isActual = true
+        } else {
+            censored = true
         }
     }
 }
