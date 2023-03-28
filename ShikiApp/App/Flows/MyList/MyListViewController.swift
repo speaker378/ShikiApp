@@ -21,20 +21,20 @@ class MyListViewController: UIViewController {
     }()
     
     func getData() { // TODO: для примера
-        apiFactory.list() { response in
-            for item in response {
-                UserRates.createOrUpdate(item: item, with: self.coreDataStack)
-            }
-            self.coreDataStack.saveContext()
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        }
+//        apiFactory.list() { response in
+//            for item in response {
+//                UserRates.createOrUpdate(item: item, with: self.coreDataStack)
+//            }
+//            self.coreDataStack.saveContext()
+//            DispatchQueue.main.async {
+//                self.tableView.reloadData()
+//            }
+//        }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.registerCell(CELL.self) // TODO: будущая ячейка
+//        tableView.registerCell(CELL.self) // TODO: будущая ячейка
 //        self.view.backgroundColor = AppColor.backgroundMain
     }
 }
@@ -83,7 +83,7 @@ extension MyListViewController: NSFetchedResultsControllerDelegate {
         case .update:
             let cell = tableView.cell(forRowAt: indexPath) ?? UITableViewCell()
             let item = dataProvider.controller.object(at: indexPath)
-            cell.configure(witch: item)
+//            cell.configure(witch: item)
         default:
             break
         }
