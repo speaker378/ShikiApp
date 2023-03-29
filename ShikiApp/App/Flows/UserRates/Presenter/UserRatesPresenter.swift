@@ -37,10 +37,10 @@ final class UserRatesPresenter: UserRatesViewOutput {
     private let itemsLimit: Int = Constants.LimitsForRequest.itemsLimit
     private let limitRequestsPerSecond: Int = Constants.LimitsForRequest.limitRequestsPerSecond
     
-    private let makeUserRatesApiFactory = ApiFactory.makeUserRatesApi()
-    private let makeUsersApiFactory = ApiFactory.makeUsersApi()
-    private let makeAnimesApiFactory = ApiFactory.makeAnimesApi()
-    private let makeMangasApiFactory = ApiFactory.makeMangasApi()
+    private let userRatesApiFactory = ApiFactory.makeUserRatesApi()
+    private let usersApiFactory = ApiFactory.makeUsersApi()
+    private let animesApiFactory = ApiFactory.makeAnimesApi()
+    private let mangasApiFactory = ApiFactory.makeMangasApi()
     private let modelFactory = UserRatesModelFactory()
     
     var targetType: UserRatesTargetType = .anime
@@ -62,11 +62,11 @@ final class UserRatesPresenter: UserRatesViewOutput {
     }
     
     func getRatesList(targetType: UserRatesTargetType, status: UserRatesStatus?) {
-        makeUsersApiFactory.whoAmI { [weak self] user, _ in
+        usersApiFactory.whoAmI { [weak self] user, _ in
             guard let self else { return }
             
             if let userId = user?.id {
-                self.makeUserRatesApiFactory.getList(
+                self.userRatesApiFactory.getList(
                     userId: userId,
                     targetType: targetType,
                     status: status
@@ -100,7 +100,7 @@ final class UserRatesPresenter: UserRatesViewOutput {
         page: Int,
         limit: Int
     ) {
-        makeAnimesApiFactory.getAnimes(
+        animesApiFactory.getAnimes(
             page: page,
             limit: limit,
             myList: status,
@@ -123,7 +123,7 @@ final class UserRatesPresenter: UserRatesViewOutput {
         page: Int,
         limit: Int
     ) {
-        makeMangasApiFactory.getMangas(
+        mangasApiFactory.getMangas(
             page: page,
             limit: limit,
             myList: status,

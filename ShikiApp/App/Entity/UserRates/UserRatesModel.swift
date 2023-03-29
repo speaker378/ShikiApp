@@ -52,7 +52,7 @@ final class UserRatesModelFactory {
         let title = source.russian ?? source.name
         let kind = extractKind(kind: source.kind)
         
-        let watchingEpisodes = extracWatchingEpisodes(
+        let watchingEpisodes = extractWatchingEpisodes(
             watchedEpisodes: ratesList?.episodes ?? 0,
             chaptersRead: ratesList?.chapters ?? 0,
             episodesAired: source.episodesAired ?? 0,
@@ -61,7 +61,7 @@ final class UserRatesModelFactory {
             contentKind: source.kind ?? ""
         )
         
-        let totalEpisodes = extracWatchingEpisodes(
+        let totalEpisodes = extractWatchingEpisodes(
             totalEpisodes: source.episodes ?? 0,
             totalChapters: source.chapters ?? 0,
             contentKind: source.kind ?? ""
@@ -137,7 +137,7 @@ final class UserRatesModelFactory {
         Constants.scoreColors[score?.first ?? " "] ?? AppColor.line
     }
     
-    private func extracWatchingEpisodes(watchedEpisodes: Int, chaptersRead: Int, episodesAired: Int, episodesUnderShot: Int, chapters: Int, contentKind: String) -> String {
+    private func extractWatchingEpisodes(watchedEpisodes: Int, chaptersRead: Int, episodesAired: Int, episodesUnderShot: Int, chapters: Int, contentKind: String) -> String {
         let delimiter = "·"
         var episodes = ""
         var watched = ""
@@ -168,7 +168,7 @@ final class UserRatesModelFactory {
         return "\(watched)/\(episodes) \(delimiter) "
     }
     
-    private func extracWatchingEpisodes(totalEpisodes: Int, totalChapters: Int, contentKind: String) -> String {
+    private func extractWatchingEpisodes(totalEpisodes: Int, totalChapters: Int, contentKind: String) -> String {
         var total = ""
         let isManga = MangaContentKind.allCases.map { $0.rawValue }.contains(contentKind)
         
