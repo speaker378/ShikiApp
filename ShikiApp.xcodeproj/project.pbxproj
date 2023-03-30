@@ -120,6 +120,7 @@
 		16D6079429C1D41E00492879 /* ContentRestrictionsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D6079329C1D41E00492879 /* ContentRestrictionsProvider.swift */; };
 		16D6079729C1D9BF00492879 /* Notification.Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D6079629C1D9BF00492879 /* Notification.Name.swift */; };
 		16D6079929C21E7400492879 /* RestrictionsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D6079829C21E7400492879 /* RestrictionsProvider.swift */; };
+		16DBE57029B9F717001AEFBB /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16DBE56F29B9F717001AEFBB /* UserDefaultsService.swift */; };
 		16F98B5729AA808A009ADBA0 /* Date+relativeYear.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F98B5629AA808A009ADBA0 /* Date+relativeYear.swift */; };
 		3A05E291297D606B00987CFF /* NewsfeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A05E290297D606B00987CFF /* NewsfeedViewController.swift */; };
 		3A05E293297D60B100987CFF /* NewsfeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A05E292297D60B100987CFF /* NewsfeedTableViewCell.swift */; };
@@ -329,6 +330,7 @@
 		16D49EA6298EF3540008CAA4 /* MangaProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaProvider.swift; sourceTree = "<group>"; };
 		16D49EA8298EF5660008CAA4 /* RanobeProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RanobeProvider.swift; sourceTree = "<group>"; };
 		16D49EAA298FC6260008CAA4 /* SearchTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableCell.swift; sourceTree = "<group>"; };
+		16DBE56F29B9F717001AEFBB /* UserDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsService.swift; sourceTree = "<group>"; };
 		16D6079329C1D41E00492879 /* ContentRestrictionsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentRestrictionsProvider.swift; sourceTree = "<group>"; };
 		16D6079629C1D9BF00492879 /* Notification.Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.Name.swift; sourceTree = "<group>"; };
 		16D6079829C21E7400492879 /* RestrictionsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestrictionsProvider.swift; sourceTree = "<group>"; };
@@ -877,6 +879,14 @@
 			path = Builder;
 			sourceTree = "<group>";
 		};
+		16DBE56E29B9F6E3001AEFBB /* UserDefaultsService */ = {
+            isa = PBXGroup;
+            children = (
+				16DBE56F29B9F717001AEFBB /* UserDefaultsService.swift */,
+            );
+			path = UserDefaultsService;
+            sourceTree = "<group>";
+        };
 		16D6079529C1D99200492879 /* Notification.Name */ = {
 			isa = PBXGroup;
 			children = (
@@ -1000,10 +1010,10 @@
 		3A7E4D5D2985492C00E7CA17 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				3A7E4D632985492C00E7CA17 /* AbstractRequestFactory.swift */,
 				16082BE429A269AA00450D43 /* Genres */,
 				1634B66729A8E522004A4B02 /* UserRates */,
 				16B0823E298A1F7600EB9061 /* Ranobes */,
-				3A7E4D632985492C00E7CA17 /* AbstractRequestFactory.swift */,
 				3A7E4D652985492C00E7CA17 /* ApiFactory.swift */,
 				16130E5D2988183400A4EC94 /* Mangas */,
 				16130E4D29872D5200A4EC94 /* Animes */,
@@ -1216,6 +1226,7 @@
 		3A8F31172974422100F24DF7 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				16DBE56E29B9F6E3001AEFBB /* UserDefaultsService */,
 				3A7E4D9A2985496A00E7CA17 /* Network */,
 				0010CAB42977FF9A00F8705B /* Helpers */,
 				0010CABA297801A900F8705B /* UIComponents */,
@@ -1597,6 +1608,7 @@
 				3A7E4D842985492C00E7CA17 /* ApiFactory.swift in Sources */,
 				BAE4C1D4299283F400D9E7E8 /* NewsDetailContentPresenter.swift in Sources */,
 				0010CAB82977FFDD00F8705B /* AppFont.swift in Sources */,
+				16DBE57029B9F717001AEFBB /* UserDefaultsService.swift in Sources */,
 				166FA78F29894406009C2712 /* MangaEnums.swift in Sources */,
 				006031AF2979B79400CD9A16 /* TabBarViewController.swift in Sources */,
 				BA01BBE629B118BA00EA3EEB /* ListTableViewCell.swift in Sources */,

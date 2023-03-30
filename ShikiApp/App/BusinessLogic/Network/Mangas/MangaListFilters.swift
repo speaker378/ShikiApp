@@ -12,10 +12,8 @@ import Foundation
 
 typealias MangaListFilters = ListFilters<MangaContentKind, MangaContentStatus>
 
-struct ListFilters<K, S> {
-
-    // MARK: - Properties
-
+struct ListFilters<K: Codable, S: Codable>: Codable {
+    
     var kind: K?
     var status: S?
     var season: String?

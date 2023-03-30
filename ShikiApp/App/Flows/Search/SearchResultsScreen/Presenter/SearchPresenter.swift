@@ -33,6 +33,7 @@ protocol SearchViewOutput: AnyObject {
     func viewDidSelectEntity(entity: SearchModel)
     func fetchData()
     func setFilter(filter: Any?)
+    func loadFilters()
     func setLayer(layer: SearchContentEnum)
     func setSearchString(searchString: String?)
     func endOfTableReached()
@@ -80,6 +81,12 @@ final class SearchPresenter: SearchViewOutput {
 
     init() {
         RestrictionsProvider.addObserver(observer: onChangeCensored)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(saveFiltersNotificationReceived(_:)),
+            name: UIApplication.willResignActiveNotification,
+            object: nil
+        )
     }
 
     // MARK: - Functions
@@ -87,7 +94,14 @@ final class SearchPresenter: SearchViewOutput {
     func endOfTableReached() {
         fetchNextPage()
     }
-
+    
+    func loadFilters() {
+        for provider in providers {
+            provider.value.restoreFilters()
+        }
+        setFilter(filter: providers[layer]?.getFilters())
+    }
+    
     func requestFilters() {
         let filters = providers[layer]?.getFilters()
         let filtersViewController = FiltersBuilder.build(
@@ -126,6 +140,11 @@ final class SearchPresenter: SearchViewOutput {
 
     // MARK: - Private functions
 
+    @objc private func saveFiltersNotificationReceived(_ notification: Notification) {
+        for provider in providers {
+            provider.value.saveFilters()
+        }
+    }
     private func onChangeCensored(censored: Bool) {
         if censored {
             let filteredGenres: [Int]? = RestrictionsProvider().filterGenres(
