@@ -89,7 +89,7 @@ class UserRatesView: UIView {
         ratesTableView.dataSource = self
         selectTableView.registerCell(MenuItemsListTableViewCell.self)
         ratesTableView.registerCell(UserRatesTableViewCell.self)
-        selectedButton.titleLabel.text = Texts.ListTypesSelectItems.all
+        selectedButton.titleLabel.text = RatesTypeItemEnum.all.getString()
         filterModelBySegmentControl(index: index)
         configureUI()
     }
@@ -100,7 +100,7 @@ class UserRatesView: UIView {
 
     func filterModelByTypesSelect(status: String) {
        filterModelBySegmentControl(index: index)
-       if status != Texts.ListTypesSelectItems.all {
+        if status != RatesTypeItemEnum.all.getString() {
            filteredModel = filteredModel.filter {$0.status == status}
        }
    }
@@ -165,7 +165,7 @@ class UserRatesView: UIView {
     @objc private func segmentedValueChanged(_ sender: UISegmentedControl) {
         index = sender.selectedSegmentIndex
         filterModelBySegmentControl(index: index)
-        filterModelByTypesSelect(status: selectedButton.titleLabel.text ?? Texts.ListTypesSelectItems.all)
+        filterModelByTypesSelect(status: selectedButton.titleLabel.text ?? RatesTypeItemEnum.all.getString())
         delegate?.changeSegmentedValueChanged(index: index)
     }
     

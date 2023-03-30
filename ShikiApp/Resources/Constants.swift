@@ -122,7 +122,8 @@ struct Constants {
 
     static let singleDateKinds = ["movie", "music", "one_shot"]
     
-    static let scoreColors: [Character: UIColor] = [
+    static let scoreColors: [String: UIColor] = [
+        "10": AppColor.green,
         "9": AppColor.green,
         "8": AppColor.green,
         "7": AppColor.green,

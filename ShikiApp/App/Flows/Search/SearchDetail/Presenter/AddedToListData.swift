@@ -23,8 +23,21 @@ final class AddedToListData {
 
     // MARK: - Functions
     
-    func addToList(_ content: SearchDetailModel) {
+    func add(_ content: SearchDetailModel) {
         guard !addedModels.contains(content) else { return }
         addedModels.append(content)
+    }
+    
+    func update(_ content: SearchDetailModel) {
+        guard let index = addedModels.firstIndex(of: content) else {
+            add(content)
+            return
+        }
+        addedModels[index] = content
+    }
+    
+    func remove(_ content: SearchDetailModel) {
+        guard let index = addedModels.firstIndex(of: content) else { return }
+        addedModels.remove(at: index)
     }
 }
