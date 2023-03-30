@@ -56,6 +56,7 @@ final class ContentRestrictionsProvider: ContentRestrictionsProviderProtocol {
     // MARK: - Functions
 
     func isCensored() -> Bool {
+        if isActual { return censored }
         let date = Date(timeIntervalSinceNow: Constants.Timeouts.networkRequest)
         repeat {
             if isActual { return censored }
@@ -85,6 +86,7 @@ final class ContentRestrictionsProvider: ContentRestrictionsProviderProtocol {
                 self?.isActual = true
             }
         } else {
+            isActual = true
             censored = true
         }
     }
