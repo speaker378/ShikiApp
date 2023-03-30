@@ -17,7 +17,7 @@ protocol MangasRequestFactoryProtocol {
 
     // MARK: - Functions
 
-    func getMangas(page: Int?, limit: Int?, filters: MangaListFilters?, myList: [UserRatesStatus]?, search: String?, order: OrderBy?, completion: @escaping (_ response: MangaResponseDTO?, _ error: String?) -> Void)
+    func getMangas(page: Int?, limit: Int?, filters: MangaListFilters?, myList: [UserRatesStatus]?, search: String?, censored: Bool?, order: OrderBy?, completion: @escaping (_ response: MangaResponseDTO?, _ error: String?) -> Void)
 
     func getMangaById(id: Int, completion: @escaping (_ response: MangaDetailsDTO?, _ error: String?) -> Void)
 }
@@ -33,6 +33,7 @@ extension MangasRequestFactoryProtocol {
                    filters: MangaListFilters? = nil,
                    myList: [UserRatesStatus]? = nil,
                    search: String? = nil,
+                   censored: Bool? = true,
                    order: OrderBy? = nil,
                    completion: @escaping (_ response: MangaResponseDTO?, _ error: String?) -> Void) {
         
@@ -42,6 +43,7 @@ extension MangasRequestFactoryProtocol {
             filters: filters,
             myList: myList,
             search: search,
+            censored: censored,
             order: order
         )
         delegate?.getResponse(
@@ -57,7 +59,7 @@ extension MangasRequestFactoryProtocol {
 
     // MARK: - Private functions
 
-    private func validateListParameters(page: Int?, limit: Int?, filters: MangaListFilters?, myList: [UserRatesStatus]?, search: String?, order: OrderBy?) -> Parameters {
+    private func validateListParameters(page: Int?, limit: Int?, filters: MangaListFilters?, myList: [UserRatesStatus]?, search: String?, censored: Bool?, order: OrderBy?) -> Parameters {
         var parameters = Parameters()
         if let page,
            (1 ... APIRestrictions.maxPages.rawValue).contains(page) {
@@ -71,6 +73,9 @@ extension MangasRequestFactoryProtocol {
         }
         if let search {
             parameters[APIKeys.search.rawValue] = search
+        }
+        if let censored {
+            parameters[APIKeys.censored.rawValue] = censored
         }
         if let order {
             parameters[APIKeys.order.rawValue] = order.rawValue
