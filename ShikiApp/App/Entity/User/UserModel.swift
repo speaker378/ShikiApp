@@ -42,12 +42,16 @@ final class UserModelFactory {
     
     private func convertUserSexFromEnglish(from sex: String?, fullYears: Int?) -> String {
         var result = ""
-        if sex == "" || sex == nil { return result }
+        if !SexEnum.allCases.contains(where: {$0.rawValue == sex}) { return result }
         if fullYears != nil {
-            result = sex != "male" ? Texts.SexInRussian.femaleCommaAndSpace : Texts.SexInRussian.maleCommaAndSpace
+            result = sex != SexEnum.male.rawValue ? Texts.SexInRussian.femaleCommaAndSpace : Texts.SexInRussian.maleCommaAndSpace
         } else {
-            result = sex != "male" ? Texts.SexInRussian.female : Texts.SexInRussian.male
+            result = sex != SexEnum.male.rawValue ? Texts.SexInRussian.female : Texts.SexInRussian.male
         }
         return result
+    }
+    
+    private enum SexEnum: String, CaseIterable {
+        case male, female
     }
 }
