@@ -29,6 +29,8 @@ struct SearchDetailModel {
     let durationOrVolumes: String
     let rateList: [String]
     let userRate: UserRatesModel?
+    let screenshots: [String]?
+    let videos: [VideoModel]?
 }
 
 extension SearchDetailModel: Equatable {
@@ -42,6 +44,8 @@ extension SearchDetailModel: Equatable {
 }
 
 final class SearchDetailModelFactory {
+    
+    private let videoModelFactory = VideoModelFactory()
     
     func makeDetailModel(from source: SearchDetailContentProtocol) -> SearchDetailModel {
         let delimiter = "·"
@@ -58,12 +62,6 @@ final class SearchDetailModelFactory {
             status: source.status,
             episodes: source.episodes ?? 0
         )
-        let episodesText = makeEpisodesText(
-            episodes: source.episodes,
-            episodesAired: source.episodesAired,
-            kind: kind,
-            status: status
-        )
         
         return SearchDetailModel(
             id: source.id,
@@ -79,13 +77,20 @@ final class SearchDetailModelFactory {
             genres: extractGenres(source.genres),
             episodes: source.episodes,
             episodesAired: source.episodesAired,
-            episodesText: episodesText,
+            episodesText: makeEpisodesText(
+                episodes: source.episodes,
+                episodesAired: source.episodesAired,
+                kind: kind,
+                status: status
+            ),
             volumes: source.volumes,
             chapters: source.chapters,
             duration: source.duration,
             durationOrVolumes: duration,
             rateList: makeRatesList(status: status, userRates: userRate),
-            userRate: userRate
+            userRate: userRate,
+            screenshots: extractScreenshots(source.screenshots),
+            videos: videoModelFactory.makeModels(from: source.videos)
         )
     }
 }
@@ -93,6 +98,10 @@ final class SearchDetailModelFactory {
 extension SearchDetailModelFactory: PrepareInfoProtocol {
 
     // MARK: - Functions
+    
+    func extractScreenshots(_ screenshots: [ScreenshotDTO]) -> [String] {
+        return screenshots.compactMap {$0.original}.map {Constants.Url.baseUrl + $0}
+    }
     
     func extractScore(_ score: String?) -> String {
         guard let score, let floatScore = Float(score) else { return "" }
@@ -158,7 +167,7 @@ extension SearchDetailModelFactory: PrepareInfoProtocol {
             title: title,
             kind: kind,
             ongoingStatus: status,
-            watchingEpisodes: "\(userRate.episodes)/\(episodes) \(delimiter) ",
+            watchingEpisodes: "\(userRate.episodes ?? 0)/\(episodes) \(delimiter) ",
             totalEpisodes: "\(episodes)",
             score: score,
             status: status,

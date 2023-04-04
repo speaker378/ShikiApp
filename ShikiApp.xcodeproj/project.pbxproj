@@ -112,6 +112,8 @@
 		16B08261298C48DC00EB9061 /* SearchContentProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B08260298C48DC00EB9061 /* SearchContentProtocol.swift */; };
 		16B08263298C49F900EB9061 /* SearchContentEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B08262298C49F900EB9061 /* SearchContentEnum.swift */; };
 		16C340222992714A0061785F /* ControlConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C340212992714A0061785F /* ControlConstants.swift */; };
+		16D13F2729D7C10800287311 /* VideoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D13F2629D7C10800287311 /* VideoModel.swift */; };
+		16D13F2929D99F2200287311 /* TitledCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D13F2829D99F2200287311 /* TitledCollectionView.swift */; };
 		16D1AEC829A6290200F053F1 /* SeasonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D1AEC729A6290200F053F1 /* SeasonModel.swift */; };
 		16D49EA5298EC9070008CAA4 /* AnimeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D49EA4298EC9070008CAA4 /* AnimeProvider.swift */; };
 		16D49EA7298EF3540008CAA4 /* MangaProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D49EA6298EF3540008CAA4 /* MangaProvider.swift */; };
@@ -322,6 +324,8 @@
 		16B08260298C48DC00EB9061 /* SearchContentProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchContentProtocol.swift; sourceTree = "<group>"; };
 		16B08262298C49F900EB9061 /* SearchContentEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchContentEnum.swift; sourceTree = "<group>"; };
 		16C340212992714A0061785F /* ControlConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlConstants.swift; sourceTree = "<group>"; };
+		16D13F2629D7C10800287311 /* VideoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoModel.swift; sourceTree = "<group>"; };
+		16D13F2829D99F2200287311 /* TitledCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitledCollectionView.swift; sourceTree = "<group>"; };
 		16D1AEC729A6290200F053F1 /* SeasonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonModel.swift; sourceTree = "<group>"; };
 		16D49EA4298EC9070008CAA4 /* AnimeProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeProvider.swift; sourceTree = "<group>"; };
 		16D49EA6298EF3540008CAA4 /* MangaProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaProvider.swift; sourceTree = "<group>"; };
@@ -822,6 +826,7 @@
 			children = (
 				16B0824F298BBBDC00EB9061 /* SearchModel.swift */,
 				BA76AF9E29A017E60002C982 /* SearchDetailModel.swift */,
+				16D13F2629D7C10800287311 /* VideoModel.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -1288,6 +1293,7 @@
 				BA90AF7829A0068300CCE141 /* ChipsTableViewCell.swift */,
 				BA01BBE329B117A000EA3EEB /* ListTableView.swift */,
 				BA01BBE529B118BA00EA3EEB /* ListTableViewCell.swift */,
+				16D13F2829D99F2200287311 /* TitledCollectionView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1564,6 +1570,7 @@
 				BA90AF7929A0068300CCE141 /* ChipsTableViewCell.swift in Sources */,
 				3AFAFEE3298028BA00949FE2 /* NewsfeedViewController+Extension.swift in Sources */,
 				3A05E299297E8EA500987CFF /* NewsfeedBuilder.swift in Sources */,
+				16D13F2929D99F2200287311 /* TitledCollectionView.swift in Sources */,
 				3A1A096D2985400900846058 /* NewsDetailBuilder.swift in Sources */,
 				00AFC6D329A251FA0000B645 /* UserRatesModel.swift in Sources */,
 				009F06B529A78CFE00B87195 /* UserRatesContentProtocol.swift in Sources */,
@@ -1577,6 +1584,7 @@
 				006031B9297BCA7B00CD9A16 /* UserRatesViewController.swift in Sources */,
 				16D49EA9298EF5660008CAA4 /* RanobeProvider.swift in Sources */,
 				3A200A6729B11FA8001719A4 /* Array+removeDuplicates.swift in Sources */,
+				16D13F2729D7C10800287311 /* VideoModel.swift in Sources */,
 				169118DE29A3C13C000F23B6 /* FiltersEnums.swift in Sources */,
 				16B08241298A1FAB00EB9061 /* RanobeResponseDTO.swift in Sources */,
 				00624101299AB39B00498D51 /* FiltersModel.swift in Sources */,

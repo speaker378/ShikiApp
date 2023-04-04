@@ -10,8 +10,9 @@ import UIKit
 final class SearchDetailView: UIView {
 
     // MARK: - Private properties
-    
+
     private let inset: CGFloat = 24.0
+    private let regularInset: CGFloat = 16.0
     private let infoViewWidth: CGFloat = UIScreen.main.bounds.width - Constants.Insets.sideInset * 2
     private let itemInfoView: ItemInfoView
     private let genreTableView: ChipsTableView
@@ -42,14 +43,31 @@ final class SearchDetailView: UIView {
     }()
     private let transparentView = UIView()
     private let listTableView: ListTableView
+    private var screenshotCollection: TitledCollectionView
+    private let videoCollection: TitledCollectionView
     private var buttonTapHandler: (() -> Void)?
 
-    // MARK: - Construction
+    // MARK: - Constructions
     
-    init(content: SearchDetailModel, tapHandler: @escaping () -> Void) {
+    init(
+        content: SearchDetailModel,
+        itemTapCompletion: ((String) -> Void)? = nil,
+        tapHandler: @escaping () -> Void
+    ) {
         itemInfoView = ItemInfoView(content: content)
         genreTableView = ChipsTableView(values: content.genres)
         listTableView = ListTableView(values: content.rateList)
+        screenshotCollection = TitledCollectionView(
+            title: Texts.ContentTitles.screenshots,
+            imageURLStrings: content.screenshots ?? [],
+            itemTapCompletion: itemTapCompletion
+        )
+        videoCollection = TitledCollectionView(
+            title: Texts.ContentTitles.videos,
+            imageURLStrings: content.videos?.compactMap {$0.url} ?? [],
+            imageComments: content.videos?.filter {$0.url != nil}.map {$0.name},
+            itemTapCompletion: itemTapCompletion
+        )
         buttonTapHandler = tapHandler
         super.init(frame: .zero)
         configure(with: content)
@@ -62,8 +80,17 @@ final class SearchDetailView: UIView {
     private func configure(with content: SearchDetailModel) {
         addSubview(scrollView)
         configureButton(with: content)
-        scrollView.addSubviews([itemInfoView, button, titleLabel, genreTableView, descriptionLabel])
-        [itemInfoView, genreTableView].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+        scrollView.addSubviews([
+            itemInfoView,
+            button,
+            titleLabel,
+            genreTableView,
+            descriptionLabel,
+            screenshotCollection,
+            videoCollection
+        ])
+        [itemInfoView, genreTableView, screenshotCollection, videoCollection]
+            .forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
         genreTableView.reloadData()
         configureUI(with: content)
     }
@@ -122,8 +149,17 @@ final class SearchDetailView: UIView {
             ),
             descriptionLabel.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             descriptionLabel.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            descriptionLabel.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -inset)
+            descriptionLabel.bottomAnchor.constraint(equalTo: screenshotCollection.topAnchor, constant: -regularInset),
+            screenshotCollection.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            screenshotCollection.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            screenshotCollection.bottomAnchor.constraint(equalTo: videoCollection.topAnchor, constant: -regularInset),
+            videoCollection.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            videoCollection.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            videoCollection.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -inset)
+            
+            
         ])
+
     }
     
     private func configureListTableView() {
