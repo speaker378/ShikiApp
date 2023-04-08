@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TitledCollectionView: UIView {
+final class TitledCollectionView: UIView {
 
 // MARK: - Private properties
 
@@ -25,7 +25,7 @@ class TitledCollectionView: UIView {
         return view
     }()
     private let descriptionLabel: AppLabel = {
-        let label = AppLabel(alignment: .left, fontSize: AppFont.Style.blockTitle, numberLines: 1)
+        let label = AppLabel(alignment: .left, fontSize: AppFont.Style.blockTitle)
         return label
     }()
     private let appCollectionView: AppCollectionView
@@ -70,19 +70,13 @@ class TitledCollectionView: UIView {
             backgroundView.leadingAnchor.constraint(equalTo: leadingAnchor),
             backgroundView.trailingAnchor.constraint(equalTo: trailingAnchor),
             backgroundView.heightAnchor.constraint(equalToConstant: Self.headerHeight),
-            baseLayerView.leadingAnchor.constraint(
-                equalTo: backgroundView.leadingAnchor,
-                constant: Constants.Spacing.medium
-            ),
+            baseLayerView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor),
             baseLayerView.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: Constants.Spacing.medium),
             baseLayerView.bottomAnchor.constraint(
                 equalTo: backgroundView.bottomAnchor,
                 constant: -Constants.Spacing.medium
             ),
-            baseLayerView.trailingAnchor.constraint(
-                equalTo: backgroundView.trailingAnchor,
-                constant: -Constants.Spacing.medium
-            ),
+            baseLayerView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor),
             descriptionLabel.leadingAnchor.constraint(
                 equalTo: baseLayerView.leadingAnchor,
                 constant: Constants.Spacing.medium
