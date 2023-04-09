@@ -17,14 +17,14 @@ class UserRatesView: UIView {
 
     // MARK: - Properties
 
-    var model: [UserRatesModel]
-    var filteredModel: [UserRatesModel] = [] {
+    var model: [UserRatesModel] = [] {
         didSet {
             DispatchQueue.main.async {
                 self.ratesTableView.reloadData()
             }
         }
     }
+    
     var index: Int = 0
 
     weak var delegate: UserRatesViewDelegate?
@@ -89,32 +89,14 @@ class UserRatesView: UIView {
         ratesTableView.dataSource = self
         selectTableView.registerCell(MenuItemsListTableViewCell.self)
         ratesTableView.registerCell(UserRatesTableViewCell.self)
-        selectedButton.titleLabel.text = RatesTypeItemEnum.all.getString()
-        filterModelBySegmentControl(index: index)
+        selectedButton.titleLabel.text = Texts.ListTypesSelectItems.all
         configureUI()
     }
     
     required init?(coder: NSCoder) { nil }
 
-    // MARK: - Functions
-
-    func filterModelByTypesSelect(status: String) {
-       filterModelBySegmentControl(index: index)
-        if status != RatesTypeItemEnum.all.getString() {
-           filteredModel = filteredModel.filter {$0.status == status}
-       }
-   }
-
     // MARK: - Private functions
 
-    private func filterModelBySegmentControl(index: Int) {
-        if index == 0 {
-           filteredModel = model.filter {$0.target == "Anime"}
-        } else {
-            filteredModel = model.filter {$0.target == "Manga"}
-        }
-    }
-    
     private func configureUI() {
         [ segmentControl,
           listTypesSelectButton,
@@ -164,8 +146,6 @@ class UserRatesView: UIView {
     
     @objc private func segmentedValueChanged(_ sender: UISegmentedControl) {
         index = sender.selectedSegmentIndex
-        filterModelBySegmentControl(index: index)
-        filterModelByTypesSelect(status: selectedButton.titleLabel.text ?? RatesTypeItemEnum.all.getString())
         delegate?.changeSegmentedValueChanged(index: index)
     }
     

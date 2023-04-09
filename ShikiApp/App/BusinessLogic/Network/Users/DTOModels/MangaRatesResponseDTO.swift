@@ -40,7 +40,7 @@ struct MangaRateDTO: Codable {
 
 // MARK: - MangaInfoDTO
 
-struct MangaInfoDTO: Codable, SearchContentProtocol {
+struct MangaInfoDTO: Codable, SearchContentProtocol, UserRatesContentProtocol {
     
     let id: Int
     let name: String
@@ -49,6 +49,8 @@ struct MangaInfoDTO: Codable, SearchContentProtocol {
     let url, kind, score, status: String?
     let volumes, chapters: Int?
     let airedOn, releasedOn: String?
+    var episodes: Int?
+    var episodesAired: Int?
 
     enum CodingKeys: String, CodingKey {
         case id, name, russian, image, url, kind, score, status, volumes, chapters
