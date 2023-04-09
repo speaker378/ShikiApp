@@ -11,8 +11,11 @@ final class SearchDetailView: UIView {
 
     // MARK: - Properties
     
+    // TODO: - добавить событие на создание списка
+    
     var userRatesDidRemovedCompletion: ((SearchDetailModel) -> Void)?
     var userRatesDidChangedCompletion: ((SearchDetailModel) -> Void)?
+    var userRatesDidCreatedCompletion: ((SearchDetailModel) -> Void)?
 
     // MARK: - Private properties
     
@@ -84,6 +87,7 @@ final class SearchDetailView: UIView {
     // MARK: - Functions
     
     func updateUserRate(status: RatesTypeItemEnum, score: Score? = nil) {
+        let hasAddedUserRate = content.userRate == nil
         if status == .rewatching {
             content.configureUserRate(status: status.rawValue, score: score, rewatches: stepperView.value)
         } else if content.type == UserRatesTargetType.anime.rawValue {
@@ -93,7 +97,11 @@ final class SearchDetailView: UIView {
         }
         
         button.configurate(text: status.getString(), image: AppImage.NavigationsBarIcons.chevronDown)
-        userRatesDidChangedCompletion?(content)
+        if hasAddedUserRate {
+            userRatesDidCreatedCompletion?(content)
+        } else {
+            userRatesDidChangedCompletion?(content)
+        }
     }
 
     // MARK: - Private functions
@@ -240,8 +248,8 @@ final class SearchDetailView: UIView {
         listTableView.didSelectRowHandler = { [weak self] value in
             guard let self else { return }
             if value == Texts.ButtonTitles.removeFromList {
-                self.content.userRate = nil
                 self.userRatesDidRemovedCompletion?(self.content)
+//                self.content.userRate = nil
             } else {
                 if let status = RatesTypeItemEnum(status: value) {
                     self.updateStepperValue(status: status.rawValue)

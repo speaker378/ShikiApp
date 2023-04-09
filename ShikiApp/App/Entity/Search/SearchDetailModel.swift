@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct SearchDetailModel {
+final class SearchDetailModel {
 
     // MARK: - Properties
     
@@ -31,10 +31,33 @@ struct SearchDetailModel {
     let duration: Int?
     let durationOrVolumes: String
     var userRate: UserRatesModel?
+    
+    init(id: Int, type: String, imageUrlString: String, title: String, kind: String, kindAndDate: String, score: String, status: String, description: String, rating: String?, studios: [String], genres: [String], episodes: Int?, episodesAired: Int?, episodesText: String, volumes: Int?, chapters: Int?, duration: Int?, durationOrVolumes: String, userRate: UserRatesModel? = nil) {
+        self.id = id
+        self.type = type
+        self.imageUrlString = imageUrlString
+        self.title = title
+        self.kind = kind
+        self.kindAndDate = kindAndDate
+        self.score = score
+        self.status = status
+        self.description = description
+        self.rating = rating
+        self.studios = studios
+        self.genres = genres
+        self.episodes = episodes
+        self.episodesAired = episodesAired
+        self.episodesText = episodesText
+        self.volumes = volumes
+        self.chapters = chapters
+        self.duration = duration
+        self.durationOrVolumes = durationOrVolumes
+        self.userRate = userRate
+    }
 
     // MARK: - Functions
     
-    mutating func configureUserRate(
+    func configureUserRate(
         status: String,
         score: Score? = nil,
         episodes: Int? = nil,
@@ -43,7 +66,7 @@ struct SearchDetailModel {
         volumes: Int? = nil
     ) {
         self.userRate = UserRatesModel(
-            id: self.id,
+            targetID: self.id,
             target: type,
             imageUrlString: self.imageUrlString,
             title: self.title,
@@ -57,9 +80,14 @@ struct SearchDetailModel {
             episodes: episodes ?? userRate?.episodes,
             rewatches: rewatches ?? userRate?.rewatches,
             chapters: chapters ?? userRate?.chapters,
-            volumes: volumes ?? userRate?.volumes
+            volumes: volumes ?? userRate?.volumes,
+            userRateID: userRate?.userRateID ?? 0
         )
     }
+    
+//    mutating func correctUserRateID(_ id: Int) {
+//        self.userRate?.userRateID = id
+//    }
 }
 
 extension SearchDetailModel: Equatable {
@@ -194,7 +222,7 @@ extension SearchDetailModelFactory: PrepareInfoProtocol {
             color: extractScoreColor(String(userRate.score))
         )
         return UserRatesModel(
-            id: userRate.id,
+            targetID: userRate.id,
             target: type,
             imageUrlString: imageString,
             title: title,
@@ -208,7 +236,8 @@ extension SearchDetailModelFactory: PrepareInfoProtocol {
             episodes: userRate.episodes,
             rewatches: userRate.rewatches,
             chapters: userRate.chapters,
-            volumes: userRate.volumes
+            volumes: userRate.volumes,
+            userRateID: userRate.id
         )
     }
     

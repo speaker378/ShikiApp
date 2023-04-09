@@ -9,25 +9,43 @@ import UIKit
 
 // MARK: - UserRatesModel
 
-struct UserRatesModel {
+final class UserRatesModel {
     
-    let id: Int
+    let targetID: Int
     let target: String
     let imageUrlString: String
     let title: String
     let kind: String
     let ongoingStatus: String
-    let watchingEpisodes: String
+    var watchingEpisodes: String
     let totalEpisodes: String
-    let score: Score
-    let status: String
+    var score: Score
+    var status: String
     let statusImage: UIImage
+    var episodes: Int?
+    var rewatches: Int?
+    var chapters: Int?
+    var volumes: Int?
+    var userRateID: Int // нужно для апдейта и удаление списка
     
-    let episodes: Int?
-    let rewatches: Int?
-    let chapters: Int?
-    let volumes: Int?
-    
+    init(targetID: Int, target: String, imageUrlString: String, title: String, kind: String, ongoingStatus: String, watchingEpisodes: String, totalEpisodes: String, score: Score, status: String, statusImage: UIImage, episodes: Int? = nil, rewatches: Int? = nil, chapters: Int? = nil, volumes: Int? = nil, userRateID: Int = 0) {
+        self.targetID = targetID
+        self.target = target
+        self.imageUrlString = imageUrlString
+        self.title = title
+        self.kind = kind
+        self.ongoingStatus = ongoingStatus
+        self.watchingEpisodes = watchingEpisodes
+        self.totalEpisodes = totalEpisodes
+        self.score = score
+        self.status = status
+        self.statusImage = statusImage
+        self.episodes = episodes
+        self.rewatches = rewatches
+        self.chapters = chapters
+        self.volumes = volumes
+        self.userRateID = userRateID
+    }
 }
 
 // MARK: - UserRatesModelFactory
@@ -61,7 +79,7 @@ final class UserRatesModelFactory {
         let ongoingStatus = "Вышло" // изменю после мерджа с веткой Аллы, также добавлю цвета поля
         
         return UserRatesModel(
-            id: id,
+            targetID: id,
             target: target,
             imageUrlString: urlString,
             title: title,
@@ -75,7 +93,8 @@ final class UserRatesModelFactory {
             episodes: nil,
             rewatches: nil,
             chapters: nil,
-            volumes: nil
+            volumes: nil,
+            userRateID: 0
         )
     }
     

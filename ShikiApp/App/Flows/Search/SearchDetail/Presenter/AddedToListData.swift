@@ -30,7 +30,7 @@ final class AddedToListData {
     
     func update(_ content: SearchDetailModel) {
         guard let index = addedModels.firstIndex(of: content) else {
-            add(content)
+//            add(content)
             return
         }
         addedModels[index] = content

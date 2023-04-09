@@ -13,6 +13,9 @@ protocol SearchDetailViewInput: AnyObject {
 
 protocol SearchDetailViewOutput: AnyObject {
     func fetchData(id: Int, completion: @escaping (SearchDetailModel) -> Void)
+    func createUserRates(content: SearchDetailModel)
+    func updateUserRate(userRate: UserRatesModel)
+    func removeUserRate(userRateID: Int)
 }
 
 final class SearchDetailPresenter: SearchDetailViewOutput {
@@ -24,11 +27,13 @@ final class SearchDetailPresenter: SearchDetailViewOutput {
     // MARK: Private properties
     
     private var provider: any ContentProviderProtocol
+    private var userRatesManager: any UserRatesManagerProtocol
 
     // MARK: - Constructors
     
     init(provider: any ContentProviderProtocol) {
         self.provider = provider
+        self.userRatesManager = UserRatesManager()
     }
 
     // MARK: - Functions
@@ -42,5 +47,19 @@ final class SearchDetailPresenter: SearchDetailViewOutput {
             let content = SearchDetailModelFactory().makeDetailModel(from: response)
             completion(content)
         })
+    }
+    
+    func createUserRates(content: SearchDetailModel) {
+        guard let userRate = content.userRate else { return }
+        userRatesManager.createUserRate(userRate: userRate)
+    }
+    
+    func updateUserRate(userRate: UserRatesModel) {
+        userRatesManager.updateUserRate(userRate: userRate)
+    }
+    
+    func removeUserRate(userRateID: Int) {
+        print("@@ I wanna delete user rate with id \(userRateID)")
+        userRatesManager.removeUserRate(userRateID: userRateID)
     }
 }

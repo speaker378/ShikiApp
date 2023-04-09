@@ -19,6 +19,7 @@ final class SearchDetailViewController: UIViewController, SearchDetailViewInput 
         return view
     }()
     private var contentView: SearchDetailView?
+    private var content: SearchDetailModel?
 
     // MARK: - Construction
     
@@ -57,6 +58,7 @@ final class SearchDetailViewController: UIViewController, SearchDetailViewInput 
         presenter.fetchData(id: id) { [weak self] content in
             guard let self else { return }
             self.activityIndicator.stopAnimating()
+            self.content = content
             self.title = content.title
             self.contentView = SearchDetailView(content: content)
             self.configureContentView()
@@ -74,11 +76,21 @@ final class SearchDetailViewController: UIViewController, SearchDetailViewInput 
     private func configureContentView() {
         guard let contentView else { return }
         view.addSubview(contentView)
-        contentView.userRatesDidRemovedCompletion = { content in
-            AddedToListData.shared.remove(content)
+        contentView.userRatesDidCreatedCompletion = { [weak self] content in
+            AddedToListData.shared.add(content)
+            self?.presenter.createUserRates(content: content)
         }
-        contentView.userRatesDidChangedCompletion = { content in
+        contentView.userRatesDidRemovedCompletion = { [weak self] content in
+            guard let userRateID = content.userRate?.userRateID else { return }
+            self?.presenter.removeUserRate(userRateID: userRateID)
+            AddedToListData.shared.remove(content)
+            content.userRate = nil
+            print("@@ userRate after removing = \(String(describing: self?.content?.userRate))")
+        }
+        contentView.userRatesDidChangedCompletion = { [weak self] content in
             AddedToListData.shared.update(content)
+            guard let userRate = content.userRate else { return }
+            self?.presenter.updateUserRate(userRate: userRate)
         }
         contentView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
