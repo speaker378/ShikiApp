@@ -7,7 +7,7 @@
 
 import UIKit
 
-class UserRatesViewController: UIViewController, UserRatesViewInput {
+final class UserRatesViewController: UIViewController, UserRatesViewInput {
 
     var model: [UserRatesModel] = [] {
         didSet {
@@ -24,7 +24,7 @@ class UserRatesViewController: UIViewController, UserRatesViewInput {
     private let scrollView = UIScrollView()
     private var contentView: UserRatesView
    
-  var activityIndicator: UIActivityIndicatorView = {
+    private var activityIndicator: UIActivityIndicatorView = {
         let view = UIActivityIndicatorView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.style = .large
@@ -61,8 +61,8 @@ class UserRatesViewController: UIViewController, UserRatesViewInput {
     }
 
     // MARK: - Functions
-    
-    @objc func refreshData() {
+
+    @objc private func refreshData() {
         scrollView.refreshControl?.beginRefreshing()
         activityIndicator.startAnimating()
         viewOutput.updateData { [weak self] in

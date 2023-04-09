@@ -31,7 +31,7 @@ struct UserRatesModel {
 
 // MARK: - UserRatesModelFactory
 
-final class UserRatesModelFactory {
+final class UserRatesModelFactory: PrepareInfoProtocol {
     
     private var ratesList: UserRatesResponseDTO = []
 
@@ -50,7 +50,7 @@ final class UserRatesModelFactory {
         let target = ratesList?.targetType ?? ""
         let urlString = extractUrlString(image: source.image)
         let title = source.russian ?? source.name
-        let kind = extractKind(kind: source.kind)
+        let kind = extractKind(source.kind)
         
         let watchingEpisodes = extractWatchingEpisodes(
             watchedEpisodes: ratesList?.episodes ?? 0,
@@ -68,12 +68,12 @@ final class UserRatesModelFactory {
         )
         
         let score = Score(
-            value: extractScore(score: source.score),
-            color: extractScoreColor(score: source.score)
+            value: extractScore(source.score),
+            color: extractScoreColor(source.score)
         )
-        let status = extractStatus(score: ratesList?.status)
+        let watchingStatus = extractWatchingStatus(score: ratesList?.status)
         let statusImage = extractImageStatus(score: ratesList?.status)
-        let ongoingStatus = extractStatus(status: source.status, contentKind: kind)
+        let ongoingStatus = extractStatus(status: source.status, kind: kind)
         let episodes = ratesList?.episodes
         let rewatches = ratesList?.rewatches
         let chapters = ratesList?.chapters
@@ -90,101 +90,12 @@ final class UserRatesModelFactory {
             watchingEpisodes: watchingEpisodes,
             totalEpisodes: totalEpisodes,
             score: score,
-            status: status,
+            status: watchingStatus,
             statusImage: statusImage,
             episodes: episodes,
             rewatches: rewatches,
             chapters: chapters,
             volumes: volumes
         )
-    }
-    
-    private func extractUrlString(image: ImageDTO?) -> String {
-        
-        guard let image else { return "" }
-        return "\(Constants.Url.baseUrl)\(image.preview)"
-    }
-    
-    private func extractKind(kind: String?) -> String {
-        
-        guard let kind,
-              let kindDescription = Constants.kindsDictionary[kind]
-        else { return "" }
-        return kindDescription
-    }
-    
-    private func extractStatus(score: String?) -> String {
-        guard let score else { return ""}
-        
-        return Constants.watchingStatuses[score] ?? ""
-    }
-    
-    private func extractImageStatus(score: String?) -> UIImage {
-        guard let score else { return UIImage() }
-        
-        return Constants.watchingImageStatuses[score] ?? UIImage()
-    }
-    
-    private func extractScore(score: String?) -> String {
-        
-        guard let score,
-              let floatScore = Float(score) else { return "" }
-        return String(format: "%.1f", floatScore)
-    }
-    
-    private func extractScoreColor(score: String?) -> UIColor {
-        
-        Constants.scoreColors[String(score?.first ?? " ")] ?? AppColor.line
-    }
-    
-    private func extractWatchingEpisodes(watchedEpisodes: Int, chaptersRead: Int, episodesAired: Int, episodesUnderShot: Int, chapters: Int, contentKind: String) -> String {
-        let delimiter = "·"
-        var episodes = ""
-        var watched = ""
-        let isManga = MangaContentKind.allCases.map { $0.rawValue }.contains(contentKind)
-        
-        if isManga {
-            watched = String(describing: chaptersRead)
-            
-            if chapters > 0 {
-                episodes = String(describing: chapters)
-            } else {
-                episodes = "?"
-            }
-        } else {
-            watched = String(describing: watchedEpisodes)
-            
-            if episodesAired > 0 {
-                episodes = String(describing: episodesAired)
-            } else if episodesAired == 0 {
-                if episodesUnderShot > 0 {
-                    episodes = String(describing: episodesUnderShot)
-                } else {
-                    episodes = "?"
-                }
-            }
-        }
-        
-        return "\(watched)/\(episodes) \(delimiter) "
-    }
-    
-    private func extractWatchingEpisodes(totalEpisodes: Int, totalChapters: Int, contentKind: String) -> String {
-        var total = ""
-        let isManga = MangaContentKind.allCases.map { $0.rawValue }.contains(contentKind)
-        
-        if isManga {
-            total = "\(Texts.OtherMessage.total) \(String(describing: totalChapters)) \(Texts.OtherMessage.chapters)"
-            
-        } else {
-            total = "\(Texts.OtherMessage.total) \(String(describing: totalEpisodes)) \(Texts.OtherMessage.episodes)"
-        }
-        
-        return total
-    }
-    
-    private func extractStatus(status: String?, contentKind: String?) -> String {
-        guard let status, let contentKind else { return "" }
-        let isManga = MangaContentKind.allCases.map { $0.rawValue }.contains(contentKind)
-        return isManga ? Constants.mangaStatuses[status] ?? "" : Constants.animeStatuses[status] ?? ""
     }
 }

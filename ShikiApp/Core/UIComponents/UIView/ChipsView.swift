@@ -74,8 +74,8 @@ final class ChipsView: UIView {
     }()
     
     init(title: String, style: ChipsStyle) {
-    super.init(frame: .zero)
-    configurate(title: title, style: style)
+        super.init(frame: .zero)
+        configurate(title: title, style: style)
     }
     
     required init?(coder: NSCoder) { nil }
