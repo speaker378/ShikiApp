@@ -95,7 +95,7 @@ class UserRatesView: UIView {
     
     required init?(coder: NSCoder) { nil }
 
-    // MARK: - Functions
+    // MARK: - Private functions
 
     private func configureUI() {
         [ segmentControl,

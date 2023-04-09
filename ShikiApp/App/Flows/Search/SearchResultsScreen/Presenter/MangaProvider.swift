@@ -15,22 +15,35 @@ final class MangaProvider: ContentProviderProtocol {
     typealias ContentStatus = MangaContentStatus
 
     // MARK: - Private properties
-    
-    private let factory = ApiFactory.makeMangasApi()
+
+    private let factory: MangasRequestFactoryProtocol
 
     // MARK: - Properties
     
     var filters: MangaListFilters?
 
+    // MARK: - Constructions
+
+    init() {
+        factory = ApiFactory.makeMangasApi()
+    }
+
     // MARK: - Functions
+
+    func getGenres() -> [Int]? { filters?.genre }
+    
+    func setGenres(genres: [Int]?) {
+        if filters == nil { filters = MangaListFilters() }
+        filters?.genre = genres
+    }
 
     func setFilters(filters: Any?) -> Int {
         self.filters = filters as? MangaListFilters
-        return self.filters?.filtersCount ?? 0
+        return self.filters?.filtersCount() ?? 0
     }
     
     func getFiltersCounter() -> Int {
-        return self.filters?.filtersCount ?? 0
+        return self.filters?.filtersCount() ?? 0
     }
     
     func getFilters() -> Any? { filters }
@@ -41,6 +54,7 @@ final class MangaProvider: ContentProviderProtocol {
             limit: APIRestrictions.limit50.rawValue,
             filters: filters,
             search: searchString,
+            censored: RestrictionsProvider.restrictions.isCensored(),
             order: .byRank,
             completion: completion
         )

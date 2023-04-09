@@ -131,7 +131,7 @@ extension PrepareInfoProtocol {
     }
     
     func extractScoreColor(_ score: String?) -> UIColor {
-        Constants.scoreColors[score?.first ?? " "] ?? AppColor.line
+        Constants.scoreColors[String(score?.first ?? " ")] ?? AppColor.line
     }
     
     func extractStatus(status: String?, kind: String?) -> String {

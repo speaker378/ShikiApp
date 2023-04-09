@@ -40,20 +40,7 @@ final class FilterListModelFactory {
 
     // MARK: - Private properties
 
-    private var genresDictionary: [SearchContentEnum: [GenreModel]] = [:]
-
-    // MARK: - Constructions
-
-    init() {
-        if genresDictionary.isEmpty {
-            ApiFactory.makeGenresApi().getList { data, _ in
-                let factory = GenreModelFactory()
-                self.genresDictionary[.anime] = factory.build(genres: data, layer: .anime)
-                self.genresDictionary[.manga] = factory.build(genres: data, layer: .manga)
-                self.genresDictionary[.ranobe] = factory.build(genres: data, layer: .ranobe)
-            }
-        }
-    }
+    private let restrictionsProvider = RestrictionsProvider()
 
     // MARK: - Functions
 
@@ -133,14 +120,7 @@ final class FilterListModelFactory {
     }
 
     private func processGenres(layer: SearchContentEnum, genres: [Int]?) -> String {
-        var genresString = ""
-        guard let genres, let genresList = genresDictionary[layer] else { return genresString }
-        for genre in genres {
-            if let name = genresList.first(where: { $0.id == genre })?.name {
-                genresString += "\(name),"
-            }
-        }
-        return String(genresString.dropLast())
+        return restrictionsProvider.filterGenres(layer: layer, genres: genres)
     }
 
     private func processScore(score: Int?) -> String {

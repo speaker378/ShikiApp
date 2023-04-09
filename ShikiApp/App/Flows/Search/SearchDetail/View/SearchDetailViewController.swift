@@ -58,9 +58,7 @@ final class SearchDetailViewController: UIViewController, SearchDetailViewInput 
             guard let self else { return }
             self.activityIndicator.stopAnimating()
             self.title = content.title
-            self.contentView = SearchDetailView(content: content) {
-                AddedToListData.shared.addToList(content)
-            }
+            self.contentView = SearchDetailView(content: content)
             self.configureContentView()
         }
     }
@@ -76,6 +74,12 @@ final class SearchDetailViewController: UIViewController, SearchDetailViewInput 
     private func configureContentView() {
         guard let contentView else { return }
         view.addSubview(contentView)
+        contentView.userRatesDidRemovedCompletion = { content in
+            AddedToListData.shared.remove(content)
+        }
+        contentView.userRatesDidChangedCompletion = { content in
+            AddedToListData.shared.update(content)
+        }
         contentView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             contentView.topAnchor.constraint(equalTo: view.topAnchor),

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct OAuth2Credential: Codable {
+struct OAuth2Credential: Codable, Equatable {
     
     let accessToken: String
     let tokenType: String?

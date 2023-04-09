@@ -14,7 +14,7 @@ final class ListTableView: UITableView {
     var valuesCount: Int {
         return values.count
     }
-    
+    ///  Замыкание для определения поведения, когда было выбрано значение в таблице
     var didSelectRowHandler: ((String) -> Void)?
 
     // MARK: - Private properties
@@ -31,6 +31,13 @@ final class ListTableView: UITableView {
     }
     
     required init?(coder: NSCoder) { nil }
+
+    // MARK: - Functions
+    
+    func configureValues(_ values: [String]) {
+        self.values = values
+        reloadData()
+    }
 
     // MARK: - Private functions
     
@@ -62,7 +69,6 @@ extension ListTableView: UITableViewDataSource {
             values.indices.contains(indexPath.row),
             let cell: ListTableViewCell = tableView.cell(forRowAt: indexPath)
         else { return UITableViewCell() }
-//        cell.selectionStyle = .none
         cell.configure(content: values[indexPath.row])
         return cell
     }
@@ -74,6 +80,7 @@ extension ListTableView: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        guard values.indices.contains(indexPath.row) else { return }
         didSelectRowHandler?(values[indexPath.row])
     }
 }

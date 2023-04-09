@@ -134,7 +134,7 @@ final class UserRatesModelFactory {
     
     private func extractScoreColor(score: String?) -> UIColor {
         
-        Constants.scoreColors[score?.first ?? " "] ?? AppColor.line
+        Constants.scoreColors[String(score?.first ?? " ")] ?? AppColor.line
     }
     
     private func extractWatchingEpisodes(watchedEpisodes: Int, chaptersRead: Int, episodesAired: Int, episodesUnderShot: Int, chapters: Int, contentKind: String) -> String {

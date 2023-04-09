@@ -17,7 +17,7 @@ protocol RanobeRequestFactoryProtocol {
 
     // MARK: - Functions
 
-    func getRanobes(page: Int?, limit: Int?, filters: RanobeListFilters?, search: String?, order: OrderBy?, completion: @escaping (_ response: RanobeResponseDTO?, _ error: String?) -> Void)
+    func getRanobes(page: Int?, limit: Int?, filters: RanobeListFilters?, search: String?, censored: Bool?, order: OrderBy?, completion: @escaping (_ response: RanobeResponseDTO?, _ error: String?) -> Void)
 
     func getRanobeById(id: Int, completion: @escaping (_ response: RanobeDetailsDTO?, _ error: String?) -> Void)
 }
@@ -33,6 +33,7 @@ extension RanobeRequestFactoryProtocol {
         limit: Int? = nil,
         filters: RanobeListFilters? = nil,
         search: String? = nil,
+        censored: Bool? = true,
         order: OrderBy? = nil,
         completion: @escaping (_ response: RanobeResponseDTO?, _ error: String?) -> Void
     ) {
@@ -41,6 +42,7 @@ extension RanobeRequestFactoryProtocol {
             limit: limit,
             filters: filters,
             search: search,
+            censored: censored,
             order: order
         )
         delegate?.getResponse(
@@ -56,22 +58,25 @@ extension RanobeRequestFactoryProtocol {
 
     // MARK: - Private functions
 
-    private func validateListParameters(page: Int?, limit: Int?, filters: RanobeListFilters?, search: String?, order: OrderBy?) -> Parameters {
+    private func validateListParameters(page: Int?, limit: Int?, filters: RanobeListFilters?, search: String?, censored: Bool?, order: OrderBy?) -> Parameters {
         var parameters = Parameters()
-        if let page = page,
+        if let page,
            (1 ... APIRestrictions.maxPages.rawValue).contains(page) {
             parameters[APIKeys.page.rawValue] = page
         }
-        if let limit = limit,
+        if let limit,
            (1 ... APIRestrictions.limit50.rawValue).contains(limit) { parameters[APIKeys.limit.rawValue] = limit
         }
-        if let search = search {
+        if let search {
             parameters[APIKeys.search.rawValue] = search
         }
-        if let order = order {
+        if let censored {
+            parameters[APIKeys.censored.rawValue] = censored
+        }
+        if let order {
             parameters[APIKeys.order.rawValue] = order.rawValue
         }
-        if let filters = filters {
+        if let filters {
             parameters.merge(validateListFilters(filters: filters)) { _, new in new }
         }
         return parameters

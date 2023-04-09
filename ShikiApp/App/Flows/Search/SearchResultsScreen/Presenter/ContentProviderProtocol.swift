@@ -23,6 +23,8 @@ protocol ContentProviderProtocol: AnyObject {
     func setFilters(filters: Any?) -> Int
     func getFiltersCounter() -> Int
     func getFilters() -> Any?
+    func getGenres() -> [Int]?
+    func setGenres(genres: [Int]?)
     func saveFilters()
     func restoreFilters()
     func fetchData(searchString: String?, page: Int, completion: @escaping (_ response: [SearchContentProtocol]?, _ error: String?) -> Void )
