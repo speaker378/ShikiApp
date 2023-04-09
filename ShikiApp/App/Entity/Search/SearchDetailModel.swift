@@ -65,24 +65,33 @@ final class SearchDetailModel {
         chapters: Int? = nil,
         volumes: Int? = nil
     ) {
-        self.userRate = UserRatesModel(
-            targetID: self.id,
-            target: type,
-            imageUrlString: self.imageUrlString,
-            title: self.title,
-            kind: self.kind,
-            ongoingStatus: self.status,
-            watchingEpisodes: episodesText,
-            totalEpisodes: "\(episodes ?? 0)",
-            score: score ?? (userRate?.score ?? Score(value: "0.0", color: AppColor.line)),
-            status: status,
-            statusImage: Constants.watchingImageStatuses[status] ?? UIImage(),
-            episodes: episodes ?? userRate?.episodes,
-            rewatches: rewatches ?? userRate?.rewatches,
-            chapters: chapters ?? userRate?.chapters,
-            volumes: volumes ?? userRate?.volumes,
-            userRateID: userRate?.userRateID ?? 0
-        )
+        if let userRate {
+            userRate.status = status
+            userRate.score = score ?? userRate.score
+            userRate.episodes = episodes ?? userRate.episodes
+            userRate.rewatches = rewatches ?? userRate.rewatches
+            userRate.chapters = chapters ?? userRate.chapters
+            userRate.volumes = volumes ?? userRate.volumes
+        } else {
+            userRate = UserRatesModel(
+                targetID: id,
+                target: type,
+                imageUrlString: self.imageUrlString,
+                title: self.title,
+                kind: self.kind,
+                ongoingStatus: status,
+                watchingEpisodes: episodesText,
+                totalEpisodes: "\(episodes ?? 0)",
+                score: score ?? (userRate?.score ?? Score(value: "0.0", color: AppColor.line)),
+                status: status,
+                statusImage: Constants.watchingImageStatuses[status] ?? UIImage(),
+                episodes: episodes ?? userRate?.episodes,
+                rewatches: rewatches ?? userRate?.rewatches,
+                chapters: chapters ?? userRate?.chapters,
+                volumes: volumes ?? userRate?.volumes,
+                userRateID: userRate?.userRateID ?? 0
+            )
+        }
     }
     
 //    mutating func correctUserRateID(_ id: Int) {

@@ -17,7 +17,7 @@ final class UserRatesModel {
     let title: String
     let kind: String
     let ongoingStatus: String
-    var watchingEpisodes: String
+    let watchingEpisodes: String
     let totalEpisodes: String
     var score: Score
     var status: String
