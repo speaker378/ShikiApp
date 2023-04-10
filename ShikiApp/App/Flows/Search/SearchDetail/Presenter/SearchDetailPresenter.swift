@@ -9,6 +9,7 @@ import UIKit
 
 protocol SearchDetailViewInput: AnyObject {
     func showAlert(title: String, message: String?)
+    func showError(text: String)
 }
 
 protocol SearchDetailViewOutput: AnyObject {
@@ -41,7 +42,7 @@ final class SearchDetailPresenter: SearchDetailViewOutput {
     func fetchData(id: Int, completion: @escaping (SearchDetailModel) -> Void) {
         provider.fetchDetailData(id: id, completion: { [weak self] response, error in
             guard let response else {
-                self?.viewInput?.showAlert(title: Texts.ErrorMessage.failLoading, message: error)
+                self?.viewInput?.showError(text: error ?? Texts.ErrorMessage.failLoading)
                 return
             }
             let content = SearchDetailModelFactory().makeDetailModel(from: response)

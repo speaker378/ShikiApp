@@ -72,6 +72,8 @@ final class ChipsView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+
+    // MARK: - Construction
     
     init(title: String, style: ChipsStyle) {
         super.init(frame: .zero)
