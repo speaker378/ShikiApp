@@ -100,17 +100,14 @@ final class SearchDetailViewController: UIViewController, SearchDetailViewInput 
         guard let contentView else { return }
         view.addSubview(contentView)
         contentView.userRatesDidCreatedCompletion = { [weak self] content in
-            AddedToListData.shared.add(content)
             self?.presenter.createUserRates(content: content)
         }
         contentView.userRatesDidRemovedCompletion = { [weak self] content in
             guard let userRateID = content.userRate?.userRateID else { return }
             self?.presenter.removeUserRate(userRateID: userRateID)
-            AddedToListData.shared.remove(content)
             content.userRate = nil
         }
         contentView.userRatesDidChangedCompletion = { [weak self] content in
-            AddedToListData.shared.update(content)
             guard let userRate = content.userRate else { return }
             self?.presenter.updateUserRate(userRate: userRate)
         }

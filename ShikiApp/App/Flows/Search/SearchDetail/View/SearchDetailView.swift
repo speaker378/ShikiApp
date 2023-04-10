@@ -247,7 +247,6 @@ final class SearchDetailView: UIView {
             guard let self else { return }
             if value == Texts.ButtonTitles.removeFromList {
                 self.userRatesDidRemovedCompletion?(self.content)
-//                self.content.userRate = nil
             } else {
                 if let status = RatesTypeItemEnum(status: value) {
                     self.updateStepperValue(status: status.rawValue)

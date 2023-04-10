@@ -50,7 +50,24 @@ final class UserRatesPresenter: UserRatesViewOutput {
     // MARK: - Functions
 
     func viewDidSelectEntity(entity: UserRatesModel) {
-        print("Entity details screen build will be done here\n \(entity)")
+        var provider: any ContentProviderProtocol
+        switch entity.kind {
+        case
+            "Манга",
+            "Манхва",
+            "Маньхуа",
+            "Додзинси",
+            "Ваншот":
+            provider = MangaProvider()
+        case
+            "Ранобэ",
+            "Новелла":
+            provider = RanobeProvider()
+        default:
+            provider = AnimeProvider()
+        }
+        let searchDetailViewController = SearchDetailBuilder.build(id: entity.targetID, provider: provider)
+        viewInput?.navigationController?.pushViewController(searchDetailViewController, animated: true)
     }
     
     func changeSegmentedValueChanged() {
