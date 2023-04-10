@@ -36,7 +36,7 @@ struct AnimeRateDTO: Codable {
 
 // MARK: - AnimeInfoDTO
 
-struct AnimeInfoDTO: Codable, SearchContentProtocol {
+struct AnimeInfoDTO: Codable, SearchContentProtocol, UserRatesContentProtocol {
     
     let id: Int
     let name: String
@@ -45,6 +45,8 @@ struct AnimeInfoDTO: Codable, SearchContentProtocol {
     let url, kind, score, status: String?
     let episodes, episodesAired: Int?
     let airedOn, releasedOn: String?
+    var volumes: Int?
+    var chapters: Int?
 
     enum CodingKeys: String, CodingKey {
         case id, name, russian, image, url, kind, score, status, episodes

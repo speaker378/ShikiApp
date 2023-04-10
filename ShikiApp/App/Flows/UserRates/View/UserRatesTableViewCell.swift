@@ -60,21 +60,10 @@ class UserRatesTableViewCell: UITableViewCell {
         return label
     }()
     
-    private let ongoingStatusLabel: UILabel = {
-        let label = AppLabel(
-            alignment: .left,
-            fontSize: AppFont.Style.subtitle,
-            fontСolor: AppColor.green, // временно, после добавления данных удалить
-            paddingLeft: 4,
-            paddingRight: 4
-        )
-        // временно, после добавления сервисов будет формироваться в моделе
-        label.backgroundColor = AppColor.backgroundGreen
-       
-        label.layer.cornerRadius = 4
-        label.layer.masksToBounds = true
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+    private var statusChipsView: ChipsView = {
+        let view = ChipsView(title: "", style: .lightGray)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     private let statusImageView: UIImageView = {
@@ -146,7 +135,6 @@ class UserRatesTableViewCell: UITableViewCell {
             scoreLabel,
             titleLabel,
             kindleLabel,
-            ongoingStatusLabel,
             watchingEpisodesLabel,
             totalEpisodesLabel
         ].forEach {
@@ -162,10 +150,13 @@ class UserRatesTableViewCell: UITableViewCell {
         scoreLabel.text = cellModel.score.value
         scoreLabel.backgroundColor = cellModel.score.color
         kindleLabel.text = cellModel.kind
-        ongoingStatusLabel.text = cellModel.ongoingStatus
         statusImageView.image = cellModel.statusImage
         watchingEpisodesLabel.text = cellModel.watchingEpisodes
         totalEpisodesLabel.text = cellModel.totalEpisodes
+        statusChipsView.configurate(
+            title: cellModel.ongoingStatus,
+            style: ChipsStyle.makeStatusStyle(cellModel.ongoingStatus)
+        )
     }
 
     // MARK: - Private functions
@@ -179,7 +170,7 @@ class UserRatesTableViewCell: UITableViewCell {
                 scoreLabel,
                 titleLabel,
                 kindleLabel,
-                ongoingStatusLabel,
+                statusChipsView,
                 statusImageView,
                 watchingEpisodesLabel,
                 totalEpisodesLabel,
@@ -233,11 +224,11 @@ class UserRatesTableViewCell: UITableViewCell {
             ),
             kindleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: verticalSpacing),
 
-            ongoingStatusLabel.leadingAnchor.constraint(
+            statusChipsView.leadingAnchor.constraint(
                 equalTo: kindleLabel.trailingAnchor,
                 constant: Constants.Spacing.medium
             ),
-            ongoingStatusLabel.centerYAnchor.constraint(equalTo: kindleLabel.centerYAnchor)
+            statusChipsView.centerYAnchor.constraint(equalTo: kindleLabel.centerYAnchor)
         ])
     }
     

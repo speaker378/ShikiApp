@@ -13,13 +13,16 @@ protocol UserRatesContentProtocol {
     
     var id: Int { get }
     var name: String { get }
-    var target: String { get }
     var russian: String? { get }
     var image: ImageDTO? { get }
+    var url: String? { get }
     var kind: String? { get }
     var score: String? { get }
-    var ongoingStatus: String? { get }
     var status: String? { get }
-    var totalEpisodes: Int? { get }
-    var watchingEpisodes: Int? { get }
+    var episodes: Int? { get }
+    var episodesAired: Int? { get }
+    var volumes: Int? { get }
+    var chapters: Int? { get }
+    var airedOn: String? { get }
+    var releasedOn: String? { get }
 }

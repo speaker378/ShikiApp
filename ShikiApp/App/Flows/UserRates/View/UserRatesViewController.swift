@@ -7,21 +7,29 @@
 
 import UIKit
 
-class UserRatesViewController: UIViewController, UserRatesViewInput {
+final class UserRatesViewController: UIViewController, UserRatesViewInput {
 
-    var model: [UserRatesModel] = UserRatesModelFactoryMoсk().userRatesModelFactoryMoсk {
+    var model: [UserRatesModel] = [] {
         didSet {
-            DispatchQueue.main.async {
-                self.contentView.ratesTableView.reloadData()
-            }
+            activityIndicator.stopAnimating()
+            self.contentView.model = self.model
         }
     }
 
     // MARK: - Private properties
 
     private let viewOutput: UserRatesViewOutput
+    private var isFirstOpening: Bool = true
+    
     private let scrollView = UIScrollView()
     private var contentView: UserRatesView
+   
+    private var activityIndicator: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.style = .large
+        return view
+    }()
 
     // MARK: - Construction
 
@@ -36,11 +44,31 @@ class UserRatesViewController: UIViewController, UserRatesViewInput {
     }
 
     // MARK: - Lifecycle
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if isFirstOpening {
+            activityIndicator.startAnimating()
+            viewOutput.getRatesList(targetType: .anime, status: nil)
+            isFirstOpening = false
+        }
+    }
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
         contentView.delegate = self
         configureUI()
+    }
+
+    // MARK: - Functions
+
+    @objc private func refreshData() {
+        scrollView.refreshControl?.beginRefreshing()
+        activityIndicator.startAnimating()
+        viewOutput.updateData { [weak self] in
+            guard let self else { return }
+            self.scrollView.refreshControl?.endRefreshing()
+        }
     }
 
     // MARK: - Private functions
@@ -48,11 +76,18 @@ class UserRatesViewController: UIViewController, UserRatesViewInput {
     private func configureUI() {
         view.backgroundColor = AppColor.backgroundMain
         view.addSubview(scrollView)
-        scrollView.addSubview(contentView)
-        [scrollView, contentView].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+        scrollView.addSubviews([contentView, activityIndicator])
+        [scrollView, contentView, activityIndicator].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
         configureConstraints()
+        setupPullToRefresh()
     }
-
+    
+    private func setupPullToRefresh() {
+        scrollView.refreshControl = UIRefreshControl()
+        scrollView.refreshControl?.attributedTitle = NSAttributedString(string: Texts.LoadingMessage.inProgress)
+        scrollView.refreshControl?.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+    }
+    
     private func configureConstraints() {
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -65,14 +100,37 @@ class UserRatesViewController: UIViewController, UserRatesViewInput {
             contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            contentView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width)
+            contentView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width),
+            
+            activityIndicator.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor)
         ])
     }
 }
 
+// MARK: - UserRatesViewDelegate
+
 extension UserRatesViewController: UserRatesViewDelegate {
     func statusValueChanged(status: String) {
-        self.viewOutput.statusValueChanged(status: status)
+        let statusEnum = RatesTypeItemEnum.self
+        if status == statusEnum.all.getString() {
+            viewOutput.status = nil
+        } else if status == statusEnum.completed.getString() {
+            viewOutput.status = .completed
+        } else if status == statusEnum.dropped.getString() {
+            viewOutput.status = .dropped
+        } else if status == statusEnum.onHold.getString() {
+            viewOutput.status = .onHold
+        } else if status == statusEnum.planned.getString() {
+            viewOutput.status = .planned
+        } else if status == statusEnum.rewatching.getString() {
+            viewOutput.status = .reWatching
+        } else if status == statusEnum.watching.getString() {
+            viewOutput.status = .watching
+        }
+        
+        self.viewOutput.statusValueChanged()
+        activityIndicator.startAnimating()
     }
     
     func viewDidSelectEntity(entity: UserRatesModel) {
@@ -80,6 +138,12 @@ extension UserRatesViewController: UserRatesViewDelegate {
     }
     
     func changeSegmentedValueChanged(index: Int) {
-        self.viewOutput.changeSegmentedValueChanged(index: index)
+        if index == 0 {
+            viewOutput.targetType = .anime
+        } else if index == 1 {
+            viewOutput.targetType = .manga
+        }
+        self.viewOutput.changeSegmentedValueChanged()
+        activityIndicator.startAnimating()
     }
 }

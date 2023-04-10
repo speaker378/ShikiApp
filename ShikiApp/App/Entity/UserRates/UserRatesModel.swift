@@ -50,33 +50,54 @@ final class UserRatesModel {
 
 // MARK: - UserRatesModelFactory
 
-final class UserRatesModelFactory {
+final class UserRatesModelFactory: PrepareInfoProtocol {
+    
+    private var ratesList: UserRatesResponseDTO = []
 
     // MARK: - Functions
 
-    func makeModels(from source: [UserRatesContentProtocol]) -> [UserRatesModel] {
+    func makeModels(from source: [UserRatesContentProtocol], ratesList: UserRatesResponseDTO) -> [UserRatesModel] {
+        self.ratesList = ratesList
         return source.compactMap(self.viewModel)
     }
 
     // MARK: - Private functions
 
     private func viewModel(from source: UserRatesContentProtocol) -> UserRatesModel {
-        let delimiter = "·"
+        let ratesList = ratesList.first(where: {$0.targetID == source.id})
         let id = source.id
-        let target = source.target
+        let target = ratesList?.targetType ?? ""
         let urlString = extractUrlString(image: source.image)
         let title = source.russian ?? source.name
-        let kind = extractKind(kind: source.kind)
-        let watchingEpisodes = "\(String(describing: source.watchingEpisodes ?? 0))/\(String(describing: source.totalEpisodes ?? 0)) \(delimiter) "
-        let totalEpisodes = "Всего: \(String(describing: source.totalEpisodes ?? 0)) эп." // возьму из констант после мерджа с Аллой
+        let kind = extractKind(source.kind)
+        
+        let watchingEpisodes = extractWatchingEpisodes(
+            watchedEpisodes: ratesList?.episodes ?? 0,
+            chaptersRead: ratesList?.chapters ?? 0,
+            episodesAired: source.episodesAired ?? 0,
+            episodesUnderShot: source.episodes ?? 0,
+            chapters: source.chapters ?? 0,
+            contentKind: source.kind ?? ""
+        )
+        
+        let totalEpisodes = extractWatchingEpisodes(
+            totalEpisodes: source.episodes ?? 0,
+            totalChapters: source.chapters ?? 0,
+            contentKind: source.kind ?? ""
+        )
         
         let score = Score(
-            value: extractScore(score: source.score),
-            color: extractScoreColor(score: source.score)
+            value: extractScore(source.score),
+            color: extractScoreColor(source.score)
         )
-        let status = extractStatus(score: source.status)
-        let statusImage = extractImageStatus(score: source.status)
-        let ongoingStatus = "Вышло" // изменю после мерджа с веткой Аллы, также добавлю цвета поля
+        let watchingStatus = extractWatchingStatus(score: ratesList?.status)
+        let statusImage = extractImageStatus(score: ratesList?.status)
+        let ongoingStatus = extractStatus(status: source.status, kind: kind)
+        let episodes = ratesList?.episodes
+        let rewatches = ratesList?.rewatches
+        let chapters = ratesList?.chapters
+        let volumes = ratesList?.volumes
+        
         
         return UserRatesModel(
             targetID: id,
@@ -88,241 +109,13 @@ final class UserRatesModelFactory {
             watchingEpisodes: watchingEpisodes,
             totalEpisodes: totalEpisodes,
             score: score,
-            status: status,
+            status: watchingStatus,
             statusImage: statusImage,
-            episodes: nil,
-            rewatches: nil,
-            chapters: nil,
-            volumes: nil,
+            episodes: episodes,
+            rewatches: rewatches,
+            chapters: chapters,
+            volumes: volumes
             userRateID: 0
         )
     }
-    
-    private func extractUrlString(image: ImageDTO?) -> String {
-        
-        guard let image else { return "" }
-        return "\(Constants.Url.baseUrl)\(image.preview)"
-    }
-    
-    private func extractKind(kind: String?) -> String {
-        
-        guard let kind,
-              let kindDescription = Constants.kindsDictionary[kind]
-        else { return "" }
-        return kindDescription
-    }
-    
-    private func extractStatus(score: String?) -> String {
-        guard let score else { return ""}
-        
-        return Constants.watchingStatuses[score] ?? ""
-    }
-    
-    private func extractImageStatus(score: String?) -> UIImage {
-        guard let score else { return UIImage() }
-        
-        return Constants.watchingImageStatuses[score] ?? UIImage()
-    }
-    
-    private func extractScore(score: String?) -> String {
-        
-        guard let score,
-              let floatScore = Float(score) else { return "" }
-        return String(format: "%.1f", floatScore)
-    }
-    
-    private func extractScoreColor(score: String?) -> UIColor {
-        
-        Constants.scoreColors[String(score?.first ?? " ")] ?? AppColor.line
-    }
-}
-// TODO: - Для примера. Удалить, когда будет сетевой слой или база данных
-final class UserRatesMock: UserRatesContentProtocol {
-    var id: Int
-    var name: String
-    var target: String
-    var russian: String?
-    var image: ImageDTO?
-    var kind: String?
-    var score: String?
-    var ongoingStatus: String?
-    var status: String?
-    var totalEpisodes: Int?
-    var watchingEpisodes: Int?
-    var episodes: Int?
-    var rewatches: Int?
-    var chapters: Int?
-    var volumes: Int?
-    
-    init(
-        id: Int,
-        name: String,
-        target: String,
-        russian: String? = nil,
-        image: ImageDTO? = nil,
-        kind: String? = nil,
-        score: String? = nil,
-        ongoingStatus: String? = nil,
-        status: String? = nil,
-        totalEpisodes: Int? = nil,
-        watchingEpisodes: Int? = nil,
-        episodes: Int? = nil,
-        rewatches: Int? = nil,
-        chapters: Int? = nil,
-        volumes: Int? = nil
-    ) {
-        self.id = id
-        self.name = name
-        self.target = target
-        self.russian = russian
-        self.image = image
-        self.kind = kind
-        self.score = score
-        self.ongoingStatus = ongoingStatus
-        self.status = status
-        self.totalEpisodes = totalEpisodes
-        self.watchingEpisodes = watchingEpisodes
-        self.episodes = episodes
-        self.rewatches = rewatches
-        self.chapters = chapters
-        self.volumes = volumes
-    }
-
-}
-
-struct UserRatesExample {
-    
-    let userRates = UserRatesMock(
-        id: 12292,
-        name: "Higurashi no Naku Koro ni: Kokoroiyashi-hen",
-        target: "Anime",
-        russian: "Когда плачут цикады: Глава об исцелении сердец",
-        image: ImageDTO(
-            original: "/system/mangas/original/12292.jpg?1648169019",
-            preview: "/system/mangas/preview/12292.jpg?1648169019",
-            x96: "/system/mangas/x96/12292.jpg?1648169019",
-            x48: "/system/mangas/x48/12292.jpg?1648169019"
-        ),
-        kind: "tv",
-        score: "9",
-        status: "completed",
-        totalEpisodes: 25,
-        watchingEpisodes: 3
-    )
-    let userRates1 = UserRatesMock(
-        id: 12292,
-        name: "Higurashi no Naku Koro ni: Kokoroiyashi-hen",
-        target: "Anime",
-        russian: "Когда плачут цикады: Глава об исцелении сердец",
-        image: ImageDTO(
-            original: "/system/mangas/original/12292.jpg?1648169019",
-            preview: "/system/mangas/preview/12292.jpg?1648169019",
-            x96: "/system/mangas/x96/12292.jpg?1648169019",
-            x48: "/system/mangas/x48/12292.jpg?1648169019"
-        ),
-        kind: "tv",
-        score: "5",
-        status: "planned",
-        totalEpisodes: 25,
-        watchingEpisodes: 3
-    )
-    let userRates2 = UserRatesMock(
-        id: 12292,
-        name: "Higurashi no Naku Koro ni: Kokoroiyashi-hen",
-        target: "Anime",
-        russian: "Когда плачут цикады: Глава об исцелении сердец",
-        image: ImageDTO(
-            original: "/system/mangas/original/12292.jpg?1648169019",
-            preview: "/system/mangas/preview/12292.jpg?1648169019",
-            x96: "/system/mangas/x96/12292.jpg?1648169019",
-            x48: "/system/mangas/x48/12292.jpg?1648169019"
-        ),
-        kind: "tv",
-        score: "1",
-        status: "watching",
-        totalEpisodes: 25,
-        watchingEpisodes: 3
-    )
-    let userRates3 = UserRatesMock(
-        id: 12292,
-        name: "Higurashi no Naku Koro ni: Kokoroiyashi-hen",
-        target: "Anime",
-        russian: "Когда плачут цикады: Глава об исцелении сердец",
-        image: ImageDTO(
-            original: "/system/mangas/original/12292.jpg?1648169019",
-            preview: "/system/mangas/preview/12292.jpg?1648169019",
-            x96: "/system/mangas/x96/12292.jpg?1648169019",
-            x48: "/system/mangas/x48/12292.jpg?1648169019"
-        ),
-        kind: "tv",
-        score: "7",
-        status: "on_hold",
-        totalEpisodes: 25,
-        watchingEpisodes: 3
-    )
-    let userRates4 = UserRatesMock(
-        id: 12292,
-        name: "Higurashi no Naku Koro ni: Kokoroiyashi-hen",
-        target: "Anime",
-        russian: "Когда плачут цикады: Глава об исцелении сердец",
-        image: ImageDTO(
-            original: "/system/mangas/original/12292.jpg?1648169019",
-            preview: "/system/mangas/preview/12292.jpg?1648169019",
-            x96: "/system/mangas/x96/12292.jpg?1648169019",
-            x48: "/system/mangas/x48/12292.jpg?1648169019"
-        ),
-        kind: "tv",
-        score: "2",
-        status: "dropped",
-        totalEpisodes: 25,
-        watchingEpisodes: 3
-    )
-    let userRates5 = UserRatesMock(
-        id: 12292,
-        name: "Higurashi no Naku Koro ni: Kokoroiyashi-hen",
-        target: "Anime",
-        russian: "Когда плачут цикады: Глава об исцелении сердец",
-        image: ImageDTO(
-            original: "/system/mangas/original/12292.jpg?1648169019",
-            preview: "/system/mangas/preview/12292.jpg?1648169019",
-            x96: "/system/mangas/x96/12292.jpg?1648169019",
-            x48: "/system/mangas/x48/12292.jpg?1648169019"
-        ),
-        kind: "tv",
-        score: "8",
-        status: "rewatching",
-        totalEpisodes: 25,
-        watchingEpisodes: 3
-    )
-    
-    let userRates6 = UserRatesMock(
-        id: 12292,
-        name: "Higurashi no Naku Koro ni: Kokoroiyashi-hen",
-        target: "Manga",
-        russian: "Manga Когда плачут цикады: Глава об исцелении сердец",
-        image: ImageDTO(
-            original: "/system/mangas/original/12292.jpg?1648169019",
-            preview: "/system/mangas/preview/12292.jpg?1648169019",
-            x96: "/system/mangas/x96/12292.jpg?1648169019",
-            x48: "/system/mangas/x48/12292.jpg?1648169019"
-        ),
-        kind: "tv",
-        score: "7",
-        status: "rewatching",
-        totalEpisodes: 25,
-        watchingEpisodes: 3
-    )
-}
-
-final class UserRatesModelFactoryMoсk {
-    let userRatesModelFactoryMoсk = UserRatesModelFactory().makeModels(
-        from: [UserRatesExample().userRates,
-               UserRatesExample().userRates1,
-               UserRatesExample().userRates2,
-               UserRatesExample().userRates3,
-               UserRatesExample().userRates4,
-               UserRatesExample().userRates5,
-               UserRatesExample().userRates6
-              ]
-    )
 }
