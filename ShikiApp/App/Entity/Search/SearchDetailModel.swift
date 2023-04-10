@@ -31,8 +31,31 @@ final class SearchDetailModel {
     let duration: Int?
     let durationOrVolumes: String
     var userRate: UserRatesModel?
+
+    // MARK: - Constructions
     
-    init(id: Int, type: String, imageUrlString: String, title: String, kind: String, kindAndDate: String, score: String, status: String, description: String, rating: String?, studios: [String], genres: [String], episodes: Int?, episodesAired: Int?, episodesText: String, volumes: Int?, chapters: Int?, duration: Int?, durationOrVolumes: String, userRate: UserRatesModel? = nil) {
+    init(
+        id: Int,
+        type: String,
+        imageUrlString: String,
+        title: String,
+        kind: String,
+        kindAndDate: String,
+        score: String,
+        status: String,
+        description: String,
+        rating: String?,
+        studios: [String],
+        genres: [String],
+        episodes: Int?,
+        episodesAired: Int?,
+        episodesText: String,
+        volumes: Int?,
+        chapters: Int?,
+        duration: Int?,
+        durationOrVolumes: String,
+        userRate: UserRatesModel? = nil
+    ) {
         self.id = id
         self.type = type
         self.imageUrlString = imageUrlString
@@ -93,10 +116,6 @@ final class SearchDetailModel {
             )
         }
     }
-    
-//    mutating func correctUserRateID(_ id: Int) {
-//        self.userRate?.userRateID = id
-//    }
 }
 
 extension SearchDetailModel: Equatable {

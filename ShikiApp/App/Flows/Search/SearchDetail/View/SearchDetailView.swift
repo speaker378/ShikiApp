@@ -11,8 +11,6 @@ final class SearchDetailView: UIView {
 
     // MARK: - Properties
     
-    // TODO: - добавить событие на создание списка
-    
     var userRatesDidRemovedCompletion: ((SearchDetailModel) -> Void)?
     var userRatesDidChangedCompletion: ((SearchDetailModel) -> Void)?
     var userRatesDidCreatedCompletion: ((SearchDetailModel) -> Void)?

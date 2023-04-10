@@ -51,15 +51,20 @@ final class SearchDetailPresenter: SearchDetailViewOutput {
     
     func createUserRates(content: SearchDetailModel) {
         guard let userRate = content.userRate else { return }
-        userRatesManager.createUserRate(userRate: userRate)
+        userRatesManager.createUserRate(userRate: userRate) { [weak self] error in
+            self?.viewInput?.showAlert(title: Texts.ErrorMessage.error, message: error)
+        }
     }
     
     func updateUserRate(userRate: UserRatesModel) {
-        userRatesManager.updateUserRate(userRate: userRate)
+        userRatesManager.updateUserRate(userRate: userRate) { [weak self] error in
+            self?.viewInput?.showAlert(title: Texts.ErrorMessage.error, message: error)
+        }
     }
     
     func removeUserRate(userRateID: Int) {
-        print("@@ I wanna delete user rate with id \(userRateID)")
-        userRatesManager.removeUserRate(userRateID: userRateID)
+        userRatesManager.removeUserRate(userRateID: userRateID) { [weak self] error in
+            self?.viewInput?.showAlert(title: Texts.ErrorMessage.error, message: error)
+        }
     }
 }

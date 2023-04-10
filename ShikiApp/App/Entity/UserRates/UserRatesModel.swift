@@ -21,12 +21,12 @@ final class UserRatesModel {
     let totalEpisodes: String
     var score: Score
     var status: String
-    let statusImage: UIImage
+    var statusImage: UIImage
     var episodes: Int?
     var rewatches: Int?
     var chapters: Int?
     var volumes: Int?
-    var userRateID: Int // нужно для апдейта и удаление списка
+    var userRateID: Int
     
     init(targetID: Int, target: String, imageUrlString: String, title: String, kind: String, ongoingStatus: String, watchingEpisodes: String, totalEpisodes: String, score: Score, status: String, statusImage: UIImage, episodes: Int? = nil, rewatches: Int? = nil, chapters: Int? = nil, volumes: Int? = nil, userRateID: Int = 0) {
         self.targetID = targetID
@@ -98,7 +98,6 @@ final class UserRatesModelFactory: PrepareInfoProtocol {
         let chapters = ratesList?.chapters
         let volumes = ratesList?.volumes
         
-        
         return UserRatesModel(
             targetID: id,
             target: target,
@@ -114,8 +113,8 @@ final class UserRatesModelFactory: PrepareInfoProtocol {
             episodes: episodes,
             rewatches: rewatches,
             chapters: chapters,
-            volumes: volumes
-            userRateID: 0
+            volumes: volumes,
+            userRateID: ratesList?.id ?? 0
         )
     }
 }

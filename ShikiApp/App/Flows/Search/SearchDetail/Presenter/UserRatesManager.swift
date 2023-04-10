@@ -5,11 +5,7 @@
 //  Created by 👩🏻‍🎨 📱 december11 on 08.04.2023.
 //
 
-import Foundation
-
 final class UserRatesManager: UserRatesManagerProtocol {
-
-    // MARK: - Properties
 
     // MARK: - Private properties
     
@@ -24,20 +20,10 @@ final class UserRatesManager: UserRatesManagerProtocol {
         userFactory = ApiFactory.makeUsersApi()
     }
     
-    // TODO: - убрать значение типа по дефолту
-    func createUserRate(userRate: UserRatesModel) {
+    func createUserRate(userRate: UserRatesModel, errorHandler: @escaping (String) -> Void) {
         let state = makeState(userRate: userRate)
-        
         getUserID { [weak self] userID in
             guard let self, let userID else { return }
-            print("@@ create userRate: I create a new entry!" )
-            print("@@ userID = \(userID)" )
-            print("@@ targetID = \(userRate.targetID)" )
-            print("@@ targetType = \(UserRatesTargetType(rawValue: userRate.target) ?? .anime)" )
-            print("@@ state = \(state)" )
-            
-//            userRate.userRateID = 1234
-            
             self.userRatesFactory.postEntity(
                 userId: userID,
                 targetId: userRate.targetID,
@@ -46,39 +32,30 @@ final class UserRatesManager: UserRatesManagerProtocol {
             ) { response, error in
                 if let response {
                     userRate.userRateID = response.id
-                    print("@@ create userRate: \(response)")
                 }
                 if let error {
-                    print("@@ create userRate: Can't create list. Error: \(error)")
+                    errorHandler(error)
+//                    debugPrint("@@ create userRate: Can't create list. Error: \(error)")
                 }
             }
         }
     }
     
-    func updateUserRate(userRate: UserRatesModel) {
+    func updateUserRate(userRate: UserRatesModel, errorHandler: @escaping (String) -> Void) {
         let state = makeState(userRate: userRate)
-        print("@@ update userRate: I update userRate iwth id \(userRate.userRateID)!" )
-        print("@@ targetID = \(userRate.targetID)" )
-        print("@@ targetType = \(String(describing: UserRatesTargetType(rawValue: userRate.target)))" )
-        print("@@ state = \(state)" )
-        userRatesFactory.putEntity(id: userRate.userRateID, state: state) { response, error in
-            if let response {
-                print("@@ update userRate: \(response)")
-            }
+        userRatesFactory.putEntity(id: userRate.userRateID, state: state) { _, error in
             if let error {
-                print("@@ update userRate: Can't update list. Error: \(error)")
+                errorHandler(error)
+//                debugPrint("@@ update userRate: Can't update list. Error: \(error)")
             }
         }
     }
     
-    func removeUserRate(userRateID id: Int) {
-        print("@@ I delete userRate with id \(id)")
-        userRatesFactory.deleteEntity(id: id) { response, error in
-            if let response {
-                print("@@ delete userRate: \(response)")
-            }
+    func removeUserRate(userRateID id: Int, errorHandler: @escaping (String) -> Void) {
+        userRatesFactory.deleteEntity(id: id) { _, error in
             if let error {
-                print("@@ delete userRate: Can't remove list. Error: \(error)")
+                errorHandler(error)
+//                debugPrint("@@ delete userRate: Can't remove list. Error: \(error)")
             }
         }
     }

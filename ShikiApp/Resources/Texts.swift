@@ -23,6 +23,7 @@ enum Texts {
     }
     
     enum ErrorMessage {
+        static let error = "Ошибка"
         static let general = "Что-то пошло не так.\nПопробуйте позже, должно получиться"
         static let noResults = "Ничего не найдено"
         static let failLoading = "Данные не загрузились"

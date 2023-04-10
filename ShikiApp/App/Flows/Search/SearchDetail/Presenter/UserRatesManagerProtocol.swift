@@ -10,7 +10,7 @@ protocol UserRatesManagerProtocol {
 
     // MARK: - Functions
     
-    func createUserRate(userRate: UserRatesModel)
-    func updateUserRate(userRate: UserRatesModel)
-    func removeUserRate(userRateID: Int)
+    func createUserRate(userRate: UserRatesModel, errorHandler: @escaping (String) -> Void)
+    func updateUserRate(userRate: UserRatesModel, errorHandler: @escaping (String) -> Void)
+    func removeUserRate(userRateID: Int, errorHandler: @escaping (String) -> Void)
 } 
