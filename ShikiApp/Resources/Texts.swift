@@ -105,6 +105,16 @@ enum Texts {
         static let rewatching = "Пересматриваю"
     }
     
+    enum ListMangaTypesSelectItems {
+        static let all = "Вce"
+        static let completed = "Прочитано"
+        static let planned = "Запланировано"
+        static let watching = "Читаю"
+        static let onHold = "Отложено"
+        static let dropped = "Брошено"
+        static let rewatching = "Перечитываю"
+    }
+    
     struct NetworkLayerErrorMessages {
         static let success = "Успешный запрос"
         static let redirect = "Необходимо перенаправить запрос"

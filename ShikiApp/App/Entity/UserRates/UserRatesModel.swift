@@ -28,7 +28,7 @@ final class UserRatesModel {
     var volumes: Int?
     var userRateID: Int
     
-    init(targetID: Int, target: String, imageUrlString: String, title: String, kind: String, ongoingStatus: String, watchingEpisodes: String, totalEpisodes: String, score: Score, status: String, statusImage: UIImage, episodes: Int? = nil, rewatches: Int? = nil, chapters: Int? = nil, volumes: Int? = nil, userRateID: Int = 0) {
+    init(targetID: Int, target: String, imageUrlString: String, title: String, kind: String, ongoingStatus: String, watchingEpisodes: String, totalEpisodes: String, score: Score, status: String, statusImage: UIImage, episodes: Int? = nil, rewatches: Int? = nil, chapters: Int? = nil, volumes: Int? = nil, userRateID: Int) {
         self.targetID = targetID
         self.target = target
         self.imageUrlString = imageUrlString

@@ -85,21 +85,22 @@ final class SearchDetailView: UIView {
     // MARK: - Functions
     
     func updateUserRate(status: RatesTypeItemEnum, score: Score? = nil) {
-        let hasAddedUserRate = content.userRate == nil
+        let hasAdded = content.userRate == nil
+        let isAnime = content.type == UserRatesTargetType.anime.rawValue
         if status == .rewatching {
             content.configureUserRate(status: status.rawValue, score: score, rewatches: stepperView.value)
-        } else if content.type == UserRatesTargetType.anime.rawValue {
+        } else if isAnime {
             content.configureUserRate(status: status.rawValue, score: score, episodes: stepperView.value)
         } else if content.type == UserRatesTargetType.manga.rawValue {
             content.configureUserRate(status: status.rawValue, score: score, chapters: stepperView.value)
         }
         
-        button.configurate(text: status.getString(), image: AppImage.NavigationsBarIcons.chevronDown)
-        if hasAddedUserRate {
+        if hasAdded {
             userRatesDidCreatedCompletion?(content)
         } else {
             userRatesDidChangedCompletion?(content)
         }
+        button.configurate(text: status.getString(isAnime: isAnime), image: AppImage.NavigationsBarIcons.chevronDown)
     }
 
     // MARK: - Private functions
@@ -226,7 +227,6 @@ final class SearchDetailView: UIView {
         default:
             value = stepperView.value
         }
-        
         stepperView.configure(value: value)
     }
     
@@ -266,7 +266,6 @@ final class SearchDetailView: UIView {
     private func configureTransparentView() {
         let window = UIApplication.firstKeyWindowForConnectedScenes
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(transparentViewTapped))
-        
         transparentView.frame = window?.frame ?? self.frame
         transparentView.backgroundColor = AppColor.backgroundMinor
         transparentView.alpha = 0
@@ -334,10 +333,11 @@ final class SearchDetailView: UIView {
     
     /// подготовка значений для выпадающего списка к кнопке "Добавить в список"
     private func makeRatesList(status: String, userRates: UserRatesModel?) -> [String] {
+        let isAnime = content.type == UserRatesTargetType.anime.rawValue
         if status == Constants.mangaStatusDictionary["anons"] || status == Constants.animeStatusDictionary["anons"] {
-            return [RatesTypeItemEnum.planned.getString(), Texts.ButtonTitles.removeFromList]
+            return [RatesTypeItemEnum.planned.getString(isAnime: isAnime), Texts.ButtonTitles.removeFromList]
         }
-        var array = RatesTypeItemEnum.allCases.map { $0.getString() }
+        var array = RatesTypeItemEnum.allCases.map { $0.getString(isAnime: isAnime) }
         array.removeFirst()
         if userRates != nil {
             array.append(Texts.ButtonTitles.removeFromList)

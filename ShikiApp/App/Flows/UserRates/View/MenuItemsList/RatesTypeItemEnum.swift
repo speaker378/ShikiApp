@@ -36,6 +36,25 @@ enum RatesTypeItemEnum: String, CaseIterable {
         }
     }
     
+    func getString(isAnime: Bool = true) -> String {
+        switch self {
+        case .all:
+            return isAnime ? Texts.ListTypesSelectItems.all : Texts.ListMangaTypesSelectItems.all
+        case .completed:
+            return isAnime ? Texts.ListTypesSelectItems.completed : Texts.ListMangaTypesSelectItems.completed
+        case .planned:
+            return isAnime ? Texts.ListTypesSelectItems.planned : Texts.ListMangaTypesSelectItems.planned
+        case .watching:
+            return isAnime ? Texts.ListTypesSelectItems.watching : Texts.ListMangaTypesSelectItems.watching
+        case .onHold:
+            return isAnime ? Texts.ListTypesSelectItems.onHold : Texts.ListMangaTypesSelectItems.onHold
+        case .dropped:
+            return isAnime ? Texts.ListTypesSelectItems.dropped : Texts.ListMangaTypesSelectItems.dropped
+        case .rewatching:
+            return isAnime ? Texts.ListTypesSelectItems.rewatching : Texts.ListMangaTypesSelectItems.rewatching
+        }
+    }
+    
     init?(status: String) {
         switch status {
         case Texts.ListTypesSelectItems.all: self = .all

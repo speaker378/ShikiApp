@@ -152,7 +152,6 @@ final class SearchDetailModelFactory {
             status: status
         )
         
-        
         return SearchDetailModel(
             id: source.id,
             type: extractType(kind: source.kind),

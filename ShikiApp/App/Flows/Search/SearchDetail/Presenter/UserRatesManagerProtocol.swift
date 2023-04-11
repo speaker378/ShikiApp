@@ -6,7 +6,6 @@
 //
 
 protocol UserRatesManagerProtocol {
-//    associatedtype ContentKind: Codable
 
     // MARK: - Functions
     

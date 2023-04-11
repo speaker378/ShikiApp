@@ -114,6 +114,8 @@ final class ScoringView: UIView {
     private func onDidTouch(_ locationX: CGFloat) {
         let calculatedTouchRating = touchRating(locationX)
         guard calculatedTouchRating != previousScore else { return }
+//        score = calculatedTouchRating == previousScore ? 0 : calculatedTouchRating
+//        previousScore = calculatedTouchRating == previousScore ? 0 : calculatedTouchRating
         score = calculatedTouchRating
         previousScore = calculatedTouchRating
         updateStarImages(score: calculatedTouchRating)

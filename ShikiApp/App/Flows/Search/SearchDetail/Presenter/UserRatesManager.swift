@@ -35,7 +35,6 @@ final class UserRatesManager: UserRatesManagerProtocol {
                 }
                 if let error {
                     errorHandler(error)
-//                    debugPrint("@@ create userRate: Can't create list. Error: \(error)")
                 }
             }
         }
@@ -46,7 +45,6 @@ final class UserRatesManager: UserRatesManagerProtocol {
         userRatesFactory.putEntity(id: userRate.userRateID, state: state) { _, error in
             if let error {
                 errorHandler(error)
-//                debugPrint("@@ update userRate: Can't update list. Error: \(error)")
             }
         }
     }
@@ -55,7 +53,6 @@ final class UserRatesManager: UserRatesManagerProtocol {
         userRatesFactory.deleteEntity(id: id) { _, error in
             if let error {
                 errorHandler(error)
-//                debugPrint("@@ delete userRate: Can't remove list. Error: \(error)")
             }
         }
     }

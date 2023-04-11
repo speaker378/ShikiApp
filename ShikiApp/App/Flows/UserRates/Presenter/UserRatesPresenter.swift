@@ -67,7 +67,8 @@ final class UserRatesPresenter: UserRatesViewOutput {
             provider = AnimeProvider()
         }
         let searchDetailViewController = SearchDetailBuilder.build(id: entity.targetID, provider: provider)
-        viewInput?.navigationController?.pushViewController(searchDetailViewController, animated: true)
+        viewInput?.navigationController?.present(searchDetailViewController, animated: true)
+//        viewInput?.navigationController?.pushViewController(searchDetailViewController, animated: true)
     }
     
     func changeSegmentedValueChanged() {

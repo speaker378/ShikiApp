@@ -50,9 +50,9 @@ final class ErrorView: UIView {
 
     // MARK: - Functions
     
-    func configure(image: UIImage? = nil, text: String? = nil) {
+    func configure(image: UIImage? = nil, text: String) {
         errorImageView.image = image ?? errorImageView.image
-        errorLabel.text = text ?? errorLabel.text
+        errorLabel.text = text
     }
 
     // MARK: - Private functions

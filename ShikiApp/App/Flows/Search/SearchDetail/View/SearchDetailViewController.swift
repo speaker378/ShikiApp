@@ -58,7 +58,7 @@ final class SearchDetailViewController: UIViewController, SearchDetailViewInput 
         activityIndicator.stopAnimating()
     }
     
-    func showError(text: String) {
+    func showErrorView(text: String) {
         errorView.configure(text: text)
         errorView.isHidden = false
         activityIndicator.stopAnimating()
