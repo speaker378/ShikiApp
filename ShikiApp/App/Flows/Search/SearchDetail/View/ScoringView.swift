@@ -28,6 +28,7 @@ final class ScoringView: UIView {
     private var previousScore: Int
     private var starImageViews = [UIImageView]()
     private var starSize = CGSize(width: 28.0, height: 28.0)
+    private var disablePanGestures = true
 
     // MARK: - Construction
     
@@ -68,6 +69,14 @@ final class ScoringView: UIView {
         guard touchLocationFromBeginningOfRating(touches) != nil else { return }
         didChangedValueCompletion?(score)
     }
+    
+    /// Отключает обработку UIPanGestureRecognizer, чтобы нельзя было закрыть модалку пока юзер меняет рейтинг
+    override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if disablePanGestures {
+            return !(gestureRecognizer is UIPanGestureRecognizer)
+        }
+        return true
+    }
 
     // MARK: - Private functions
     
@@ -92,7 +101,6 @@ final class ScoringView: UIView {
     private func configureConstraints() {
         NSLayoutConstraint.activate([
             heightAnchor.constraint(equalToConstant: Constants.Insets.controlHeight),
-
             starStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
             starStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
             starStackView.trailingAnchor.constraint(equalTo: trailingAnchor)
@@ -114,8 +122,6 @@ final class ScoringView: UIView {
     private func onDidTouch(_ locationX: CGFloat) {
         let calculatedTouchRating = touchRating(locationX)
         guard calculatedTouchRating != previousScore else { return }
-//        score = calculatedTouchRating == previousScore ? 0 : calculatedTouchRating
-//        previousScore = calculatedTouchRating == previousScore ? 0 : calculatedTouchRating
         score = calculatedTouchRating
         previousScore = calculatedTouchRating
         updateStarImages(score: calculatedTouchRating)

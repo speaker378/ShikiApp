@@ -91,7 +91,7 @@ final class SearchDetailView: UIView {
             content.configureUserRate(status: status.rawValue, score: score, rewatches: stepperView.value)
         } else if isAnime {
             content.configureUserRate(status: status.rawValue, score: score, episodes: stepperView.value)
-        } else if content.type == UserRatesTargetType.manga.rawValue {
+        } else { 
             content.configureUserRate(status: status.rawValue, score: score, chapters: stepperView.value)
         }
         
