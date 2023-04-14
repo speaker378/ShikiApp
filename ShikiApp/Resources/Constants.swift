@@ -83,8 +83,7 @@ struct Constants {
     }
     
     enum LimitsForRequest {
-        
-        static let itemsLimit: Int = 50
+        static let itemsLimit: Int = 5000
         static let limitRequestsPerSecond: Int = 5
     }
 
