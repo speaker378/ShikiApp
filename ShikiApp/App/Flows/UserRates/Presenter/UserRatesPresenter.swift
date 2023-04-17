@@ -62,27 +62,22 @@ final class UserRatesPresenter: UserRatesViewOutput {
     }
     
     func getRatesList(targetType: UserRatesTargetType, status: UserRatesStatus?) {
-        usersApiFactory.whoAmI { [weak self] user, _ in
-            guard let self else { return }
-            
-            if let userId = user?.id {
-                self.userRatesApiFactory.getList(
-                    userId: userId,
-                    targetType: targetType,
-                    status: status
-                ) { data, errorMessage in
-                    if let data {
-                        self.ratesList = data
-                        self.error = errorMessage ?? ""
-                        print("ERROR: \(self.error)")
-                        
-                        self.requestCount += 2
-                        self.getDetails(
-                            targetType: targetType,
-                            status: status,
-                            pageCount: self.getPageCount(ratesList: self.ratesList)
-                        )
-                    }
+        if let userId = AuthManager.share.getUserInfo()?.id {
+            self.userRatesApiFactory.getList(
+                userId: userId,
+                targetType: targetType,
+                status: status
+            ) { data, errorMessage in
+                if let data {
+                    self.ratesList = data
+                    self.error = errorMessage ?? ""
+                    print("ERROR: \(self.error)")
+                    self.requestCount += 1
+                    self.getDetails(
+                        targetType: targetType,
+                        status: status,
+                        pageCount: self.getPageCount(ratesList: self.ratesList)
+                    )
                 }
             }
         }

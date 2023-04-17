@@ -26,21 +26,18 @@ final class ProfilePresenter: ProfileViewOutputProtocol {
 
     // MARK: - Private properties
 
-    private let apiFactory = ApiFactory.makeUsersApi()
     private let modelFactory = UserModelFactory()
     private var userData: UserDTO?
 
     // MARK: - Private functions
     
     private func fetchDataFromServer(completion: @escaping () -> Void) {
-            apiFactory.whoAmI { [weak self] data, _ in
-                guard let data else {
-                    return
-                }
-                self?.userData = data
-                completion()
-            }
+        guard let data = AuthManager.share.getUserInfo() else {
+            return
         }
+        userData = data
+        completion()
+    }
 
     // MARK: - Functions
 
