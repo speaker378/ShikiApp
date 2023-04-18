@@ -68,7 +68,6 @@ final class SearchDetailView: UIView {
     }()
     private(set) var scoringView: ScoringView
     private(set) var content: SearchDetailModel
-    private let listTableView: ListTableView
     private var screenshotCollection: TitledCollectionView
     private let videoCollection: TitledCollectionView
     private var buttonTapHandler: (() -> Void)?
@@ -80,10 +79,10 @@ final class SearchDetailView: UIView {
         itemTapCompletion: ((String) -> Void)? = nil,
         tapHandler: @escaping () -> Void
     ) {
+        self.content = content
         itemInfoView = ItemInfoView(content: content)
         genreTableView = ChipsTableView(values: content.genres)
         scoringView = ScoringView(score: Int(Double(content.userRate?.score.value ?? "") ?? 0.0))
-        listTableView = ListTableView(values: content.rateList)
         screenshotCollection = TitledCollectionView(
             title: Texts.ContentTitles.screenshots,
             imageURLStrings: content.screenshots ?? [],
@@ -96,6 +95,7 @@ final class SearchDetailView: UIView {
             itemTapCompletion: itemTapCompletion
         )
         buttonTapHandler = tapHandler
+        super.init(frame: .zero)
         configure()
     }
     
@@ -141,7 +141,6 @@ final class SearchDetailView: UIView {
     
     private func configureUI() {
         addSubview(scrollView)
-        configureButton(with: content)
         [button, stepperView, scoringView].forEach {
             userRateStackView.addArrangedSubview($0)
         }
@@ -152,7 +151,6 @@ final class SearchDetailView: UIView {
          screenshotCollection, videoCollection].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
-        configureButton(with: content)
         titleLabel.text = content.title
         descriptionLabel.text = content.description
         if descriptionLabel.text == Texts.Empty.noDescription {

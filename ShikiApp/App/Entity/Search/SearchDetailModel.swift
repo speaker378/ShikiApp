@@ -30,7 +30,7 @@ struct SearchDetailModel {
     let chapters: Int?
     let duration: Int?
     let durationOrVolumes: String
-    let userRate: UserRatesModel?
+    var userRate: UserRatesModel?
     let screenshots: [String]?
     let videos: [VideoModel]?
     
@@ -124,6 +124,7 @@ final class SearchDetailModelFactory {
             userRate: userRate,
             screenshots: extractScreenshots(source.screenshots),
             videos: videoModelFactory.makeModels(from: source.videos)
+        )
     }
 }
 
