@@ -35,19 +35,11 @@ final class FiltersModelFactory {
     ]
     private var seasons: [SeasonModel] = []
     private var processors: [SearchContentEnum: (_: FilterListModel) -> Any] = [:]
-    private var genres: [SearchContentEnum: [GenreModel]] = [:]
+    private let restrictionsProvider = RestrictionsProvider()
 
     // MARK: - Constructions
 
     init() {
-        if genres.isEmpty {
-            ApiFactory.makeGenresApi().getList { data, _ in
-                let factory = GenreModelFactory()
-                self.genres[.anime] = factory.build(genres: data, layer: .anime)
-                self.genres[.manga] = factory.build(genres: data, layer: .manga)
-                self.genres[.ranobe] = factory.build(genres: data, layer: .ranobe)
-            }
-        }
         seasons = SeasonModelFactory().build()
         processors = [
             .anime: buildAnimeFilter,
@@ -63,7 +55,7 @@ final class FiltersModelFactory {
             ratingList: Ratings.descriptions,
             typeList: types[layer] ?? [],
             statusList: statuses[layer] ?? [],
-            genreList: genres[layer]?.map { $0.name } ?? [],
+            genreList: restrictionsProvider.getGenres(layer: layer),
             seasonList: seasons.map { $0.description }
         )
     }
@@ -183,14 +175,6 @@ final class FiltersModelFactory {
     }
     
     private func processGenres(genresString: String, layer: SearchContentEnum) -> [Int]? {
-        if genresString.isEmpty { return nil }
-        var genresArray = [Int]()
-        let genresList = genresString.split(separator: ",")
-        for element in genresList {
-            if let genreId = genres[layer]?.first(where: {$0.name == element})?.id {
-                genresArray.append(genreId)
-            }
-        }
-        return genresArray
+        return restrictionsProvider.filterGenres(layer: layer, genres: genresString)
     }
 }

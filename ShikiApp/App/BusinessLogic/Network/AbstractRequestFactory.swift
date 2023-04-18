@@ -37,7 +37,7 @@ class AbstractRequestFactory<API: EndPointType>: AbstractRequestFactoryProtocol 
         router = Router<API>()
     }
 
-    // MARK: - Funcions
+    // MARK: - Functions
 
     func getResponse<Response: Codable>(
         type: Response.Type,

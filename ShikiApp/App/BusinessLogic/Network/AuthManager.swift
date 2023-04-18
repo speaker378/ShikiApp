@@ -39,7 +39,13 @@ final class AuthManager: AuthManagerProtocol {
             scopes: ["user_rates", "comments", "topics"]
         )
     }()
-    private var credential: OAuth2Credential?
+    private var credential: OAuth2Credential? {
+        didSet {
+            if credential != oldValue {
+                NotificationCenter.default.post(name: .credentialsChanged, object: nil)
+            }
+        }
+    }
     private var updateTokenStatus = false
 
     // MARK: - Construction

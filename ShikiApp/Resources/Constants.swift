@@ -65,14 +65,27 @@ struct Constants {
         static let startYearForFilter = 1917
     }
     
+    enum Timeouts {
+        static let networkRequest = 15.0
+    }
     enum FilterParameters {
         static let delimiter: Character = ","
+    }
+    
+    enum CensoredParameters {
+        static let uncensoredAge = 18
     }
     
     enum SearchHeader {
         static let emptyStringResult = "Лучшие"
         static let exactResult = "Найдено:"
         static let approximateResult = "Результаты поиска"
+    }
+    
+    enum LimitsForRequest {
+        
+        static let itemsLimit: Int = 50
+        static let limitRequestsPerSecond: Int = 5
     }
 
     static let kindsDictionary = [
@@ -115,7 +128,8 @@ struct Constants {
 
     static let singleDateKinds = ["movie", "music", "one_shot"]
     
-    static let scoreColors: [Character: UIColor] = [
+    static let scoreColors: [String: UIColor] = [
+        "10": AppColor.green,
         "9": AppColor.green,
         "8": AppColor.green,
         "7": AppColor.green,
@@ -152,11 +166,13 @@ struct Constants {
         "discontinued": "Прекращено",
         "anons": "Анонсировано"
     ]
+    
     static let animeStatuses = [
         "ongoing": "Онгоинг",
         "released": "Вышло",
         "anons": "Анонсировано"
     ]
+    
     static let rating = [
         "r": "R",
         "pg": "PG",
@@ -165,4 +181,10 @@ struct Constants {
         "rx": "RX",
         "none": ""
     ]
+    
+    enum NotificationKeys: String {
+        case authState
+    }
+    
+    static let censoredGenres = ["hentai", "yaoi", "yuri"]
 }

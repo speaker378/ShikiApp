@@ -21,11 +21,17 @@ struct AppFont {
     }
     
     enum Style {
+        /// 12, regular
         static let subtitle = AppFont.openSansFont(ofSize: 12)
+        /// 16, regular
         static let regularText = AppFont.openSansFont(ofSize: 16)
+        /// 16, bold
         static let blockTitle = AppFont.openSansFont(ofSize: 16, weight: .bold)
+        /// 20, semiBold
         static let pageTitle = AppFont.openSansFont(ofSize: 20, weight: .semiBold)
+        /// 20, bold
         static let title = AppFont.openSansFont(ofSize: 20, weight: .bold)
+        /// 28, extraBold
         static let pageLargeTitle = AppFont.openSansFont(ofSize: 28, weight: .extraBold)
     }
     

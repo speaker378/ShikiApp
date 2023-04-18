@@ -76,6 +76,12 @@ final class SearchDetailViewController: UIViewController, SearchDetailViewInput 
     private func configureContentView() {
         guard let contentView else { return }
         view.addSubview(contentView)
+        contentView.userRatesDidRemovedCompletion = { content in
+            AddedToListData.shared.remove(content)
+        }
+        contentView.userRatesDidChangedCompletion = { content in
+            AddedToListData.shared.update(content)
+        }
         contentView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             contentView.topAnchor.constraint(equalTo: view.topAnchor),

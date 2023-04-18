@@ -131,12 +131,72 @@ extension PrepareInfoProtocol {
     }
     
     func extractScoreColor(_ score: String?) -> UIColor {
-        Constants.scoreColors[score?.first ?? " "] ?? AppColor.line
+        Constants.scoreColors[String(score?.first ?? " ")] ?? AppColor.line
     }
     
     func extractStatus(status: String?, kind: String?) -> String {
         guard let status, let kind else { return "" }
         let isManga = MangaContentKind.allCases.map { $0.rawValue }.contains(kind)
         return isManga ? Constants.mangaStatuses[status] ?? "" : Constants.animeStatuses[status] ?? ""
+    }
+}
+
+extension PrepareInfoProtocol {
+    
+    func extractWatchingStatus(score: String?) -> String {
+        guard let score else { return ""}
+        
+        return Constants.watchingStatuses[score] ?? ""
+    }
+    
+    func extractImageStatus(score: String?) -> UIImage {
+        guard let score else { return UIImage() }
+        
+        return Constants.watchingImageStatuses[score] ?? UIImage()
+    }
+    
+    func extractWatchingEpisodes(watchedEpisodes: Int, chaptersRead: Int, episodesAired: Int, episodesUnderShot: Int, chapters: Int, contentKind: String) -> String {
+        let delimiter = "·"
+        var episodes = ""
+        var watched = ""
+        let isManga = MangaContentKind.allCases.map { $0.rawValue }.contains(contentKind)
+        
+        if isManga {
+            watched = String(describing: chaptersRead)
+            
+            if chapters > 0 {
+                episodes = String(describing: chapters)
+            } else {
+                episodes = "?"
+            }
+        } else {
+            watched = String(describing: watchedEpisodes)
+            
+            if episodesAired > 0 {
+                episodes = String(describing: episodesAired)
+            } else if episodesAired == 0 {
+                if episodesUnderShot > 0 {
+                    episodes = String(describing: episodesUnderShot)
+                } else {
+                    episodes = "?"
+                }
+            }
+        }
+        
+        return "\(watched)/\(episodes) \(delimiter) "
+    }
+    
+    func extractWatchingEpisodes(totalEpisodes: Int, totalChapters: Int, contentKind: String) -> String {
+        var total = ""
+        let isManga = MangaContentKind.allCases.map { $0.rawValue }.contains(contentKind)
+        
+        if isManga {
+            total = "\(Texts.OtherMessage.total) \(String(describing: totalChapters)) \(Texts.OtherMessage.chapters)"
+            
+        } else {
+            total = "\(Texts.OtherMessage.total) \(String(describing: totalEpisodes)) \(Texts.OtherMessage.episodes)"
+        }
+        
+        return total
     }
 }

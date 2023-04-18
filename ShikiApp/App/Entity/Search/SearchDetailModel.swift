@@ -9,7 +9,10 @@ import UIKit
 
 struct SearchDetailModel {
     
+    // MARK: - Properties
+    
     let id: Int
+    let type: String
     let imageUrlString: String
     let title: String
     let kind: String
@@ -27,10 +30,39 @@ struct SearchDetailModel {
     let chapters: Int?
     let duration: Int?
     let durationOrVolumes: String
-    let rateList: [String]
     let userRate: UserRatesModel?
     let screenshots: [String]?
     let videos: [VideoModel]?
+    
+    
+    // MARK: - Functions
+    
+    mutating func configureUserRate(
+        status: String,
+        score: Score? = nil,
+        episodes: Int? = nil,
+        rewatches: Int? = nil,
+        chapters: Int? = nil,
+        volumes: Int? = nil
+    ) {
+        self.userRate = UserRatesModel(
+            id: self.id,
+            target: type,
+            imageUrlString: self.imageUrlString,
+            title: self.title,
+            kind: self.kind,
+            ongoingStatus: self.status,
+            watchingEpisodes: episodesText,
+            totalEpisodes: "\(episodes ?? 0)",
+            score: score ?? (userRate?.score ?? Score(value: "0.0", color: AppColor.line)),
+            status: status,
+            statusImage: Constants.watchingImageStatuses[status] ?? UIImage(),
+            episodes: episodes ?? userRate?.episodes,
+            rewatches: rewatches ?? userRate?.rewatches,
+            chapters: chapters ?? userRate?.chapters,
+            volumes: volumes ?? userRate?.volumes
+        )
+    }
 }
 
 extension SearchDetailModel: Equatable {
@@ -50,21 +82,23 @@ final class SearchDetailModelFactory {
     func makeDetailModel(from source: SearchDetailContentProtocol) -> SearchDetailModel {
         let delimiter = "·"
         let kind = extractKind(source.kind)
-        let status = extractStatus(status: source.status, kind: kind)
+        let status = extractStatus(status: source.status, kind: source.kind)
         let years = extractYears(airedOn: source.airedOn, releasedOn: source.releasedOn, kind: source.kind)
         let duration = extractDuration(duration: source.duration, volumes: source.volumes, chapters: source.chapters)
         let userRate = extractUserRate(
             source.userRate,
-            targetID: source.id,
+            type: extractType(kind: source.kind),
             imageString: extractUrlString(image: source.image),
             title: extractTitle(name: source.name, russian: source.russian),
             kind: kind,
-            status: source.status,
+            status: status,
             episodes: source.episodes ?? 0
         )
         
+        
         return SearchDetailModel(
             id: source.id,
+            type: extractType(kind: source.kind),
             imageUrlString: extractUrlString(image: source.image),
             title: extractTitle(name: source.name, russian: source.russian),
             kind: kind,
@@ -87,11 +121,9 @@ final class SearchDetailModelFactory {
             chapters: source.chapters,
             duration: source.duration,
             durationOrVolumes: duration,
-            rateList: makeRatesList(status: status, userRates: userRate),
             userRate: userRate,
             screenshots: extractScreenshots(source.screenshots),
             videos: videoModelFactory.makeModels(from: source.videos)
-        )
     }
 }
 
@@ -102,9 +134,19 @@ extension SearchDetailModelFactory: PrepareInfoProtocol {
     func extractScreenshots(_ screenshots: [ScreenshotDTO]) -> [String] {
         return screenshots.compactMap {$0.original}.map {Constants.Url.baseUrl + $0}
     }
+
+    func extractType(kind: String?) -> String {
+        guard let kind else { return "" }
+        if AnimeContentKind(rawValue: kind) != nil {
+            return UserRatesTargetType.anime.rawValue
+        } else if MangaContentKind(rawValue: kind) != nil {
+            return UserRatesTargetType.manga.rawValue
+        } else {
+            return ""
+        }
+    }
     
-    func extractScore(_ score: String?) -> String {
-        guard let score, let floatScore = Float(score) else { return "" }
+    func extractScore(_ score: String?) -> String {        guard let score, let floatScore = Float(score) else { return "" }
         let scoreString = String(format: "%.1f", floatScore)
         if scoreString == "0.0" {
             return Texts.Empty.noScore
@@ -143,14 +185,14 @@ extension SearchDetailModelFactory: PrepareInfoProtocol {
         return ""
     }
     
-    /// подготовка значений для списка просмотра"
+    /// подготовка значений для списка просмотра
     func extractUserRate(
         _ userRate: UserRatesDTO?,
-        targetID: Int,
+        type: String,
         imageString: String,
         title: String,
         kind: String,
-        status: String?,
+        status: String,
         episodes: Int
     ) -> UserRatesModel? {
         guard let userRate else { return nil }
@@ -159,10 +201,9 @@ extension SearchDetailModelFactory: PrepareInfoProtocol {
             value: extractScore(String(userRate.score)),
             color: extractScoreColor(String(userRate.score))
         )
-        let status = Constants.animeStatusDictionary[status ?? ""] ?? ""
         return UserRatesModel(
             id: userRate.id,
-            target: "\(targetID)",
+            target: type,
             imageUrlString: imageString,
             title: title,
             kind: kind,
@@ -170,7 +211,7 @@ extension SearchDetailModelFactory: PrepareInfoProtocol {
             watchingEpisodes: "\(userRate.episodes ?? 0)/\(episodes) \(delimiter) ",
             totalEpisodes: "\(episodes)",
             score: score,
-            status: status,
+            status: userRate.status,
             statusImage: Constants.watchingImageStatuses[status] ?? UIImage(),
             episodes: userRate.episodes,
             rewatches: userRate.rewatches,
@@ -190,18 +231,5 @@ extension SearchDetailModelFactory: PrepareInfoProtocol {
             string = "\(episodes) \(Texts.OtherMessage.episodes)"
         }
         return string
-    }
-    
-    /// подготовка значений для выпадающего списка к кнопке "Добавить в список"
-    func makeRatesList(status: String, userRates: UserRatesModel?) -> [String] {
-        if status == Constants.mangaStatusDictionary["anons"] || status == Constants.animeStatusDictionary["anons"] {
-            return [Texts.ListTypesSelectItems.planned, Texts.ButtonTitles.removeFromList]
-        }
-        var array = RatesTypeItemEnum.allCases.map { $0.getString() }
-        array.removeFirst()
-        if userRates != nil {
-            array.append(Texts.ButtonTitles.removeFromList)
-        }
-        return array
     }
 }

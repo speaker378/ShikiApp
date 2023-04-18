@@ -9,6 +9,11 @@ import UIKit
 
 final class SearchDetailView: UIView {
 
+    // MARK: - Properties
+    
+    var userRatesDidRemovedCompletion: ((SearchDetailModel) -> Void)?
+    var userRatesDidChangedCompletion: ((SearchDetailModel) -> Void)?
+
     // MARK: - Private properties
 
     private let inset: CGFloat = 24.0
@@ -42,6 +47,27 @@ final class SearchDetailView: UIView {
         return label
     }()
     private let transparentView = UIView()
+    private let stepperView: StepperView = {
+        let stepper = StepperView(title: Texts.DetailLabels.episodes)
+        stepper.translatesAutoresizingMaskIntoConstraints = false
+        return stepper
+    }()
+    private let userRateStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = Constants.Spacing.medium
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.distribution = .fill
+        stackView.alignment = .fill
+        return stackView
+    }()
+    private let listTableView: ListTableView = {
+        let tableView = ListTableView(values: [])
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    }()
+    private(set) var scoringView: ScoringView
+    private(set) var content: SearchDetailModel
     private let listTableView: ListTableView
     private var screenshotCollection: TitledCollectionView
     private let videoCollection: TitledCollectionView
@@ -56,6 +82,7 @@ final class SearchDetailView: UIView {
     ) {
         itemInfoView = ItemInfoView(content: content)
         genreTableView = ChipsTableView(values: content.genres)
+        scoringView = ScoringView(score: Int(Double(content.userRate?.score.value ?? "") ?? 0.0))
         listTableView = ListTableView(values: content.rateList)
         screenshotCollection = TitledCollectionView(
             title: Texts.ContentTitles.screenshots,
@@ -69,41 +96,63 @@ final class SearchDetailView: UIView {
             itemTapCompletion: itemTapCompletion
         )
         buttonTapHandler = tapHandler
-        super.init(frame: .zero)
-        configure(with: content)
+        configure()
     }
     
     required init?(coder: NSCoder) { nil }
 
+    // MARK: - Functions
+    
+    func updateUserRate(status: RatesTypeItemEnum, score: Score? = nil) {
+        if status == .rewatching {
+            content.configureUserRate(status: status.rawValue, score: score, rewatches: stepperView.value)
+        } else if content.type == UserRatesTargetType.anime.rawValue {
+            content.configureUserRate(status: status.rawValue, score: score, episodes: stepperView.value)
+        } else if content.type == UserRatesTargetType.manga.rawValue {
+            content.configureUserRate(status: status.rawValue, score: score, chapters: stepperView.value)
+        }
+        
+        button.configurate(text: status.getString(), image: AppImage.NavigationsBarIcons.chevronDown)
+        userRatesDidChangedCompletion?(content)
+    }
+
     // MARK: - Private functions
     
-    private func configure(with content: SearchDetailModel) {
+    private func configure() {
+        stepperView.delegate = self
+        stepperView.dataSource = self
+        configureStepper()
+        configureButton()
+        configureScoring()
+        button.addTarget(nil, action: #selector(listTypesSelectTapped), for: .touchUpInside)
+        listTableView.configureValues(makeRatesList(status: content.status, userRates: content.userRate))
+        configureUI()
+        
+        scoringView.didChangedValueCompletion = { [weak self] score in
+            guard
+                let self,
+                let color = Constants.scoreColors[String(score)],
+                let status = RatesTypeItemEnum(rawValue: self.content.userRate?.status ?? "")
+                else { return }
+            let score = Score(value: String(score), color: color)
+            self.updateUserRate(status: status, score: score)
+        }
+    }
+    
+    private func configureUI() {
         addSubview(scrollView)
         configureButton(with: content)
-        scrollView.addSubviews([
-            itemInfoView,
-            button,
-            titleLabel,
-            genreTableView,
-            descriptionLabel,
+        [button, stepperView, scoringView].forEach {
+            userRateStackView.addArrangedSubview($0)
+        }
+        scrollView.addSubviews([itemInfoView, userRateStackView, titleLabel, genreTableView, descriptionLabel,
             screenshotCollection,
-            videoCollection
-        ])
-        [itemInfoView, genreTableView, screenshotCollection, videoCollection]
-            .forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
-        genreTableView.reloadData()
-        configureUI(with: content)
-    }
-    
-    private func configureButton(with content: SearchDetailModel) {
-        button.addTarget(nil, action: #selector(listTypesSelectTapped), for: .touchUpInside)
-        guard let userRate = content.userRate, let status = Constants.watchingStatuses[userRate.status] else { return }
-        button.configurate(text: status, image: AppImage.NavigationsBarIcons.chevronDown)
-        button.backgroundColor = AppColor.backgroundMinor
-        button.titleLabel.textColor = AppColor.textMain
-    }
-    
-    private func configureUI(with content: SearchDetailModel) {
+            videoCollection])
+        [itemInfoView, genreTableView,
+         screenshotCollection, videoCollection].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+        configureButton(with: content)
         titleLabel.text = content.title
         descriptionLabel.text = content.description
         if descriptionLabel.text == Texts.Empty.noDescription {
@@ -126,12 +175,19 @@ final class SearchDetailView: UIView {
             itemInfoView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             itemInfoView.widthAnchor.constraint(equalToConstant: infoViewWidth),
             
-            button.topAnchor.constraint(equalTo: itemInfoView.bottomAnchor, constant: Constants.Insets.sideInset),
-            button.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            button.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             button.heightAnchor.constraint(equalToConstant: Constants.Insets.controlHeight),
             
-            titleLabel.topAnchor.constraint(equalTo: button.bottomAnchor, constant: Constants.Insets.sideInset),
+            userRateStackView.topAnchor.constraint(
+                equalTo: itemInfoView.bottomAnchor,
+                constant: Constants.Insets.sideInset
+            ),
+            userRateStackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            userRateStackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            
+            titleLabel.topAnchor.constraint(
+                equalTo: userRateStackView.bottomAnchor,
+                constant: Constants.Insets.sideInset
+            ),
             titleLabel.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             titleLabel.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             
@@ -162,21 +218,76 @@ final class SearchDetailView: UIView {
 
     }
     
+    private func configureScoring() {
+        guard content.userRate != nil else {
+            scoringView.isHidden = true
+            return
+        }
+        if let episodes = content.userRate?.episodes, episodes > 0 {
+            scoringView.isHidden = false
+        } else if let chapters = content.userRate?.chapters, chapters > 0 {
+            scoringView.isHidden = false
+        } else {
+            scoringView.isHidden = true
+        }
+    }
+    
+    private func configureStepper() {
+        guard let userRate = content.userRate else {
+            stepperView.isHidden = true
+            return
+        }
+        stepperView.isHidden = false
+        updateStepperValue(status: userRate.status)
+    }
+    
+    private func updateStepperValue(status: String) {
+        var value = stepperView.value
+        switch status {
+        case RatesTypeItemEnum.completed.rawValue:
+            value = stepperView.maximumValue ?? stepperView.value
+        case RatesTypeItemEnum.planned.rawValue:
+            value = 0
+        case RatesTypeItemEnum.rewatching.rawValue:
+            value = stepperView.value
+        default:
+            value = stepperView.value
+        }
+        
+        stepperView.configure(value: value)
+    }
+    
+    private func configureButton() {
+        if let userRate = content.userRate, let status = RatesTypeItemEnum(rawValue: userRate.status)?.getString() {
+            button.configurate(text: status, image: AppImage.NavigationsBarIcons.chevronDown)
+            button.backgroundColor = AppColor.backgroundMinor
+            button.titleLabel.textColor = AppColor.textMain
+        } else {
+            button.configurate(text: Texts.ButtonTitles.addToList, image: AppImage.OtherIcons.addToList)
+            button.backgroundColor = AppColor.accent
+            button.titleLabel.textColor = AppColor.textInvert
+        }
+    }
+    
     private func configureListTableView() {
-        let frame = convert(button.frame, toView: scrollView)
         listTableView.didSelectRowHandler = { [weak self] value in
             guard let self else { return }
             if value == Texts.ButtonTitles.removeFromList {
-                self.button.configurate(text: Texts.ButtonTitles.addToList, image: AppImage.OtherIcons.addToList)
-                self.button.backgroundColor = AppColor.accent
-                self.button.titleLabel.textColor = AppColor.textInvert
-                self.removeTransparentView(frame: frame)
+                self.content.userRate = nil
+                self.userRatesDidRemovedCompletion?(self.content)
             } else {
-                self.button.configurate(text: value, image: AppImage.NavigationsBarIcons.chevronDown)
-                self.button.backgroundColor = AppColor.backgroundMinor
-                self.button.titleLabel.textColor = AppColor.textMain
-                self.removeTransparentView(frame: frame)
+                if let status = RatesTypeItemEnum(status: value) {
+                    self.updateStepperValue(status: status.rawValue)
+                    self.updateUserRate(status: status)
+                }
+                let newValues = self.makeRatesList(status: self.content.status, userRates: self.content.userRate)
+                self.listTableView.configureValues(newValues)
             }
+            self.configureStepper()
+            self.configureButton()
+            self.configureScoring()
+            let frame = self.convert(self.button.frame, toView: self.userRateStackView)
+            self.removeTransparentView(frame: frame)
         }
     }
     
@@ -193,7 +304,6 @@ final class SearchDetailView: UIView {
     
     private func addTransparentView(frame: CGRect) {
         let listMaxHeight: CGFloat = 268.0
-        
         configureTransparentView()
         
         listTableView.frame = CGRect(
@@ -250,20 +360,27 @@ final class SearchDetailView: UIView {
         )
     }
     
-    private func convert(_ frame: CGRect, toView: UIView) -> CGRect {
-        let convertedOrigin = convert(frame.origin, from: scrollView)
-        return CGRect(origin: convertedOrigin, size: frame.size)
+    /// подготовка значений для выпадающего списка к кнопке "Добавить в список"
+    private func makeRatesList(status: String, userRates: UserRatesModel?) -> [String] {
+        if status == Constants.mangaStatusDictionary["anons"] || status == Constants.animeStatusDictionary["anons"] {
+            return [RatesTypeItemEnum.planned.getString(), Texts.ButtonTitles.removeFromList]
+        }
+        var array = RatesTypeItemEnum.allCases.map { $0.getString() }
+        array.removeFirst()
+        if userRates != nil {
+            array.append(Texts.ButtonTitles.removeFromList)
+        }
+        return array
     }
     
     @objc private func listTypesSelectTapped() {
         configureListTableView()
-        buttonTapHandler?()
-        let frame = convert(button.frame, toView: scrollView)
+        let frame = convert(button.frame, toView: userRateStackView)
         addTransparentView(frame: frame)
     }
     
     @objc private func transparentViewTapped() {
-        let frame = convert(button.frame, toView: scrollView)
+        let frame = convert(button.frame, toView: userRateStackView)
         removeTransparentView(frame: frame)
     }
 }

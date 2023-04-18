@@ -16,21 +16,34 @@ final class RanobeProvider: ContentProviderProtocol {
 
     // MARK: - Private properties
     
-    private let factory = ApiFactory.makeRanobeApi()
+    private let factory: RanobeRequestFactoryProtocol
 
     // MARK: - Properties
 
     var filters: RanobeListFilters?
 
+    // MARK: - Constructions
+
+    init() {
+        factory = ApiFactory.makeRanobeApi()
+    }
+
     // MARK: - Functions
+
+    func getGenres() -> [Int]? { filters?.genre }
+    
+    func setGenres(genres: [Int]?) {
+        if filters == nil { filters = RanobeListFilters() }
+        filters?.genre = genres
+    }
 
     func setFilters(filters: Any?) -> Int {
         self.filters = filters as? RanobeListFilters
-        return self.filters?.filtersCount ?? 0
+        return self.filters?.filtersCount() ?? 0
     }
     
     func getFiltersCounter() -> Int {
-        return self.filters?.filtersCount ?? 0
+        return self.filters?.filtersCount() ?? 0
     }
     
     func getFilters() -> Any? { filters }
@@ -41,6 +54,7 @@ final class RanobeProvider: ContentProviderProtocol {
             limit: APIRestrictions.limit50.rawValue,
             filters: filters,
             search: searchString,
+            censored: RestrictionsProvider.restrictions.isCensored(),
             order: .byRank,
             completion: completion
         )

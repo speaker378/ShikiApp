@@ -76,6 +76,13 @@ enum Texts {
         static let minutes = "мин."
         static let volumes = "т."
         static let chapters = "гл."
+        static let total = "Всего:"
+    }
+    
+    enum DetailLabels {
+        static let episodes = "Эпизоды"
+        static let chapters = "Главы"
+        static let volumes = "Тома"
     }
     
     enum ButtonTitles {

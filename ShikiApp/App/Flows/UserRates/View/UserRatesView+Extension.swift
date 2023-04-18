@@ -9,7 +9,7 @@ import UIKit
 
 extension UserRatesView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tableView == selectTableView ? dataSource.count : filteredModel.count
+        return tableView == selectTableView ? dataSource.count : model.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -26,7 +26,7 @@ extension UserRatesView: UITableViewDelegate, UITableViewDataSource {
                 return UITableViewCell()
             }
             
-            cell.configure(with: filteredModel[indexPath.row])
+            cell.configure(with: model[indexPath.row])
             return cell
         }
         return UITableViewCell()
@@ -41,11 +41,10 @@ extension UserRatesView: UITableViewDelegate, UITableViewDataSource {
         if tableView == selectTableView {
             let data = dataSource[indexPath.row]
             selectedButton.configurate(text: data, isSelect: true)
-            filterModelByTypesSelect(status: data)
             delegate?.statusValueChanged(status: data)
             self.removeTransparentView()
         } else if tableView == ratesTableView {
-            let entity = filteredModel[indexPath.row]
+            let entity = model[indexPath.row]
             self.delegate?.viewDidSelectEntity(entity: entity)
         }
     }
