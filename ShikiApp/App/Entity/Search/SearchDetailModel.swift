@@ -8,7 +8,7 @@
 import UIKit
 
 struct SearchDetailModel {
-
+    
     // MARK: - Properties
     
     let id: Int
@@ -31,7 +31,10 @@ struct SearchDetailModel {
     let duration: Int?
     let durationOrVolumes: String
     var userRate: UserRatesModel?
-
+    let screenshots: [String]?
+    let videos: [VideoModel]?
+    
+    
     // MARK: - Functions
     
     mutating func configureUserRate(
@@ -74,6 +77,8 @@ extension SearchDetailModel: Equatable {
 
 final class SearchDetailModelFactory {
     
+    private let videoModelFactory = VideoModelFactory()
+    
     func makeDetailModel(from source: SearchDetailContentProtocol) -> SearchDetailModel {
         let delimiter = "·"
         let kind = extractKind(source.kind)
@@ -88,12 +93,6 @@ final class SearchDetailModelFactory {
             kind: kind,
             status: status,
             episodes: source.episodes ?? 0
-        )
-        let episodesText = makeEpisodesText(
-            episodes: source.episodes,
-            episodesAired: source.episodesAired,
-            kind: kind,
-            status: status
         )
         
         
@@ -112,12 +111,19 @@ final class SearchDetailModelFactory {
             genres: extractGenres(source.genres),
             episodes: source.episodes,
             episodesAired: source.episodesAired,
-            episodesText: episodesText,
+            episodesText: makeEpisodesText(
+                episodes: source.episodes,
+                episodesAired: source.episodesAired,
+                kind: kind,
+                status: status
+            ),
             volumes: source.volumes,
             chapters: source.chapters,
             duration: source.duration,
             durationOrVolumes: duration,
-            userRate: userRate
+            userRate: userRate,
+            screenshots: extractScreenshots(source.screenshots),
+            videos: videoModelFactory.makeModels(from: source.videos)
         )
     }
 }
@@ -126,6 +132,10 @@ extension SearchDetailModelFactory: PrepareInfoProtocol {
 
     // MARK: - Functions
     
+    func extractScreenshots(_ screenshots: [ScreenshotDTO]) -> [String] {
+        return screenshots.compactMap {$0.original}.map {Constants.Url.baseUrl + $0}
+    }
+
     func extractType(kind: String?) -> String {
         guard let kind else { return "" }
         if AnimeContentKind(rawValue: kind) != nil {
@@ -137,8 +147,7 @@ extension SearchDetailModelFactory: PrepareInfoProtocol {
         }
     }
     
-    func extractScore(_ score: String?) -> String {
-        guard let score, let floatScore = Float(score) else { return "" }
+    func extractScore(_ score: String?) -> String {        guard let score, let floatScore = Float(score) else { return "" }
         let scoreString = String(format: "%.1f", floatScore)
         if scoreString == "0.0" {
             return Texts.Empty.noScore

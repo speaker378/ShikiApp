@@ -10,6 +10,11 @@ import Foundation
 
 enum Texts {
     
+    enum ContentTitles {
+        static let screenshots = "Скриншоты"
+        static let videos = "Видео"
+    }
+    
     enum TabBarTitles {
         static let home = "Новости"
         static let search = "Поиск"

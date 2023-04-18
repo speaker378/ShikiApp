@@ -10,5 +10,5 @@
 
 #include "Secret.xcconfig"
 
-API_URL = https:/$()/shikimori.one/api/
-BASE_URL = https:/$()/shikimori.one
+API_URL = https:/$()/shikimori.me/api/
+BASE_URL = https:/$()/shikimori.me

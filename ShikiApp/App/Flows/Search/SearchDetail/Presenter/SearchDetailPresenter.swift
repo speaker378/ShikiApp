@@ -13,6 +13,7 @@ protocol SearchDetailViewInput: AnyObject {
 
 protocol SearchDetailViewOutput: AnyObject {
     func fetchData(id: Int, completion: @escaping (SearchDetailModel) -> Void)
+    func showImage(URLString: String)
 }
 
 final class SearchDetailPresenter: SearchDetailViewOutput {
@@ -42,5 +43,10 @@ final class SearchDetailPresenter: SearchDetailViewOutput {
             let content = SearchDetailModelFactory().makeDetailModel(from: response)
             completion(content)
         })
+    }
+    
+    func showImage(URLString: String) {
+        let destination = NewsDetailContentBuilder.build(URLString: URLString)
+        viewInput?.navigationController?.pushViewController(destination, animated: true)
     }
 }

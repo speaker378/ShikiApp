@@ -21,6 +21,7 @@ final class AppCollectionView: UICollectionView {
     }
     
     private let contents: [String]
+    private let comments: [String?]?
     private let layout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -31,8 +32,9 @@ final class AppCollectionView: UICollectionView {
 
     // MARK: - Construction
     
-    init(imageURLStrings: [String]) {
+    init(imageURLStrings: [String], imageComments: [String?]? = nil) {
         contents = imageURLStrings
+        comments = imageComments
         super.init(frame: .zero, collectionViewLayout: layout)
         configure()
     }
@@ -72,7 +74,7 @@ extension AppCollectionView: UICollectionViewDataSource {
             contents.indices.contains(indexPath.item),
             let cell: AppCollectionViewCell = collectionView.cell(forRowAt: indexPath)
         else { return UICollectionViewCell() }
-        cell.configure(content: contents[indexPath.item])
+        cell.configure(content: contents[indexPath.item], comment: comments?[indexPath.item])
         return cell
     }
 }

@@ -11,12 +11,28 @@ final class AppCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Private properties
     
+    private let leftInset = 8.0
+    private let bottomInset = 8.0
+    private let rightInset = 8.0
+    private let commentHeight = 16.0
     private let imageView: UIImageViewAsync = {
         let imageView = UIImageViewAsync()
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = Constants.CornerRadius.small
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
+    }()
+    
+    private let commentLabel: AppLabel = {
+        let label = AppLabel(
+            alignment: .left,
+            fontSize: AppFont.openSansFont(ofSize: 12, weight: .regular),
+            fontСolor: AppColor.textInvert,
+            numberLines: 1
+        )
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.isHidden = true
+        return label
     }()
     
     private var gradientLayer: CAGradientLayer = {
@@ -47,7 +63,7 @@ final class AppCollectionViewCell: UICollectionViewCell {
         imageView.image = nil
     }
     
-    func configure(content: String) {
+    func configure(content: String, comment: String? = nil) {
         if content.contains("youtube") {
             imageView.downloadedImage(from: content, contentMode: .scaleAspectFill)
             imageView.layer.addSublayer(gradientLayer)
@@ -55,18 +71,28 @@ final class AppCollectionViewCell: UICollectionViewCell {
         } else {
             imageView.downloadedImage(from: content, contentMode: .scaleAspectFill)
         }
+        if let comment {
+            commentLabel.text = comment
+            commentLabel.isHidden = false
+        } else {
+            commentLabel.isHidden = true
+        }
     }
 
     // MARK: - Private functions
     
     private func configureUI() {
-        addSubview(imageView)
+        addSubviews(imageView, commentLabel)
         
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: topAnchor),
             imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
             imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            imageView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            imageView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            commentLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.Insets.sideInset),
+            commentLabel.widthAnchor.constraint(lessThanOrEqualToConstant: frame.width - leftInset - rightInset),
+            commentLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -bottomInset),
+            commentLabel.heightAnchor.constraint(equalToConstant: commentHeight)
         ])
     }
     
