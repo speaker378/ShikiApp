@@ -85,7 +85,7 @@ final class SearchDetailView: UIView {
     // MARK: - Functions
     
     func updateUserRate(status: RatesTypeItemEnum, score: Score? = nil) {
-        let hasAdded = content.userRate == nil
+        let hasJustAdded = content.userRate == nil
         let isAnime = content.type == UserRatesTargetType.anime.rawValue
         if status == .rewatching {
             content.configureUserRate(status: status.rawValue, score: score, rewatches: stepperView.value)
@@ -95,7 +95,7 @@ final class SearchDetailView: UIView {
             content.configureUserRate(status: status.rawValue, score: score, chapters: stepperView.value)
         }
         
-        if hasAdded {
+        if hasJustAdded {
             userRatesDidCreatedCompletion?(content)
         } else {
             userRatesDidChangedCompletion?(content)
@@ -231,7 +231,10 @@ final class SearchDetailView: UIView {
     }
     
     private func configureButton() {
-        if let userRate = content.userRate, let status = RatesTypeItemEnum(rawValue: userRate.status)?.getString() {
+        let isAnime = content.type == UserRatesTargetType.anime.rawValue
+        if
+            let userRate = content.userRate,
+            let status = RatesTypeItemEnum(rawValue: userRate.status)?.getString(isAnime: isAnime) {
             button.configurate(text: status, image: AppImage.NavigationsBarIcons.chevronDown)
             button.backgroundColor = AppColor.backgroundMinor
             button.titleLabel.textColor = AppColor.textMain
