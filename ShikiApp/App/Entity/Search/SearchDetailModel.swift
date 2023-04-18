@@ -84,7 +84,7 @@ final class SearchDetailModel {
         self.userRate = userRate
         
     }
-    
+
     // MARK: - Functions
     
     func configureUserRate(
@@ -180,9 +180,9 @@ final class SearchDetailModelFactory {
             chapters: source.chapters,
             duration: source.duration,
             durationOrVolumes: duration,
-            userRate: userRate,
             screenshots: extractScreenshots(source.screenshots),
-            videos: videoModelFactory.makeModels(from: source.videos)
+            videos: videoModelFactory.makeModels(from: source.videos),
+            userRate: userRate
         )
     }
 }
@@ -206,7 +206,8 @@ extension SearchDetailModelFactory: PrepareInfoProtocol {
         }
     }
     
-    func extractScore(_ score: String?) -> String {        guard let score, let floatScore = Float(score) else { return "" }
+    func extractScore(_ score: String?) -> String {
+        guard let score, let floatScore = Float(score) else { return "" }
         let scoreString = String(format: "%.1f", floatScore)
         if scoreString == "0.0" {
             return Texts.Empty.noScore

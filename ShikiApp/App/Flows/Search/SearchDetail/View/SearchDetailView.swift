@@ -71,14 +71,12 @@ final class SearchDetailView: UIView {
     private(set) var content: SearchDetailModel
     private var screenshotCollection: TitledCollectionView
     private let videoCollection: TitledCollectionView
-    private var buttonTapHandler: (() -> Void)?
 
     // MARK: - Constructions
     
     init(
         content: SearchDetailModel,
-        itemTapCompletion: ((String) -> Void)? = nil,
-        tapHandler: @escaping () -> Void
+        itemTapCompletion: ((String) -> Void)? = nil
     ) {
         self.content = content
         itemInfoView = ItemInfoView(content: content)
@@ -95,7 +93,6 @@ final class SearchDetailView: UIView {
             imageComments: content.videos?.filter {$0.url != nil}.map {$0.name},
             itemTapCompletion: itemTapCompletion
         )
-        buttonTapHandler = tapHandler
         super.init(frame: .zero)
         configure()
     }
@@ -217,10 +214,7 @@ final class SearchDetailView: UIView {
             videoCollection.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             videoCollection.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             videoCollection.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -inset)
-            
-            
         ])
-
     }
     
     private func configureScoring() {

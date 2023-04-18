@@ -55,19 +55,6 @@ enum RatesTypeItemEnum: String, CaseIterable {
         }
     }
     
-//    init?(status: String) {
-//        switch status {
-//        case Texts.ListTypesSelectItems.all: self = .all
-//        case Texts.ListTypesSelectItems.completed: self = .completed
-//        case Texts.ListTypesSelectItems.planned: self = .planned
-//        case Texts.ListTypesSelectItems.watching: self = .watching
-//        case Texts.ListTypesSelectItems.onHold: self = .onHold
-//        case Texts.ListTypesSelectItems.dropped: self = .dropped
-//        case Texts.ListTypesSelectItems.rewatching: self = .rewatching
-//        default: return nil
-//        }
-//    }
-    
     init?(status: String) {
         switch status {
         case Texts.ListTypesSelectItems.all: self = .all
