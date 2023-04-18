@@ -72,7 +72,9 @@ final class SearchDetailViewController: UIViewController, SearchDetailViewInput 
             self.activityIndicator.stopAnimating()
             self.content = content
             self.title = content.title
-            self.contentView = SearchDetailView(content: content)
+            self.contentView = SearchDetailView(content: content, itemTapCompletion: self.presenter.showImage) {
+                AddedToListData.shared.add(content)
+            }
             self.configureContentView()
         }
     }

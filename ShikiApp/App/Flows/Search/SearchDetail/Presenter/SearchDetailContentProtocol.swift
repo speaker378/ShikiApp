@@ -28,6 +28,8 @@ protocol SearchDetailContentProtocol {
     var chapters: Int? { get }
     var duration: Int? { get }
     var userRate: UserRatesDTO? { get }
+    var screenshots: [ScreenshotDTO] { get }
+    var videos: [VideoDTO] { get }
  }
 
 extension SearchDetailContentProtocol {
@@ -41,4 +43,6 @@ extension SearchDetailContentProtocol {
     var volumes: Int? { return nil }
     var chapters: Int? { return nil }
     var duration: Int? { return nil }
+    var screenshots: [ScreenshotDTO] { return [] }
+    var videos: [VideoDTO] { return [] }
 }

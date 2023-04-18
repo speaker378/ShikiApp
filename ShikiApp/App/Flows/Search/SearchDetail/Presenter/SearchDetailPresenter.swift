@@ -17,6 +17,7 @@ protocol SearchDetailViewOutput: AnyObject {
     func createUserRates(content: SearchDetailModel)
     func updateUserRate(userRate: UserRatesModel)
     func removeUserRate(userRateID: Int)
+    func showImage(URLString: String)
 }
 
 final class SearchDetailPresenter: SearchDetailViewOutput {
@@ -67,5 +68,10 @@ final class SearchDetailPresenter: SearchDetailViewOutput {
         userRatesManager.removeUserRate(userRateID: userRateID) { [weak self] error in
             self?.viewInput?.showAlert(title: Texts.ErrorMessage.error, message: error)
         }
+    }
+    
+    func showImage(URLString: String) {
+        let destination = NewsDetailContentBuilder.build(URLString: URLString)
+        viewInput?.navigationController?.pushViewController(destination, animated: true)
     }
 }
