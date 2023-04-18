@@ -128,6 +128,11 @@
 		3A05E293297D60B100987CFF /* NewsfeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A05E292297D60B100987CFF /* NewsfeedTableViewCell.swift */; };
 		3A05E295297E696200987CFF /* NewsfeedPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A05E294297E696200987CFF /* NewsfeedPresenter.swift */; };
 		3A05E299297E8EA500987CFF /* NewsfeedBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A05E298297E8EA500987CFF /* NewsfeedBuilder.swift */; };
+		3A11B35729D336F1005810FA /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A11B35629D336F1005810FA /* CoreDataStack.swift */; };
+		3A11B35A29D3373D005810FA /* MyListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A11B35929D3373D005810FA /* MyListViewController.swift */; };
+		3A11B35D29D33777005810FA /* UserRatesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A11B35C29D33777005810FA /* UserRatesProvider.swift */; };
+		3A11B36029D337AD005810FA /* UserRates+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A11B35E29D337AD005810FA /* UserRates+CoreDataClass.swift */; };
+		3A11B36129D337AD005810FA /* UserRates+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A11B35F29D337AD005810FA /* UserRates+CoreDataProperties.swift */; };
 		3A19C066298B757D0073D472 /* Date+toString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A19C065298B757D0073D472 /* Date+toString.swift */; };
 		3A19C068298B75A80073D472 /* String+htmlToString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A19C067298B75A80073D472 /* String+htmlToString.swift */; };
 		3A19C06A298B75B40073D472 /* String+toDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A19C069298B75B40073D472 /* String+toDate.swift */; };
@@ -347,6 +352,11 @@
 		3A05E292297D60B100987CFF /* NewsfeedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsfeedTableViewCell.swift; sourceTree = "<group>"; };
 		3A05E294297E696200987CFF /* NewsfeedPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsfeedPresenter.swift; sourceTree = "<group>"; };
 		3A05E298297E8EA500987CFF /* NewsfeedBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsfeedBuilder.swift; sourceTree = "<group>"; };
+		3A11B35629D336F1005810FA /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		3A11B35929D3373D005810FA /* MyListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyListViewController.swift; sourceTree = "<group>"; };
+		3A11B35C29D33777005810FA /* UserRatesProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRatesProvider.swift; sourceTree = "<group>"; };
+		3A11B35E29D337AD005810FA /* UserRates+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserRates+CoreDataClass.swift"; sourceTree = "<group>"; };
+		3A11B35F29D337AD005810FA /* UserRates+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserRates+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3A19C065298B757D0073D472 /* Date+toString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+toString.swift"; sourceTree = "<group>"; };
 		3A19C067298B75A80073D472 /* String+htmlToString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+htmlToString.swift"; sourceTree = "<group>"; };
 		3A19C069298B75B40073D472 /* String+toDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+toDate.swift"; sourceTree = "<group>"; };
@@ -710,6 +720,8 @@
 		00AFC6D129A251E60000B645 /* UserRates */ = {
 			isa = PBXGroup;
 			children = (
+				3A11B35E29D337AD005810FA /* UserRates+CoreDataClass.swift */,
+				3A11B35F29D337AD005810FA /* UserRates+CoreDataProperties.swift */,
 				00AFC6D229A251FA0000B645 /* UserRatesModel.swift */,
 			);
 			path = UserRates;
@@ -953,6 +965,30 @@
 				3A1A095F2985400900846058 /* View */,
 			);
 			path = NewsDetail;
+			sourceTree = "<group>";
+		};
+		3A11B35529D336F1005810FA /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				3A11B35629D336F1005810FA /* CoreDataStack.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		3A11B35829D3373D005810FA /* MyList */ = {
+			isa = PBXGroup;
+			children = (
+				3A11B35929D3373D005810FA /* MyListViewController.swift */,
+			);
+			path = MyList;
+			sourceTree = "<group>";
+		};
+		3A11B35B29D33777005810FA /* CoreDataProvider */ = {
+			isa = PBXGroup;
+			children = (
+				3A11B35C29D33777005810FA /* UserRatesProvider.swift */,
+			);
+			path = CoreDataProvider;
 			sourceTree = "<group>";
 		};
 		3A19C064298B757D0073D472 /* Date */ = {
@@ -1203,6 +1239,7 @@
 				006031B2297BC9C900CD9A16 /* Search */,
 				006240E329977DB600498D51 /* Filters */,
 				006031B1297BC9BB00CD9A16 /* UserRates */,
+				3A11B35829D3373D005810FA /* MyList */,
 				006031B0297BC9B700CD9A16 /* Profile */,
 			);
 			path = Flows;
@@ -1211,6 +1248,7 @@
 		3A8F3114297441EB00F24DF7 /* BusinessLogic */ = {
 			isa = PBXGroup;
 			children = (
+				3A11B35B29D33777005810FA /* CoreDataProvider */,
 				006031BE297C086400CD9A16 /* AppStartManager */,
 				3A7E4D5D2985492C00E7CA17 /* Network */,
 			);
@@ -1240,6 +1278,7 @@
 		3A8F31172974422100F24DF7 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				3A11B35529D336F1005810FA /* CoreData */,
 				16DBE56E29B9F6E3001AEFBB /* UserDefaultsService */,
 				3A7E4D9A2985496A00E7CA17 /* Network */,
 				0010CAB42977FF9A00F8705B /* Helpers */,
@@ -1608,6 +1647,7 @@
 				00AFC6CE29A24CA80000B645 /* UserRatesPresenter.swift in Sources */,
 				3A05E295297E696200987CFF /* NewsfeedPresenter.swift in Sources */,
 				00624103299B6B2200498D51 /* FilterListModel.swift in Sources */,
+				3A11B35A29D3373D005810FA /* MyListViewController.swift in Sources */,
 				3A7E4DA82985496A00E7CA17 /* URLParameterEncoder.swift in Sources */,
 				006240EE29978B0600498D51 /* FiltersView.swift in Sources */,
 				006031B9297BCA7B00CD9A16 /* UserRatesViewController.swift in Sources */,
@@ -1617,6 +1657,7 @@
 				169118DE29A3C13C000F23B6 /* FiltersEnums.swift in Sources */,
 				16B08241298A1FAB00EB9061 /* RanobeResponseDTO.swift in Sources */,
 				00624101299AB39B00498D51 /* FiltersModel.swift in Sources */,
+				3A11B35D29D33777005810FA /* UserRatesProvider.swift in Sources */,
 				3A275770297EFDD900EFD543 /* NewsModel.swift in Sources */,
 				3A7E4D952985492C00E7CA17 /* NewTopicDTO.swift in Sources */,
 				3A7E4D962985492C00E7CA17 /* NewsTopicsResponseDTO.swift in Sources */,
@@ -1646,6 +1687,7 @@
 				006031BB297BCA9600CD9A16 /* ProfileViewController.swift in Sources */,
 				3A19C07A29941B890073D472 /* OAuth2Credential.swift in Sources */,
 				16B08247298A22B300EB9061 /* RanobeApi.swift in Sources */,
+				3A11B36129D337AD005810FA /* UserRates+CoreDataProperties.swift in Sources */,
 				3A7E4D8D2985492C00E7CA17 /* UserHistoryResponseDTO.swift in Sources */,
 				1634B67029A8F5BE004A4B02 /* UserRatesRequestFactory.swift in Sources */,
 				006240E829977E4B00498D51 /* FiltersViewController.swift in Sources */,
@@ -1657,6 +1699,7 @@
 				006240EC29977E8C00498D51 /* FiltersPresenter.swift in Sources */,
 				BA76AF9D29A011BA0002C982 /* SearchDetailContentProtocol.swift in Sources */,
 				006240FC299A76F200498D51 /* FooterFilterView.swift in Sources */,
+				3A11B35729D336F1005810FA /* CoreDataStack.swift in Sources */,
 				3A1A096A2985400900846058 /* NewsDetailView.swift in Sources */,
 				BA76AF9F29A017E60002C982 /* SearchDetailModel.swift in Sources */,
 				BA90AF8029A006EF00CCE141 /* ItemInfoView.swift in Sources */,
@@ -1704,6 +1747,7 @@
 				16D6079929C21E7400492879 /* RestrictionsProvider.swift in Sources */,
 				16082BED29A26E1300450D43 /* GenresRequestsFactory.swift in Sources */,
 				006240F32997AF7C00498D51 /* UIApplication+Extensions.swift in Sources */,
+				3A11B36029D337AD005810FA /* UserRates+CoreDataClass.swift in Sources */,
 				00AFC6DD29A292580000B645 /* UserRatesTableViewCell.swift in Sources */,
 				3A7E4DA72985496A00E7CA17 /* Router.swift in Sources */,
 				00AFC6D029A24F470000B645 /* UserRatesView.swift in Sources */,
