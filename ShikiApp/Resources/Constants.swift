@@ -187,4 +187,14 @@ struct Constants {
     }
     
     static let censoredGenres = ["hentai", "yaoi", "yuri"]
+    
+    enum MangaUserRateKind: String {
+        case manga = "Манга"
+        case manhwa = "Манхва"
+        case manhua = "Маньхуа"
+        case lightNovel = "Ранобэ"
+        case novel = "Новелла"
+        case oneShot = "Ваншот"
+        case doujin = "Додзинси"
+    }
 }

@@ -19,6 +19,8 @@ final class UserRatesManager: UserRatesManagerProtocol {
         userRatesFactory = ApiFactory.makeUserRatesApi()
         userFactory = ApiFactory.makeUsersApi()
     }
+
+    // MARK: - Functions
     
     func createUserRate(userRate: UserRatesModel, errorHandler: @escaping (String) -> Void) {
         let state = makeState(userRate: userRate)

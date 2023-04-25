@@ -53,15 +53,15 @@ final class UserRatesPresenter: UserRatesViewOutput {
         var provider: any ContentProviderProtocol
         switch entity.kind {
         case
-            "Манга",
-            "Манхва",
-            "Маньхуа",
-            "Додзинси",
-            "Ваншот":
+            Constants.MangaUserRateKind.manga.rawValue,
+            Constants.MangaUserRateKind.manhwa.rawValue,
+            Constants.MangaUserRateKind.manhua.rawValue,
+            Constants.MangaUserRateKind.doujin.rawValue,
+            Constants.MangaUserRateKind.oneShot.rawValue:
             provider = MangaProvider()
         case
-            "Ранобэ",
-            "Новелла":
+            Constants.MangaUserRateKind.lightNovel.rawValue,
+            Constants.MangaUserRateKind.novel.rawValue:
             provider = RanobeProvider()
         default:
             provider = AnimeProvider()
