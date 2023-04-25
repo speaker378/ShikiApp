@@ -70,8 +70,9 @@ final class UserRatesManager: UserRatesManagerProtocol {
                     completion(user.id)
                 }
             }
+        } else {
+            completion(nil)
         }
-        completion(nil)
     }
     
     private func makeState(userRate: UserRatesModel) -> UserRatesState {

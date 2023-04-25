@@ -47,6 +47,7 @@ final class SearchDetailViewController: UIViewController, SearchDetailViewInput 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureNavBar()
+        contentView?.hideUserRatesIfNeeded(isAuth: AuthManager.share.isAuth())
     }
 
     // MARK: - Functions

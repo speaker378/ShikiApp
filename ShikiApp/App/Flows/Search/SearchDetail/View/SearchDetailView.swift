@@ -119,6 +119,20 @@ final class SearchDetailView: UIView {
         }
         button.configurate(text: status.getString(isAnime: isAnime), image: AppImage.NavigationsBarIcons.chevronDown)
     }
+    
+    func hideUserRatesIfNeeded(isAuth: Bool) {
+        if !isAuth {
+            scoringView.isHidden = true
+            stepperView.isHidden = true
+            button.configurate(text: Texts.ButtonTitles.addToList, image: AppImage.OtherIcons.addToList)
+            button.backgroundColor = AppColor.accent
+            button.titleLabel.textColor = AppColor.textInvert
+        } else {
+            configureStepper()
+            configureButton()
+            configureScoring()
+        }
+    }
 
     // MARK: - Private functions
     

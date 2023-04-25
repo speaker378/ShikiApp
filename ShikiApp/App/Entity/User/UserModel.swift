@@ -44,7 +44,9 @@ final class UserModelFactory {
         var result = ""
         if !SexEnum.allCases.contains(where: {$0.rawValue == sex}) { return result }
         if fullYears != nil {
-            result = sex != SexEnum.male.rawValue ? Texts.SexInRussian.femaleCommaAndSpace : Texts.SexInRussian.maleCommaAndSpace
+            result = sex != SexEnum.male.rawValue
+            ? Texts.SexInRussian.femaleCommaAndSpace
+            : Texts.SexInRussian.maleCommaAndSpace
         } else {
             result = sex != SexEnum.male.rawValue ? Texts.SexInRussian.female : Texts.SexInRussian.male
         }
