@@ -7,8 +7,8 @@
 
 import UIKit
 
-struct SearchDetailModel {
-    
+final class SearchDetailModel {
+
     // MARK: - Properties
     
     let id: Int
@@ -30,14 +30,64 @@ struct SearchDetailModel {
     let chapters: Int?
     let duration: Int?
     let durationOrVolumes: String
-    var userRate: UserRatesModel?
     let screenshots: [String]?
     let videos: [VideoModel]?
+    var userRate: UserRatesModel?
+
+    // MARK: - Constructions
     
-    
+    init(
+        id: Int,
+        type: String,
+        imageUrlString: String,
+        title: String,
+        kind: String,
+        kindAndDate: String,
+        score: String,
+        status: String,
+        description: String,
+        rating: String?,
+        studios: [String],
+        genres: [String],
+        episodes: Int?,
+        episodesAired: Int?,
+        episodesText: String,
+        volumes: Int?,
+        chapters: Int?,
+        duration: Int?,
+        durationOrVolumes: String,
+        screenshots: [String],
+        videos: [VideoModel]?,
+        userRate: UserRatesModel? = nil
+    ) {
+        self.id = id
+        self.type = type
+        self.imageUrlString = imageUrlString
+        self.title = title
+        self.kind = kind
+        self.kindAndDate = kindAndDate
+        self.score = score
+        self.status = status
+        self.description = description
+        self.rating = rating
+        self.studios = studios
+        self.genres = genres
+        self.episodes = episodes
+        self.episodesAired = episodesAired
+        self.episodesText = episodesText
+        self.volumes = volumes
+        self.chapters = chapters
+        self.duration = duration
+        self.durationOrVolumes = durationOrVolumes
+        self.screenshots = screenshots
+        self.videos = videos
+        self.userRate = userRate
+        
+    }
+
     // MARK: - Functions
     
-    mutating func configureUserRate(
+    func configureUserRate(
         status: String,
         score: Score? = nil,
         episodes: Int? = nil,
@@ -45,23 +95,33 @@ struct SearchDetailModel {
         chapters: Int? = nil,
         volumes: Int? = nil
     ) {
-        self.userRate = UserRatesModel(
-            id: self.id,
-            target: type,
-            imageUrlString: self.imageUrlString,
-            title: self.title,
-            kind: self.kind,
-            ongoingStatus: self.status,
-            watchingEpisodes: episodesText,
-            totalEpisodes: "\(episodes ?? 0)",
-            score: score ?? (userRate?.score ?? Score(value: "0.0", color: AppColor.line)),
-            status: status,
-            statusImage: Constants.watchingImageStatuses[status] ?? UIImage(),
-            episodes: episodes ?? userRate?.episodes,
-            rewatches: rewatches ?? userRate?.rewatches,
-            chapters: chapters ?? userRate?.chapters,
-            volumes: volumes ?? userRate?.volumes
-        )
+        if let userRate {
+            userRate.status = status
+            userRate.score = score ?? userRate.score
+            userRate.episodes = episodes ?? userRate.episodes
+            userRate.rewatches = rewatches ?? userRate.rewatches
+            userRate.chapters = chapters ?? userRate.chapters
+            userRate.volumes = volumes ?? userRate.volumes
+        } else {
+            userRate = UserRatesModel(
+                targetID: id,
+                target: type,
+                imageUrlString: self.imageUrlString,
+                title: self.title,
+                kind: self.kind,
+                ongoingStatus: status,
+                watchingEpisodes: episodesText,
+                totalEpisodes: "\(episodes ?? 0)",
+                score: score ?? (userRate?.score ?? Score(value: "0.0", color: AppColor.line)),
+                status: status,
+                statusImage: Constants.watchingImageStatuses[status] ?? UIImage(),
+                episodes: episodes ?? userRate?.episodes,
+                rewatches: rewatches ?? userRate?.rewatches,
+                chapters: chapters ?? userRate?.chapters,
+                volumes: volumes ?? userRate?.volumes,
+                userRateID: userRate?.userRateID ?? 0
+            )
+        }
     }
 }
 
@@ -95,7 +155,6 @@ final class SearchDetailModelFactory {
             episodes: source.episodes ?? 0
         )
         
-        
         return SearchDetailModel(
             id: source.id,
             type: extractType(kind: source.kind),
@@ -121,9 +180,9 @@ final class SearchDetailModelFactory {
             chapters: source.chapters,
             duration: source.duration,
             durationOrVolumes: duration,
-            userRate: userRate,
             screenshots: extractScreenshots(source.screenshots),
-            videos: videoModelFactory.makeModels(from: source.videos)
+            videos: videoModelFactory.makeModels(from: source.videos),
+            userRate: userRate
         )
     }
 }
@@ -147,7 +206,8 @@ extension SearchDetailModelFactory: PrepareInfoProtocol {
         }
     }
     
-    func extractScore(_ score: String?) -> String {        guard let score, let floatScore = Float(score) else { return "" }
+    func extractScore(_ score: String?) -> String {
+        guard let score, let floatScore = Float(score) else { return "" }
         let scoreString = String(format: "%.1f", floatScore)
         if scoreString == "0.0" {
             return Texts.Empty.noScore
@@ -203,7 +263,7 @@ extension SearchDetailModelFactory: PrepareInfoProtocol {
             color: extractScoreColor(String(userRate.score))
         )
         return UserRatesModel(
-            id: userRate.id,
+            targetID: userRate.id,
             target: type,
             imageUrlString: imageString,
             title: title,
@@ -217,7 +277,8 @@ extension SearchDetailModelFactory: PrepareInfoProtocol {
             episodes: userRate.episodes,
             rewatches: userRate.rewatches,
             chapters: userRate.chapters,
-            volumes: userRate.volumes
+            volumes: userRate.volumes,
+            userRateID: userRate.id
         )
     }
     

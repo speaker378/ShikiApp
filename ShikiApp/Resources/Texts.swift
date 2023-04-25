@@ -28,6 +28,7 @@ enum Texts {
     }
     
     enum ErrorMessage {
+        static let error = "Ошибка"
         static let general = "Что-то пошло не так.\nПопробуйте позже, должно получиться"
         static let noResults = "Ничего не найдено"
         static let failLoading = "Данные не загрузились"
@@ -103,6 +104,16 @@ enum Texts {
         static let rewatching = "Пересматриваю"
     }
     
+    enum ListMangaTypesSelectItems {
+        static let all = "Вce"
+        static let completed = "Прочитано"
+        static let planned = "Запланировано"
+        static let watching = "Читаю"
+        static let onHold = "Отложено"
+        static let dropped = "Брошено"
+        static let rewatching = "Перечитываю"
+}
+
     enum SexInRussian {
         static let femaleCommaAndSpace = "женщина, "
         static let female = "женщина"

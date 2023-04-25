@@ -207,7 +207,6 @@
 		BA2D462B298D119B006365FF /* AppCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2D462A298D119B006365FF /* AppCollectionView.swift */; };
 		BA76AF9D29A011BA0002C982 /* SearchDetailContentProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA76AF9C29A011BA0002C982 /* SearchDetailContentProtocol.swift */; };
 		BA76AF9F29A017E60002C982 /* SearchDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA76AF9E29A017E60002C982 /* SearchDetailModel.swift */; };
-		BA76AFA629A4207A0002C982 /* AddedToListData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA76AFA529A4207A0002C982 /* AddedToListData.swift */; };
 		BA90AF7129A0062F00CCE141 /* SearchDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA90AF7029A0062F00CCE141 /* SearchDetailViewController.swift */; };
 		BA90AF7329A0064400CCE141 /* SearchDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA90AF7229A0064400CCE141 /* SearchDetailView.swift */; };
 		BA90AF7729A0067100CCE141 /* ChipsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA90AF7629A0067100CCE141 /* ChipsTableView.swift */; };
@@ -216,6 +215,9 @@
 		BA90AF7D29A006B400CCE141 /* SearchDetailBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA90AF7C29A006B400CCE141 /* SearchDetailBuilder.swift */; };
 		BA90AF8029A006EF00CCE141 /* ItemInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA90AF7F29A006EF00CCE141 /* ItemInfoView.swift */; };
 		BA90AF8229A006FE00CCE141 /* ChipsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA90AF8129A006FE00CCE141 /* ChipsView.swift */; };
+		BAADFFAC29E18AF100130C44 /* UserRatesManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAADFFAB29E18AF100130C44 /* UserRatesManagerProtocol.swift */; };
+		BAADFFAE29E18BFE00130C44 /* UserRatesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAADFFAD29E18BFE00130C44 /* UserRatesManager.swift */; };
+		BAADFFB229E41A4600130C44 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAADFFB129E41A4600130C44 /* ErrorView.swift */; };
 		BAE4C1D22992803C00D9E7E8 /* NewsDetailContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE4C1D12992803C00D9E7E8 /* NewsDetailContentViewController.swift */; };
 		BAE4C1D4299283F400D9E7E8 /* NewsDetailContentPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE4C1D3299283F400D9E7E8 /* NewsDetailContentPresenter.swift */; };
 		BAE4C1D62992869900D9E7E8 /* NewsDetailContentBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE4C1D52992869900D9E7E8 /* NewsDetailContentBuilder.swift */; };
@@ -429,7 +431,6 @@
 		BA2D462A298D119B006365FF /* AppCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCollectionView.swift; sourceTree = "<group>"; };
 		BA76AF9C29A011BA0002C982 /* SearchDetailContentProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailContentProtocol.swift; sourceTree = "<group>"; };
 		BA76AF9E29A017E60002C982 /* SearchDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailModel.swift; sourceTree = "<group>"; };
-		BA76AFA529A4207A0002C982 /* AddedToListData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddedToListData.swift; sourceTree = "<group>"; };
 		BA90AF7029A0062F00CCE141 /* SearchDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailViewController.swift; sourceTree = "<group>"; };
 		BA90AF7229A0064400CCE141 /* SearchDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailView.swift; sourceTree = "<group>"; };
 		BA90AF7629A0067100CCE141 /* ChipsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChipsTableView.swift; sourceTree = "<group>"; };
@@ -438,6 +439,9 @@
 		BA90AF7C29A006B400CCE141 /* SearchDetailBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailBuilder.swift; sourceTree = "<group>"; };
 		BA90AF7F29A006EF00CCE141 /* ItemInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemInfoView.swift; sourceTree = "<group>"; };
 		BA90AF8129A006FE00CCE141 /* ChipsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChipsView.swift; sourceTree = "<group>"; };
+		BAADFFAB29E18AF100130C44 /* UserRatesManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRatesManagerProtocol.swift; sourceTree = "<group>"; };
+		BAADFFAD29E18BFE00130C44 /* UserRatesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRatesManager.swift; sourceTree = "<group>"; };
+		BAADFFB129E41A4600130C44 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		BAE4C1D12992803C00D9E7E8 /* NewsDetailContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailContentViewController.swift; sourceTree = "<group>"; };
 		BAE4C1D3299283F400D9E7E8 /* NewsDetailContentPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailContentPresenter.swift; sourceTree = "<group>"; };
 		BAE4C1D52992869900D9E7E8 /* NewsDetailContentBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailContentBuilder.swift; sourceTree = "<group>"; };
@@ -1339,7 +1343,8 @@
 			children = (
 				BA90AF7A29A0069E00CCE141 /* SearchDetailPresenter.swift */,
 				BA76AF9C29A011BA0002C982 /* SearchDetailContentProtocol.swift */,
-				BA76AFA529A4207A0002C982 /* AddedToListData.swift */,
+				BAADFFAB29E18AF100130C44 /* UserRatesManagerProtocol.swift */,
+				BAADFFAD29E18BFE00130C44 /* UserRatesManager.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -1350,6 +1355,7 @@
 				BA01BBF629BDE40B00EA3EEB /* StepperView.swift */,
 				BA90AF7F29A006EF00CCE141 /* ItemInfoView.swift */,
 				BA90AF8129A006FE00CCE141 /* ChipsView.swift */,
+				BAADFFB129E41A4600130C44 /* ErrorView.swift */,
 			);
 			path = UIView;
 			sourceTree = "<group>";
@@ -1652,6 +1658,7 @@
 				BA27FB5529964EF5007C3BEC /* CGSize+scaling.swift in Sources */,
 				16082BE729A269FD00450D43 /* GenreResponseDTO.swift in Sources */,
 				16B0824B298A243C00EB9061 /* RanobeDetailsDTO.swift in Sources */,
+				BAADFFAE29E18BFE00130C44 /* UserRatesManager.swift in Sources */,
 				006240F62997C03F00498D51 /* SelectedButton.swift in Sources */,
 				16082BE929A26A1E00450D43 /* GenreInfoDTO.swift in Sources */,
 				006240EC29977E8C00498D51 /* FiltersPresenter.swift in Sources */,
@@ -1711,7 +1718,6 @@
 				BA27FB4D2995384E007C3BEC /* NewsDetailVideoContentView.swift in Sources */,
 				BA01BC0E29C360E000EA3EEB /* ScoringView.swift in Sources */,
 				DBB84C6F299DA18700791292 /* ProfilePresenter.swift in Sources */,
-				BA76AFA629A4207A0002C982 /* AddedToListData.swift in Sources */,
 				3A19C078299415AC0073D472 /* OAuth2Manager.swift in Sources */,
 				BA90AF7329A0064400CCE141 /* SearchDetailView.swift in Sources */,
 				3A7E4D982985492C00E7CA17 /* TopicsResponseDTO.swift in Sources */,
@@ -1728,11 +1734,13 @@
 				BA01BBFD29C0D88400EA3EEB /* UIView+convert.swift in Sources */,
 				DBB84C6D299DA13600791292 /* ProfileBuilder.swift in Sources */,
 				16130E5A29873C7600A4EC94 /* AnimeEnums.swift in Sources */,
+				BAADFFAC29E18AF100130C44 /* UserRatesManagerProtocol.swift in Sources */,
 				16B08243298A21A400EB9061 /* RanobeEnums.swift in Sources */,
 				3A7E4D802985492C00E7CA17 /* ForumsRequestFactory.swift in Sources */,
 				3A7E4D852985492C00E7CA17 /* UsersEnums.swift in Sources */,
 				BA01BBE429B117A000EA3EEB /* ListTableView.swift in Sources */,
 				16092D07299B929A00CEE770 /* ContentProviderProtocol.swift in Sources */,
+				BAADFFB229E41A4600130C44 /* ErrorView.swift in Sources */,
 				3A7E4D822985492C00E7CA17 /* AbstractRequestFactory.swift in Sources */,
 				166FA79729894A16009C2712 /* MangaDetailsDTO.swift in Sources */,
 				3A19C076298FECC70073D472 /* String+extractURLs.swift in Sources */,

@@ -13,6 +13,7 @@ final class SearchDetailView: UIView {
     
     var userRatesDidRemovedCompletion: ((SearchDetailModel) -> Void)?
     var userRatesDidChangedCompletion: ((SearchDetailModel) -> Void)?
+    var userRatesDidCreatedCompletion: ((SearchDetailModel) -> Void)?
 
     // MARK: - Private properties
 
@@ -70,14 +71,12 @@ final class SearchDetailView: UIView {
     private(set) var content: SearchDetailModel
     private var screenshotCollection: TitledCollectionView
     private let videoCollection: TitledCollectionView
-    private var buttonTapHandler: (() -> Void)?
 
     // MARK: - Constructions
     
     init(
         content: SearchDetailModel,
-        itemTapCompletion: ((String) -> Void)? = nil,
-        tapHandler: @escaping () -> Void
+        itemTapCompletion: ((String) -> Void)? = nil
     ) {
         self.content = content
         itemInfoView = ItemInfoView(content: content)
@@ -94,7 +93,6 @@ final class SearchDetailView: UIView {
             imageComments: content.videos?.filter {$0.url != nil}.map {$0.name},
             itemTapCompletion: itemTapCompletion
         )
-        buttonTapHandler = tapHandler
         super.init(frame: .zero)
         configure()
     }
@@ -104,16 +102,36 @@ final class SearchDetailView: UIView {
     // MARK: - Functions
     
     func updateUserRate(status: RatesTypeItemEnum, score: Score? = nil) {
+        let hasJustAdded = content.userRate == nil
+        let isAnime = content.type == UserRatesTargetType.anime.rawValue
         if status == .rewatching {
             content.configureUserRate(status: status.rawValue, score: score, rewatches: stepperView.value)
-        } else if content.type == UserRatesTargetType.anime.rawValue {
+        } else if isAnime {
             content.configureUserRate(status: status.rawValue, score: score, episodes: stepperView.value)
-        } else if content.type == UserRatesTargetType.manga.rawValue {
+        } else { 
             content.configureUserRate(status: status.rawValue, score: score, chapters: stepperView.value)
         }
         
-        button.configurate(text: status.getString(), image: AppImage.NavigationsBarIcons.chevronDown)
-        userRatesDidChangedCompletion?(content)
+        if hasJustAdded {
+            userRatesDidCreatedCompletion?(content)
+        } else {
+            userRatesDidChangedCompletion?(content)
+        }
+        button.configurate(text: status.getString(isAnime: isAnime), image: AppImage.NavigationsBarIcons.chevronDown)
+    }
+    
+    func hideUserRatesIfNeeded(isAuth: Bool) {
+        if !isAuth {
+            scoringView.isHidden = true
+            stepperView.isHidden = true
+            button.configurate(text: Texts.ButtonTitles.addToList, image: AppImage.OtherIcons.addToList)
+            button.backgroundColor = AppColor.accent
+            button.titleLabel.textColor = AppColor.textInvert
+        } else {
+            configureStepper()
+            configureButton()
+            configureScoring()
+        }
     }
 
     // MARK: - Private functions
@@ -210,10 +228,7 @@ final class SearchDetailView: UIView {
             videoCollection.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             videoCollection.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             videoCollection.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -inset)
-            
-            
         ])
-
     }
     
     private func configureScoring() {
@@ -251,12 +266,14 @@ final class SearchDetailView: UIView {
         default:
             value = stepperView.value
         }
-        
         stepperView.configure(value: value)
     }
     
     private func configureButton() {
-        if let userRate = content.userRate, let status = RatesTypeItemEnum(rawValue: userRate.status)?.getString() {
+        let isAnime = content.type == UserRatesTargetType.anime.rawValue
+        if
+            let userRate = content.userRate,
+            let status = RatesTypeItemEnum(rawValue: userRate.status)?.getString(isAnime: isAnime) {
             button.configurate(text: status, image: AppImage.NavigationsBarIcons.chevronDown)
             button.backgroundColor = AppColor.backgroundMinor
             button.titleLabel.textColor = AppColor.textMain
@@ -271,7 +288,6 @@ final class SearchDetailView: UIView {
         listTableView.didSelectRowHandler = { [weak self] value in
             guard let self else { return }
             if value == Texts.ButtonTitles.removeFromList {
-                self.content.userRate = nil
                 self.userRatesDidRemovedCompletion?(self.content)
             } else {
                 if let status = RatesTypeItemEnum(status: value) {
@@ -292,7 +308,6 @@ final class SearchDetailView: UIView {
     private func configureTransparentView() {
         let window = UIApplication.firstKeyWindowForConnectedScenes
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(transparentViewTapped))
-        
         transparentView.frame = window?.frame ?? self.frame
         transparentView.backgroundColor = AppColor.backgroundMinor
         transparentView.alpha = 0
@@ -360,10 +375,11 @@ final class SearchDetailView: UIView {
     
     /// подготовка значений для выпадающего списка к кнопке "Добавить в список"
     private func makeRatesList(status: String, userRates: UserRatesModel?) -> [String] {
+        let isAnime = content.type == UserRatesTargetType.anime.rawValue
         if status == Constants.mangaStatusDictionary["anons"] || status == Constants.animeStatusDictionary["anons"] {
-            return [RatesTypeItemEnum.planned.getString(), Texts.ButtonTitles.removeFromList]
+            return [RatesTypeItemEnum.planned.getString(isAnime: isAnime), Texts.ButtonTitles.removeFromList]
         }
-        var array = RatesTypeItemEnum.allCases.map { $0.getString() }
+        var array = RatesTypeItemEnum.allCases.map { $0.getString(isAnime: isAnime) }
         array.removeFirst()
         if userRates != nil {
             array.append(Texts.ButtonTitles.removeFromList)

@@ -9,10 +9,14 @@ import UIKit
 
 protocol SearchDetailViewInput: AnyObject {
     func showAlert(title: String, message: String?)
+    func showErrorView(text: String)
 }
 
 protocol SearchDetailViewOutput: AnyObject {
     func fetchData(id: Int, completion: @escaping (SearchDetailModel) -> Void)
+    func createUserRates(content: SearchDetailModel)
+    func updateUserRate(userRate: UserRatesModel)
+    func removeUserRate(userRateID: Int)
     func showImage(URLString: String)
 }
 
@@ -25,11 +29,13 @@ final class SearchDetailPresenter: SearchDetailViewOutput {
     // MARK: Private properties
     
     private var provider: any ContentProviderProtocol
+    private var userRatesManager: any UserRatesManagerProtocol
 
     // MARK: - Constructors
     
     init(provider: any ContentProviderProtocol) {
         self.provider = provider
+        self.userRatesManager = UserRatesManager()
     }
 
     // MARK: - Functions
@@ -37,12 +43,31 @@ final class SearchDetailPresenter: SearchDetailViewOutput {
     func fetchData(id: Int, completion: @escaping (SearchDetailModel) -> Void) {
         provider.fetchDetailData(id: id, completion: { [weak self] response, error in
             guard let response else {
-                self?.viewInput?.showAlert(title: Texts.ErrorMessage.failLoading, message: error)
+                self?.viewInput?.showErrorView(text: error ?? Texts.ErrorMessage.failLoading)
                 return
             }
             let content = SearchDetailModelFactory().makeDetailModel(from: response)
             completion(content)
         })
+    }
+    
+    func createUserRates(content: SearchDetailModel) {
+        guard let userRate = content.userRate else { return }
+        userRatesManager.createUserRate(userRate: userRate) { [weak self] error in
+            self?.viewInput?.showAlert(title: Texts.ErrorMessage.error, message: error)
+        }
+    }
+    
+    func updateUserRate(userRate: UserRatesModel) {
+        userRatesManager.updateUserRate(userRate: userRate) { [weak self] error in
+            self?.viewInput?.showAlert(title: Texts.ErrorMessage.error, message: error)
+        }
+    }
+    
+    func removeUserRate(userRateID: Int) {
+        userRatesManager.removeUserRate(userRateID: userRateID) { [weak self] error in
+            self?.viewInput?.showAlert(title: Texts.ErrorMessage.error, message: error)
+        }
     }
     
     func showImage(URLString: String) {

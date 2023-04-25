@@ -9,9 +9,9 @@ import UIKit
 
 // MARK: - UserRatesModel
 
-struct UserRatesModel {
+final class UserRatesModel {
     
-    let id: Int
+    let targetID: Int
     let target: String
     let imageUrlString: String
     let title: String
@@ -19,14 +19,33 @@ struct UserRatesModel {
     let ongoingStatus: String
     let watchingEpisodes: String
     let totalEpisodes: String
-    let score: Score
-    let status: String
-    let statusImage: UIImage
-    let episodes: Int?
-    let rewatches: Int?
-    let chapters: Int?
-    let volumes: Int?
+    var score: Score
+    var status: String
+    var statusImage: UIImage
+    var episodes: Int?
+    var rewatches: Int?
+    var chapters: Int?
+    var volumes: Int?
+    var userRateID: Int
     
+    init(targetID: Int, target: String, imageUrlString: String, title: String, kind: String, ongoingStatus: String, watchingEpisodes: String, totalEpisodes: String, score: Score, status: String, statusImage: UIImage, episodes: Int? = nil, rewatches: Int? = nil, chapters: Int? = nil, volumes: Int? = nil, userRateID: Int) {
+        self.targetID = targetID
+        self.target = target
+        self.imageUrlString = imageUrlString
+        self.title = title
+        self.kind = kind
+        self.ongoingStatus = ongoingStatus
+        self.watchingEpisodes = watchingEpisodes
+        self.totalEpisodes = totalEpisodes
+        self.score = score
+        self.status = status
+        self.statusImage = statusImage
+        self.episodes = episodes
+        self.rewatches = rewatches
+        self.chapters = chapters
+        self.volumes = volumes
+        self.userRateID = userRateID
+    }
 }
 
 // MARK: - UserRatesModelFactory
@@ -79,9 +98,8 @@ final class UserRatesModelFactory: PrepareInfoProtocol {
         let chapters = ratesList?.chapters
         let volumes = ratesList?.volumes
         
-        
         return UserRatesModel(
-            id: id,
+            targetID: id,
             target: target,
             imageUrlString: urlString,
             title: title,
@@ -95,7 +113,8 @@ final class UserRatesModelFactory: PrepareInfoProtocol {
             episodes: episodes,
             rewatches: rewatches,
             chapters: chapters,
-            volumes: volumes
+            volumes: volumes,
+            userRateID: ratesList?.id ?? 0
         )
     }
 }
