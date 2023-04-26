@@ -55,14 +55,7 @@ final class ContentRestrictionsProvider: ContentRestrictionsProviderProtocol {
 
     // MARK: - Functions
 
-    func isCensored() -> Bool {
-        if isActual { return censored }
-        let date = Date(timeIntervalSinceNow: Constants.Timeouts.networkRequest)
-        repeat {
-            if isActual { return censored }
-        } while Date() < date
-        return true
-    }
+    func isCensored() -> Bool { censored }
     
     func addObserver(observer: @escaping (Bool) -> Void) {
         observers.append(observer)
@@ -75,18 +68,9 @@ final class ContentRestrictionsProvider: ContentRestrictionsProviderProtocol {
     }
 
     private func setCensoredValue() {
-        if AuthManager.share.isAuth() {
-            isActual = false
-            userFactory.whoAmI { [weak self] user, _ in
-                if let user {
-                    self?.censored = user.fullYears ?? 0 < Constants.CensoredParameters.uncensoredAge
-                } else {
-                    self?.censored = true
-                }
-                self?.isActual = true
-            }
+        if let user =  AuthManager.share.getUserInfo() {
+            censored = user.fullYears ?? 0 < Constants.CensoredParameters.uncensoredAge
         } else {
-            isActual = true
             censored = true
         }
     }

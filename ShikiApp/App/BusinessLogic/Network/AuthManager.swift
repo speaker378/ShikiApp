@@ -11,6 +11,7 @@ protocol AuthManagerProtocol {
     
     func isAuth() -> Bool
     func getToken() -> String?
+    func getUserInfo() -> UserDTO?
     func auth(handler: @escaping (Bool) -> Void)
 }
 
@@ -24,6 +25,7 @@ final class AuthManager: AuthManagerProtocol {
     
     private let oAuth2Manager = OAuth2Manager()
     private let keychain = KeychainManager()
+    private let userDefaults = UserDefaultsService()
     private let bundleName = Bundle.main.infoDictionary?["CFBundleName"] as? String
     private let account = "user"
     private let request: OAuth2Request? = {
@@ -42,17 +44,19 @@ final class AuthManager: AuthManagerProtocol {
     private var credential: OAuth2Credential? {
         didSet {
             if credential != oldValue {
-                NotificationCenter.default.post(name: .credentialsChanged, object: nil)
+                updateUserInfo()
             }
         }
     }
     private var updateTokenStatus = false
+    private var userInfo: UserDTO?
 
     // MARK: - Construction
     
     private init() {
         guard let bundleName else { return }
         self.credential = keychain.get(service: bundleName, account: account, type: OAuth2Credential.self)
+        self.userInfo = userDefaults.restore(UserDTO.self)
         if tokenIsNeedUpdate() { updateToken() }
     }
 
@@ -93,8 +97,10 @@ final class AuthManager: AuthManagerProtocol {
         keychain.delete(service: bundleName, account: account)
     }
 
+    func getUserInfo() -> UserDTO? { userInfo }
+
     // MARK: - Private functions
-    
+
     private func updateToken() {
         guard !updateTokenStatus else { return }
         updateTokenStatus = true
@@ -120,5 +126,21 @@ final class AuthManager: AuthManagerProtocol {
         } else {
             return false
         }
+    }
+
+    private func updateUserInfo() {
+        if isAuth() {
+            ApiFactory.makeUsersApi().whoAmI { [weak self] data, _ in
+                    self?.setUserInfo(userInfo: data)
+            }
+        } else {
+            setUserInfo(userInfo: nil)
+        }
+    }
+    
+    private func setUserInfo(userInfo: UserDTO?) {
+        self.userInfo = userInfo
+        userDefaults.save(userInfo)
+        NotificationCenter.default.post(name: .credentialsChanged, object: nil)
     }
 }
