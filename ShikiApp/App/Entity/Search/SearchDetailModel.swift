@@ -8,7 +8,7 @@
 import UIKit
 
 struct SearchDetailModel {
-    
+
     // MARK: - Properties
     
     let id: Int
@@ -33,8 +33,7 @@ struct SearchDetailModel {
     var userRate: UserRatesModel?
     let screenshots: [String]?
     let videos: [VideoModel]?
-    
-    
+
     // MARK: - Functions
     
     mutating func configureUserRate(

@@ -50,7 +50,6 @@ final class AuthManager: AuthManagerProtocol {
     }
     private var updateTokenStatus = false
     private var userInfo: UserDTO?
-    private var isUserInfoActual = false
 
     // MARK: - Construction
     

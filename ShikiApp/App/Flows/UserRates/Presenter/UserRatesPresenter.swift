@@ -72,6 +72,7 @@ final class UserRatesPresenter: UserRatesViewOutput {
                     print("ERROR: \(self.error)")
                     self.requestCount += 1
                     self.getDetails(
+                        userId: userId,
                         targetType: targetType,
                         status: status,
                         pageCount: self.getPageCount(ratesList: self.ratesList)

@@ -30,26 +30,41 @@ final class ProfilePresenter: ProfileViewOutputProtocol {
     private let modelFactory = UserModelFactory()
     private var userData: UserDTO?
 
+    // MARK: - Construction
+
+    init() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(onChangeCredentials(_:)),
+            name: .credentialsChanged,
+            object: nil
+        )
+    }
+
+    // MARK: - Destructions
+
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: .credentialsChanged, object: nil)
+    }
+
     // MARK: - Private functions
-    
-    private func fetchDataFromServer(completion: @escaping () -> Void) {
-        guard let data = AuthManager.share.getUserInfo() else {
-            return
-        }
-        userData = data
-        completion()
+
+    @objc private func onChangeCredentials(_: Notification) {
+        self.fetchData()
     }
 
     // MARK: - Functions
     
     func fetchData() {
-        if isAuth() {
-            apiFactory.whoAmI { [weak self] data, _ in
-                guard let data else { return }
-                self?.userData = data
-                self?.viewInput?.model = self?.modelFactory.makeModel(from: data)
-                self?.viewInput?.isAuth = true
+        DispatchQueue.main.async {
+            if let data = AuthManager.share.getUserInfo() {
+                self.userData = data
+                self.viewInput?.model = self.modelFactory.makeModel(from: data)
+            } else {
+                self.userData = nil
+                self.viewInput?.model = nil
             }
+            self.viewInput?.isAuth = self.isAuth()
         }
     }
     
