@@ -35,7 +35,7 @@ protocol UsersRequestFactoryProtocol {
     
     func getAnimeRates(id: Int, page: Int?, limit: Int?, status: UserContentState?, isCensored: Bool?, completion: @escaping (_ response: AnimeRatesResponseDTO?, _ error: String?) -> Void)
     
-    func getMangaRates(id: Int, page: Int?, limit: Int?, isCensored: Bool?, completion: @escaping (_ response: MangaRatesResponseDTO?, _ error: String?) -> Void)
+    func getMangaRates(id: Int, page: Int?, limit: Int?, status: UserContentState?, isCensored: Bool?, completion: @escaping (_ response: MangaRatesResponseDTO?, _ error: String?) -> Void)
     
     func getFavorites(id: Int, completion: @escaping (_ response: UserFavoritesResponseDTO?, _ error: String?) -> Void)
     
@@ -135,49 +135,29 @@ extension UsersRequestFactoryProtocol {
         )
         return
 
-        func validateParameters(page: Int?,
-                                limit: Int?,
-                                status: UserContentState?,
-                                isCensored: Bool?) -> Parameters {
-            var parameters = Parameters()
-            if let page = page,
-               (1 ... APIRestrictions.maxPages.rawValue).contains(page) {
-                parameters[APIKeys.page.rawValue] = page
-            }
-            if let limit = limit,
-               (1 ... APIRestrictions.limit5000.rawValue).contains(limit) { parameters[APIKeys.limit.rawValue] = limit
-            }
-            if let status = status { parameters[APIKeys.status.rawValue] = status.rawValue }
-            if let isCensored = isCensored { parameters[APIKeys.censored.rawValue] = isCensored }
-            return parameters
-        }
     }
 
     func getMangaRates(id: Int,
                        page: Int? = nil,
                        limit: Int? = nil,
+                       status: UserContentState?,
                        isCensored: Bool?,
                        completion: @escaping (_ response: MangaRatesResponseDTO?, _ error: String?) -> Void) {
-        let parameters = validateParameters(page: page, limit: limit, isCensored: isCensored)
         delegate?.getResponse(
             type: MangaRatesResponseDTO.self,
-            endPoint: .listMangaRates(id: id, parameters: parameters),
+            endPoint: .listMangaRates(
+                id: id,
+                parameters: validateParameters(
+                    page: page,
+                    limit: limit,
+                    status: status,
+                    isCensored: isCensored
+                )
+            ),
             completion: completion
         )
         return
 
-        func validateParameters(page: Int?, limit: Int?, isCensored: Bool?) -> Parameters {
-            var parameters = Parameters()
-            if let page = page,
-               (1 ... APIRestrictions.maxPages.rawValue).contains(page) {
-                parameters[APIKeys.page.rawValue] = page
-            }
-            if let limit = limit,
-               (1 ... APIRestrictions.limit5000.rawValue).contains(limit) { parameters[APIKeys.limit.rawValue] = limit
-            }
-            if let isCensored = isCensored { parameters[APIKeys.censored.rawValue] = isCensored }
-            return parameters
-        }
     }
 
     func getFavorites(id: Int,
@@ -257,6 +237,27 @@ extension UsersRequestFactoryProtocol {
 
     func getBans(id: Int, completion: @escaping (_ response: BansResponseDTO?, _ error: String?) -> Void) {
         delegate?.getResponse(type: BansResponseDTO.self, endPoint: .listBans(id: id), completion: completion)
+    }
+
+    // MARK: - Private functions
+
+    private func validateParameters(
+                            page: Int?,
+                            limit: Int?,
+                            status: UserContentState?,
+                            isCensored: Bool?
+    ) -> Parameters {
+        var parameters = Parameters()
+        if let page,
+           (1 ... APIRestrictions.maxPages.rawValue).contains(page) {
+            parameters[APIKeys.page.rawValue] = page
+        }
+        if let limit,
+           (1 ... APIRestrictions.limit5000.rawValue).contains(limit) { parameters[APIKeys.limit.rawValue] = limit
+        }
+        if let status { parameters[APIKeys.status.rawValue] = status.rawValue }
+        if let isCensored { parameters[APIKeys.censored.rawValue] = isCensored }
+        return parameters
     }
 }
 

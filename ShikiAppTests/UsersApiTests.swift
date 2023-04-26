@@ -243,7 +243,7 @@ final class UsersApiTests: XCTestCase {
         factory.whoAmI { data, errorMessage in
             if let id = data?.id {
                 Timer.scheduledTimer(withTimeInterval: self.delayRequests, repeats: false) { _ in
-                    factory.getMangaRates(id: id, isCensored: true) { data, errorMessage in
+                    factory.getMangaRates(id: id, status: nil, isCensored: true) { data, errorMessage in
                         response = data
                         error = errorMessage
                         expectation.fulfill()

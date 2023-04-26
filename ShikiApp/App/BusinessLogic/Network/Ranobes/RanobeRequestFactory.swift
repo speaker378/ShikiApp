@@ -17,7 +17,7 @@ protocol RanobeRequestFactoryProtocol {
 
     // MARK: - Functions
 
-    func getRanobes(page: Int?, limit: Int?, filters: RanobeListFilters?, search: String?, censored: Bool?, order: OrderBy?, completion: @escaping (_ response: RanobeResponseDTO?, _ error: String?) -> Void)
+    func getRanobes(page: Int?, limit: Int?, filters: RanobeListFilters?, myList: [UserRatesStatus]?, search: String?, censored: Bool?, order: OrderBy?, completion: @escaping (_ response: RanobeResponseDTO?, _ error: String?) -> Void)
 
     func getRanobeById(id: Int, completion: @escaping (_ response: RanobeDetailsDTO?, _ error: String?) -> Void)
 }
@@ -32,6 +32,7 @@ extension RanobeRequestFactoryProtocol {
         page: Int? = nil,
         limit: Int? = nil,
         filters: RanobeListFilters? = nil,
+        myList: [UserRatesStatus]? = nil,
         search: String? = nil,
         censored: Bool? = true,
         order: OrderBy? = nil,
@@ -41,6 +42,7 @@ extension RanobeRequestFactoryProtocol {
             page: page,
             limit: limit,
             filters: filters,
+            myList: myList,
             search: search,
             censored: censored,
             order: order
@@ -58,7 +60,15 @@ extension RanobeRequestFactoryProtocol {
 
     // MARK: - Private functions
 
-    private func validateListParameters(page: Int?, limit: Int?, filters: RanobeListFilters?, search: String?, censored: Bool?, order: OrderBy?) -> Parameters {
+    private func validateListParameters(
+        page: Int?,
+        limit: Int?,
+        filters: RanobeListFilters?,
+        myList: [UserRatesStatus]?,
+        search: String?,
+        censored: Bool?,
+        order: OrderBy?
+    ) -> Parameters {
         var parameters = Parameters()
         if let page,
            (1 ... APIRestrictions.maxPages.rawValue).contains(page) {
@@ -66,6 +76,9 @@ extension RanobeRequestFactoryProtocol {
         }
         if let limit,
            (1 ... APIRestrictions.limit50.rawValue).contains(limit) { parameters[APIKeys.limit.rawValue] = limit
+        }
+        if let myList {
+            parameters[APIKeys.myList.rawValue] = myList.map {$0.rawValue}.joined(separator: ",")
         }
         if let search {
             parameters[APIKeys.search.rawValue] = search

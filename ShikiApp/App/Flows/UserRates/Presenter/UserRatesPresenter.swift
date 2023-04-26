@@ -39,8 +39,6 @@ final class UserRatesPresenter: UserRatesViewOutput {
     
     private let userRatesApiFactory = ApiFactory.makeUserRatesApi()
     private let usersApiFactory = ApiFactory.makeUsersApi()
-    private let animesApiFactory = ApiFactory.makeAnimesApi()
-    private let mangasApiFactory = ApiFactory.makeMangasApi()
     private let modelFactory = UserRatesModelFactory()
     
     var targetType: UserRatesTargetType = .anime
@@ -91,20 +89,22 @@ final class UserRatesPresenter: UserRatesViewOutput {
     // MARK: - Private functions
 
     private func getListAnimesFromMyList(
-        status: [UserRatesStatus],
+        userId: Int,
+        status: UserRatesStatus?,
         page: Int,
         limit: Int
     ) {
-        animesApiFactory.getAnimes(
+        usersApiFactory.getAnimeRates(
+            id: userId,
             page: page,
             limit: limit,
-            myList: status,
-            order: .byPopularity
+            status: status,
+            isCensored: nil
         ) { [weak self] data, errorMessage in
             guard let self,
                   let data else { return }
             
-            self.contentResponse = data
+            self.contentResponse = data.map { $0.anime }
             self.error = errorMessage ?? ""
             print("ERROR: \(self.error), PAGE: \(page)")
             self.contentDetailList.append(contentsOf: self.contentResponse)
@@ -114,20 +114,22 @@ final class UserRatesPresenter: UserRatesViewOutput {
     }
     
     private func getListMangasFromMyList(
-        status: [UserRatesStatus],
+        userId: Int,
+        status: UserRatesStatus?,
         page: Int,
         limit: Int
     ) {
-        mangasApiFactory.getMangas(
+        usersApiFactory.getMangaRates(
+            id: userId,
             page: page,
             limit: limit,
-            myList: status,
-            order: .byPopularity
+            status: status,
+            isCensored: nil
         ) { [weak self] data, errorMessage in
             guard let self,
                   let data else { return }
             
-            self.contentResponse = data
+            self.contentResponse = data.map { $0.manga }
             self.error = errorMessage ?? ""
             print("ERROR: \(self.error), PAGE: \(page)") 
             self.contentDetailList.append(contentsOf: self.contentResponse)
@@ -136,18 +138,11 @@ final class UserRatesPresenter: UserRatesViewOutput {
         self.requestCount += 1
     }
     
-    private func getDetails(targetType: UserRatesTargetType, status: UserRatesStatus?, pageCount: Int) {
-        var statusForDetail: [UserRatesStatus] = []
+    private func getDetails(userId: Int, targetType: UserRatesTargetType, status: UserRatesStatus?, pageCount: Int) {
         contentDetailList.removeAll()
         
         guard pageCount != 0 else {
             return getContentDetailList(contentDetailList: contentDetailList, ratesList: ratesList)
-        }
-        
-        if status == nil {
-            statusForDetail = [.watching, .reWatching, .planned, .onHold, .dropped, .completed]
-        } else {
-            statusForDetail = [status ?? .watching]
         }
         
         for page in 1...pageCount {
@@ -156,9 +151,9 @@ final class UserRatesPresenter: UserRatesViewOutput {
             sleep(UInt32(timeIntervalPerSecond))
             switch targetType {
             case .anime:
-                self.getListAnimesFromMyList(status: statusForDetail, page: page, limit: itemsLimit)
+                self.getListAnimesFromMyList(userId: userId, status: status, page: page, limit: itemsLimit)
             case .manga:
-                self.getListMangasFromMyList(status: statusForDetail, page: page, limit: itemsLimit)
+                self.getListMangasFromMyList(userId: userId, status: status, page: page, limit: itemsLimit)
             }
         }
         self.requestCount = 0

@@ -10,6 +10,11 @@ import Foundation
 
 enum Texts {
     
+    enum ContentTitles {
+        static let screenshots = "Скриншоты"
+        static let videos = "Видео"
+    }
+    
     enum TabBarTitles {
         static let home = "Новости"
         static let search = "Поиск"
@@ -84,14 +89,8 @@ enum Texts {
         static let addToList = "Добавить в список"
         static let close = "Закрыть"
         static let removeFromList = "Удалить из списка"
-    }
-    
-    enum DummyTextForProfileVC {
-        static let nameLabelText = "Вел1чайший"
-        static let sexAndAgeLabelText = "мужчина, 24"
-        static let webLinkText = "myanimelist.com/firefly784"
-        static let logoutButtonText = "Выйти из аккаунта"
-        static let versionLabelText = "Версия 1.0.0(1)"
+        static let logout = "Выйти из аккаунта"
+        static let login = "Войти в аккаунт"
     }
 
     enum ListTypesSelectItems {
@@ -102,6 +101,13 @@ enum Texts {
         static let onHold = "На паузе"
         static let dropped = "Брошено"
         static let rewatching = "Пересматриваю"
+    }
+    
+    enum SexInRussian {
+        static let femaleCommaAndSpace = "женщина, "
+        static let female = "женщина"
+        static let maleCommaAndSpace = "мужчина, "
+        static let male = "мужчина"
     }
     
     struct NetworkLayerErrorMessages {

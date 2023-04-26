@@ -13,18 +13,14 @@ struct UserViewModel {
     let website: String?
 }
 
-enum UserImageSize {
-    case x160, x148, x80, x64, x48, x32, x16
-}
-
 final class UserModelFactory {
 
     // MARK: - Functions
     
-    func convertModel(from user: UserDTO) -> UserViewModel {
-        let profileImageUrl = extractImageAddress(from: user.avatar)
+    func makeModel(from user: UserDTO) -> UserViewModel {
+        let profileImageUrl = extractImageAddress(from: user.image?.x160)
         let userName = user.nickname
-        let userSex = user.sex
+        let userSex = convertUserSexFromEnglish(from: user.sex, fullYears: user.fullYears)
         let userAge = user.fullYears
         let userWebSite = user.webSite
         
@@ -42,5 +38,20 @@ final class UserModelFactory {
         guard let avatar else { return result }
         let imageUrl = avatar
         return imageUrl
+    }
+    
+    private func convertUserSexFromEnglish(from sex: String?, fullYears: Int?) -> String {
+        var result = ""
+        if !SexEnum.allCases.contains(where: {$0.rawValue == sex}) { return result }
+        if fullYears != nil {
+            result = sex != SexEnum.male.rawValue ? Texts.SexInRussian.femaleCommaAndSpace : Texts.SexInRussian.maleCommaAndSpace
+        } else {
+            result = sex != SexEnum.male.rawValue ? Texts.SexInRussian.female : Texts.SexInRussian.male
+        }
+        return result
+    }
+    
+    private enum SexEnum: String, CaseIterable {
+        case male, female
     }
 }
